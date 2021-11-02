@@ -1,0 +1,44 @@
+{
+    "name": "fmh-web",
+    "version": "1.0.0",
+    "description": "web version of fmh app",
+    "main": "src/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "webpack-dev-server --mode development --open",
+        "build": "webpack --mode production"
+    },
+    "browserslist": "> 0.25%, not dead",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fmh-charity/fmh-web.git"
+    },
+    "author": "fmh",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/fmh-charity/fmh-web/issues"
+    },
+    "homepage": "https://github.com/fmh-charity/fmh-web#readme",
+    "devDependencies": {
+        "@babel/core": "^7.16.0",
+        "@babel/plugin-proposal-class-properties": "^7.16.0",
+        "@babel/preset-env": "^7.16.0",
+        "@babel/preset-react": "^7.16.0",
+        "babel-loader": "^8.2.3",
+        "eslint": "^8.1.0",
+        "eslint-loader": "^4.0.2",
+        "prettier": "2.4.1",
+        "webpack": "^5.61.0",
+        "webpack-cli": "^4.9.1",
+        "webpack-dev-server": "^4.4.0"
+    },
+    "dependencies": {
+        "@material-ui/core": "^4.12.3",
+        "effector": "^22.1.2",
+        "effector-logger": "^0.13.1",
+        "effector-react": "^22.0.4",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-scripts": "4.0.3"
+    }
+}
