@@ -1,4 +1,5 @@
 {
+    "homepage": "https://fmh-charity.github.io/fmh-web",
     "name": "fmh-web",
     "version": "1.0.0",
     "description": "web version of fmh app",
@@ -6,6 +7,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "webpack-dev-server --mode development --open",
+        "deploy": "build && gh-pages -d build",
         "build": "webpack --mode production"
     },
     "browserslist": "> 0.25%, not dead",
@@ -18,15 +20,17 @@
     "bugs": {
         "url": "https://github.com/fmh-charity/fmh-web/issues"
     },
-    "homepage": "https://github.com/fmh-charity/fmh-web#readme",
     "devDependencies": {
         "@babel/core": "^7.16.0",
+        "@babel/eslint-parser": "^7.16.0",
         "@babel/plugin-proposal-class-properties": "^7.16.0",
+        "@babel/plugin-syntax-jsx": "^7.16.0",
         "@babel/preset-env": "^7.16.0",
         "@babel/preset-react": "^7.16.0",
         "babel-loader": "^8.2.3",
         "eslint": "^8.1.0",
         "eslint-loader": "^4.0.2",
+        "gh-pages": "^3.2.3",
         "prettier": "2.4.1",
         "webpack": "^5.61.0",
         "webpack-cli": "^4.9.1",
