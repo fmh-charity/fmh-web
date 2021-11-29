@@ -2,7 +2,7 @@
   "name": "fmh-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://fmh-charity.github.io/fmh-web",
+  "homepage": "https://fmh-charity.github.io/fmh-web/",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
