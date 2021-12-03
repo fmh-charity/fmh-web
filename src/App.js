@@ -1,9 +1,21 @@
-import React from 'react';
-import styles from './App.module.css';
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+
+import AppRouter from "./AppRouter";
+import Navbar from "./components/navbar/Navbar";
+import Header from "./components/header/Header";
+import style from "./App.module.css";
+import "./normalize.css";
 
 function App() {
   return (
-     <h1 className={styles.head}>hello first Moscow hospice</h1>
+    <BrowserRouter>
+      <div className={style.wrapper}>
+        <Header />
+        <Navbar />
+        <AppRouter />
+      </div>
+    </BrowserRouter>
   );
 }
 

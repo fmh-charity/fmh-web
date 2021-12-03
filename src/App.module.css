@@ -1,4 +1,8 @@
-.head {
-    font-size: 36px;
-    margin: 0 auto;
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    "nav header"
+    "nav main";
+  grid-template-columns: 256px 1fr;
+  grid-template-rows: 56px 1fr;
 }

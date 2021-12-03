@@ -1,0 +1,30 @@
+.news {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  margin-top: 89px;
+  width: 311px;
+  height: 311px;
+  background: url(../../assets/images/Butterfly.png);
+}
+
+.description {
+  margin-top: 89px;
+  width: 209px;
+  height: 76px;
+  background: #ffffff;
+  border: 1px solid #00bbb9;
+  box-sizing: border-box;
+  border-radius: 14px;
+}
+
+.description_p {
+  padding: 13px 10px 13px 13px;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+  color: #00817f;
+}
