@@ -1,4 +1,4 @@
-export const MAIN = "/main";
+export const MAIN = "/";
 export const PATIENTS = "/patients";
 export const REQUESTS = "/requests";
 export const WISHES = "/wishes";

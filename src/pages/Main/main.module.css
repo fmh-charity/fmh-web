@@ -1,7 +1,10 @@
 .main {
+  grid-area: main;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: url(../../assets/images/background.jpg);
+  background-size: contain;
 }
 
 .content {
