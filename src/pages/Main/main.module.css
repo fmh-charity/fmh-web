@@ -1,0 +1,36 @@
+.main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url(../../assets/images/background.jpg);
+  background-size: contain;
+}
+
+.content {
+  margin-top: 89px;
+  width: 311px;
+  height: 311px;
+  background: url(../../assets/images/Butterfly.png);
+}
+
+.description {
+  margin-top: 89px;
+  width: 239px;
+  height: 134px;
+  background: #ffffff;
+  border: 1px solid #00bbb9;
+  box-sizing: border-box;
+  border-radius: 14px;
+}
+
+.description_p {
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+  color: #00817f;
+}
+
+.description_p:first-child {
+  padding: 13px 27px 8px 26px;
+}
