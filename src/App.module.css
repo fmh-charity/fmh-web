@@ -5,4 +5,13 @@
     "nav main";
   grid-template-columns: 256px 1fr;
   grid-template-rows: 56px 1fr;
+  background: url(./assets/images/background.jpg);
+  background-size: contain;
+}
+
+.base-colors {
+  --main: #01A19F;
+  --main-brigth: #D1FFFE;
+  --white: #fff;
+  --gray: #EAEAEA;
 }
