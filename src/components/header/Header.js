@@ -1,11 +1,12 @@
 import React from "react";
+
 import AuthIcon from "../../assets/Icons/AuthIcon.svg";
 import Butterfly from "../../assets/Icons/ButterflyIcon.svg";
 import style from "./header.module.css";
 
-const Header = () => {
+const Header = ({ menuHidden }) => {
   return (
-    <header className={`${style.header}`}>
+    <header className={menuHidden ? `${style.header}` : `${style.menuActive}`}>
       <h1 className={`${style.heading}`}>Первый московский хоспис</h1>
       <div className={`${style.icons}`}>
         <img className={`${style.icon}`} src={Butterfly} alt="Бабочка" />
