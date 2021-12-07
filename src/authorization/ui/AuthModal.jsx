@@ -68,6 +68,7 @@ export const AuthModal = ({
           onChange={onDataChange}
           name="password"
           value={data.password}
+          type="password"
           margin="dense"
           label="Пароль" 
           variant="outlined" 
