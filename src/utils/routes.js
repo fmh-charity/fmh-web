@@ -1,5 +1,7 @@
 import Main from "../pages/Main/Main";
 import News from "../pages/News/News";
+import NewsWindow from "../pages/News/NewsWindow";
+import NewsWindowRoleRead from "../pages/News/NewsWindowRoleRead";
 import NotFound from "../pages/404/NotFound";
 import MainPage from "../pages/Main/MainPage";
 
@@ -23,6 +25,7 @@ import NotFound from "../pages/404/NotFound";
 import * as CONSTANTS from "./constants";
 
 export const routes = [
+  { component: <Main />, path: CONSTANTS.MAIN, title: "Главная", icon: <MainIcon /> },
   { component: <MainPage />, path: CONSTANTS.MAIN, title: "Главная", icon: <MainIcon /> },
   {
     component: <Main />,
@@ -30,6 +33,7 @@ export const routes = [
     title: "Главная Заглушка",
     icon: <MainIcon />,
   },
+
   { component: <NotFound />, path: CONSTANTS.PATIENTS, title: "Пациенты", icon: <PatientsIcon /> },
   { component: <NotFound />, path: CONSTANTS.REQUESTS, title: "Заявки", icon: <RequestIcon /> },
   { component: <NotFound />, path: CONSTANTS.WISHES, title: "Просьбы", icon: <WishIcon /> },
@@ -40,26 +44,23 @@ export const routes = [
     title: "Документы",
     icon: <DocumentIcon />,
   },
-  { component: <News />, path: CONSTANTS.NEWS, title: "Новости", icon: <NewsIcon /> },
+  {
+    component: <News />,
+    path: CONSTANTS.NEWS_EMPTY,
+    title: "Новости Заглушка",
+    icon: <NewsIcon />,
+  },
+  { component: <NewsWindow />, path: CONSTANTS.NEWS, title: "Новости", icon: <NewsIcon /> },
+  {
+    component: <NewsWindowRoleRead />,
+    path: CONSTANTS.NEWS_ROLE_READ,
+    title: "Новости Роль Чтение",
+    icon: <NewsIcon />,
+  },
   {
     component: <NotFound />,
     path: CONSTANTS.SCHEDULE,
     title: "График дежурств",
     icon: <ScheduleIcon />,
-  },
-
-  {
-    component: <NotFound />,
-    path: CONSTANTS.EMPLOYEES,
-    title: "Сотрудники",
-    icon: <EmployeesIcon />,
-  },
-  {
-    component: <NotFound />,
-    path: CONSTANTS.ABOUT_US,
-    title: "Наша миссия",
-    icon: <MissionIcon />,
-  },
-  { component: NotFound, path: CONSTANTS.EMPLOYEES, title: "Сотрудники", icon: <EmployeesIcon /> },
-  { component: NotFound, path: CONSTANTS.ABOUT_US, title: "Наша миссия", icon: <MissionIcon /> },
+  }
 ];

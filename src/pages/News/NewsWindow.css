@@ -1,0 +1,166 @@
+.divNews {
+  width: 100%;
+  margin-right: 2;
+}
+
+.paperDivNews {
+  margin-top: 60;
+}
+
+.createAndReduxTitleNews {
+  text-align: center;
+}
+
+.createAndReduxTitle {
+  width: 100%;
+}
+
+.createAndReduxRepot {
+  width: 100%;
+  height: 100%;
+}
+
+.createAndReduxEnentNews {
+  margin-left: 12px;
+  margin-top: 15px;
+}
+
+.createAndReduxSelectCategory {
+  width: 250px;
+  height: 58px;
+  margin-top: 15px;
+}
+
+.createAndReduxDivReport {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.createAndReduxDivCheck {
+  text-align: center;
+}
+
+.createAndReduxDivActions {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.createAndReduxSelectDateAndTime {
+  width: 200px;
+  margin-left: 27px;
+}
+
+.buttonCancell {
+  background-color: white;
+  width: 200px;
+  height: 40px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  margin-right: 15px;
+}
+
+.buttonConfirm {
+  background-color: #20b2aa !important;
+  width: 200px;
+  height: 40px;
+}
+
+.createAndReduxSelectForm {
+  margin-left: 10px;
+  margin-right: 10px;
+  justify-content: space-between;
+  display: inline;
+}
+
+.backgroundDialog {
+  background: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.MuiPaper-elevation24 {
+  box-shadow: 0px 2px 8px -2px rgb(0 0 0 / 2%), 0px 5px 10px 3px rgb(0 0 0 / 2%),
+    0px 3px 10px 2px rgb(0 0 0 / 3%);
+}
+
+.createAndReduxDialog {
+  border-width: 3px;
+  border-color: #38c6d7;
+  border-style: solid;
+}
+
+.mainTitle {
+  padding-bottom: 8;
+  padding-left: 8;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.titleFilter {
+  text-align: center;
+}
+
+.divFilter {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.boxCreate {
+  display: flex;
+  width: 100%;
+}
+
+.typFloatLeft {
+  float: left;
+  width: 30%;
+}
+
+.typFloatRight {
+  float: right;
+  width: 30%;
+}
+
+.boxPublic {
+  display: flex;
+  width: 100%;
+  box-shadow: none;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.typButtonsRight {
+  float: right;
+}
+
+.typButtonsLeft {
+  float: left;
+}
+
+.selectEvent {
+  min-width: 500px;
+}
+
+.typText {
+  float: left;
+}
+
+.boxAccordion {
+  width: 100%;
+  box-shadow: 0px 2px 0px 0px #38c6d7;
+  border: green;
+}
+
+.accordionTypography {
+  outline: green;
+  border-color: green;
+}
+
+.detailsAccordion {
+  display: block;
+}
