@@ -8,8 +8,8 @@ const AppRouter = () => {
   return (
     <Suspense fallback="Loading">
       <Routes>
-        {routes.map(({ path, component }) => (
-          <Route key={path} path={path} element={component} />
+        {routes.map(({ path, Component }) => (
+          <Route key={path} path={path} element={<Component />} />
         ))}
         <Route path="*" element={<NotFound />} />
       </Routes>
