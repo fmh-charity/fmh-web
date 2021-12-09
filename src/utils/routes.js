@@ -1,3 +1,10 @@
+import Main from "../pages/Main/Main";
+import News from "../pages/News/News";
+import NotFound from "../pages/404/NotFound";
+import MainPage from "../pages/Main/MainPage";
+
+import * as CONSTANTS from "./constants";
+
 import { ReactComponent as MainIcon } from "../assets/Icons/MainIcon.svg";
 import { ReactComponent as PatientsIcon } from "../assets/Icons/PatientsIcon.svg";
 import { ReactComponent as RequestIcon } from "../assets/Icons/RequestIcon.svg";
@@ -16,19 +23,43 @@ import NotFound from "../pages/404/NotFound";
 import * as CONSTANTS from "./constants";
 
 export const routes = [
-  { Component: Main, path: CONSTANTS.MAIN, title: "Главная", icon: <MainIcon /> },
-  { Component: NotFound, path: CONSTANTS.PATIENTS, title: "Пациенты", icon: <PatientsIcon /> },
-  { Component: NotFound, path: CONSTANTS.REQUESTS, title: "Заявки", icon: <RequestIcon /> },
-  { Component: NotFound, path: CONSTANTS.WISHES, title: "Просьбы", icon: <WishIcon /> },
-  { Component: NotFound, path: CONSTANTS.CHAMBERS, title: "Палаты", icon: <ChamberIcon /> },
-  { Component: NotFound, path: CONSTANTS.DOCUMENTS, title: "Документы", icon: <DocumentIcon /> },
-  { Component: News, path: CONSTANTS.NEWS, title: "Новости", icon: <NewsIcon /> },
+  { component: <MainPage />, path: CONSTANTS.MAIN, title: "Главная", icon: <MainIcon /> },
   {
-    Component: NotFound,
+    component: <Main />,
+    path: CONSTANTS.MAIN_EMPTY,
+    title: "Главная Заглушка",
+    icon: <MainIcon />,
+  },
+  { component: <NotFound />, path: CONSTANTS.PATIENTS, title: "Пациенты", icon: <PatientsIcon /> },
+  { component: <NotFound />, path: CONSTANTS.REQUESTS, title: "Заявки", icon: <RequestIcon /> },
+  { component: <NotFound />, path: CONSTANTS.WISHES, title: "Просьбы", icon: <WishIcon /> },
+  { component: <NotFound />, path: CONSTANTS.CHAMBERS, title: "Палаты", icon: <ChamberIcon /> },
+  {
+    component: <NotFound />,
+    path: CONSTANTS.DOCUMENTS,
+    title: "Документы",
+    icon: <DocumentIcon />,
+  },
+  { component: <News />, path: CONSTANTS.NEWS, title: "Новости", icon: <NewsIcon /> },
+  {
+    component: <NotFound />,
     path: CONSTANTS.SCHEDULE,
     title: "График дежурств",
     icon: <ScheduleIcon />,
   },
-  { Component: NotFound, path: CONSTANTS.EMPLOYEES, title: "Сотрудники", icon: <EmployeesIcon /> },
-  { Component: NotFound, path: CONSTANTS.ABOUT_US, title: "Наша миссия", icon: <MissionIcon /> },
+
+  {
+    component: <NotFound />,
+    path: CONSTANTS.EMPLOYEES,
+    title: "Сотрудники",
+    icon: <EmployeesIcon />,
+  },
+  {
+    component: <NotFound />,
+    path: CONSTANTS.ABOUT_US,
+    title: "Наша миссия",
+    icon: <MissionIcon />,
+  },
+  { component: NotFound, path: CONSTANTS.EMPLOYEES, title: "Сотрудники", icon: <EmployeesIcon /> },
+  { component: NotFound, path: CONSTANTS.ABOUT_US, title: "Наша миссия", icon: <MissionIcon /> },
 ];
