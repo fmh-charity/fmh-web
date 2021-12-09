@@ -16,6 +16,12 @@ import { ReactComponent as ScheduleIcon } from "../assets/Icons/ScheduleIcon.svg
 import { ReactComponent as EmployeesIcon } from "../assets/Icons/EmployeesIcon.svg";
 import { ReactComponent as MissionIcon } from "../assets/Icons/MissionIcon.svg";
 
+import Main from "../pages/Main/Main";
+import News from "../pages/News/News";
+import NotFound from "../pages/404/NotFound";
+
+import * as CONSTANTS from "./constants";
+
 export const routes = [
   { component: <MainPage />, path: CONSTANTS.MAIN, title: "Главная", icon: <MainIcon /> },
   {
@@ -41,6 +47,7 @@ export const routes = [
     title: "График дежурств",
     icon: <ScheduleIcon />,
   },
+
   {
     component: <NotFound />,
     path: CONSTANTS.EMPLOYEES,
@@ -53,4 +60,6 @@ export const routes = [
     title: "Наша миссия",
     icon: <MissionIcon />,
   },
+  { component: NotFound, path: CONSTANTS.EMPLOYEES, title: "Сотрудники", icon: <EmployeesIcon /> },
+  { component: NotFound, path: CONSTANTS.ABOUT_US, title: "Наша миссия", icon: <MissionIcon /> },
 ];
