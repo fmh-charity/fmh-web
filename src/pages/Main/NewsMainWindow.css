@@ -1,0 +1,88 @@
+.accordionNews {
+  box-shadow: "0px 2px 0px 0px #38c6d7";
+}
+
+.accordionSumNews {
+  box-shadow: "0px 2px 0px 0px #38c6d7";
+  margin-bottom: 2px;
+  display: inline-flex;
+}
+
+.typographyNews {
+  float: right;
+  position: absolute;
+  right: 50px;
+  flex-shrink: 0;
+  color: grey;
+}
+
+.accordionDetailsNews {
+  display: block;
+}
+
+.boxCreate {
+  display: flex;
+  width: 100%;
+  box-shadow: 0px 2px 0px 0px #01a19f;
+}
+
+.typFloatLeft {
+  float: left;
+  width: 30%;
+}
+
+.typFloatRight {
+  float: right;
+  width: 30%;
+}
+
+.showMore {
+  color: #01a19f;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0px 2px 0px 0px #01a19f;
+}
+.titleNews {
+  padding-bottom: 8px;
+  padding-left: 8px;
+  background-color: #e3e3e3;
+  text-align: left;
+}
+
+.divNews {
+  width: 100%;
+  margin-right: 2px;
+}
+
+.boxNews {
+  width: 100%;
+  display: flex;
+}
+
+.boxWithIconNews {
+  width: 100%;
+  display: flex;
+  box-shadow: none;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.typTextNews {
+  float: left;
+}
+
+.divPaperNews {
+  margin-top: 60px;
+}
+
+.accordionDetNews {
+  display: block;
+}
+
+.typDatePublicNews {
+  float: right;
+  position: absolute;
+  right: 50px;
+  flex-shrink: 0;
+  color: grey;
+}
