@@ -1,12 +1,28 @@
 .navbar {
-  grid-area: nav;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   width: 256px;
   height: 100vh;
   background-color: rgba(250, 250, 250, 1);
-  border-right: 1px solid lightgray;
+  border-right: 1px solid var(--gray);
   box-shadow: 0 5.5px 5px rgba(0, 0, 0, 0.24), 0px 9px 18px rgba(0, 0, 0, 0.18);
+  transform: translateX(0);
+  transition-duration: 300ms;
+}
+
+.menuButton {
+  box-sizing: border-box;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 16px;
+  left: 280px;
+  color: var(--white);
+  background-color: transparent;
+  border: none;
 }
 
 .navbarItem {
@@ -36,6 +52,20 @@
 }
 
 .active svg path {
-  fill: #01a19f;
+  fill: var(--main);
   fill-opacity: 1;
+}
+
+.hidden {
+  transform: translateX(-256px);
+  transition-duration: all 300ms;
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  width: 256px;
+  height: 100vh;
+  background-color: rgba(250, 250, 250, 1);
+  border-right: 1px solid var(--gray);
+  box-shadow: 0 5.5px 5px rgba(0, 0, 0, 0.24), 0px 9px 18px rgba(0, 0, 0, 0.18);
 }

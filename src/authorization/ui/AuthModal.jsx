@@ -58,7 +58,7 @@ export const AuthModal = ({
         <TextField 
           onChange={onDataChange}
           value={data.username}
-          name="username"
+          name="login"
           margin="dense"
           placeholder="example@example.com" 
           label="Логин" 

@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { routes } from "./utils/routes";
+import { routes } from "./routes";
 import { NeedAuth } from './components/header/NeedAuth';
 
 const NotFound = React.lazy(() => import("./pages/404/NotFound.js"));

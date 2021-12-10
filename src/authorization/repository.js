@@ -4,7 +4,7 @@ import controller from './controller';
 export default generateRepository(
   {
     data: {
-      username: '',
+      login: '',
       password: '',
     },
     error: '',
