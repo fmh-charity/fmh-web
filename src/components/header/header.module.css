@@ -1,20 +1,31 @@
 .header {
-  grid-area: header;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 56px;
+  padding-left: 607px;
   padding-right: 25px;
+  background-color: var(--main);
+  color: var(--white);
+  transition-duration: 300ms;
+}
+
+.menuActive {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
   padding-left: 351px;
-  background-color: rgba(1, 161, 159, 1);
-  color: #fff;
+  padding-right: 25px;
+  background-color: var(--main);
+  color: var(--white);
+  transition-duration: 300ms;
 }
 
 .heading {
   font-weight: 500;
   font-size: 28px;
   line-height: 33px;
-  margin-right: 362px;
-  margin-left: auto;
 }
 
 .icons {

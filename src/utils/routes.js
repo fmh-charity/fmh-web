@@ -3,6 +3,7 @@ import News from "../pages/News/News";
 import NewsWindow from "../pages/News/NewsWindow";
 import NewsWindowRoleRead from "../pages/News/NewsWindowRoleRead";
 import NotFound from "../pages/404/NotFound";
+import MainPage from "../pages/Main/MainPage";
 
 import * as CONSTANTS from "./constants";
 
@@ -17,8 +18,22 @@ import { ReactComponent as ScheduleIcon } from "../assets/Icons/ScheduleIcon.svg
 import { ReactComponent as EmployeesIcon } from "../assets/Icons/EmployeesIcon.svg";
 import { ReactComponent as MissionIcon } from "../assets/Icons/MissionIcon.svg";
 
+import Main from "../pages/Main/Main";
+import News from "../pages/News/News";
+import NotFound from "../pages/404/NotFound";
+
+import * as CONSTANTS from "./constants";
+
 export const routes = [
   { component: <Main />, path: CONSTANTS.MAIN, title: "Главная", icon: <MainIcon /> },
+  { component: <MainPage />, path: CONSTANTS.MAIN, title: "Главная", icon: <MainIcon /> },
+  {
+    component: <Main />,
+    path: CONSTANTS.MAIN_EMPTY,
+    title: "Главная Заглушка",
+    icon: <MainIcon />,
+  },
+
   { component: <NotFound />, path: CONSTANTS.PATIENTS, title: "Пациенты", icon: <PatientsIcon /> },
   { component: <NotFound />, path: CONSTANTS.REQUESTS, title: "Заявки", icon: <RequestIcon /> },
   { component: <NotFound />, path: CONSTANTS.WISHES, title: "Просьбы", icon: <WishIcon /> },
@@ -36,30 +51,16 @@ export const routes = [
     icon: <NewsIcon />,
   },
   { component: <NewsWindow />, path: CONSTANTS.NEWS, title: "Новости", icon: <NewsIcon /> },
-
   {
     component: <NewsWindowRoleRead />,
     path: CONSTANTS.NEWS_ROLE_READ,
     title: "Новости Роль Чтение",
     icon: <NewsIcon />,
   },
-
   {
     component: <NotFound />,
     path: CONSTANTS.SCHEDULE,
     title: "График дежурств",
     icon: <ScheduleIcon />,
-  },
-  {
-    component: <NotFound />,
-    path: CONSTANTS.EMPLOYEES,
-    title: "Сотрудники",
-    icon: <EmployeesIcon />,
-  },
-  {
-    component: <NotFound />,
-    path: CONSTANTS.ABOUT_US,
-    title: "Наша миссия",
-    icon: <MissionIcon />,
-  },
+  }
 ];
