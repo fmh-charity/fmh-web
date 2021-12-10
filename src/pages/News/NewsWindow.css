@@ -137,6 +137,9 @@
 .typButtonsRight {
   float: right;
 }
+.typButtonsRight button {
+  padding: 0;
+}
 
 .typButtonsLeft {
   float: left;
