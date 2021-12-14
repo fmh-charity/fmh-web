@@ -3,12 +3,9 @@ import controller from './controller';
 
 export default generateRepository(
   {
-    data: {
-      login: '',
-      password: '',
-    },
+    list: null,
     error: '',
   },
-  [controller, 'login', { sync: 'data' }],
-  [controller, 'fillValues', { sync: 'data' }]
+  [controller, 'getNews', { sync: 'list', prefetch: true }],
+  [controller, 'removeRecord', { sync: 'list' }]
 );

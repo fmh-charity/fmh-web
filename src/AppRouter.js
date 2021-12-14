@@ -1,9 +1,7 @@
 import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { routes } from "./routes";
-import { NeedAuth } from './components/header/NeedAuth';
-
-const NotFound = React.lazy(() => import("./pages/404/NotFound.js"));
+import { NeedAuth } from './shared-kernel/ui/NeedAuth';
 
 const AppRouter = () => {
   return (
@@ -21,7 +19,6 @@ const AppRouter = () => {
             } 
           />;
         })}
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );

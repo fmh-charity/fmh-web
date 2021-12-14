@@ -9,7 +9,7 @@ export const NeedAuth = () => {
     window.location.replace('/login');
   };
 
-  return !getCookie('access') ? (
+  return !getCookie('accessToken') ? (
     <div className={`${styles['auth-required']}`}>
       <button 
         onClick={onClick}

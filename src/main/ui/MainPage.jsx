@@ -11,7 +11,6 @@ import Check from "@material-ui/icons/Check";
 import Close from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import BackDataService from "../../service/back.service";
 import iconId1 from "../../assets/Icons/categoryIcons/iconId1.png";
 import iconId2 from "../../assets/Icons/categoryIcons/iconId2.png";
 import iconId3 from "../../assets/Icons/categoryIcons/iconId3.png";
@@ -60,13 +59,13 @@ class MainPage extends React.Component {
   };
 
   componentDidMount() {
-    axios
-      .get(BackDataService.getAllNews())
-      //axios.get(`http://130.193.44.96:8080/fmh/news`)
-      .then((res) => {
-        const newsList = res.data;
-        this.setState({ newsList });
-      });
+    //axios
+    //  .get(BackDataService.getAllNews())
+    //  //axios.get(`http://130.193.44.96:8080/fmh/news`)
+    //  .then((res) => {
+    //    const newsList = res.data;
+    //    this.setState({ newsList });
+    //  });
   }
 
   render() {

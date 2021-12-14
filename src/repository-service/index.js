@@ -15,11 +15,7 @@ const createWatcher = (
     if (sync) {
       if (result && typeof result.then === 'function' && result[Symbol.toStringTag] === 'Promise') {
         result.then((data) => {
-          if (data.value) {
-            dispatch({ type: sync, data: data.value });
-          } else {
-            dispatch({ type: sync, data });
-          }
+          dispatch({ type: sync, data });
         });
       } else {
         dispatch({ type: sync, data: result });
@@ -30,19 +26,50 @@ const createWatcher = (
   });
 };
 
+const syncRepoWithController = (repo, controller, controllerKeys) => {
+  if (controller) {
+    const sameFields = Object.keys(repo).reduce((prev, curr) => {
+      if (controllerKeys.includes(curr)) {
+        return [...prev, curr];
+      }
+      return prev;
+    }, []);
+
+    if (sameFields.length) {
+      return sameFields.reduce((prev, field) => {
+        if (repo[field] !== undefined) {
+          return {
+            ...prev,
+            [field]: controller[field]
+          };
+        }
+
+        return prev;
+      }, repo);
+    }
+  }
+  return repo;
+};
+
 export const generateRepository = (
   repo,
   ...controllerMethods  
 ) => {
   const syncFieldsSet = new Set(Object.keys(repo));
   const prefetchedMethods = new Set();
+  let controllerKeys = [];
+
 
   controllerMethods.forEach((item) => {
     if (item[2] && item[2].sync) syncFieldsSet.add(item[2].sync);
     if (item[2] && item[2].prefetch) prefetchedMethods.add(item[1]);
   });
  
-  const methods = controllerMethods.reduce((prev, curr) => {
+  const methods = controllerMethods.reduce((prev, curr, index) => {
+    if (index === 0) {
+      controllerKeys = Object.keys(curr[0]);
+    }
+
     const method = createWatcher(
       curr[0],
       curr[1],
@@ -56,20 +83,23 @@ export const generateRepository = (
   }, {});
 
   const reducer = (state, action) => {
+    console.log('setState', state, action);
     if (syncFieldsSet.has(action.type)) {
       return { ...state, [action.type]: action.data };
     }
   };
 
   return () => {
-    const [state, dispatch] = useReducer(reducer, repo);
+    const [state, dispatch] = useReducer(reducer, syncRepoWithController(
+      repo,
+      controllerKeys.length ? controllerMethods[0][0] : null,
+      controllerKeys
+    ));
 
     useEffect(() => {
       if (controllerMethods.length) {
-        if (!controllerMethods[0][0].dispatch) {
-          controllerMethods[0][0].dispatch = dispatch
-          controllerMethods[0][0].methods = methods;
-        }
+        controllerMethods[0][0].dispatch = dispatch
+        controllerMethods[0][0].methods = methods;
       }
 
       prefetchedMethods.forEach((method) => {

@@ -4,14 +4,15 @@ import { setCookie } from '../cookie-service';
 const authController = { 
   async login(authData) {
     try {
-      const result = await request('POST', '/authentication/login', authData);
+      const { data } = await request('POST', '/authentication/login', authData);
       
-      setCookie('access', result.accessToken, { path: '/' });
-      setCookie('refresh', result.refreshToken, { path: '/' });
+      setCookie('accessToken', data.accessToken, { path: '/' });
+      setCookie('refreshToken', data.refreshToken, { path: '/' });
 
-      return;
+      return { login: '', password: '' };
     } catch (error) {
-      return 
+      console.error('Errror:', error);
+      return { login: '', password: '' };
     }
   },
   fillValues(data) {
