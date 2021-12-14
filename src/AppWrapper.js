@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import AppRouter from "./AppRouter";
-import Navbar from "./components/navbar/Navbar";
-import Header from "./components/header/Header";
+import Navbar from "./shared-kernel/ui/Navbar";
+import Header from "./shared-kernel/ui/Header";
 import style from "./App.module.css";
 import "./normalize.css";
 
@@ -12,6 +12,7 @@ export const AppWrapper = () => {
   const toggleMenu = () => {
     setHidden(!hidden);
   };
+
   return (
     <div
       className={

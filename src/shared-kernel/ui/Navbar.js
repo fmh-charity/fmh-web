@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { routes } from "../../utils/routes";
+import { routes } from "../../routes";
+
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 
@@ -11,7 +12,7 @@ const Navbar = ({ menuHidden, toggleMenu }) => {
       <button className={style.menuButton} onClick={toggleMenu}>
         {menuHidden ? <MenuIcon /> : <MenuOpenIcon />}
       </button>
-      {routes.map(({ path, title, icon }) =>
+      {routes.filter(route => route.title).map(({ path, title, icon }) =>
         title ? (
           <NavLink
             key={path}

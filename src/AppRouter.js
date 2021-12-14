@@ -1,17 +1,24 @@
 import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { routes } from "./utils/routes";
-
-const NotFound = React.lazy(() => import("./pages/404/NotFound.js"));
+import { routes } from "./routes";
+import { NeedAuth } from './shared-kernel/ui/NeedAuth';
 
 const AppRouter = () => {
   return (
     <Suspense fallback="Loading">
       <Routes>
-        {routes.map(({ path, Component }) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
-        <Route path="*" element={<NotFound />} />
+        {routes.map(({ path, Component }) => {
+          return <Route 
+            key={path} 
+            path={path} 
+            element={
+              <React.Fragment>
+                <NeedAuth />
+                {Component ? <Component /> : null}
+              </React.Fragment>
+            } 
+          />;
+        })}
       </Routes>
     </Suspense>
   );

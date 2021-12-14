@@ -1,26 +1,15 @@
 import React from "react";
-import axios from "axios";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 import Accordion from "@material-ui/core/Accordion";
+import Button from "@material-ui/core/Button";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Check from "@material-ui/icons/Check";
 import Close from "@material-ui/icons/Close";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { Formik, Form } from "formik";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import BackDataService from "../../service/back.service";
-import { FormikTextField } from "formik-material-fields";
 import iconId1 from "../../assets/Icons/categoryIcons/iconId1.png";
 import iconId2 from "../../assets/Icons/categoryIcons/iconId2.png";
 import iconId3 from "../../assets/Icons/categoryIcons/iconId3.png";
@@ -112,9 +101,6 @@ class NewsWindowRoleRead extends React.Component {
     this.setState({ reduxIdNewsEvent: event.target.value });
   };
 
-  handleChangeFilterEvent = (event) => {
-    this.setState({ filterEvent: event.target.value });
-  };
 
   handleDateChange = (date) => {
     this.setState({ selectedDate: date });
@@ -122,12 +108,6 @@ class NewsWindowRoleRead extends React.Component {
 
   refreshPage = () => {
     window.location.reload();
-  };
-
-  filterSubmited = (date) => {
-    this.setState({ openFilter: false });
-    this.setState({ filteredDate: date });
-    this.setState({ filterDone: true });
   };
 
   whatToShow = () => {
@@ -165,13 +145,13 @@ class NewsWindowRoleRead extends React.Component {
   };
 
   componentDidMount() {
-    axios
-      .get(BackDataService.getAllNews())
-      // axios.get(`http://130.193.44.96:8080/fmh/news`)
-      .then((res) => {
-        const newsList = res.data;
-        this.setState({ newsList });
-      });
+    // axios
+    //   .get(BackDataService.getAllNews())
+    //   // axios.get(`http://130.193.44.96:8080/fmh/news`)
+    //   .then((res) => {
+    //     const newsList = res.data;
+    //     this.setState({ newsList });
+    //   });
   }
 
   render() {
@@ -195,90 +175,6 @@ class NewsWindowRoleRead extends React.Component {
       return String(date).includes(this.state.filteredDate);
     });
 
-    const showDialogFilter = (
-      <Dialog open={this.state.openFilter} onClose={this.handleClose}>
-        <DialogTitle id="form-dialog-title">
-          <Typography variant="h5" component="h3" className="titleFilter">
-            Фильтр новостей
-          </Typography>
-        </DialogTitle>
-
-        <Formik
-          initialValues={{
-            newsCategoryId: "",
-            date: "",
-          }}
-          onSubmit={({ date }) => {
-            var numberFilteredDate = new Date(date) * 1; // date to long
-            this.filterSubmited(numberFilteredDate);
-          }}>
-          {({ isSubmitting }) => (
-            <Form>
-              <div className="divFilter">
-                <FormControl sx={{ m: 1, minWidth: 420 }}>
-                  <InputLabel id="demo-simple-select-helper-label">Событие</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-helper-label"
-                    id="demo-simple-select-helper"
-                    htmlFor="newsCategoryId"
-                    placeholder={this.setEventRedux}
-                    className="selectEvent"
-                    name="newsCategoryId"
-                    margin="normal"
-                    variant="outlined"
-                    type="text"
-                    value={this.setEventRedux}
-                    onChange={this.handleChangeFilterEvent}>
-                    <MenuItem value={1}>Объявление</MenuItem>
-                    <MenuItem value={2}>День рождение</MenuItem>
-                    <MenuItem value={3}>Зарплата</MenuItem>
-                    <MenuItem value={4}>Профсоюз</MenuItem>
-                    <MenuItem value={5}>Праздник</MenuItem>
-                    <MenuItem value={6}>Массаж</MenuItem>
-                    <MenuItem value={7}>Благодарность</MenuItem>
-                    <MenuItem value={8}>Нужна помощь</MenuItem>
-                  </Select>
-
-                  <FormikTextField
-                    htmlFor="date"
-                    id="date"
-                    label="Дата публикации"
-                    type="date"
-                    name="date"
-                    dateFormat="dd/MM/yyyy"
-                    fullWidth
-                    margin="normal"
-                    defaultValue={this.state.curDate}
-                    variant="outlined"
-                    className="createAndReduxSelectDateAndTime"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </FormControl>
-              </div>
-
-              <DialogActions>
-                <div className="createAndReduxDivActions">
-                  <Button className="buttonCancell" onClick={this.handleClickCloseFilter}>
-                    Отмена
-                  </Button>
-                  <Button
-                    className="buttonConfirm"
-                    type="submit"
-                    active={{
-                      background: "#20B2AA",
-                    }}
-                    isSubmitting={isSubmitting}>
-                    Сохранить
-                  </Button>
-                </div>
-              </DialogActions>
-            </Form>
-          )}
-        </Formik>
-      </Dialog>
-    );
     var shown = sorted;
     if (this.state.filterDone) {
       shown = filteredResults;
@@ -389,7 +285,7 @@ class NewsWindowRoleRead extends React.Component {
               <Button color="primary" onClick={this.handleClickOpenFilter}>
                 <img src={filterIcon} alt={"test"} />
               </Button>
-              {showDialogFilter}
+              {/* showDialogFilter CREATEFORM */}
             </div>
           </Typography>
           <div>{showNewsAccordionList}</div>
