@@ -17,12 +17,11 @@ import { FormikTextField } from "formik-material-fields";
 import useRepository from '../repository';
 
 export const UpdateForm = () => {
-
-  const [repo, methods] = useRepository()
+  const [repo, methods] = useRepository();
 
   return (
       <Dialog
-        open={this.state.openDialogRedux}
+        open={state.openDialogRedux}
         maxWidth="none"
         className="reduxDialog"
         BackdropProps={{
@@ -31,7 +30,7 @@ export const UpdateForm = () => {
         PaperProps={{
           className: "createAndReduxDialog",
         }}
-        onClose={this.closeDialogRedux}>
+        onClose={closeDialogRedux}>
         <DialogTitle>
           <Typography
             variant="h5"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
@@ -81,7 +81,7 @@ const AccordionItem = ({
         <Box item boxShadow={1} xs={3} className="boxPublic">
           <Typography className="typFloatLeft">{publishEnabledIcon}</Typography>
           <Typography className="typButtons">
-            <Button color="black" className="typButtonsLeft" onClick={deleteRecord(record.id)}>
+            <Button color="black" className="typButtonsLeft" onClick={() => deleteRecord(record.id)}>
               <img src={deleteIcon} alt={"test"} />
             </Button>
             {/* showDialogUpdate */}
@@ -115,8 +115,11 @@ const NewsWindow = () => {
   const [state, setState] = useState({
     list: []
   });
-
   const [repo, methods] = useRepository();
+
+  useEffect(() => {
+    methods.getNews();
+  }, []);
 
   const shown = [];
 
@@ -175,11 +178,7 @@ const NewsWindow = () => {
     }
   };
 
-  const deleteRecord = () => {
-    console.log('delete');
-  }
-
-  return state.list ? (
+  return repo.list ? (
     <div className="divNews">
       <Paper className="paperDivNews" elevation={1}>
         <Typography variant="h5" component="h3" className="mainTitle">
@@ -202,7 +201,7 @@ const NewsWindow = () => {
             <CreateForm />
           </div>
         </Typography>
-        <div>{state.list.map((record) => {
+        <div>{repo.list.map((record) => {
           let publishEnabledIcon;
 
           let icon;
@@ -260,10 +259,11 @@ const NewsWindow = () => {
             createDate={createDate}
             publishEnabledIcon={publishEnabledIcon}
             handleClickOpenDialogRedux={handleClickOpenDialogRedux}
-            deleteRecord={methods.deleteRecord}
+            deleteRecord={methods.removeRecord}
             handleChangeNews={handleChangeNews}
           />
-        })}</div>
+        })}
+        </div>
       </Paper>
     </div>
   ) : (
