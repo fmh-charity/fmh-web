@@ -1,22 +1,24 @@
 import { request } from '../request-service';
 
-const newsController = { 
+const newsController = {
   async getNews(authData) {
     try {
       const { data } = await request('GET', '/news');
 
-      return data;
+      this.repo.actions.set('list', data);
     } catch (error) {
       console.error('Error: ', error);
+      this.repo.actions.set('error', 'Smth happeened');
     }
   },
   async removeRecord(id) {
     try {
       const { data } = await request('DELETE', `/news/${id}`);
 
-      return data;
+      this.repo.actions.set('list', data);
     } catch (error) {
-      console.error('Error: ', error);
+      console.error('error', error);
+      this.repo.actions.set('error', 'Smth happeened');
     }
   }
 }

@@ -9,14 +9,14 @@ const authController = {
       setCookie('accessToken', data.accessToken, { path: '/' });
       setCookie('refreshToken', data.refreshToken, { path: '/' });
 
-      return { login: '', password: '' };
+      this.repo.actions.set('data', { login: '', password: '' });
     } catch (error) {
       console.error('Errror:', error);
-      return { login: '', password: '' };
+      this.repo.actions.set('error', 'Что-то пошло не так');
     }
   },
   fillValues(data) {
-    return data;
+    this.repo.actions.set('data', data);
   }
 }
 

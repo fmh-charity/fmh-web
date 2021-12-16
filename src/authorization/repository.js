@@ -9,6 +9,5 @@ export default generateRepository(
     },
     error: '',
   },
-  [controller, 'login', { sync: 'data' }],
-  [controller, 'fillValues', { sync: 'data' }]
+  controller
 );
