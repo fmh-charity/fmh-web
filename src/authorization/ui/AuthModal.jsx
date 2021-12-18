@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Button, Modal, TextField } from '@material-ui/core';
@@ -32,11 +33,19 @@ export const AuthModal = ({
   isOpen = false,
 }) => {
   const classes = useStyles();
-  const [{ data, error }, methods] = useRepository();
+  const navigate = useNavigate();
+  const [{ data, isLogged, error }, methods] = useRepository();
 
-  const logOn = () => {
+  const logOn = (e) => {
     methods.login(data);
+    e.preventDefault();
   }
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate('/', { replace: true });
+    }
+  }, [isLogged]);
 
   const onDataChange = (e) => {
     methods.fillValues({ ...data, [e.target.name]: e.target.value });
@@ -54,7 +63,10 @@ export const AuthModal = ({
       disablePortal
       className={styles.modal}
     >
-      <form className={styles.form}>
+      <form 
+        className={styles.form}
+        onSubmit={logOn}
+      >
         <TextField 
           onChange={onDataChange}
           value={data.username}
@@ -74,11 +86,12 @@ export const AuthModal = ({
           variant="outlined" 
         />
         <ColorButton 
-          onClick={logOn}
           variant="contained" 
           color="primary" 
+          type="submit"
           disableRipple 
-          className={classes.margin}>
+          className={classes.margin}
+        >
           Войти
         </ColorButton>
       </form>

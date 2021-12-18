@@ -7,6 +7,7 @@ export default generateRepository(
       login: '',
       password: '',
     },
+    isLogged: false,
     error: '',
   },
   controller

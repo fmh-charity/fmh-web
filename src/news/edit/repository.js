@@ -1,25 +1,17 @@
-import { generateRepository } from '../repository-service';
+import { generateRepository } from '../../repository-service';
 import controller from './controller';
 
 export default generateRepository(
   {
-    openCreate: false,
-    curDate: new Date(),
-    reduxIdNewsEvent: 0,
-    checked: false,
-    reduxCategoryId: "",
-    reduxTitleNews: "",
+    openEdit: false,
     record: {
       createDate: null,
-      creatorId: null,
-      creatorName: "",
+      time: '00:00',
       description: "",
-      id: null,
-      newsCategoryId: null,
-      publishDate: null,
+      newsCategoryId: 1,
       publishEnabled: true,
       title: ""
     }
   },
-  [controller, 'createRecord'],
+  controller
 );

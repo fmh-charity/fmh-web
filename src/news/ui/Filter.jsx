@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -9,29 +9,21 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
-import { FormikTextField } from "formik-material-fields";
+import { FormikTextField } from 'formik-material-fields';
+
+import useRepository from '../repository';
+
 import "./NewsWindow.css";
 
 export const Filter = () => {
-  const [state, setState] = useState({
-    curDate: new Date(),
-    openFilter: false,
-  });
+  const [{ filter }, methods] = useRepository();
 
   const handleChangeFilterEvent = (event) => {
-    this.setState({ filterEvent: event.target.value });
-  };
-  const filterSubmited = (date) => {
-    this.setState({ ...state, openFilter: false });
-    this.setState({ ...state, filteredDate: date });
-    this.setState({ ...state, filterDone: true });
-  };
-  const handleClickCloseFilter = () => {
-    this.setState({ openFilter: false });
+    methods.editFilter({ newsCategoryId: event.target.value });
   };
 
   return (
-      <Dialog open={state.openFilter} onClose={handleClickCloseFilter}>
+      <Dialog open={!!filter} onClose={methods.closeFilter}>
         <DialogTitle id="form-dialog-title">
           <Typography variant="h5" component="h3" className="titleFilter">
             Фильтр новостей
@@ -39,13 +31,13 @@ export const Filter = () => {
         </DialogTitle>
 
         <Formik
-          initialValues={{
-            newsCategoryId: "",
-            date: "",
+          initialValues={filter && {
+            newsCategoryId: filter.newsCategoryId,
+            createDate: filter.createDate,
           }}
-          onSubmit={({ date }) => {
-            var numberFilteredDate = new Date(date) * 1; // date to long
-            filterSubmited(numberFilteredDate);
+          onSubmit={({ createDate }) => {
+            if (createDate) methods.editFilter({ createDate: new Date(createDate) });
+            methods.filterNews();
           }}>
           {({ isSubmitting }) => (
             <Form>
@@ -75,15 +67,15 @@ export const Filter = () => {
                   </Select>
 
                   <FormikTextField
-                    htmlFor="date"
-                    id="date"
+                    htmlFor="createDate"
+                    id="createDate"
                     label="Дата публикации"
                     type="date"
-                    name="date"
+                    name="createDate"
                     dateFormat="dd/MM/yyyy"
                     fullWidth
                     margin="normal"
-                    defaultValue={state.curDate}
+                    defaultValue={filter ? filter.date : new Date()}
                     variant="outlined"
                     className="createAndReduxSelectDateAndTime"
                     InputLabelProps={{
@@ -95,7 +87,7 @@ export const Filter = () => {
 
               <DialogActions>
                 <div className="createAndReduxDivActions">
-                  <Button className="buttonCancell" onClick={handleClickCloseFilter}>
+                  <Button className="buttonCancell" onClick={methods.closeFilter}>
                     Отмена
                   </Button>
                   <Button
@@ -113,7 +105,7 @@ export const Filter = () => {
           )}
         </Formik>
       </Dialog>
-  )
+  );
 };
 
 export default Filter;

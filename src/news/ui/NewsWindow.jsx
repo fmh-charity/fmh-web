@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import format from 'date-fns/format';
+import fromUnixTime from 'date-fns/fromUnixTime'
+
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
@@ -26,30 +29,29 @@ import reduxIcon from "../../assets/Icons/redux.png";
 import sortIcon from "../../assets/Icons/sort.png";
 
 import { Filter } from './Filter';
-import { CreateForm } from '../edit/ui/CreateForm';
+import { EditForm } from '../edit/ui/EditForm';
 
 import useRepository from '../repository';
 
 import News from "./News";
 import "./NewsWindow.css";
 
-const AccordionItem = ({ 
-  record, 
-  icon,
-  publicDate, 
-  publicTime,
-  createDate, 
-  publishEnabledIcon,
-  expandedNews,
-  handleChangeNews,
-  deleteRecord,
-  handleClickOpenDialogRedux
-}) => {
+const iconMap = new Map([
+  [1, <img src={iconId1} alt={"test"} />],
+  [2, <img src={iconId2} alt={"test"} />],
+  [3, <img src={iconId3} alt={"test"} />],
+  [4, <img src={iconId4} alt={"test"} />],
+  [5, <img src={iconId5} alt={"test"} />],
+  [6, <img src={iconId6} alt={"test"} />],
+  [7, <img src={iconId7} alt={"test"} />],
+  [8, <img src={iconId8} alt={"test"} />],
+]);
+
+const AccordionItem = ({ record, publishEnabledIcon }) => {
+  const [, methods] = useRepository();
+
   return (
-    <Accordion
-      expanded={expandedNews}
-      className="boxAccordion"
-      onChange={handleChangeNews(record.createDate)}>
+    <Accordion className="boxAccordion">
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel2bh-content"
@@ -59,20 +61,19 @@ const AccordionItem = ({
           style={{
             fontSize: "theme.typography.pxToRem(15)",
           }}>
-          <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemIcon>{iconMap.get(record.newsCategoryId)}</ListItemIcon>
           {record.title}
         </Typography>
       </AccordionSummary>
-
       <AccordionDetails className="detailsAccordion">
         <Box item boxShadow={1} xs={3} className="boxCreate">
           <Typography className="typFloatLeft">Дата публикации: </Typography>
-          <Typography className="typFloatRight">{publicDate}</Typography>
+          <Typography className="typFloatRight">{format(fromUnixTime(record.publishDate), 'dd.MM.yyyy')}</Typography>
         </Box>
 
         <Box item boxShadow={1} xs={3} className="boxCreate">
           <Typography className="typFloatLeft">Дата создания: </Typography>
-          <Typography className="typFloatRight">{createDate}</Typography>
+          <Typography className="typFloatRight">{format(fromUnixTime(record.createDate), 'dd.MM.yyyy')}</Typography>
         </Box>
         <Box item boxShadow={1} xs={3} className="boxCreate">
           <Typography className="typFloatLeft">Автор:</Typography>
@@ -81,24 +82,17 @@ const AccordionItem = ({
         <Box item boxShadow={1} xs={3} className="boxPublic">
           <Typography className="typFloatLeft">{publishEnabledIcon}</Typography>
           <Typography className="typButtons">
-            <Button color="black" className="typButtonsLeft" onClick={() => deleteRecord(record.id)}>
+            <Button 
+              color="black" 
+              className="typButtonsLeft" 
+              onClick={() => methods.removeRecord(record.id)}
+            >
               <img src={deleteIcon} alt={"test"} />
             </Button>
-            {/* showDialogUpdate */}
             <Button
               className="typButtons"
               color="black"
-              onClick={() =>
-                handleClickOpenDialogRedux(
-                  record.id,
-                  record.description,
-                  record.title,
-                  publicDate,
-                  publicTime,
-                  record.newsCategoryId,
-                  record.publishEnabled,
-                )
-              }>
+              onClick={() => methods.openEditModal(record)}>
               <img src={reduxIcon} alt={"test"} />
             </Button>
           </Typography>
@@ -112,71 +106,9 @@ const AccordionItem = ({
 };
 
 const NewsWindow = () => {
-  const [state, setState] = useState({
-    list: []
-  });
   const [repo, methods] = useRepository();
 
-  useEffect(() => {
-    methods.getNews();
-  }, []);
-
-  const shown = [];
-
-  const handleClickOpenSort = () => {
-    if (state.sort === false) {
-      setState({ sort: true });
-    } else setState({ sort: false });
-  };
-  const handleClickOpenFilter = () => {
-    if (state.filter === false) {
-      setState({ openFilter: true });
-    } else setState({ openFilter: false });
-  };
-  const handleOpenCreate = () => {
-    setState({ openCreate: true });
-  };
-  const handleFormatNumberToTime = (date) => {
-    return new Date(date * 1000).toLocaleTimeString();
-  };
-
-  const handleFormatNumberToDate = (date) => {
-    const d = new Date(date * 1000);
-    var date =
-      ("0" + d.getDate()).slice(-2) +
-      "." +
-      ("0" + (d.getMonth() + 1)).slice(-2) +
-      "." +
-      d.getFullYear();
-    return date;
-  };
-  const handleChangeNews = (panel) => (event, isExpanded) => {
-    setState({ expandedNews: isExpanded ? panel : false });
-  };
- const handleClickOpenDialogRedux = (
-    id,
-    report,
-    title,
-    publishDate,
-    publishTime,
-    newsCategoryId,
-    publishEnabled,
-  ) => {
-    var dateString =
-      publishDate.substr(6, 4) + "-" + publishDate.substr(3, 2) + "-" + publishDate.substr(0, 2);
-
-    if (this.state.openDialogRedux === false) {
-      setState({ openDialogRedux: true });
-      setState({ reduxIdNews: id });
-      setState({ reduxReportNews: report });
-      setState({ reduxTitleNews: title });
-      setState({ reduxCategoryId: newsCategoryId });
-      setState({ reduxPublicDate: dateString });
-      setState({ reduxIdNewsEvent: newsCategoryId });
-      setState({ reduxPublishTime: publishTime });
-      setState({ reduxPublishEnabled: publishEnabled });
-    }
-  };
+  useEffect(() => { methods.getNews(); }, []);
 
   return repo.list ? (
     <div className="divNews">
@@ -188,55 +120,21 @@ const NewsWindow = () => {
               <ReplayIcon color="action" />
             </Button>
 
-            <Button color="primary" onClick={handleClickOpenSort}>
+            <Button color="primary" onClick={methods.sortNews}>
               <img src={sortIcon} alt={"test"} />
             </Button>
-            <Button color="primary" onClick={handleClickOpenFilter}>
+            <Button color="primary" onClick={methods.openFilter}>
               <img src={filterIcon} alt={"test"} />
             </Button>
             <Filter />
-            <Button color="primary" onClick={handleOpenCreate}>
+            <Button color="primary" onClick={methods.openEditModal}>
               <img src={addIcon} alt={"test"} />
             </Button>
-            <CreateForm />
+            <EditForm />
           </div>
         </Typography>
         <div>{repo.list.map((record) => {
           let publishEnabledIcon;
-
-          let icon;
-          switch (record.newsCategoryId) {
-            case 1:
-              icon = <img src={iconId1} alt={"test"} />;
-              break;
-            case 2:
-              icon = <img src={iconId2} alt={"test"} />;
-              break;
-            case 3:
-              icon = <img src={iconId3} alt={"test"} />;
-              break;
-            case 4:
-              icon = <img src={iconId4} alt={"test"} />;
-              break;
-            case 5:
-              icon = <img src={iconId5} alt={"test"} />;
-              break;
-            case 6:
-              icon = <img src={iconId6} alt={"test"} />;
-              break;
-            case 7:
-              icon = <img src={iconId7} alt={"test"} />;
-              break;
-            case 8:
-              icon = <img src={iconId8} alt={"test"} />;
-              break;
-            default:
-              break;
-          }
-
-          let publicDate = handleFormatNumberToDate(record.publishDate);
-          let createDate = handleFormatNumberToDate(record.createDate);
-          let publicTime = handleFormatNumberToTime(record.publishDate);
 
           if (record.publishEnabled === "false") {
             publishEnabledIcon = (
@@ -252,15 +150,9 @@ const NewsWindow = () => {
             );
           }
           return <AccordionItem 
+            key={record.id}
             record={record} 
-            icon={icon}
-            publicDate={publicDate}
-            publicTime={publicTime} 
-            createDate={createDate}
             publishEnabledIcon={publishEnabledIcon}
-            handleClickOpenDialogRedux={handleClickOpenDialogRedux}
-            deleteRecord={methods.removeRecord}
-            handleChangeNews={handleChangeNews}
           />
         })}
         </div>

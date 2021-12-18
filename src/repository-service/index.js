@@ -1,9 +1,6 @@
 import { useReducer, useEffect, useRef } from 'react';
-import { RepositoryService } from './adapter';
 
 export function generateRepository(repo, controller) {
-  controller.repo = new RepositoryService();
-
   const mounted = new Map();
   const syncFieldsSet = new Set(Object.keys(repo));
 
