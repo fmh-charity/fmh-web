@@ -5,6 +5,7 @@ import { RepositoryService } from '../repository-service/adapter';
 
 const authController = { 
   repo: new RepositoryService(),
+
   async login(authData) {
     try {
       const { data } = await request('POST', '/authentication/login', authData);

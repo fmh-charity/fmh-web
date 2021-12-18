@@ -2,6 +2,7 @@ import { request } from '../../request-service';
 import { RepositoryService } from '../../repository-service/adapter';
 import { getlc } from '../../local-store-service';
 import parse from 'date-fns/parse';
+import newsController from '../controller';
 import getUnixTime from 'date-fns/getUnixTime';
 
 const editController = {
@@ -31,6 +32,7 @@ const editController = {
         publishEnabled: true,
         title: ""
       });
+      newsController.getNews();
     } catch (error) {
       console.error('Error: ', error);
     }
@@ -39,8 +41,6 @@ const editController = {
     console.log('EDIT', data);
     if (data.time && data.createDate) {
       const { time, createDate, ...rest } = data;
-
-      console.log('here',`${createDate} ${time}`, parse(`${createDate} ${time}`, 'yyyy-MM-dd HH:mm', new Date()));
 
       this.repo.actions.set('record', {
         ...this.repo.actions.get('record'),

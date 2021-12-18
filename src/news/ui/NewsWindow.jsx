@@ -31,6 +31,7 @@ import sortIcon from "../../assets/Icons/sort.png";
 import { Filter } from './Filter';
 import { EditForm } from '../edit/ui/EditForm';
 
+import useEditRepository from '../edit/repository';
 import useRepository from '../repository';
 
 import News from "./News";
@@ -49,6 +50,7 @@ const iconMap = new Map([
 
 const AccordionItem = ({ record, publishEnabledIcon }) => {
   const [, methods] = useRepository();
+  const [, editMethods] = useEditRepository();
 
   return (
     <Accordion className="boxAccordion">
@@ -92,7 +94,7 @@ const AccordionItem = ({ record, publishEnabledIcon }) => {
             <Button
               className="typButtons"
               color="black"
-              onClick={() => methods.openEditModal(record)}>
+              onClick={() => editMethods.openModal(record)}>
               <img src={reduxIcon} alt={"test"} />
             </Button>
           </Typography>
@@ -107,6 +109,7 @@ const AccordionItem = ({ record, publishEnabledIcon }) => {
 
 const NewsWindow = () => {
   const [repo, methods] = useRepository();
+  const [, editMethods] = useEditRepository();
 
   useEffect(() => { methods.getNews(); }, []);
 
@@ -127,7 +130,7 @@ const NewsWindow = () => {
               <img src={filterIcon} alt={"test"} />
             </Button>
             <Filter />
-            <Button color="primary" onClick={methods.openEditModal}>
+            <Button color="primary" onClick={() => editMethods.openModal()}>
               <img src={addIcon} alt={"test"} />
             </Button>
             <EditForm />
