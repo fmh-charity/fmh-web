@@ -7,6 +7,7 @@ import getUnixTime from 'date-fns/getUnixTime';
 
 const editController = {
   repo: new RepositoryService(),
+
   async createRecord() {
     try {
       const user = JSON.parse(getlc('user') || '{}');
@@ -32,7 +33,7 @@ const editController = {
         publishEnabled: true,
         title: ""
       });
-      newsController.getNews();
+      await newsController.getNews();
     } catch (error) {
       console.error('Error: ', error);
     }
@@ -71,7 +72,10 @@ const editController = {
   openModal(record) {
     if (record) {
       console.log('record edit', record);
-      this.repo.actions.set('record', record);
+      this.repo.actions.set('record', {
+        ...this.repo.actions.get('record'), 
+        ...record
+      });
     }
     this.repo.actions.set('openEdit', true);
   },
