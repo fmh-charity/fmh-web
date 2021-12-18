@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getlc, setlc } from '../local-store-service';
 import { setCookie, getCookie } from '../cookie-service';
 
 const BASE_PATH = 'http://130.193.44.96:8080/fmh';
@@ -13,10 +14,10 @@ function createAxiosResponseInterceptor() {
       axios.interceptors.response.eject(interceptor);
 
       return axios.post(BASE_PATH + '/authentication/refresh', {
-          'refreshToken': getCookie('refreshToken')
+          'refreshToken': getlc('refreshToken')
       }).then(response => {
           setCookie('accessToken', response.data.accessToken, { path: '/' });
-          setCookie('refreshToken', response.data.refreshToken, { path: '/' });
+          setlc('refreshToken', response.data.refreshToken); 
 
           error.response.config.headers['authorization'] = response.data.accessToken;
           return axios(error.response.config);
