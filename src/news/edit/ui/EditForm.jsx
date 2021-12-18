@@ -40,6 +40,7 @@ export const EditForm = () => {
   };
 
   const createCheckValue = (event) => {
+    console.log(event.target.checked);
     methods.editRecord({ publishEnabled: event.target.checked });
   };
 
@@ -164,7 +165,6 @@ export const EditForm = () => {
                   </Button>
                   <Button
                     className="buttonConfirm"
-                    onClick={methods.closeModal}
                     type="submit"
                     active={{
                       background: "#20B2AA",
