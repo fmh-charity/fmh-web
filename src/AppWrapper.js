@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getCookie } from './cookie-service';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import AppRouter from "./AppRouter";
 import Navbar from "./shared-kernel/ui/Navbar";
@@ -8,6 +10,16 @@ import "./normalize.css";
 
 export const AppWrapper = () => {
   const [hidden, setHidden] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      if (!getCookie('access')) {
+        navigate('/login', { replace: true });
+      }
+    }
+  }, []);
 
   const toggleMenu = () => {
     setHidden(!hidden);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
@@ -16,55 +16,59 @@ import { FormikTextField } from "formik-material-fields";
 
 import useRepository from '../repository';
 
-export const UpdateForm = () => {
-  const [repo, methods] = useRepository();
+import './edit-form.module.css';
+
+const ColorSwitch = withStyles({
+  switchBase: {
+    color: "#20B2AA",
+    "&$checked": {
+      color: "#20B2AA",
+    },
+    "&$checked + $track": {
+      backgroundColor: "#20B2AA",
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
+
+export const EditForm = () => {
+  const [repo,  methods] = useRepository();
+
+  const handleChangeEvent = (event) => {
+    methods.editRecord({ newsCategoryId: event.target.value });
+  };
+
+  const createCheckValue = (event) => {
+    methods.editRecord({ publishEnabled: event.target.checked });
+  };
 
   return (
       <Dialog
-        open={state.openDialogRedux}
+        open={repo.openEdit}
         maxWidth="none"
-        className="reduxDialog"
-        BackdropProps={{
-          className: "backgroundDialog",
-        }}
         PaperProps={{
           className: "createAndReduxDialog",
         }}
-        onClose={closeDialogRedux}>
+        onClose={methods.closeModal}>
         <DialogTitle>
           <Typography
             variant="h5"
             component="h3"
             id="titleNews"
             className="createAndReduxTitleNews">
-            Редактировать новость
+            Создать новость
           </Typography>
         </DialogTitle>
         <Formik
-          enableReinitialize={true}
           initialValues={{
-            title: this.state.reduxTitleNews,
-            text: this.state.reduxReportNews,
-            date: this.state.reduxPublicDate, //format like: '1967-12-20'
-            time: this.state.reduxPublishTime,
+            title: repo.record.title,
+            description: repo.record.description,
+            newsCategoryId: repo.record.newsCategoryId,
+            createDate: repo.record.createDate,
+            time: repo.record.time,
           }}
-          onSubmit={({ title, text, date, time }, { setStatus, setSubmitting }) => {
-            let idNews = this.state.reduxIdNews;
-            let eventId = this.state.reduxIdNewsEvent;
-            let show = this.state.reduxPublishEnabled;
-            let dateTime = new Date(date + " " + time);
-            var longFormatDatePublic = new Date(dateTime) * 1; // date to long
-            var longFormatDateCreate = new Date() * 1;
-            // BackDataService.updateNews(
-            //   idNews,
-            //   title,
-            //   eventId,
-            //   text,
-            //   longFormatDatePublic,
-            //   show,
-            //   longFormatDateCreate,
-            // );
-          }}>
+          onSubmit={({ newsCategoryId, ...data }) => methods.editRecord(data)}>
           {({ isSubmitting }) => (
             <Form>
               <div className="createAndReduxSelectForm">
@@ -72,14 +76,16 @@ export const UpdateForm = () => {
                   <InputLabel className="createAndReduxEnentNews">Событие</InputLabel>
                   <Select
                     id="demo-simple-select-helper"
-                    name="newsCategoryId"
+                    htmlFor="newsCategoryId"
+                    label="qwerty"
                     className="createAndReduxSelectCategory"
-                    defaultValue={this.state.reduxCategoryId}
+                    name="newsCategoryId"
+                    value={repo.record.newsCategoryId}
+                    onChange={handleChangeEvent}
                     margin="normal"
                     variant="outlined"
                     type="text"
-                    // value={this.state.reduxCategoryId}
-                    onChange={this.handleChangeEvent}>
+                  >
                     <MenuItem value={1}>Объявление</MenuItem>
                     <MenuItem value={2}>День рождение</MenuItem>
                     <MenuItem value={3}>Зарплата</MenuItem>
@@ -91,22 +97,21 @@ export const UpdateForm = () => {
                   </Select>
                 </FormControl>
                 <FormikTextField
-                  htmlFor="date"
-                  id="date"
+                  htmlFor="createDate"
+                  id="createDate"
                   label="Дата"
                   type="date"
-                  name="date"
+                  name="createDate"
                   dateFormat="dd/MM/yyyy"
                   fullWidth
                   margin="normal"
-                  defaultValue={this.state.curDate}
+                  value={repo.record.createDate}
                   variant="outlined"
                   className="createAndReduxSelectDateAndTime"
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
-
                 <FormikTextField
                   component={TimePicker}
                   id="time"
@@ -129,45 +134,42 @@ export const UpdateForm = () => {
                   name="title"
                   margin="normal"
                   variant="outlined"
-                  defaultValue={this.state.reduxTitleNews}
+                  value={repo.record.title}
                   className="createAndReduxTitle"
                   type="text"
                 />
-
                 <FormikTextField
-                  htmlFor="text"
+                  htmlFor="description"
                   label="Сообщение"
-                  name="text"
+                  id="description"
+                  name="description"
                   margin="normal"
                   variant="outlined"
                   multiline={true}
                   rows={5}
                   maxRows={8}
                   className="createAndReduxRepot"
-                  defaultValue={this.state.reduxReportNews}
+                  value={repo.record.description}
                   type="text"
                 />
               </div>
               <div className="createAndReduxDivCheck">
                 Публикация:{" "}
-                <ColorSwitch
-                  checked={this.state.reduxPublishEnabled}
-                  onChange={this.reduxCheckValue}
-                />
+                <ColorSwitch checked={repo.record.publishEnabled} onChange={createCheckValue} />
               </div>
               <DialogActions>
                 <div className="createAndReduxDivActions">
-                  <Button className="buttonCancell" onClick={this.handleCloseDialogRedux}>
+                  <Button className="buttonCancell" onClick={methods.closeModal}>
                     Отмена
                   </Button>
                   <Button
                     className="buttonConfirm"
-                    onClick={methods.handleCloseDialogRedux}
+                    onClick={methods.closeModal}
                     type="submit"
                     active={{
                       background: "#20B2AA",
                     }}
-                    isSubmitting={repo.isSubmitting}>
+                    isSubmitting={isSubmitting}>
                     Сохранить
                   </Button>
                 </div>
