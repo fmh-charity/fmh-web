@@ -1,2 +1,0 @@
-(this["webpackJsonpfmh-web"]=this["webpackJsonpfmh-web"]||[]).push([[0],{11:function(e,n,t){"use strict";t.r(n);t(0);var s=t(3),c=t.n(s),o=(t(9),t(4)),h=t.n(o),r=t(1);var a=function(){return Object(r.jsx)("h1",{className:h.a.head,children:"hello first Moscow hospice"})};c.a.render(Object(r.jsx)(a,{}),document.getElementById("root"))},4:function(e,n,t){e.exports={head:"App_head__uUOiY"}},9:function(e,n,t){}},[[11,1,2]]]);
-//# sourceMappingURL=main.052dfa9b.chunk.js.map
