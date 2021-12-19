@@ -31,3 +31,12 @@
 .description_p:first-child {
   padding: 13px 27px 8px 26px;
 }
+
+.icon_rollup {
+  display: flex;
+  cursor: pointer;
+}
+
+.icon_filter {
+  display: none;
+}

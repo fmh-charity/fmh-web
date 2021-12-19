@@ -13,20 +13,6 @@ class Statement extends React.Component {
     };
   }
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleEsc);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleEsc);
-  }
-
-  handleEsc = (event) => {
-    if (event.key === "Escape") {
-      this.handleModal();
-    }
-  };
-
   handleModal = () => {
     this.setState({
       isOpen: !this.state.isOpen,
@@ -37,7 +23,7 @@ class Statement extends React.Component {
     return (
       <section className={styles.section}>
         <div className={styles.wrapper}>
-          <span className={styles.text}>Тема</span>
+          <p className={styles.text}>Тема</p>
           <p className={styles.text}>субботник</p>
         </div>
         <StatementHead />
