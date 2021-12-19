@@ -1,7 +1,6 @@
 import { request } from '../request-service';
 import { RepositoryService } from '../repository-service/adapter';
 import { filterNews } from './domain';
-import editController from './edit/controller';
 import fromUnixTime from 'date-fns/fromUnixTime'
 
 const newsController = {
@@ -64,9 +63,6 @@ const newsController = {
   closeFilter() {
     this.repo.actions.set('filter', null);
   },
-  openEditModal(record) {
-    editController.openModal(record);
-  }
 }
 
 export default newsController;
