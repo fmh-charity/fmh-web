@@ -1,6 +1,8 @@
 import { request } from "../request-service";
+import { RepositoryService } from '../repository-service/adapter';
 
 const statementCommentController = {
+  repo: new RepositoryService(),
   async setComment(id, comment) {
     try {
       const { data } = await request("POST", `/statement/${id}/comments`, comment);

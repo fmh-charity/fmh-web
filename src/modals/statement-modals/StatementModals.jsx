@@ -21,7 +21,7 @@ const StatementModals = ({ onClick }) => {
   return (
     <section className={styles.section}>
       <div className={styles.wrapper}>
-        <span className={styles.text}>Тема</span>
+        <p className={styles.text}>Тема</p>
         <p className={styles.text}>субботник</p>
       </div>
       <StatementHead />
