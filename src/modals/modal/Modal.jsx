@@ -10,6 +10,21 @@ class Modal extends React.Component {
     constructor(props) {
         super(props)
     }
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleEsc);
+      }
+    
+      componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleEsc);
+      }
+    
+      handleEsc = (event) => {
+        if (event.key === "Escape") {
+          this.props.onClick();
+        }
+      };
+    
     render() {
         const {children, onClick} = this.props;
         return ReactDOM.createPortal (

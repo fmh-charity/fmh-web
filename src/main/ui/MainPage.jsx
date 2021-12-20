@@ -20,6 +20,10 @@ import iconId6 from "../../assets/Icons/categoryIcons/iconId6.png";
 import iconId7 from "../../assets/Icons/categoryIcons/iconId7.png";
 import iconId8 from "../../assets/Icons/categoryIcons/iconId8.png";
 import "./NewsMainWindow.css";
+import NewsWindow from "../../news/ui/NewsWindow";
+import StatementPage from "../../statementPage/StatementPage";
+import styles from './main.module.css';
+import cn from 'classnames';
 
 function biggestToSmallest(a, b) {
   return new Date(b.publishDate) - new Date(a.publishDate);
@@ -167,17 +171,22 @@ class MainPage extends React.Component {
     });
 
     return (
-      <div className="divNews">
-        <Paper className="divPaperNews" elevation={1}>
-          <Typography variant="h5" component="h3" className="titleNews">
-            Новости
-          </Typography>
-          <div>{showNewsAccordionList}</div>
-          <Button color="primary" className="showMore" onClick={this.handleClickShowMore}>
-            ПОКАЗАТЬ ЕЩЁ
-          </Button>
-        </Paper>
-      </div>
+      <React.Fragment>
+          <div className="divNews">
+            <Paper className="divPaperNews" elevation={1}>
+              <Typography variant="h5" component="h3" className="titleNews">
+                Новости
+              </Typography>
+              <div>{showNewsAccordionList}</div>
+              <Button color="primary" className="showMore" onClick={this.handleClickShowMore}>
+                ПОКАЗАТЬ ЕЩЁ
+              </Button>
+            </Paper>
+          </div>
+          <StatementPage rollup={styles.icon_rollup} filter={styles.icon_filter}/>
+
+      </React.Fragment>
+
     );
   }
 }

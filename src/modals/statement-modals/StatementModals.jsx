@@ -8,6 +8,8 @@ import arrow_left from "../../assets/Icons/arrow_left.svg";
 import status_processing from "../../assets/Icons/status_processing.svg";
 import StatementComment from "../../statement-comment/StatementComment";
 import CreateCommentForm from "../../statement-commentForms/ui/CreateCommentForm";
+import Modal from '../modal/Modal';
+
 
 const StatementModals = ({ onClick }) => {
   const [openComment, setOpenComment] = useState(false);
@@ -19,7 +21,7 @@ const StatementModals = ({ onClick }) => {
   return (
     <section className={styles.section}>
       <div className={styles.wrapper}>
-        <span className={styles.text}>Тема</span>
+        <p className={styles.text}>Тема</p>
         <p className={styles.text}>субботник</p>
       </div>
       <StatementHead />
@@ -52,7 +54,11 @@ const StatementModals = ({ onClick }) => {
         <img src={status_processing} alt="" className={styles.icon} />
         <img src={edit_icon} alt="" className={styles.icon} />
       </div>
-      {openComment && <CreateCommentForm cancelComment={toggleCreateComment} />}
+      {openComment && 
+        <Modal>
+            <CreateCommentForm cancelComment={toggleCreateComment} />
+        </Modal>
+      }
     </section>
   );
 };
