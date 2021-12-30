@@ -38,7 +38,7 @@ const EditCommentForm = ({ id, cancelEdit }) => {
       {error ? (
         <div>{error}</div>
       ) : (
-        <form onSubmit={handleSubmit} className={style.editForm}>
+        <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.formContent}>
             <TextField
               label="Комментарий"

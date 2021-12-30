@@ -1,13 +1,5 @@
-.createForm {
-  position: absolute;
-  bottom: 50px;
-  left: 2px;
-}
-
-.editForm {
-  position: absolute;
-  bottom: 150px;
-  left: 2px;
+.form {
+  margin-top: 51px;
 }
 
 .formContent {
