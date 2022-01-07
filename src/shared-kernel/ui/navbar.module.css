@@ -28,6 +28,7 @@
 
 .navbarItem {
   display: flex;
+  align-items: center;
   color: rgb(0, 0, 0, 0.54);
   padding-top: 24px;
   padding-left: 32px;

@@ -6,6 +6,7 @@ import { FormikTextField } from "formik-material-fields";
 import { Button, Dialog, MenuItem } from "@material-ui/core";
 import useRepository from "../repository";
 import useUsersRepo from "../../../users/repository";
+import { TimePicker } from "formik-material-ui-pickers";
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -52,7 +53,7 @@ const CreateStatement = () => {
   useEffect(() => {
     const users = usersMethods.getUsers();
     console.log("users", users);
-  }, []);
+  }, [usersMethods]);
 
   return (
     <Dialog open={repo.openEdit} onClose={methods.closeModal}>
@@ -68,7 +69,7 @@ const CreateStatement = () => {
         onSubmit={({ ...data }) => {
           methods.editClaimData(data);
         }}>
-        {(isSubmitting) => (
+        {() => (
           <Form className={styles.body}>
             <FormikTextField
               label="Тема"
@@ -134,11 +135,7 @@ const CreateStatement = () => {
               required
             />
             <div className={styles.btnBlock}>
-              <Button
-                isSubmitting={isSubmitting}
-                className={classes.saveBtn}
-                variant="contained"
-                type="submit">
+              <Button className={classes.saveBtn} variant="contained" type="submit">
                 Сохранить
               </Button>
               <Button
