@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./styles.module.css";
-import editing_icon_light from "../assets/Icons/editing_icon_light.svg";
+import editing_icon_light from "../../assets/Icons/editing_icon_light.svg";
 // import edit_icon from '../../../assets/images/edit_icon.svg';
 
 import EditCommentForm from "../statement-commentForms/ui/EditCommentForm";
-import Modal from '../modals/modal/Modal';
+import Modal from "../../modals/modal/Modal";
 
 const StatementComment = () => {
   const [editComment, setEditComment] = useState(false);
@@ -29,11 +29,11 @@ const StatementComment = () => {
           07.12.2021 <span className={styles.time}>19:30</span>
         </p>
       </div>
-      {editComment && 
+      {editComment && (
         <Modal>
-            <EditCommentForm cancelEdit={toggleEdit} />
+          <EditCommentForm cancelEdit={toggleEdit} />
         </Modal>
-      }
+      )}
     </React.Fragment>
   );
 };

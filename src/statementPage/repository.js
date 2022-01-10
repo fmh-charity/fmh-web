@@ -1,10 +1,4 @@
 import { generateRepository } from "../repository-service";
 import controller from "./controller";
 
-export default generateRepository(
-  {
-    comment: "",
-    error: "",
-  },
-  controller,
-);
+export default generateRepository({ claims: null, error: "" }, controller);
