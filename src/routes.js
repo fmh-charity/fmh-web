@@ -18,6 +18,8 @@ const NewsWindow = lazy(() => import("./news/ui/NewsWindow"));
 const NewsWindowRoleRead = lazy(() => import("./news/ui/NewsWindowRoleRead"));
 const MainPage = lazy(() => import("./main/ui/MainPage"));
 const NotFound = lazy(() => import("./not-found/ui/NotFound.js"));
+const TermsOfUse = lazy(() => import("./legal/TermsOfUse"));
+const PrivacyPolicy = lazy(() => import("./legal/PrivacyPolicy"));
 
 export const routes = [
   { Component: MainPage, path: "/", title: "Главная", icon: <MainIcon /> },
@@ -35,6 +37,18 @@ export const routes = [
     path: "/newsRoleRead",
     title: "Новости Роль Чтение",
     icon: <NewsIcon />,
+  },
+  {
+    Component: TermsOfUse,
+    path: "/terms-of-use",
+    title: "Пользовательское соглашение",
+    icon: <MissionIcon />,
+  },
+  {
+    Component: PrivacyPolicy,
+    path: "/privacy-policy",
+    title: "Политика конфиденциальности",
+    icon: <MissionIcon />,
   },
   { Component: News, path: "/newsEmpty" },
   { Component: Main, path: "/mainEmpty" },
