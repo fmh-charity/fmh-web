@@ -3,8 +3,8 @@ import styles from "./styles.module.css";
 const StatementStatus = () => {
   return (
     <div className={styles.status_window}>
-      <p className={`${styles.choose_item} ${styles.bordered}`}>взять в работу</p>
-      <p className={styles.choose_item}>изменить</p>
+      <button className={styles.choose_item}>взять в работу</button>
+      <button className={styles.choose_item}>отменить</button>
     </div>
   );
 };

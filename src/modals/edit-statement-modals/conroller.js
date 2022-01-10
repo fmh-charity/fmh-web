@@ -24,6 +24,7 @@ const createStatementController = {
       console.log("uploadData", data);
 
       await claimsController.getClaims();
+      this.closeModal();
     } catch (error) {
       console.error("error", error);
     }

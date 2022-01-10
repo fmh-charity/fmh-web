@@ -4,8 +4,8 @@ import styles from "./styles.module.css";
 const StaffWindow = () => {
   return (
     <div className={styles.staff_window}>
-      <p className={`${styles.choose_item} ${styles.bordered}`}>Сотрудники АХЧ</p>
-      <p className={styles.choose_item}>Руководители АХЧ</p>
+      <button className={styles.choose_item}>Сотрудники АХЧ</button>
+      <button className={styles.choose_item}>Руководители АХЧ</button>
     </div>
   );
 };

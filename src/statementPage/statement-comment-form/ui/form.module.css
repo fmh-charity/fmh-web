@@ -1,5 +1,5 @@
 .form {
-  margin-top: 51px;
+  margin-top: 18px;
 }
 
 .formContent {
@@ -21,7 +21,7 @@
   margin-left: 50px;
   margin-right: 50px;
 }
-.btn {
+.closeBtn {
   width: 120px;
   height: 30px;
   font-size: 12px;

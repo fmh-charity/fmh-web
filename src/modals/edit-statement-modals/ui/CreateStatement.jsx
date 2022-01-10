@@ -3,9 +3,9 @@ import styles from "./styles.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form } from "formik";
 import { FormikTextField } from "formik-material-fields";
-import { Button, Dialog, MenuItem } from "@material-ui/core";
+import { Button, Dialog, MenuItem, Select } from "@material-ui/core";
 import useRepository from "../repository";
-import useUsersRepo from "../../../users/repository";
+import useUsersRepository from "../../../users/repository";
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -46,36 +46,35 @@ const useStyles = makeStyles(() => ({
 
 const CreateStatement = () => {
   const classes = useStyles();
-  const [repo, methods] = useRepository();
-  const [{ users }, usersMethods] = useUsersRepo();
+  const [{ claimData, openEdit }, methods] = useRepository();
+  const [{ users }, usersMethods] = useUsersRepository();
 
   useEffect(() => {
-    const users = usersMethods.getUsers();
-    console.log("users", users);
+    usersMethods.getUsers();
   }, []);
 
   return (
-    <Dialog open={repo.openEdit} onClose={methods.closeModal}>
+    <Dialog open={openEdit} onClose={methods.closeModal}>
       <Formik
         initialValues={{
-          id: repo.claimData.id,
-          title: repo.claimData.title,
-          description: repo.claimData.description,
-          planExecuteDate: repo.claimData.planExecuteDate,
-          time: repo.claimData.time,
-          executorName: repo.claimData.executorName,
+          id: claimData.id,
+          title: claimData.title,
+          description: claimData.description,
+          planExecuteDate: claimData.planExecuteDate,
+          time: claimData.time,
+          executorName: claimData.executorName,
         }}
         onSubmit={({ ...data }) => {
           methods.editClaimData(data);
         }}>
-        {(isSubmitting) => (
+        {() => (
           <Form className={styles.body}>
             <FormikTextField
               label="Тема"
               size="small"
               variant="outlined"
               name="title"
-              value={repo.claimData.title}
+              value={claimData.title}
               className={classes.title}
               required
             />
@@ -86,6 +85,7 @@ const CreateStatement = () => {
                 variant="outlined"
                 name="executorName"
                 className={classes.select}
+                value={claimData.executorName}
                 select
                 required>
                 {users &&
@@ -103,7 +103,8 @@ const CreateStatement = () => {
                 size="small"
                 name="planExecuteDate"
                 variant="outlined"
-                value={repo.claimData.planExecuteDate}
+                format="yyyy-MM-dd"
+                value={claimData.planExecuteDate}
                 className={classes.date}
                 InputLabelProps={{
                   shrink: true,
@@ -115,7 +116,7 @@ const CreateStatement = () => {
                 name="time"
                 type="time"
                 variant="outlined"
-                value={repo.claimData.time}
+                value={claimData.time}
                 className={classes.time}
                 InputLabelProps={{
                   shrink: true,
@@ -129,16 +130,12 @@ const CreateStatement = () => {
               name="description"
               multiline={true}
               rows={3}
-              value={repo.claimData.description}
+              value={claimData.description}
               className={classes.description}
               required
             />
             <div className={styles.btnBlock}>
-              <Button
-                isSubmitting={isSubmitting}
-                className={classes.saveBtn}
-                variant="contained"
-                type="submit">
+              <Button className={classes.saveBtn} variant="contained" type="submit">
                 Сохранить
               </Button>
               <Button

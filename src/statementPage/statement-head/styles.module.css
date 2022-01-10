@@ -10,7 +10,6 @@
 }
 
 .text {
-  font-family: "Roboto";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -18,8 +17,12 @@
   margin: 5px 10px 7px 25px;
 }
 
+.time {
+  color: #535353;
+  padding-left: 10px;
+}
+
 .theme {
-  font-family: "Roboto";
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
