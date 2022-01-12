@@ -2,15 +2,16 @@ import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { routes } from "./routes";
 import { NeedAuth } from './shared-kernel/ui/NeedAuth';
-
+//fix, убрать disable  после того как компоенты будут готовы, сделано чтобы кнопки в сайдбаре были не активными
 const AppRouter = () => {
   return (
     <Suspense fallback="Loading">
       <Routes>
-        {routes.map(({ path, Component }) => {
+        {routes.map(({ path, Component, disable }) => {
           return <Route 
             key={path} 
-            path={path} 
+            path={path}
+            disable={disable}
             element={
               <React.Fragment>
                 <NeedAuth />
