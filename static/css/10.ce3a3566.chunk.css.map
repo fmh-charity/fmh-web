@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/not-found/ui/notFound.module.css"],"names":[],"mappings":"AAAA,2BACE,cAAe,CACf,YAAa,CACb,sBAAuB,CACvB,kBACF","file":"10.ce3a3566.chunk.css","sourcesContent":[".not-found {\n  grid-area: main;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n"]}
