@@ -44,7 +44,15 @@ const StatementModals = ({ claim, closeModal }) => {
           dateNotation="Плановая дата"
           personNotation="Исполнитель"
         />
-        <span className={styles.status}>В работе</span>
+        <span className={styles.status}>
+          {claim.status === "IN_PROGRESS"
+            ? "В работе"
+            : claim.status === "OPEN"
+            ? "Открыта"
+            : claim.status === "EXECUTED"
+            ? "Выполнена"
+            : "Отменена"}
+        </span>
         <div className={styles.block}>{claim.description}</div>
         <StatementHead
           date={claim.createDate}
@@ -74,7 +82,7 @@ const StatementModals = ({ claim, closeModal }) => {
           </div>
           <div className={styles.status_icon}>
             <img src={status_processing} alt="" className={styles.icon} onClick={toggleStatus} />
-            {statusOpen && <StatusWindow />}
+            {statusOpen && <StatusWindow claim={claim} changeStatus={methods.changeStatus} />}
           </div>
           <img
             src={edit_icon}

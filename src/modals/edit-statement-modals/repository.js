@@ -3,7 +3,6 @@ import controller from "./conroller";
 
 export default generateRepository(
   {
-    isInWork: false,
     openEdit: false,
     claimData: {
       planExecuteDate: null,
@@ -12,6 +11,7 @@ export default generateRepository(
       executorName: "",
       description: "",
       title: "",
+      status: "",
     },
   },
   controller,

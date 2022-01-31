@@ -1,10 +1,10 @@
 .body {
   width: 584px;
-  height: 244px;
+  height: 274px;
   background: #ffffff;
   filter: drop-shadow(0px 2px 2px rgba(1, 161, 159, 0.5));
   border-radius: 6px;
-  padding: 10px;
+  padding: 20px 10px;
   display: flex;
   flex-direction: column;
 }
@@ -16,8 +16,34 @@
   margin-left: 100px;
   margin-right: 100px;
 }
+
 .closeBtn {
   width: 120px;
   height: 30px;
   font-size: 12px;
+}
+
+.saveBtn {
+  width: 120px;
+  height: 30px;
+  padding: 5px 15px;
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-self: center;
+  color: #fff;
+  width: 120px;
+  height: 30px;
+  font-size: 12px;
+  background-color: #01a19f;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 4px;
+  transition: box-shadow 250ms;
+}
+
+.saveBtn:hover {
+  background-color: #01a19f;
+  box-shadow: 1px 1px 1px rgba(3, 83, 82, 0.5), -1px -1px 1px rgba(3, 83, 82, 0.5);
 }
