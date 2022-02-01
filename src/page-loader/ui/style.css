@@ -1,0 +1,133 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.red {
+  --color: #FD5A72;
+  --back-color: #FFEBEE;
+}
+.green {
+  --color: #005919;
+  --back-color: #E4FFE3;
+}
+.blue {
+  --color: #004381;
+  --back-color: #E7F0FF;
+}
+.orange {
+  --color: #6B2900;
+  --back-color: #FFF0E7;
+}
+.rose {
+  --color: #610140;
+  --back-color: #FFF0E7;
+}
+.biruzu {
+  --color: #00817F;
+  --back-color: #DBFFFE;
+}
+
+.loader img {
+  margin-bottom: 55px;
+}
+
+.dot-pulse {
+  position: relative;
+  margin-left: 13px;
+  left: -9999px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  /* background-color: #9880ff; */
+  /* color: #9880ff; */
+  /* box-shadow: 9999px 0 0 -5px #9880ff; */
+  animation: dotPulse 1.5s infinite linear;
+  animation-delay: .25s;
+}
+
+.dot-pulse::before, .dot-pulse::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.dot-pulse::before {
+  left: -25px;
+  box-shadow: 9984px 0 0 -5px var(--color);
+  animation: dotPulseBefore 1.5s infinite linear;
+  animation-delay: 0s;
+}
+
+.dot-pulse::after {
+  left: 25px;
+  box-shadow: 10014px 0 0 -5px var(--color);
+  animation: dotPulseAfter 1.5s infinite linear;
+  animation-delay: .5s;
+}
+
+@keyframes dotPulseBefore {
+  0% {
+    box-shadow: 9984px 0 0 -5px var(--color);
+  }
+  30% {
+    box-shadow: 9984px 0 0 2px var(--color);
+  }
+  60%,
+  100% {
+    box-shadow: 9984px 0 0 -5px var(--color);
+  }
+}
+
+@keyframes dotPulse {
+  0% {
+    box-shadow: 9999px 0 0 -5px var(--color);
+  }
+  30% {
+    box-shadow: 9999px 0 0 2px var(--color);
+  }
+  60%,
+  100% {
+    box-shadow: 9999px 0 0 -5px var(--color);
+  }
+}
+
+@keyframes dotPulseAfter {
+  0% {
+    box-shadow: 10014px 0 0 -5px var(--color);
+  }
+  30% {
+    box-shadow: 10014px 0 0 2px var(--color);
+  }
+  60%,
+  100% {
+    box-shadow: 10014px 0 0 -5px var(--color);
+  }
+}
+
+.phrasa-block { 
+  display: flex;
+  align-items: center;
+  max-width: 290px;
+  padding: 10px 13px;
+  margin-top: 53px;
+  background: var(--back-color);
+  color: var(--color);
+  border: 1px solid var(--color);
+  box-sizing: border-box;
+  border-radius: 14px 
+}
+
+.phrasa-block p { 
+  text-align: center;
+}
+

@@ -18,23 +18,37 @@ const NewsWindow = lazy(() => import("./news/ui/NewsWindow"));
 const NewsWindowRoleRead = lazy(() => import("./news/ui/NewsWindowRoleRead"));
 const MainPage = lazy(() => import("./main/ui/MainPage"));
 const NotFound = lazy(() => import("./not-found/ui/NotFound.js"));
-
+const TermsOfUse = lazy(() => import("./legal/TermsOfUse"));
+const PrivacyPolicy = lazy(() => import("./legal/PrivacyPolicy"));
+//fix, убрать disable  после того как компоенты будут готовы, сделано чтобы кнопки в сайдбаре были не активными
 export const routes = [
   { Component: MainPage, path: "/", title: "Главная", icon: <MainIcon /> },
   { Component: NewsWindow, path: "/news", title: "Новости", icon: <NewsIcon /> },
   { Component: StatementPage, path: "/statements", title: "Заявки", icon: <RequestIcon /> },
-  { Component: NotFound, path: "/wishes", title: "Просьбы", icon: <WishIcon /> },
-  { Component: NotFound, path: "/chambers", title: "Палаты", icon: <ChamberIcon /> },
-  { Component: NotFound, path: "/documents", title: "Документы", icon: <DocumentIcon /> },
-  { Component: NotFound, path: "/patients", title: "Пациенты", icon: <PatientsIcon /> },
-  { Component: NotFound, path: "/schedule", title: "График дежурств", icon: <ScheduleIcon /> },
-  { Component: NotFound, path: "/employees", title: "Сотрудники", icon: <EmployeesIcon /> },
-  { Component: NotFound, path: "/about-us", title: "Наша миссия", icon: <MissionIcon /> },
+  { Component: NotFound, path: "/wishes", title: "Просьбы", icon: <WishIcon />, disable: true},
+  { Component: NotFound, path: "/chambers", title: "Палаты", icon: <ChamberIcon />, disable: true },
+  { Component: NotFound, path: "/documents", title: "Документы", icon: <DocumentIcon />, disable: true },
+  { Component: NotFound, path: "/patients", title: "Пациенты", icon: <PatientsIcon />, disable: true },
+  { Component: NotFound, path: "/schedule", title: "График дежурств", icon: <ScheduleIcon />, disable: true },
+  { Component: NotFound, path: "/employees", title: "Сотрудники", icon: <EmployeesIcon />, disable: true},
+  { Component: NotFound, path: "/about-us", title: "Наша миссия", icon: <MissionIcon />, disable: true },
   {
     Component: NewsWindowRoleRead,
     path: "/newsRoleRead",
     title: "Новости Роль Чтение",
     icon: <NewsIcon />,
+  },
+  {
+    Component: TermsOfUse,
+    path: "/terms-of-use",
+    title: "Пользовательское соглашение",
+    icon: <MissionIcon />,
+  },
+  {
+    Component: PrivacyPolicy,
+    path: "/privacy-policy",
+    title: "Политика конфиденциальности",
+    icon: <MissionIcon />,
   },
   { Component: News, path: "/newsEmpty" },
   { Component: Main, path: "/mainEmpty" },

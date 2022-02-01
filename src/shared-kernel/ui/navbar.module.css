@@ -28,6 +28,7 @@
 
 .navbarItem {
   display: flex;
+  align-items: center;
   color: rgb(0, 0, 0, 0.54);
   padding-top: 24px;
   padding-left: 32px;
@@ -69,4 +70,9 @@
   background-color: rgba(250, 250, 250, 1);
   border-right: 1px solid var(--gray);
   box-shadow: 0 5.5px 5px rgba(0, 0, 0, 0.24), 0px 9px 18px rgba(0, 0, 0, 0.18);
+}
+
+.disabled {
+  cursor: default;
+  opacity: .4;
 }
