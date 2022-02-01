@@ -8,20 +8,21 @@ import cn from "classnames";
 const StatementHead = (props) => {
   const { personName, dateNotation, date, personNotation } = props;
   return (
-    <>
-      {props && (
-        <div className={styles.body}>
-          <div className={styles.inner}>
-            <span className={cn(styles.theme, styles.border)}>{personNotation}</span>
-            <p className={styles.text}>{personName}</p>
-          </div>
-          <div className={styles.inner}>
-            <span className={styles.theme}>{dateNotation}</span>
-            <p className={styles.text}>{date && format(fromUnixTime(date), "dd.mm.yyyy")}</p>
-          </div>
+    props && (
+      <div className={styles.body}>
+        <div className={styles.inner}>
+          <span className={cn(styles.theme, styles.border)}>{personNotation}</span>
+          <p className={styles.text}>{personName}</p>
         </div>
-      )}
-    </>
+        <div className={styles.inner}>
+          <span className={styles.theme}>{dateNotation}</span>
+          <p className={styles.text}>
+            {date && format(fromUnixTime(date), "dd.MM.yyyy")}
+            <span className={styles.time}>{date && format(fromUnixTime(date), "HH:mm")}</span>
+          </p>
+        </div>
+      </div>
+    )
   );
 };
 

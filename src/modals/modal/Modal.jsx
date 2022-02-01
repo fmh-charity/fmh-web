@@ -14,7 +14,8 @@ const Modal = ({ children, closeModal }) => {
       }
     };
     document.addEventListener("keydown", handleEsc);
-  }, []);
+    return document.removeEventListener("keydown", handleEsc);
+  }, [closeModal]);
 
   return ReactDOM.createPortal(
     <section className={styles.modal}>

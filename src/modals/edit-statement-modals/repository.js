@@ -5,12 +5,13 @@ export default generateRepository(
   {
     openEdit: false,
     claimData: {
-      planExecuteDate: 0,
+      planExecuteDate: null,
       id: null,
       time: "00:00",
       executorName: "",
       description: "",
       title: "",
+      status: "",
     },
   },
   controller,

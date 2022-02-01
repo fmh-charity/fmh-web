@@ -24,6 +24,7 @@ const createStatementController = {
       console.log("uploadData", data);
 
       await claimsController.getClaims();
+      this.closeModal();
     } catch (error) {
       console.error("error", error);
     }
@@ -38,6 +39,18 @@ const createStatementController = {
           parseISO(`${data.planExecuteDate} ${data.time}`, "yyyy-MM-dd HH:mm"),
         ),
       });
+    } else if (!data.executorName) {
+      this.repo.actions.set("claimData", {
+        ...this.repo.actions.get("claimData"),
+        ...data,
+        status: "OPEN",
+      });
+    } else if (data.executorName) {
+      this.repo.actions.set("claimData", {
+        ...this.repo.actions.get("claimData"),
+        ...data,
+        status: "IN_PROGRESS",
+      });
     } else {
       this.repo.actions.set("claimData", {
         ...this.repo.actions.get("claimData"),
@@ -46,6 +59,16 @@ const createStatementController = {
     }
     console.log("edit", data);
     this.createStatement();
+  },
+
+  async changeStatus(data) {
+    const uploadChanges = {
+      ...this.repo.actions.set("claimData", {
+        ...this.repo.actions.get("claimData"),
+        ...data,
+      }),
+    };
+    await request("PUT", "/claims", uploadChanges);
   },
 
   openModal(claimData) {

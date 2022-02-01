@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import cn from "classnames";
 
 import useRepository from "../repository";
-import useEditRepo from "../../modals/edit-statement-modals/repository";
+import useEditRepository from "../../modals/edit-statement-modals/repository";
 
 import Statement from "../statement/Statement";
 import Modal from "../../modals/modal/Modal";
@@ -16,7 +16,7 @@ import roll_up from "../../assets/Icons/roll_up.svg";
 
 const StatementPage = (props) => {
   const [{ claims }, methods] = useRepository();
-  const [{ openEdit }, editMethods] = useEditRepo();
+  const [{ openEdit }, editMethods] = useEditRepository();
 
   useEffect(() => {
     methods.getClaims();

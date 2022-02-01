@@ -1,10 +1,18 @@
 import React, { useEffect } from "react";
 import styles from "./styles.module.css";
-import { makeStyles } from "@material-ui/core/styles";
-import { Formik, Form } from "formik";
+import { useStyles, theme } from "./muiStyles";
+import { Formik, Form, Field } from "formik";
 import { FormikTextField } from "formik-material-fields";
-import { Button, Dialog, MenuItem } from "@material-ui/core";
+import { Button, Dialog, FormControl, MenuItem, TextField } from "@material-ui/core";
+import { DatePicker, TimePicker } from "formik-material-ui-pickers";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { ThemeProvider } from "@material-ui/core";
+import DateFnsUtils from "@date-io/date-fns";
+import ru from "date-fns/locale/ru";
 import useRepository from "../repository";
+
+import useUsersRepository from "../../../users/repository";
+
 import useUsersRepo from "../../../users/repository";
 import { TimePicker } from "formik-material-ui-pickers";
 
@@ -47,81 +55,115 @@ const useStyles = makeStyles(() => ({
 
 const CreateStatement = () => {
   const classes = useStyles();
-  const [repo, methods] = useRepository();
-  const [{ users }, usersMethods] = useUsersRepo();
+  const [{ claimData, openEdit }, methods] = useRepository();
+  const [{ users }, usersMethods] = useUsersRepository();
 
   useEffect(() => {
-    const users = usersMethods.getUsers();
-    console.log("users", users);
-  }, [usersMethods]);
+    usersMethods.getUsers();
+  }, []);
 
   return (
-    <Dialog open={repo.openEdit} onClose={methods.closeModal}>
+    <Dialog open={openEdit} onClose={methods.closeModal}>
       <Formik
         initialValues={{
-          id: repo.claimData.id,
-          title: repo.claimData.title,
-          description: repo.claimData.description,
-          planExecuteDate: repo.claimData.planExecuteDate,
-          time: repo.claimData.time,
-          executorName: repo.claimData.executorName,
+          id: claimData.id,
+          title: claimData.title,
+          description: claimData.description,
+          planExecuteDate: claimData.planExecuteDate,
+          time: claimData.time,
+          executorName: claimData.executorName,
         }}
         onSubmit={({ ...data }) => {
           methods.editClaimData(data);
         }}>
         {() => (
           <Form className={styles.body}>
-            <FormikTextField
-              label="Тема"
-              size="small"
-              variant="outlined"
-              name="title"
-              value={repo.claimData.title}
-              className={classes.title}
-              required
-            />
-            <div className={classes.params}>
+            <ThemeProvider theme={theme}>
               <FormikTextField
-                label="Исполнитель"
+                label="Тема"
                 size="small"
                 variant="outlined"
-                name="executorName"
-                className={classes.select}
-                select
-                required>
-                {users &&
-                  users.map((user) => (
-                    <MenuItem
-                      key={user.id}
-                      value={`${user.lastName} ${user.firstName[0]}. ${user.middleName[0]}.`}>
-                      {user.lastName} {user.firstName[0]}. {user.middleName[0]}.
+                name="title"
+                value={claimData.title}
+                className={`${classes.title} ${classes.root}`}
+                inputProps={{ maxLength: 50 }}
+                required
+              />
+              <div className={classes.params}>
+                <FormControl>
+                  <FormikTextField
+                    label="Исполнитель"
+                    size="small"
+                    name="executorName"
+                    variant="outlined"
+                    className={`${classes.select} ${classes.root}`}
+                    value={claimData.executorName}
+                    select>
+                    <MenuItem key={""} value={null} disabled>
+                      Исполнитель
                     </MenuItem>
-                  ))}
-              </FormikTextField>
+                    {users &&
+                      users.map((user) => (
+                        <MenuItem
+                          key={user.id}
+                          //value={user.id}
+                          value={`${user.lastName} ${user.firstName[0]}. ${user.middleName[0]}.`}>
+                          {user.lastName} {user.firstName[0]}. {user.middleName[0]}.
+                        </MenuItem>
+                      ))}
+                  </FormikTextField>
+                </FormControl>
+                <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ru}>
+                  <Field
+                    component={DatePicker}
+                    label="Дата"
+                    inputVariant="outlined"
+                    size="small"
+                    name="planExecuteDate"
+                    format="yyyy-MM-dd"
+                    value={claimData.planExecuteDate}
+                    className={`${classes.date} ${classes.root}`}
+                    required
+                  />
+                  <Field
+                    component={TimePicker}
+                    ampm={false}
+                    format="HH:mm"
+                    views={["hours", "minutes"]}
+                    label="Время"
+                    size="small"
+                    inputVariant="outlined"
+                    name="time"
+                    value={claimData.time}
+                    className={`${classes.time} ${classes.root}`}
+                    required
+                  />
+                </MuiPickersUtilsProvider>
+              </div>
               <FormikTextField
-                label="Дата"
-                type="date"
+                label="Описание"
                 size="small"
-                name="planExecuteDate"
                 variant="outlined"
-                value={repo.claimData.planExecuteDate}
-                className={classes.date}
-                InputLabelProps={{
-                  shrink: true,
-                }}
+                name="description"
+                multiline={true}
+                rows={3}
+                value={claimData.description}
+                className={`${classes.description} ${classes.root}`}
+                required
               />
-              <FormikTextField
-                label="Время"
-                size="small"
-                name="time"
-                type="time"
-                variant="outlined"
-                value={repo.claimData.time}
-                className={classes.time}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+              <div className={styles.btnBlock}>
+                <Button className={styles.saveBtn} variant="contained" type="submit">
+                  Сохранить
+                </Button>
+                <Button
+                  className={styles.closeBtn}
+                  variant="outlined"
+                  type="button"
+                  onClick={methods.closeModal}>
+                  Отмена
+                </Button>
+              </div>
+            </ThemeProvider>
             </div>
             <FormikTextField
               label="Описание"
