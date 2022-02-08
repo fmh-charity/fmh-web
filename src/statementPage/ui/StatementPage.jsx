@@ -28,11 +28,12 @@ const StatementPage = (props) => {
         <h1 className={styles.header}>Заявки</h1>
         <div className={styles.block}>
           <img src={infon} alt="" className={styles.icon} />
-          <img src={filter} alt="" className={cn(styles.icon, props.filter)} />
+          <img src={filter} alt="" title="Фильтр" className={cn(styles.icon, props.filter)} />
           <img
             src={add_comment}
             alt=""
             className={styles.icon}
+            title="Создать заявку"
             onClick={() => editMethods.openModal()}
           />
           <img src={roll_up} alt="" className={cn(styles.icon_rollUp, props.rollup)} />

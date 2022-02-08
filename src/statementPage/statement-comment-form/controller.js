@@ -32,11 +32,12 @@ const createEditCommentController = {
       ...this.repo.actions.get("commentData"),
       ...data,
     });
-    console.log("edit", data, claimId);
+    console.log("edit", data);
     this.setComment(claimId);
   },
 
   openCommentModal(commentData) {
+    this.repo.actions.set("openEdit", true);
     if (commentData) {
       this.repo.actions.set("commentData", {
         ...this.repo.actions.get("commentData"),
@@ -45,7 +46,6 @@ const createEditCommentController = {
     } else {
       this.repo.actions.set("commentData", { commentData });
     }
-    this.repo.actions.set("openEdit", true);
   },
 
   closeCommentModal() {

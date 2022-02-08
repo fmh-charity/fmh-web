@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
 
-  height: 56px;
+  min-height: 56px;
   padding-left: 607px;
   padding-right: 25px;
   background-color: var(--main);
@@ -15,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 56px;
+  min-height: 56px;
   padding-left: 351px;
   padding-right: 25px;
   background-color: var(--main);

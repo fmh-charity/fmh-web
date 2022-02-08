@@ -43,9 +43,12 @@ const newsController = {
   },
   async removeRecord(id) {
     try {
-      const { data } = await request('DELETE', `/news/${id}`);
+      await request('DELETE', `/news/${id}`);
 
-      this.repo.actions.set('list', data);
+      this.repo.actions.set(
+        'list', 
+        this.repo.actions.get('list').filter(item => id !== item.id)
+      );
     } catch (error) {
       console.error('error', error);
       this.repo.actions.set('error', 'Smth happeened');

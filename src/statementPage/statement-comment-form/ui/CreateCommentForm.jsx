@@ -3,12 +3,24 @@ import { Button, Dialog } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import { FormikTextField } from "formik-material-fields";
 import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 import useRepository from "../repository";
 import style from "./form.module.css";
 
-const SaveButton = withStyles(() => ({
+const useStyles = makeStyles(() => ({
   root: {
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: "#01a19f",
+    },
+    "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#01a19f",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#01a19f",
+    },
+  },
+  saveButton: {
     boxShadow: "none",
     textTransform: "uppercase",
     alignSelf: "center",
@@ -21,10 +33,11 @@ const SaveButton = withStyles(() => ({
       backgroundColor: "#01A19F",
     },
   },
-}))(Button);
+}));
 
 const CreateCommentForm = ({ claimId }) => {
   const [{ commentData, openEdit }, methods] = useRepository();
+  const classes = useStyles();
 
   return (
     <Dialog open={openEdit} onClose={methods.closeCommentModal}>
@@ -44,11 +57,12 @@ const CreateCommentForm = ({ claimId }) => {
                 size="small"
                 variant="outlined"
                 name="description"
+                className={classes.root}
               />
               <div className={style.btnBlock}>
-                <SaveButton variant="contained" type="submit">
+                <Button className={classes.saveButton} variant="contained" type="submit">
                   Сохранить
-                </SaveButton>
+                </Button>
                 <Button
                   onClick={methods.closeCommentModal}
                   className={style.closeBtn}
