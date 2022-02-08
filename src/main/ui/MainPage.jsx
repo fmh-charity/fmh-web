@@ -7,7 +7,7 @@ import styles from "./main.module.css";
 const MainPage = () => {
   return (
     <div className={styles['main']}>
-      <NewsWindow />
+      <NewsWindow hiddenControls />
       <StatementPage
         rollup={styles.icon_rollup} 
         filter={styles.icon_filter} 
