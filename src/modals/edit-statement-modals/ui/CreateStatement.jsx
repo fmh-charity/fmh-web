@@ -3,55 +3,14 @@ import styles from "./styles.module.css";
 import { useStyles, theme } from "./muiStyles";
 import { Formik, Form, Field } from "formik";
 import { FormikTextField } from "formik-material-fields";
-import { Button, Dialog, FormControl, MenuItem, TextField } from "@material-ui/core";
+import { Button, Dialog, FormControl, MenuItem } from "@material-ui/core";
 import { DatePicker, TimePicker } from "formik-material-ui-pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import ru from "date-fns/locale/ru";
 import useRepository from "../repository";
-
 import useUsersRepository from "../../../users/repository";
-
-import useUsersRepo from "../../../users/repository";
-import { TimePicker } from "formik-material-ui-pickers";
-
-const useStyles = makeStyles(() => ({
-  title: {
-    width: "100%",
-    marginBottom: "10px",
-  },
-  params: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: "10px",
-  },
-  select: {
-    width: "200px",
-  },
-  date: {
-    width: "175px",
-  },
-  time: {
-    width: "161px",
-  },
-  description: {
-    width: "100%",
-  },
-  saveBtn: {
-    boxShadow: "none",
-    textTransform: "uppercase",
-    alignSelf: "center",
-    color: "#fff",
-    width: "120px",
-    height: "30px",
-    fontSize: "12px",
-    backgroundColor: "#01A19F",
-    "&:hover": {
-      backgroundColor: "#01A19F",
-    },
-  },
-}));
 
 const CreateStatement = () => {
   const classes = useStyles();
@@ -61,6 +20,11 @@ const CreateStatement = () => {
   useEffect(() => {
     usersMethods.getUsers();
   }, []);
+
+  const onExecutorChange = () => {
+    const name = document.getElementById("executorName").innerText;
+    methods.editExecutorName(name);
+  };
 
   return (
     <Dialog open={openEdit} onClose={methods.closeModal}>
@@ -72,6 +36,7 @@ const CreateStatement = () => {
           planExecuteDate: claimData.planExecuteDate,
           time: claimData.time,
           executorName: claimData.executorName,
+          executorId: claimData.executorId,
         }}
         onSubmit={({ ...data }) => {
           methods.editClaimData(data);
@@ -94,20 +59,19 @@ const CreateStatement = () => {
                   <FormikTextField
                     label="Исполнитель"
                     size="small"
-                    name="executorName"
+                    name="executorId"
                     variant="outlined"
+                    id="executorName"
+                    onChange={onExecutorChange}
                     className={`${classes.select} ${classes.root}`}
-                    value={claimData.executorName}
+                    value={claimData.executorId}
                     select>
-                    <MenuItem key={""} value={null} disabled>
+                    <MenuItem key={""} value="Не выбран" disabled>
                       Исполнитель
                     </MenuItem>
                     {users &&
                       users.map((user) => (
-                        <MenuItem
-                          key={user.id}
-                          //value={user.id}
-                          value={`${user.lastName} ${user.firstName[0]}. ${user.middleName[0]}.`}>
+                        <MenuItem key={user.id} value={user.id}>
                           {user.lastName} {user.firstName[0]}. {user.middleName[0]}.
                         </MenuItem>
                       ))}
@@ -116,6 +80,7 @@ const CreateStatement = () => {
                 <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ru}>
                   <Field
                     component={DatePicker}
+                    disablePast
                     label="Дата"
                     inputVariant="outlined"
                     size="small"
@@ -123,6 +88,7 @@ const CreateStatement = () => {
                     format="yyyy-MM-dd"
                     value={claimData.planExecuteDate}
                     className={`${classes.date} ${classes.root}`}
+                    onChange={methods.editDate}
                     required
                   />
                   <Field
@@ -136,6 +102,7 @@ const CreateStatement = () => {
                     name="time"
                     value={claimData.time}
                     className={`${classes.time} ${classes.root}`}
+                    onChange={methods.editDate}
                     required
                   />
                 </MuiPickersUtilsProvider>
@@ -151,33 +118,9 @@ const CreateStatement = () => {
                 className={`${classes.description} ${classes.root}`}
                 required
               />
-              <div className={styles.btnBlock}>
-                <Button className={styles.saveBtn} variant="contained" type="submit">
-                  Сохранить
-                </Button>
-                <Button
-                  className={styles.closeBtn}
-                  variant="outlined"
-                  type="button"
-                  onClick={methods.closeModal}>
-                  Отмена
-                </Button>
-              </div>
             </ThemeProvider>
-            </div>
-            <FormikTextField
-              label="Описание"
-              size="small"
-              variant="outlined"
-              name="description"
-              multiline={true}
-              rows={3}
-              value={repo.claimData.description}
-              className={classes.description}
-              required
-            />
             <div className={styles.btnBlock}>
-              <Button className={classes.saveBtn} variant="contained" type="submit">
+              <Button className={classes.saveButton} variant="contained" type="submit">
                 Сохранить
               </Button>
               <Button

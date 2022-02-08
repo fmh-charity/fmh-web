@@ -8,7 +8,6 @@ const commentsController = {
     try {
       const { data } = await request("GET", `/claims/${id}/comments`);
       this.repo.actions.set("comments", data);
-      console.log("comment", data);
     } catch (error) {
       console.log("ERROR", error);
     }

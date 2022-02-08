@@ -30,26 +30,31 @@ const createStatementController = {
     }
   },
 
+  editDate(date) {
+    console.log("Edit Date", date);
+    this.repo.actions.set("claimData", {
+      ...this.repo.actions.get("claimData"),
+      time: new Date(date),
+      planExecuteDate: new Date(date),
+    });
+  },
+
+  editExecutorName(name) {
+    this.repo.actions.set("claimData", {
+      ...this.repo.actions.get("claimData"),
+      executorName: name,
+    });
+  },
+
   editClaimData(data) {
     if (data.time && data.planExecuteDate) {
+      const { planExecuteDate } = this.repo.actions.get("claimData");
+      console.log("plan", planExecuteDate);
       this.repo.actions.set("claimData", {
         ...this.repo.actions.get("claimData"),
         ...data,
-        planExecuteDate: getUnixTime(
-          parseISO(`${data.planExecuteDate} ${data.time}`, "yyyy-MM-dd HH:mm"),
-        ),
-      });
-    } else if (!data.executorName) {
-      this.repo.actions.set("claimData", {
-        ...this.repo.actions.get("claimData"),
-        ...data,
-        status: "OPEN",
-      });
-    } else if (data.executorName) {
-      this.repo.actions.set("claimData", {
-        ...this.repo.actions.get("claimData"),
-        ...data,
-        status: "IN_PROGRESS",
+        planExecuteDate: getUnixTime(planExecuteDate),
+        status: data.executorName ? "IN_PROGRESS" : "OPEN",
       });
     } else {
       this.repo.actions.set("claimData", {
@@ -61,22 +66,14 @@ const createStatementController = {
     this.createStatement();
   },
 
-  async changeStatus(data) {
-    const uploadChanges = {
-      ...this.repo.actions.set("claimData", {
-        ...this.repo.actions.get("claimData"),
-        ...data,
-      }),
-    };
-    await request("PUT", "/claims", uploadChanges);
-  },
-
   openModal(claimData) {
     if (claimData) {
       console.log("edit data", claimData);
       this.repo.actions.set("claimData", {
         ...this.repo.actions.get("claimData"),
         ...claimData,
+        time: new Date(),
+        planExecuteDate: new Date(),
       });
     }
     this.repo.actions.set("openEdit", true);

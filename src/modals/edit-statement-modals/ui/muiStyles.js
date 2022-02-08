@@ -55,4 +55,17 @@ export const useStyles = makeStyles(() => ({
   description: {
     width: "100%",
   },
+  saveButton: {
+    boxShadow: "none",
+    textTransform: "uppercase",
+    alignSelf: "center",
+    color: "#fff",
+    width: "120px",
+    height: "30px",
+    fontSize: "12px",
+    backgroundColor: "#01A19F",
+    "&:hover": {
+      backgroundColor: "#01A19F",
+    },
+  },
 }));

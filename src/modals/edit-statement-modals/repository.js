@@ -5,9 +5,9 @@ export default generateRepository(
   {
     openEdit: false,
     claimData: {
-      planExecuteDate: null,
+      planExecuteDate: new Date(),
       id: null,
-      time: "00:00",
+      time: new Date(),
       executorName: "",
       description: "",
       title: "",

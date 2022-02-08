@@ -14,7 +14,7 @@ import useRepository from "../edit-statement-modals/repository";
 import useCommentRepository from "../../statementPage/statement-comment-form/repository";
 
 import StaffWindow from "./StaffWindow";
-import StatusWindow from "./StatusWindow";
+import StatusWindow from "./edit-status/ui/StatusWindow";
 
 const StatementModals = ({ claim, closeModal }) => {
   const [staffOpen, setStaffOpen] = useState(false);
@@ -30,7 +30,7 @@ const StatementModals = ({ claim, closeModal }) => {
   const toggleStatus = () => {
     setStatusOpen(!statusOpen);
   };
-
+  console.log("claim", claim);
   return (
     claim && (
       <section className={styles.section}>
@@ -82,7 +82,7 @@ const StatementModals = ({ claim, closeModal }) => {
           </div>
           <div className={styles.status_icon}>
             <img src={status_processing} alt="" className={styles.icon} onClick={toggleStatus} />
-            {statusOpen && <StatusWindow claim={claim} changeStatus={methods.changeStatus} />}
+            {statusOpen && <StatusWindow claim={claim} editStatus={methods.editStatus} />}
           </div>
           <img
             src={edit_icon}
