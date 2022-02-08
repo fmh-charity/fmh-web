@@ -14,44 +14,43 @@ import useRepository from "../repository";
 import useUsersRepository from "../../../users/repository";
 
 import useUsersRepo from "../../../users/repository";
-import { TimePicker } from "formik-material-ui-pickers";
 
-const useStyles = makeStyles(() => ({
-  title: {
-    width: "100%",
-    marginBottom: "10px",
-  },
-  params: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginBottom: "10px",
-  },
-  select: {
-    width: "200px",
-  },
-  date: {
-    width: "175px",
-  },
-  time: {
-    width: "161px",
-  },
-  description: {
-    width: "100%",
-  },
-  saveBtn: {
-    boxShadow: "none",
-    textTransform: "uppercase",
-    alignSelf: "center",
-    color: "#fff",
-    width: "120px",
-    height: "30px",
-    fontSize: "12px",
-    backgroundColor: "#01A19F",
-    "&:hover": {
-      backgroundColor: "#01A19F",
-    },
-  },
-}));
+// const useStyles = makeStyles(() => ({
+//   title: {
+//     width: "100%",
+//     marginBottom: "10px",
+//   },
+//   params: {
+//     display: "flex",
+//     justifyContent: "space-between",
+//     marginBottom: "10px",
+//   },
+//   select: {
+//     width: "200px",
+//   },
+//   date: {
+//     width: "175px",
+//   },
+//   time: {
+//     width: "161px",
+//   },
+//   description: {
+//     width: "100%",
+//   },
+//   saveBtn: {
+//     boxShadow: "none",
+//     textTransform: "uppercase",
+//     alignSelf: "center",
+//     color: "#fff",
+//     width: "120px",
+//     height: "30px",
+//     fontSize: "12px",
+//     backgroundColor: "#01A19F",
+//     "&:hover": {
+//       backgroundColor: "#01A19F",
+//     },
+//   },
+// }));
 
 const CreateStatement = () => {
   const classes = useStyles();
@@ -164,30 +163,6 @@ const CreateStatement = () => {
                 </Button>
               </div>
             </ThemeProvider>
-            </div>
-            <FormikTextField
-              label="Описание"
-              size="small"
-              variant="outlined"
-              name="description"
-              multiline={true}
-              rows={3}
-              value={repo.claimData.description}
-              className={classes.description}
-              required
-            />
-            <div className={styles.btnBlock}>
-              <Button className={classes.saveBtn} variant="contained" type="submit">
-                Сохранить
-              </Button>
-              <Button
-                className={styles.closeBtn}
-                variant="outlined"
-                type="button"
-                onClick={methods.closeModal}>
-                Отмена
-              </Button>
-            </div>
           </Form>
         )}
       </Formik>
