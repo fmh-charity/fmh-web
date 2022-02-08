@@ -48,7 +48,7 @@ const iconMap = new Map([
   [8, <img src={iconId8} alt={"test"} />],
 ]);
 
-const AccordionItem = ({ record, publishEnabledIcon }) => {
+const AccordionItem = ({ record, publishEnabledIcon, hiddenControls }) => {
   const [, methods] = useRepository();
   const [, editMethods] = useEditRepository();
 
@@ -83,21 +83,23 @@ const AccordionItem = ({ record, publishEnabledIcon }) => {
         </Box>
         <Box item boxShadow={1} xs={3} className="boxPublic">
           <Typography className="typFloatLeft">{publishEnabledIcon}</Typography>
-          <Typography className="typButtons">
-            <Button 
-              color="black" 
-              className="typButtonsLeft" 
-              onClick={() => methods.removeRecord(record.id)}
-            >
-              <img src={deleteIcon} alt={"test"} />
-            </Button>
-            <Button
-              className="typButtons"
-              color="black"
-              onClick={() => editMethods.openModal(record)}>
-              <img src={reduxIcon} alt={"test"} />
-            </Button>
-          </Typography>
+          {!hiddenControls && (
+            <Typography className="typButtons">
+              <Button 
+                color="black" 
+                className="typButtonsLeft" 
+                onClick={() => methods.removeRecord(record.id)}
+              >
+                <img src={deleteIcon} alt={"test"} />
+              </Button>
+              <Button
+                className="typButtons"
+                color="black"
+                onClick={() => editMethods.openModal(record)}>
+                <img src={reduxIcon} alt={"test"} />
+              </Button>
+            </Typography>
+          )}
         </Box>
         <div className="typText">
           <Typography>{record.description}</Typography>
@@ -107,7 +109,9 @@ const AccordionItem = ({ record, publishEnabledIcon }) => {
   );
 };
 
-const NewsWindow = () => {
+const NewsWindow = ({
+  hiddenControls
+}) => {
   const [repo, methods] = useRepository();
   const [, editMethods] = useEditRepository();
 
@@ -119,21 +123,23 @@ const NewsWindow = () => {
         <Typography variant="h5" component="h3" className="mainTitle">
           Новости
           <div className="typButtonsRight">
-            <Button color="primary" onClick={methods.getNews}>
-              <ReplayIcon color="action" />
-            </Button>
+            {!hiddenControls && <>
+                <Button color="primary" onClick={methods.getNews}>
+                  <ReplayIcon color="action" />
+                </Button>
 
-            <Button color="primary" onClick={methods.sortNews}>
-              <img src={sortIcon} alt={"test"} />
-            </Button>
-            <Button color="primary" onClick={methods.openFilter}>
-              <img src={filterIcon} alt={"test"} />
-            </Button>
-            <Filter />
-            <Button color="primary" onClick={() => editMethods.openModal()}>
-              <img src={addIcon} alt={"test"} />
-            </Button>
-            <EditForm />
+                <Button color="primary" onClick={methods.sortNews}>
+                  <img src={sortIcon} alt={"test"} />
+                </Button>
+                <Button color="primary" onClick={methods.openFilter}>
+                  <img src={filterIcon} alt={"test"} />
+                </Button>
+                <Filter />
+                <Button color="primary" onClick={() => editMethods.openModal()}>
+                  <img src={addIcon} alt={"test"} />
+                </Button>
+                <EditForm />
+            </>}
           </div>
         </Typography>
         <div>{repo.list.map((record) => {
@@ -155,6 +161,7 @@ const NewsWindow = () => {
           return <AccordionItem 
             key={record.id}
             record={record} 
+            hiddenControls={hiddenControls}
             publishEnabledIcon={publishEnabledIcon}
           />
         })}
