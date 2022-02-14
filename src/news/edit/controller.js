@@ -19,11 +19,7 @@ const editController = {
         publishEnabled: true,
       };
 
-      console.log("record", record);
-
       const { data } = await request(record.id ? "PUT" : "POST", "/news", record);
-
-      console.log(data);
 
       this.repo.actions.set("record", {
         createDate: null,
@@ -34,12 +30,13 @@ const editController = {
         title: "",
       });
       await newsController.getNews();
+
+      this.repo.actions.set('openEdit', false);
     } catch (error) {
       console.error("Error: ", error);
     }
   },
   editRecord(data) {
-    console.log("EDIT", data);
     if (data.time && data.createDate) {
       const { time, createDate, ...rest } = data;
 
@@ -58,11 +55,8 @@ const editController = {
     }
 
     const isFormValid = Object.keys(this.repo.actions.get("record")).every((key) => {
-      console.log("check", this.repo.actions.get("record"), this.repo.actions.get("record")[key]);
       return this.repo.actions.get("record")[key];
     });
-
-    console.log("VALID", isFormValid);
 
     if (isFormValid) {
       this.createRecord();
@@ -70,7 +64,6 @@ const editController = {
   },
   openModal(record) {
     if (record) {
-      console.log("record edit", record);
       this.repo.actions.set("record", {
         ...this.repo.actions.get("record"),
         ...record,

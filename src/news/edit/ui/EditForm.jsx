@@ -11,7 +11,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Switch from "@material-ui/core//Switch";
 import { withStyles } from "@material-ui/core/styles";
-import { TimePicker } from "formik-material-ui-pickers";
 import { FormikTextField } from "formik-material-fields";
 
 import useRepository from "../repository";
@@ -93,6 +92,7 @@ export const EditForm = () => {
                 </Select>
               </FormControl>
               <FormikTextField
+                disablePast
                 htmlFor="createDate"
                 id="createDate"
                 label="Дата"
@@ -109,7 +109,6 @@ export const EditForm = () => {
                 }}
               />
               <FormikTextField
-                component={TimePicker}
                 id="time"
                 label="Время"
                 type="time"
