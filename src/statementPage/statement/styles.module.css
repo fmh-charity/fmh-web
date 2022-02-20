@@ -1,7 +1,7 @@
 .section {
   border-style: solid;
   border-color: #868686;
-  border-width: 4px 2px 4px 2px;
+  border-width: 2px;
   width: 284px;
   min-height: 114px;
   display: flex;
@@ -15,6 +15,7 @@
   background: #ffece0;
   width: 100%;
   min-height: 31px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

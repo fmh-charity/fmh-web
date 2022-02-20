@@ -12,7 +12,6 @@ const StatementStatus = ({ claim, editStatus }) => {
 
   const handleReset = async () => {
     await editCommentMethods.openCommentModal();
-
     editStatus({ status: "OPEN", executorName: "" }, claim.id);
   };
 

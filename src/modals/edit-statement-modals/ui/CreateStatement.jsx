@@ -12,45 +12,6 @@ import ru from "date-fns/locale/ru";
 import useRepository from "../repository";
 import useUsersRepository from "../../../users/repository";
 
-import useUsersRepo from "../../../users/repository";
-
-// const useStyles = makeStyles(() => ({
-//   title: {
-//     width: "100%",
-//     marginBottom: "10px",
-//   },
-//   params: {
-//     display: "flex",
-//     justifyContent: "space-between",
-//     marginBottom: "10px",
-//   },
-//   select: {
-//     width: "200px",
-//   },
-//   date: {
-//     width: "175px",
-//   },
-//   time: {
-//     width: "161px",
-//   },
-//   description: {
-//     width: "100%",
-//   },
-//   saveBtn: {
-//     boxShadow: "none",
-//     textTransform: "uppercase",
-//     alignSelf: "center",
-//     color: "#fff",
-//     width: "120px",
-//     height: "30px",
-//     fontSize: "12px",
-//     backgroundColor: "#01A19F",
-//     "&:hover": {
-//       backgroundColor: "#01A19F",
-//     },
-//   },
-// }));
-
 const CreateStatement = () => {
   const classes = useStyles();
   const [{ claimData, openEdit }, methods] = useRepository();

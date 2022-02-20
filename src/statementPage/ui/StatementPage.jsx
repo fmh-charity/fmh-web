@@ -10,12 +10,13 @@ import Modal from "../../modals/modal/Modal";
 import CreateStatement from "../../modals/edit-statement-modals/ui/CreateStatement";
 
 import filter from "../../assets/Icons/filter.png";
-import infon from "../../assets/Icons/infon.png";
+import info from "../../assets/Icons/infon.png";
 import add_comment from "../../assets/Icons/add_comment.svg";
 import roll_up from "../../assets/Icons/roll_up.svg";
+import Filter from "../../modals/statement-modals/filter/Filter";
 
 const StatementPage = (props) => {
-  const [{ claims }, methods] = useRepository();
+  const [{ openFilterModal, claims }, methods] = useRepository();
   const [{ openEdit }, editMethods] = useEditRepository();
 
   useEffect(() => {
@@ -23,12 +24,20 @@ const StatementPage = (props) => {
   }, []);
 
   return (
-    <main className={styles.main}>
+    <section className={styles.main}>
       <div className={styles.head}>
         <h1 className={styles.header}>Заявки</h1>
         <div className={styles.block}>
-          <img src={infon} alt="" className={styles.icon} />
-          <img src={filter} alt="" title="Фильтр" className={cn(styles.icon, props.filter)} />
+          {/* 
+           <img src={info} alt="" className={styles.icon} /> 
+           */}
+          <img
+            src={filter}
+            alt=""
+            title="Фильтр"
+            className={cn(styles.icon, props.filter)}
+            onClick={() => methods.openFilterModal()}
+          />
           <img
             src={add_comment}
             alt=""
@@ -40,17 +49,24 @@ const StatementPage = (props) => {
         </div>
       </div>
       <section className={styles.body}>
-        <p className={styles.all_statement}>все заявки</p>
+        <p className={styles.all_statement} onClick={() => methods.getClaims()}>
+          все заявки
+        </p>
         <div className={styles.wrapper}>
           {claims && claims.map((claim) => <Statement key={claim.id} claim={claim} />)}
         </div>
       </section>
       {openEdit && (
         <Modal closeModal={editMethods.closeModal}>
-          <CreateStatement isOpen={openEdit} closeModal={editMethods.closeModal} />
+          <CreateStatement />
         </Modal>
       )}
-    </main>
+      {openFilterModal && (
+        <Modal closeModal={methods.closeModal}>
+          <Filter />
+        </Modal>
+      )}
+    </section>
   );
 };
 export default StatementPage;

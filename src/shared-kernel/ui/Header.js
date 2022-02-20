@@ -2,15 +2,18 @@ import React from "react";
 
 import AuthIcon from "../../assets/Icons/AuthIcon.svg";
 import Butterfly from "../../assets/Icons/ButterflyIcon.svg";
-import style from "./header.module.css";
+import Logo from "../../assets/logo.png";
+import styles from "./header.module.css";
 
 const Header = ({ menuHidden }) => {
   return (
-    <header className={menuHidden ? `${style.header}` : `${style.menuActive}`}>
-      <h1 className={`${style.heading}`}>В хосписе</h1>
-      <div className={`${style.icons}`}>
-        <img className={`${style.icon}`} src={Butterfly} alt="Бабочка" />
-        <img className={`${style.icon}`} src={AuthIcon} alt="Авторизация" />
+    <header className={menuHidden ? `${styles.header}` : `${styles.menuActive}`}>
+      <div className={styles.heading}>
+        <img className={styles.logo} src={Logo} alt="Logo" />
+      </div>
+      <div className={`${styles.icons}`}>
+        <img className={`${styles.icon}`} src={Butterfly} alt="Бабочка" />
+        <img className={`${styles.icon}`} src={AuthIcon} alt="Авторизация" />
       </div>
     </header>
   );

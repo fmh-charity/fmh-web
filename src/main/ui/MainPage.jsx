@@ -6,14 +6,13 @@ import styles from "./main.module.css";
 
 const MainPage = () => {
   return (
-    <div className={styles['main']}>
-      <NewsWindow hiddenControls />
-      <StatementPage
-        rollup={styles.icon_rollup} 
-        filter={styles.icon_filter} 
-      />
-    </div>
+    <>
+      <div className={styles["main"]}>
+        <NewsWindow hiddenControls />
+      </div>
+      <StatementPage rollup={styles.icon_rollup} filter={styles.icon_filter} />
+    </>
   );
-}
+};
 
 export default MainPage;
