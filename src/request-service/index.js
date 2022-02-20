@@ -2,7 +2,8 @@ import axios from "axios";
 import { getlc, setlc } from "../local-store-service";
 import { setCookie, getCookie } from "../cookie-service";
 
-const BASE_PATH = "https://vhospice.org/api/fmh";
+//const BASE_PATH = "https://vhospice.org/api/fmh";
+const BASE_PATH = "https://test.vhospice.org:8443/api/fmh";
 
 function createAxiosResponseInterceptor() {
   const interceptor = axios.interceptors.response.use(
