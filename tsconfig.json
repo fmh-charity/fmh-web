@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ],
+    "outDir": "./dist",
+    "sourceMap": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "ES5",
+    "jsx": "react",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": ["node_modules/@types", "src/types"],
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*", "webpack.config.ts", "jest.config.ts"]
+    }
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./dist"]
+}
