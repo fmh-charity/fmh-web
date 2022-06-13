@@ -67,13 +67,14 @@ const config: any = (env: any, args: any) => ({
         test: /\.css$/,
         exclude: /\.module\.css$/,
         use: [
-          'css-modules-typescript-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
-              modules: true
-            }
-          }
+              importLoaders: 1,
+            },
+          },
+          "postcss-loader",
         ],
       },
       {

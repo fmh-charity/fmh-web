@@ -6,8 +6,15 @@ import CheckAuth from "./utils/CheckAuth";
 import Login from "./authorization/Login";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/navbar";
+import MainPage from "./pages/mainPage/MainPage";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   const [hidden, setHidden] = React.useState(false);
@@ -29,7 +36,7 @@ const App = () => {
               path="/"
               element={
                 <CheckAuth>
-                  <h1>MainPage</h1>
+                  <MainPage />
                 </CheckAuth>
               }
             />
