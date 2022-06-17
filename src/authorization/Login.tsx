@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import ModalWindow from "src/components/modalWindow/ModalWindow";
+import AP from "../config/ApplicationProperties";
 
 export interface LoginPassword {
   login: string;
@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const mutation = useMutation((loginPassword: LoginPassword) =>
-    fetch("http://localhost:8080/fmh/authentication/login", {
+    fetch(`${AP.PROTOCOL}://${AP.HOST}/fmh/authentication/login`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginPassword),

@@ -27,7 +27,6 @@ const config: any = (env: any, args: any) => ({
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./src/template.html"),
       filename: "index.html",
-      favicon: "./src/favicon.ico",
     }),
     new CopyPlugin({
       patterns: [

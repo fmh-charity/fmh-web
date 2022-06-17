@@ -9,8 +9,6 @@ declare module "*.otf";
 declare module "*.less";
 declare module "*.css";
 declare module "*.svg" {
-  import React, { SVGProps } from "react";
-
-  const content: React.FC<SVGProps<any>>;
+  const content: any;
   export default content;
 }

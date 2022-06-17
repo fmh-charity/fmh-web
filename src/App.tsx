@@ -2,10 +2,10 @@ import * as React from "react";
 import styles from "src/App.module.less";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import CheckAuth from "./utils/CheckAuth";
 import Login from "./authorization/Login";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/navbar";
+import ClaimsPage from "./pages/claims/ClaimsPage";
 import MainPage from "./pages/mainPage/MainPage";
 
 const queryClient = new QueryClient({
@@ -32,14 +32,8 @@ const App = () => {
           <Header menuHidden={hidden} />
           <Navbar menuHidden={hidden} toggleMenu={() => setHidden(!hidden)} />
           <Routes>
-            <Route
-              path="/"
-              element={
-                <CheckAuth>
-                  <MainPage />
-                </CheckAuth>
-              }
-            />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/claims" element={<ClaimsPage />} />
             <Route path="/login" element={<Login />} />
           </Routes>
         </div>
