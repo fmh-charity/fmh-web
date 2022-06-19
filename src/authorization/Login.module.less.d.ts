@@ -2,7 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   'button': string;
-  'navbar': string;
+  'form': string;
+  'grid': string;
+  'input': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

@@ -4,9 +4,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Login from "./authorization/Login";
 import Header from "./components/header/Header";
-import Navbar from "./components/navbar/navbar";
+import Navbar from "./components/navbar/Navbar";
 import ClaimsPage from "./pages/claims/ClaimsPage";
-import MainPage from "./pages/mainPage/MainPage";
+import MainPage from "./pages/main/MainPage";
+import NewsPage from "./pages/news/NewsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,25 +18,24 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const [hidden, setHidden] = React.useState(false);
+  const [hidden, setHidden] = React.useState(true);
 
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <div
-          className={
-            hidden
-              ? `${styles.wrapper} ${styles["base-colors"]}`
-              : `${styles.menuActive} ${styles["base-colors"]}`
-          }
-        >
-          <Header menuHidden={hidden} />
-          <Navbar menuHidden={hidden} toggleMenu={() => setHidden(!hidden)} />
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/claims" element={<ClaimsPage />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
+        <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
+          <Header toggleMenu={() => setHidden(!hidden)} />
+          {hidden && <Navbar toggleMenu={() => setHidden(!hidden)} />}
+          <div className={styles.grid}>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/claims" element={<ClaimsPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/terms-of-use" element={<Login />} />
+              <Route path="/privacy-policy" element={<Login />} />
+            </Routes>
+          </div>
         </div>
       </QueryClientProvider>
     </BrowserRouter>

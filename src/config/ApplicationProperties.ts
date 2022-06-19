@@ -1,11 +1,9 @@
-// enum ApplicationProperties {
-//   HOST = "localhost:8080",
-//   PROTOCOL = "http",
-// }
-
 enum ApplicationProperties {
-  HOST = "test.vhospice.org/api",
-  PROTOCOL = "https",
+  HOST = "http://localhost:8080",
 }
+
+// enum ApplicationProperties {
+//   HOST = "https://test.vhospice.org/api",
+// }
 
 export default ApplicationProperties;

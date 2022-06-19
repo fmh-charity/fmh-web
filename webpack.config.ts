@@ -26,6 +26,7 @@ const config: any = (env: any, args: any) => ({
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./src/template.html"),
+      favicon: "./src/favicon.ico",
       filename: "index.html",
     }),
     new CopyPlugin({
@@ -51,7 +52,7 @@ const config: any = (env: any, args: any) => ({
       },
     ],
     compress: true,
-    port: 3000,
+    port: 3001,
     historyApiFallback: true,
   },
   devtool: args?.mode === "production" ? false : "source-map",
@@ -65,16 +66,7 @@ const config: any = (env: any, args: any) => ({
       {
         test: /\.css$/,
         exclude: /\.module\.css$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 1,
-            },
-          },
-          "postcss-loader",
-        ],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.module\.css$/,

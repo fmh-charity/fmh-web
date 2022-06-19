@@ -15,17 +15,11 @@
   justify-content: space-between;
   align-items: center;
   min-height: 56px;
-  padding-left: 101px;
-  padding-right: 25px;
+  padding-left: 32px;
+  padding-right: 32px;
   background-color: var(--main);
   color: var(--white);
   transition-duration: 300ms;
-}
-
-.hidding {
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 .logo {
@@ -34,14 +28,11 @@
 }
 
 .icons {
-  display: flex;
-  margin-right: 30px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 16px;
 }
 
-.icons img:first-child {
-  margin-right: 30px;
-}
-
-.icon {
+.button {
   cursor: pointer;
 }

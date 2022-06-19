@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'base-colors': string;
+  'grid': string;
   'menuActive': string;
   'wrapper': string;
 }
