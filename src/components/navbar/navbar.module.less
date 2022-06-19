@@ -1,19 +1,39 @@
 .navbar {
   position: fixed;
+  display: grid;
+  grid-template-rows: max-content 1fr;
   top: 0;
   bottom: 0;
   left: 0;
-  display: flex;
-  flex-direction: column;
   width: 256px;
   background-color: rgba(250, 250, 250, 1);
-  border-right: 1px solid var(--gray);
   box-shadow: 0 5.5px 5px rgba(0, 0, 0, 0.24), 0px 9px 18px rgba(0, 0, 0, 0.18);
-  transform: translateX(0);
 }
 
-.button {
+.header {
+  display: grid;
+  height: 56px;
+  background-color: #01a19f;
+  justify-items: end;
+  align-items: center;
+}
+
+.header_button {
+  display: inline-block;
+  margin-right: 16px;
   cursor: pointer;
-  background-color: black;
-  color: black;
+}
+
+.navbar_links {
+  margin: 32px 32px;
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 16px;
+  align-content: flex-start;
+}
+
+.navbar_link {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 16px;
 }

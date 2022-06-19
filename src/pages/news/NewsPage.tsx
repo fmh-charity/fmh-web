@@ -7,6 +7,7 @@ import InfoIcon from "src/assets/icons/info.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import News from "./components/NewsCard/NewsCard";
 import styles from "./News.module.less";
+import { useGetNewsQuery } from "src/app/api/newsApi";
 
 export interface INews {
   createDate: number;
@@ -21,7 +22,7 @@ export interface INews {
 }
 
 const NewsPage = () => {
-  const { isLoading, error, items } = useFetching<INews>("News", "/fmh/news");
+  const { data, isLoading } = useGetNewsQuery("");
 
   return (
     <div className={styles.news_root}>
@@ -38,7 +39,7 @@ const NewsPage = () => {
         <Loader />
       ) : (
         <div className={styles.news_body}>
-          {items.map((news) => (
+          {data?.map((news) => (
             <News
               key={news.id}
               id={news.id}

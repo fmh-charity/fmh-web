@@ -17,29 +17,25 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => {
-  const [hidden, setHidden] = React.useState(true);
-
-  return (
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
-          <Header toggleMenu={() => setHidden(!hidden)} />
-          {hidden && <Navbar toggleMenu={() => setHidden(!hidden)} />}
-          <div className={styles.grid}>
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/news" element={<NewsPage />} />
-              <Route path="/claims" element={<ClaimsPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/terms-of-use" element={<Login />} />
-              <Route path="/privacy-policy" element={<Login />} />
-            </Routes>
-          </div>
+const App = () => (
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
+        <Header />
+        <Navbar />
+        <div className={styles.grid}>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/claims" element={<ClaimsPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/terms-of-use" element={<Login />} />
+            <Route path="/privacy-policy" element={<Login />} />
+          </Routes>
         </div>
-      </QueryClientProvider>
-    </BrowserRouter>
-  );
-};
+      </div>
+    </QueryClientProvider>
+  </BrowserRouter>
+);
 
 export default App;
