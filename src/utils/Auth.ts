@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
-export interface IAuth {
+export interface Authorization {
   accessToken: string;
+  refreshToken: string;
 }
 
 class Auth {
-  static checkAuth(): IAuth | null {
+  static checkAuth(): Authorization | null {
     const auth = localStorage.getItem("authorization");
     const navigate = useNavigate();
 

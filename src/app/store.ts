@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import navbarReducer from "src/features/navbar/navbarSlice";
+import { claimsApi } from "src/services/api/claimsApi";
 import { newsApi } from "../services/api/newsApi";
 
 export const store = configureStore({
   reducer: {
     navbar: navbarReducer,
     [newsApi.reducerPath]: newsApi.reducer,
+    [claimsApi.reducerPath]: claimsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(newsApi.middleware),

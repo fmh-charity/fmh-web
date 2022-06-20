@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { INews } from "src/pages/news/NewsPage";
 import AP from "src/config/ApplicationProperties";
+import { IClaims } from "src/pages/claims/ClaimsPage";
 import { Authorization } from "src/utils/Auth";
 
 // TODO Check auth
-export const newsApi = createApi({
-  reducerPath: "newsApi",
+export const claimsApi = createApi({
+  reducerPath: "claimsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${AP.HOST}/fmh/`,
     prepareHeaders: (headers) => {
@@ -18,10 +18,10 @@ export const newsApi = createApi({
   }),
 
   endpoints: (builder) => ({
-    getNews: builder.query<INews[], string>({
-      query: () => "news",
+    getClaims: builder.query<IClaims[], string>({
+      query: () => "claims",
     }),
   }),
 });
 
-export const { useGetNewsQuery } = newsApi;
+export const { useGetClaimsQuery } = claimsApi;

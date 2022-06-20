@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "src/components/card/Card";
 import Loader from "src/components/loader/Loader";
-import useFetching from "src/hooks/useFetching";
+import { useGetClaimsQuery } from "src/services/api/claimsApi";
 
 export interface IClaims {
   createDate: string;
@@ -18,18 +18,14 @@ export interface IClaims {
 }
 
 const ClaimsPage = () => {
-  const { isLoading, error, items } = useFetching<IClaims>(
-    "Claims",
-    "/fmh/claims"
-  );
+  const { data, isLoading } = useGetClaimsQuery("");
 
   return (
     <div>
-      {error ? `<h1>${error}</h1>` : <h1>Claims</h1>}
       {isLoading ? (
         <Loader />
       ) : (
-        items.map((claim) => (
+        data?.map((claim) => (
           <Card
             key={claim.id}
             title={claim.title}
