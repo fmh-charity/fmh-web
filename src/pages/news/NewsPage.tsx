@@ -1,13 +1,12 @@
 import React from "react";
 import Loader from "src/components/loader/Loader";
-import useFetching from "src/hooks/useFetching";
 import EditIcon from "src/assets/icons/edit_icon.svg";
 import FilterIcon from "src/assets/icons/filter.svg";
 import InfoIcon from "src/assets/icons/info.svg";
 import SortIcon from "src/assets/icons/sort.svg";
+import { useGetNewsQuery } from "src/services/api/newsApi";
 import News from "./components/NewsCard/NewsCard";
 import styles from "./News.module.less";
-import { useGetNewsQuery } from "src/app/api/newsApi";
 
 export interface INews {
   createDate: number;

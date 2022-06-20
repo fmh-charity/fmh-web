@@ -1,6 +1,6 @@
 import React from "react";
 import BurgerMenuIcon from "src/assets/icons/for-header/burger.svg";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "src/app/hooks";
 import { toggle } from "src/features/navbar/navbarSlice";
 import { RootState } from "src/app/store";
 import styles from "./navbar.module.less";
@@ -10,8 +10,10 @@ import NewsIcon from "../../assets/icons/NewsIcon.svg";
 import NavbarLink from "./components/NavbarLink";
 
 const Navbar = () => {
-  const menuActive = useSelector((state: RootState) => state.navbar.menuActive);
-  const dispatch = useDispatch();
+  const menuActive = useAppSelector(
+    (state: RootState) => state.navbar.menuActive
+  );
+  const dispatch = useAppDispatch();
 
   return menuActive ? null : (
     <div className={styles.navbar}>
