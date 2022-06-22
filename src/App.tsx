@@ -8,6 +8,8 @@ import Navbar from "./components/navbar/Navbar";
 import ClaimsPage from "./pages/claims/ClaimsPage";
 import MainPage from "./pages/main/MainPage";
 import NewsPage from "./pages/news/NewsPage";
+import AddNews from "./pages/news/components/addNews/AddNews";
+import TermseOfUse from "./pages/TermseOfUse";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,16 +25,15 @@ const App = () => (
       <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
         <Header />
         <Navbar />
-        <div className={styles.grid}>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/news" element={<NewsPage />} />
-            <Route path="/claims" element={<ClaimsPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/terms-of-use" element={<Login />} />
-            <Route path="/privacy-policy" element={<Login />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/add-news" element={<AddNews />} />
+          <Route path="/claims" element={<ClaimsPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/terms-of-use" element={<TermseOfUse />} />
+          <Route path="/privacy-policy" element={<Login />} />
+        </Routes>
       </div>
     </QueryClientProvider>
   </BrowserRouter>

@@ -1,10 +1,11 @@
 import React from "react";
 import Loader from "src/components/loader/Loader";
-import EditIcon from "src/assets/icons/edit_icon.svg";
 import FilterIcon from "src/assets/icons/filter.svg";
 import InfoIcon from "src/assets/icons/info.svg";
+import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import { useGetNewsQuery } from "src/services/api/newsApi";
+import { Link } from "react-router-dom";
 import News from "./components/NewsCard/NewsCard";
 import styles from "./News.module.less";
 
@@ -28,7 +29,9 @@ const NewsPage = () => {
       <header className={styles.header_news}>
         <div className={styles.header_title}>Новости</div>
         <div className={styles.header_icons}>
-          <EditIcon />
+          <Link to="/add-news">
+            <AddIcon />
+          </Link>
           <FilterIcon />
           <SortIcon />
           <InfoIcon />

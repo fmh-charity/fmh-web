@@ -1,30 +1,8 @@
 .wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: url(./assets/images/background.jpg);
-  background-size: contain;
-  height: 100vh;
-  padding-left: 0;
-  transition-duration: 300ms;
-}
-
-.menuActive {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: url(./assets/images/background.jpg);
-  background-size: contain;
-  overflow-x: hidden;
-  height: 100vh;
-  padding-left: 256px;
-  transition-duration: 300ms;
-}
-
-.grid {
   display: grid;
-  width: 100%;
-  min-height: 100%;
+  grid-template-rows: max-content 1fr;
+  height: 100%;
+  background: url(./assets/images/background.jpg);
 }
 
 .base-colors {
