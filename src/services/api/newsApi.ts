@@ -1,18 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { INews } from "src/pages/news/NewsPage";
-import AP from "src/config/ApplicationProperties";
-import { Authorization } from "src/utils/Auth";
+import { environment } from "src/common/environment";
+import { RootState } from "src/app/store";
 
-// TODO Check auth
 export const newsApi = createApi({
   reducerPath: "newsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${AP.HOST}/fmh/`,
-    prepareHeaders: (headers) => {
-      const response: string | null = localStorage.getItem("authorization");
-      const auth: Authorization = response !== null ? JSON.parse(response) : "";
+    baseUrl: `${environment.API_HOST}:${environment.API_PORT}/fmh/`,
+    prepareHeaders: (headers, { getState }) => {
+      const { accessToken } = (getState() as RootState).auth;
 
-      headers.set("authorization", auth.accessToken);
+      headers.set("authorization", accessToken);
       return headers;
     },
   }),

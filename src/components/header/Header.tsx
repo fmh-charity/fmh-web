@@ -5,6 +5,7 @@ import Butterfly from "src/assets/icons/for-header/ButterflyIcon.svg";
 import AuthIcon from "src/assets/icons/for-header/AuthIcon.svg";
 import { toggle } from "src/features/navbar/navbarSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import styles from "./header.module.less";
 
 const Header = () => {
@@ -24,9 +25,9 @@ const Header = () => {
       <img className={styles.logo} src={Logo} alt="Logo" />
       <div className={styles.icons}>
         <Butterfly />
-        <a href="/login">
+        <Link to="/login">
           <AuthIcon />
-        </a>
+        </Link>
       </div>
     </header>
   );

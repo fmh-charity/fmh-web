@@ -19,7 +19,6 @@ const AddNews = () => (
           <input type="time" />
         </div>
       </div>
-      <input type="text" className={styles.news_name} placeholder="name" />
       <textarea className={styles.news_description} />
       <div className={styles.news_activity}>
         <span>Не активна</span>

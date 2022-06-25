@@ -8,6 +8,9 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       API_HOST: undefined | string;
+      API_PORT: undefined | number;
+      API_SEED: undefined | string;
     }
   }
 }
+

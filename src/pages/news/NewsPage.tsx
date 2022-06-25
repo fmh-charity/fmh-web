@@ -21,8 +21,8 @@ export interface INews {
   title: string;
 }
 
-const NewsPage = () => {
-  const { data, isLoading } = useGetNewsQuery("");
+const NewsPage = (): any => {
+  const { isLoading, data } = useGetNewsQuery("");
 
   return (
     <div className={styles.news_root}>

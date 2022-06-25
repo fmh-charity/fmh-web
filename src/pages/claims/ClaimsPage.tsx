@@ -18,7 +18,7 @@ export interface IClaims {
 }
 
 const ClaimsPage = () => {
-  const { data, isLoading } = useGetClaimsQuery("");
+  const { isLoading, data } = useGetClaimsQuery("");
 
   return (
     <div>
