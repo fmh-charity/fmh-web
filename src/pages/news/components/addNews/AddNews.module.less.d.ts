@@ -6,6 +6,8 @@ interface CssExports {
   'header_news': string;
   'header_title': string;
   'news_activity': string;
+  'news_add__button': string;
+  'news_add__button_save': string;
   'news_category': string;
   'news_cb': string;
   'news_controls': string;

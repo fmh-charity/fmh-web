@@ -11,6 +11,14 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface UserInfoResponse {
+  admin: boolean;
+  firstName: string;
+  id: number;
+  lastName: string;
+  middleName: string;
+}
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${environment.API_HOST}:${environment.API_PORT}/fmh/authentication/`,
@@ -32,7 +40,11 @@ export const api = createApi({
         }
       },
     }),
+    userInfo: builder.query<UserInfoResponse, null>({
+      query: () => "userInfo",
+    }),
   }),
 });
 
 export const { useLoginMutation } = api;
+export const { useLazyUserInfoQuery, useUserInfoQuery } = api;

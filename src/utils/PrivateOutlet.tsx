@@ -6,11 +6,9 @@ export const PrivateOutlet = () => {
   const auth = useAuth();
   const location = useLocation();
 
-  console.log(location.pathname);
-
   return auth.user ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" state={{ from: location }} />
+    <Navigate to="/login" state={{ from: location.pathname }} />
   );
 };

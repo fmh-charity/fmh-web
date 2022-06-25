@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import React, { KeyboardEvent, useState } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "src/hooks/useAuth";
-import { useLoginMutation } from "src/services/api/authApi";
+import {
+  useLazyUserInfoQuery,
+  useLoginMutation,
+} from "src/services/api/authApi";
 import styles from "./Login.module.less";
 
 const Login = () => {
@@ -9,6 +12,29 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [login, { isLoading }] = useLoginMutation();
+  const [trigger] = useLazyUserInfoQuery();
+  const location = useLocation();
+  const navigate = useNavigate();
+  let { from: path } = (location.state as { from: string }) || {};
+
+  if (path) {
+    path = path.includes("login") ? "/" : path;
+  } else {
+    path = "/";
+  }
+  const keyPressSubmit = (e: KeyboardEvent) =>
+    e.key === "Enter" && setTimeout(onSubmit, 0);
+
+  async function onSubmit() {
+    try {
+      await login({ login: userName, password }).unwrap();
+      await trigger(null);
+      console.log(trigger);
+      navigate(`${path}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return !auth.user ? (
     <div className={styles.grid}>
@@ -17,33 +43,28 @@ const Login = () => {
           className={styles.input}
           type="text"
           onChange={(e) => setUserName(e.target.value)}
+          onKeyDown={keyPressSubmit}
           maxLength={25}
         />
         <input
           className={styles.input}
           type="password"
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={keyPressSubmit}
           maxLength={25}
         />
         <button
           disabled={isLoading}
           className={styles.button}
           type="button"
-          onClick={async () => {
-            try {
-              await login({ login: userName, password }).unwrap();
-              // navigate("/");
-            } catch (err) {
-              console.log(err);
-            }
-          }}
+          onClick={onSubmit}
         >
           Войти
         </button>
       </form>
     </div>
   ) : (
-    <Navigate to="/" />
+    <Navigate to={path} />
   );
 };
 

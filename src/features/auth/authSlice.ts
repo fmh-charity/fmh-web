@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useLocation } from "react-router-dom";
-import { useAuth } from "src/hooks/useAuth";
 import { api } from "src/services/api/authApi";
 import type { RootState } from "../../app/store";
 
