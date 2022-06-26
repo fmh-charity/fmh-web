@@ -12,7 +12,7 @@ const NavbarLink = ({
   url: string;
 }) => (
   <Link to={url} className={styles.navbar_link}>
-    <span>{icon}</span>
+    <span className={styles.navbar_icon}>{icon}</span>
     <span>{title}</span>
   </Link>
 );

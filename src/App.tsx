@@ -8,7 +8,8 @@ import ClaimsPage from "src/pages/claims/ClaimsPage";
 import MainPage from "src/pages/main/MainPage";
 import NewsPage from "src/pages/news/NewsPage";
 import AddNews from "src/pages/news/components/addNews/AddNews";
-import TermseOfUse from "src/pages/TermseOfUse";
+import TermsOfUse from "src/pages/legal/TermsOfUse";
+import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import { PrivateOutlet } from "src/utils/PrivateOutlet";
 
 const App = () => (
@@ -23,8 +24,8 @@ const App = () => (
           <Route path="/news" element={<NewsPage />} />
           <Route path="/add-news" element={<AddNews />} />
           <Route path="/claims" element={<ClaimsPage />} />
-          <Route path="/terms-of-use" element={<TermseOfUse />} />
-          <Route path="/privacy-policy" element={<Login />} />
+          <Route path="/terms-of-use" element={<TermsOfUse />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Route>
       </Routes>
     </div>

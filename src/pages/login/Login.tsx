@@ -12,7 +12,7 @@ const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [login, { isLoading }] = useLoginMutation();
-  const [trigger] = useLazyUserInfoQuery();
+  const [getUserInfo] = useLazyUserInfoQuery();
   const location = useLocation();
   const navigate = useNavigate();
   let { from: path } = (location.state as { from: string }) || {};
@@ -28,8 +28,7 @@ const Login = () => {
   async function onSubmit() {
     try {
       await login({ login: userName, password }).unwrap();
-      await trigger(null);
-      console.log(trigger);
+      await getUserInfo();
       navigate(`${path}`);
     } catch (err) {
       console.log(err);

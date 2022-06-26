@@ -6,7 +6,7 @@ import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import { useGetNewsQuery } from "src/services/api/newsApi";
 import { Link } from "react-router-dom";
-import News from "./components/NewsCard/NewsCard";
+import NewsCard from "./components/NewsCard/NewsCard";
 import styles from "./News.module.less";
 
 export interface INews {
@@ -22,7 +22,7 @@ export interface INews {
 }
 
 const NewsPage = (): any => {
-  const { isLoading, data } = useGetNewsQuery("");
+  const { isLoading, data } = useGetNewsQuery();
 
   return (
     <div className={styles.news_root}>
@@ -42,7 +42,7 @@ const NewsPage = (): any => {
       ) : (
         <div className={styles.news_body}>
           {data?.map((news) => (
-            <News
+            <NewsCard
               key={news.id}
               id={news.id}
               title={news.title}

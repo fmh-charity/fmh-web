@@ -16,7 +16,7 @@ export const claimsApi = createApi({
   }),
 
   endpoints: (builder) => ({
-    getClaims: builder.query<IClaims[], string>({
+    getClaims: builder.query<IClaims[], void>({
       query: () => "claims",
     }),
   }),
