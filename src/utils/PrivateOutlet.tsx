@@ -6,7 +6,7 @@ export const PrivateOutlet = () => {
   const auth = useAuth();
   const location = useLocation();
 
-  return auth.user ? (
+  return auth.userInfo ? (
     <Outlet />
   ) : (
     <Navigate to="/login" state={{ from: location.pathname }} />

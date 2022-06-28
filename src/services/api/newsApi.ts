@@ -21,10 +21,22 @@ export const newsApi = createApi({
       query: () => "news",
       providesTags: ["INews"],
     }),
+    getNewsById: builder.query<INews, string>({
+      query: (id) => `news/${id}`,
+      providesTags: ["INews"],
+    }),
     addNews: builder.mutation<NewsPost, NewsPost>({
       query: (body) => ({
         url: "news",
         method: "POST",
+        body,
+      }),
+      invalidatesTags: ["INews"],
+    }),
+    editNews: builder.mutation<boolean, INews>({
+      query: (body) => ({
+        url: "news",
+        method: "PUT",
         body,
       }),
       invalidatesTags: ["INews"],
@@ -39,5 +51,11 @@ export const newsApi = createApi({
   }),
 });
 
-export const { useGetNewsQuery, useAddNewsMutation, useDeleteNewsMutation } =
-  newsApi;
+export const {
+  useGetNewsQuery,
+  useAddNewsMutation,
+  useDeleteNewsMutation,
+  useGetNewsByIdQuery,
+  useLazyGetNewsByIdQuery,
+  useEditNewsMutation,
+} = newsApi;

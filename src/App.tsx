@@ -11,23 +11,30 @@ import AddNews from "src/pages/news/components/addNews/AddNews";
 import TermsOfUse from "src/pages/legal/TermsOfUse";
 import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import { PrivateOutlet } from "src/utils/PrivateOutlet";
+import NewsOutlet from "./pages/news/NewsOutlet";
+import EditNews from "./pages/news/components/editNews/EditNews";
 
 const App = () => (
   <BrowserRouter>
     <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
-      <Header />
       <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<PrivateOutlet />}>
-          <Route path="/main-page" element={<MainPage />} />
-          <Route path="/news" element={<NewsPage />} />
-          <Route path="/add-news" element={<AddNews />} />
-          <Route path="/claims" element={<ClaimsPage />} />
-          <Route path="/terms-of-use" element={<TermsOfUse />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        </Route>
-      </Routes>
+      <div className={`${styles.container}`}>
+        <Header />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<PrivateOutlet />}>
+            <Route path="/main-page" element={<MainPage />} />
+            <Route path="/news" element={<NewsOutlet />}>
+              <Route index element={<NewsPage />} />
+              <Route path="add" element={<AddNews />} />
+              <Route path="edit/:id" element={<EditNews />} />
+            </Route>
+            <Route path="/claims" element={<ClaimsPage />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          </Route>
+        </Routes>
+      </div>
     </div>
   </BrowserRouter>
 );

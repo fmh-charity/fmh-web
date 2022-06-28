@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'base-colors': string;
+  'container': string;
   'wrapper': string;
 }
 export const cssExports: CssExports;

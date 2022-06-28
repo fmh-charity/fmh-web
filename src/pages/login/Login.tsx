@@ -35,7 +35,7 @@ const Login = () => {
     }
   }
 
-  return !auth.user ? (
+  return !auth.userInfo ? (
     <div className={styles.grid}>
       <form className={styles.form}>
         <input

@@ -6,6 +6,7 @@ import EditIcon from "src/assets/icons/edit_icon.svg";
 import { categories } from "src/common/categories";
 import { INews } from "src/pages/news/NewsPage";
 import { useDeleteNewsMutation } from "src/services/api/newsApi";
+import { Link } from "react-router-dom";
 import styles from "./NewsCard.module.less";
 
 const News: FC<INews> = ({
@@ -14,8 +15,16 @@ const News: FC<INews> = ({
   description,
   newsCategoryId,
   publishDate,
+  createDate,
 }) => {
   const [delNewsMutation] = useDeleteNewsMutation();
+
+  const delNews = () => {
+    const del = confirm("Вы уверены что хотите удалить новость?");
+    if (del) {
+      delNewsMutation(id);
+    }
+  };
 
   return (
     <div className={styles.news_card}>
@@ -23,18 +32,24 @@ const News: FC<INews> = ({
         <div>{categories[newsCategoryId - 1]?.img}</div>
         <div className={styles.news_card_head_title}>{title}</div>
         <div className={styles.news_card_head_date}>
-          {format(fromUnixTime(publishDate), "dd.MM.yyyy")}
+          Публикация: {format(publishDate, "dd.MM.yyyy")}
+        </div>
+        <div className={styles.news_card_head_date}>|</div>
+        <div className={styles.news_card_head_date}>
+          Создание: {format(createDate, "dd.MM.yyyy")}
         </div>
       </div>
       <div className={styles.news_card_content}>
         <span>{description}</span>
       </div>
       <div className={styles.news_card_footer}>
-        <EditIcon />
+        <Link to={`/news/edit/${id}`}>
+          <EditIcon />
+        </Link>
         <img
           src={deleteIcon}
           alt="delete cion"
-          onClick={() => delNewsMutation(id)}
+          onClick={() => delNews()}
           role="presentation"
         />
       </div>

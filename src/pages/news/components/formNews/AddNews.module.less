@@ -1,0 +1,125 @@
+@media (max-width: 550px) {
+  .add_news__form {
+    width: 100%;
+    height: max-content;
+  }
+}
+
+.add_news__conatainer {
+  display: grid;
+	grid-template-rows: max-content 1fr;
+	grid-template-columns: 1fr;
+	grid-row-gap: 50px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.header_news {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  background-color: #EAEAEA;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+}
+
+.header_title {
+  display: grid;
+  padding: 0 16px;
+  height: 32px;
+  background-color: #D1FFFE;
+  font-size: 20px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.news_form {
+	display: grid;
+	grid-template-rows: 48px 48px max-content 1fr max-content;
+	grid-row-gap: 16px;
+	width: 550px;
+	border-radius: 8px;
+	justify-self: center;
+  background-color: white;
+  border-bottom: 2px #01a19f;
+  box-shadow: 0 2px 5px #01a19f;
+	padding: 16px 16px 32px 16px;
+}
+
+.news_create {
+	display: grid;
+	border: 2px solid lightgrey;
+	padding: 8px 8px;
+	border-radius: 8px;
+}
+
+.news_category:extend(.news_create) {
+}
+
+.news_date {
+	display: grid;
+	input:extend(.news_create) {
+		display: block;
+	}
+}
+
+.news_time {
+	display: grid;
+	input:extend(.news_create) {
+		display: block;
+	}
+}
+
+.news_name:extend(.news_create) {
+}
+
+.news_description:extend(.news_create) {
+	min-height: 100px;
+	font-size: large;
+}
+
+.news_cb:extend(.news_create) {
+	justify-self: center;
+}
+
+.news_row {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 16px;
+}
+
+.news_controls {
+	display: grid;
+	justify-content: center;
+	white-space: nowrap;
+	grid-template-columns: max-content max-content;
+	grid-column-gap: 16px;
+}
+
+.news_activity {
+	display: grid;
+	grid-template-columns: max-content max-content;
+	grid-column-gap: 16px;
+	justify-content: center;
+}
+
+.news_add__button {
+	display: grid;
+	height: 32px;
+	width: 128px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	border: 2px solid lightgrey;
+	background-color: white;
+	font-size: small;
+}
+
+.news_add__button_save {
+	background-color: #01a19f;
+	color: white;
+	border: none;
+}
+
