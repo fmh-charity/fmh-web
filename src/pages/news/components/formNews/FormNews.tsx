@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { categories } from "src/common/categories";
 import { selectUserInfo } from "src/features/auth/authSlice";
 import { INews } from "src/pages/news/NewsPage";
-import styles from "./AddNews.module.less";
+import styles from "./FormNews.module.less";
 
 const FormNews = ({
   news,
