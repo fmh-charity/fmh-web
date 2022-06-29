@@ -5,7 +5,13 @@ import {
   useLazyUserInfoQuery,
   useLoginMutation,
 } from "src/services/api/authApi";
+import { object, string } from "yup";
 import styles from "./Login.module.less";
+
+const userSchema = object({
+  userName: string().required().min(3),
+  password: string().required().min(5),
+});
 
 const Login = () => {
   const auth = useAuth();
@@ -22,17 +28,23 @@ const Login = () => {
   } else {
     path = "/";
   }
+
   const keyPressSubmit = (e: KeyboardEvent) =>
     e.key === "Enter" && setTimeout(onSubmit, 0);
 
   async function onSubmit() {
-    try {
-      await login({ login: userName, password }).unwrap();
-      await getUserInfo();
-      navigate(`${path}`);
-    } catch (err) {
-      console.log(err);
-    }
+    await userSchema
+      .validate({ userName, password }, { abortEarly: false })
+      .then(async () => {
+        try {
+          await login({ login: userName, password }).unwrap();
+          await getUserInfo();
+          navigate(`${path}`);
+        } catch (err) {
+          console.log(err);
+        }
+      })
+      .catch((e) => alert(e.errors.join("\n\r")));
   }
 
   return !auth.userInfo ? (

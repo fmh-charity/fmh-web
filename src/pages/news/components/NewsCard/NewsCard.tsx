@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import format from "date-fns/format";
-import fromUnixTime from "date-fns/fromUnixTime";
 import deleteIcon from "src/assets/icons/delete.png";
 import EditIcon from "src/assets/icons/edit_icon.svg";
 import { categories } from "src/common/categories";
@@ -18,7 +17,6 @@ const News: FC<INews> = ({
   createDate,
 }) => {
   const [delNewsMutation] = useDeleteNewsMutation();
-
   const delNews = () => {
     const del = confirm("Вы уверены что хотите удалить новость?");
     if (del) {

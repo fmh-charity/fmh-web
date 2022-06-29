@@ -1,6 +1,5 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { RootState } from "src/app/store";
-import { environment } from "src/common/environment";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 
 export interface UserResponse {
   accessToken: string;
@@ -22,19 +21,11 @@ export interface UserInfoResponse {
 }
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${environment.API_HOST}:${environment.API_PORT}/fmh/authentication/`,
-    prepareHeaders: (headers, { getState }) => {
-      const { accessToken } = (getState() as RootState).auth;
-
-      headers.set("authorization", accessToken);
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
     login: builder.mutation<UserResponse, LoginRequest>({
       query: (credentials) => ({
-        url: "login",
+        url: "authentication/login",
         method: "POST",
         body: credentials,
       }),
@@ -49,7 +40,7 @@ export const api = createApi({
       },
     }),
     userInfo: builder.query<UserInfoResponse, void>({
-      query: () => "userInfo",
+      query: () => "authentication/userInfo",
 
       async onQueryStarted(_, { queryFulfilled }) {
         try {
