@@ -1,5 +1,4 @@
 import React from "react";
-// import BurgerMenuIcon from "src/assets/icons/for-header/burger.svg";
 import Logo from "src/assets/icons/for-header/logo.png";
 import Butterfly from "src/assets/icons/for-header/ButterflyIcon.svg";
 import AuthIcon from "src/assets/icons/for-header/AuthIcon.svg";
@@ -27,8 +26,12 @@ const Header = () => {
       <div className={styles.icons}>
         <Butterfly />
         {auth.userInfo ? (
-          <button type="button" onClick={logout}>
-            logout
+          <button
+            className={styles.logout_button}
+            type="button"
+            onClick={logout}
+          >
+            <AuthIcon />
           </button>
         ) : (
           <Link to="/login">
@@ -39,4 +42,5 @@ const Header = () => {
     </header>
   );
 };
+
 export default Header;

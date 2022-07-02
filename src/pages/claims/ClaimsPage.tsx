@@ -1,10 +1,15 @@
 import React from "react";
-import Card from "src/components/card/Card";
+import ClaimsCard from "src/pages/claims/components/claimsCard/ClaimsCard";
 import Loader from "src/components/loader/Loader";
 import { useGetClaimsQuery } from "src/services/api/claimsApi";
+import { Link } from "react-router-dom";
+import FilterIcon from "src/assets/icons/filter.svg";
+import AddIcon from "src/assets/icons/add.svg";
+import SortIcon from "src/assets/icons/sort.svg";
+import styles from "./ClaimsPage.module.less";
 
 export interface IClaims {
-  createDate: string;
+  createDate: number;
   creatorId: number;
   creatorName: string;
   description: string;
@@ -12,7 +17,7 @@ export interface IClaims {
   executorName: string;
   factExecuteDate: string;
   id: number;
-  planExecuteDate: string;
+  planExecuteDate: number;
   status: string;
   title: string;
 }
@@ -22,18 +27,30 @@ const ClaimsPage = () => {
 
   return (
     <div>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        data?.map((claim) => (
-          <Card
-            key={claim.id}
-            title={claim.title}
-            planExecuteDate={claim.planExecuteDate}
-            executorName={claim.executorName}
-          />
-        ))
-      )}
+      <header className={styles.claims_page__news}>
+        <div className={styles.claims_page__header_title}>Заявки</div>
+        <div className={styles.claims_page__header_icons}>
+          <Link to="/claims/add">
+            <AddIcon />
+          </Link>
+          <FilterIcon />
+          <SortIcon />
+        </div>
+      </header>
+      <div className={styles.claims_page__container}>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          data?.map((claim) => (
+            <ClaimsCard
+              key={claim.id}
+              title={claim.title}
+              planExecuteDate={claim.planExecuteDate}
+              executorName={claim.executorName}
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };

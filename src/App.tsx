@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from "src/App.module.less";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Login from "src/pages/login/Login";
 import Header from "src/components/header/Header";
 import Navbar from "src/components/navbar/Navbar";
@@ -11,7 +11,8 @@ import AddNews from "src/pages/news/components/addNews/AddNews";
 import TermsOfUse from "src/pages/legal/TermsOfUse";
 import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import { PrivateOutlet } from "src/utils/PrivateOutlet";
-import NewsOutlet from "./pages/news/NewsOutlet";
+import ViewClaims from "src/pages/claims/components/viewClaims/ViewClaims";
+import AddClaims from "src/pages/claims/components/addClaims/AddClaims";
 import EditNews from "./pages/news/components/editNews/EditNews";
 
 const App = () => (
@@ -24,12 +25,16 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<PrivateOutlet />}>
             <Route path="/main-page" element={<MainPage />} />
-            <Route path="/news" element={<NewsOutlet />}>
+            <Route path="/news" element={<Outlet />}>
               <Route index element={<NewsPage />} />
               <Route path="add" element={<AddNews />} />
               <Route path="edit/:id" element={<EditNews />} />
             </Route>
-            <Route path="/claims" element={<ClaimsPage />} />
+            <Route path="/claims" element={<Outlet />}>
+              <Route index element={<ClaimsPage />} />
+              <Route path="view" element={<ViewClaims />} />
+              <Route path="add" element={<AddClaims />} />
+            </Route>
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Route>

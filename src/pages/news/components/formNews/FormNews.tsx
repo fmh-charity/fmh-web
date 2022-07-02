@@ -44,7 +44,7 @@ const FormNews = ({
 
   const submitValue = () => {
     submit({
-      createDate: news ? news.createDate : Date.now(),
+      createDate: news.createDate || Date.now(),
       description: getRefValue(descriptionRef, ""),
       newsCategoryId: getRefValue(categoryRef, 0),
       publishEnabled: getRefChecked(checkActiveRef, false),
@@ -52,7 +52,7 @@ const FormNews = ({
       creatorId: userInfo.id,
       creatorName: `${userInfo.firstName} ${userInfo.lastName} ${userInfo.middleName}`,
       publishDate: getDate(),
-      id: news ? news.id : 0,
+      id: news.id || 0,
     });
     navigation("/news");
   };
@@ -67,7 +67,7 @@ const FormNews = ({
           <select
             className={styles.news_category}
             ref={categoryRef}
-            defaultValue={news ? news.newsCategoryId : 0}
+            defaultValue={news.newsCategoryId || 0}
           >
             {categories.map((category, index) => (
               <option key={category.title} value={index + 1}>
@@ -81,9 +81,8 @@ const FormNews = ({
               ref={dateRef}
               min={format(new Date(), "yyyy-MM-dd")}
               defaultValue={
-                news
-                  ? format(news.publishDate, "yyyy-MM-dd")
-                  : format(Date.now(), "yyyy-MM-dd")
+                format(news.publishDate, "yyyy-MM-dd") ||
+                format(Date.now(), "yyyy-MM-dd")
               }
             />
           </div>
@@ -92,9 +91,7 @@ const FormNews = ({
               type="time"
               ref={timeRef}
               defaultValue={
-                news
-                  ? format(news.publishDate, "HH:mm")
-                  : format(Date.now(), "HH:mm")
+                format(news.publishDate, "HH:mm") || format(Date.now(), "HH:mm")
               }
             />
           </div>
@@ -104,7 +101,7 @@ const FormNews = ({
           type="text"
           placeholder="Заголовок"
           ref={titleRef}
-          defaultValue={news ? news.title : ""}
+          defaultValue={news.title || ""}
           minLength={3}
         />
         <textarea
@@ -119,7 +116,7 @@ const FormNews = ({
           <input
             type="checkbox"
             className={styles.news_cb}
-            defaultChecked={news ? news.publishEnabled : false}
+            defaultChecked={news.publishEnabled || false}
             ref={checkActiveRef}
           />
         </div>

@@ -11,8 +11,8 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface UserInfoResponse {
-  [x: string]: any;
+export interface UserInfo {
+  // [x: string]: any;
   admin: boolean;
   firstName: string;
   id: number;
@@ -39,7 +39,7 @@ export const api = createApi({
         }
       },
     }),
-    userInfo: builder.query<UserInfoResponse, void>({
+    userInfo: builder.query<UserInfo, void>({
       query: () => "authentication/userInfo",
 
       async onQueryStarted(_, { queryFulfilled }) {
