@@ -5,6 +5,7 @@ import {
   useLazyGetNewsByIdQuery,
 } from "src/services/api/newsApi";
 import FormNews from "src/pages/news/components/formNews/FormNews";
+import { IClaims } from "src/pages/claims/ClaimsPage";
 
 const EditNews = () => {
   const { id: newsId } = useParams();

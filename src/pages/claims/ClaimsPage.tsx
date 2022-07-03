@@ -15,19 +15,36 @@ export interface IClaims {
   description: string;
   executorId: number;
   executorName: string;
-  factExecuteDate: string;
+  factExecuteDate: number | null;
   id: number;
   planExecuteDate: number;
   status: string;
   title: string;
 }
 
+const ClaimsNode = ({ data }: { data: IClaims[] }) =>
+  data!.length > 0 ? (
+    <div className={styles.claims_page__container}>
+      {data?.map((claim) => (
+        <ClaimsCard
+          key={claim.id}
+          id={claim.id}
+          title={claim.title}
+          planExecuteDate={claim.planExecuteDate}
+          executorName={claim.executorName}
+        />
+      ))}
+    </div>
+  ) : (
+    <h1>Заявок на данный момент нет</h1>
+  );
+
 const ClaimsPage = () => {
-  const { isLoading, data } = useGetClaimsQuery();
+  const { isLoading, data: claims } = useGetClaimsQuery();
 
   return (
     <div>
-      <header className={styles.claims_page__news}>
+      <header className={styles.claims_page__claims}>
         <div className={styles.claims_page__header_title}>Заявки</div>
         <div className={styles.claims_page__header_icons}>
           <Link to="/claims/add">
@@ -37,20 +54,7 @@ const ClaimsPage = () => {
           <SortIcon />
         </div>
       </header>
-      <div className={styles.claims_page__container}>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          data?.map((claim) => (
-            <ClaimsCard
-              key={claim.id}
-              title={claim.title}
-              planExecuteDate={claim.planExecuteDate}
-              executorName={claim.executorName}
-            />
-          ))
-        )}
-      </div>
+      {isLoading ? <Loader /> : <ClaimsNode data={claims || []} />}
     </div>
   );
 };

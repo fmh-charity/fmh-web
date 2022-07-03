@@ -1,39 +1,68 @@
 import { format } from "date-fns";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { categories } from "src/common/categories";
 import { IClaims } from "src/pages/claims/claimsPage";
 import { useGetUsersQuery } from "src/services/api/usersApi";
+import { useSelector } from "react-redux";
+import { selectUserInfo } from "src/features/auth/authSlice";
+import { getRefDate, getRefValue } from "src/utils/GetRef";
+import { number, object, string } from "yup";
 import styles from "./Formclaims.module.less";
+
+const claimSchema = object({
+  description: string().required().min(5),
+  executorId: number().required().positive(),
+  title: string().required().min(3),
+});
 
 const FormClaims = ({
   claims,
-  title,
+  titlePage,
   submit,
 }: {
   claims: IClaims;
-  title: string;
-  submit: (formData: {
-    creatorId: any;
-    creatorName: string;
-    description: any;
-    id: number;
-    title: any;
-    createDate: number;
-  }) => void;
+  titlePage: string;
+  submit: (formData: IClaims) => void;
 }) => {
   const navigation = useNavigate();
-  const categoryRef = React.createRef<HTMLSelectElement>();
+  const creatorUserInfo = useSelector(selectUserInfo);
+  const executorRef = React.createRef<HTMLSelectElement>();
   const dateRef = React.createRef<HTMLInputElement>();
   const timeRef = React.createRef<HTMLInputElement>();
   const titleRef = React.createRef<HTMLInputElement>();
   const descriptionRef = React.createRef<HTMLTextAreaElement>();
-  const { data } = useGetUsersQuery();
+  const { data: users } = useGetUsersQuery();
+
+  const getUserById = (id: number) => users?.find((user) => user.id === id);
+
+  const submitClaim = async () => {
+    const executor = getUserById(parseInt(getRefValue(executorRef, "0"), 10));
+    const claim = {
+      createDate: Date.now(),
+      creatorId: creatorUserInfo.id,
+      creatorName: `${creatorUserInfo.lastName} ${creatorUserInfo.firstName} ${creatorUserInfo.middleName}`,
+      description: getRefValue(descriptionRef, ""),
+      executorId: executor?.id || 0,
+      executorName: `${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`,
+      factExecuteDate: null,
+      id: claims.id || 0,
+      planExecuteDate: getRefDate(dateRef, timeRef),
+      status: "IN_PROGRESS",
+      title: getRefValue(titleRef, ""),
+    };
+    await claimSchema
+      .validate(claim, { abortEarly: false })
+      .then(async () => {
+        await submit(claim);
+        navigation("/claims");
+      })
+      .catch((e) => alert(e.errors.join("\n\r")));
+  };
 
   return (
-    <div className={styles.add_claims__conatainer}>
-      <header className={styles.header_claims}>
-        <div className={styles.header_title}>{title}</div>
+    <div className={styles.edit_claims__conatainer}>
+      <header className={styles.edit_claims__header}>
+        <div className={styles.edit_claims__header_title}>{titlePage}</div>
       </header>
       <div className={styles.claims_form}>
         <input
@@ -45,14 +74,11 @@ const FormClaims = ({
           minLength={3}
         />
         <div className={styles.claims_row}>
-          <select className={styles.claims_category} ref={categoryRef}>
-            {data &&
-              data?.map((userInfo) => (
-                <option
-                  key={userInfo.id}
-                  value={`${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`}
-                  title={`${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`}
-                >
+          <select className={styles.claims_category} ref={executorRef}>
+            <option>Выберите исполнителя</option>
+            {users &&
+              users?.map((userInfo) => (
+                <option key={userInfo.id} value={userInfo.id}>
                   {`${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`}
                 </option>
               ))}
@@ -90,7 +116,7 @@ const FormClaims = ({
           <button
             type="button"
             className={`${styles.claims_add__button} ${styles.claims_add__button_save}`}
-            onClick={() => console.log(data)}
+            onClick={submitClaim}
           >
             СОХРАНИТЬ
           </button>

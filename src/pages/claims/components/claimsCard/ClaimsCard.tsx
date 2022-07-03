@@ -2,13 +2,17 @@ import React, { FC } from "react";
 import Arrow from "src/assets/icons/arrow.svg";
 import { format, fromUnixTime } from "date-fns";
 import { IClaims } from "src/pages/claims/ClaimsPage";
+import { useNavigate } from "react-router-dom";
 import styles from "./ClaimsCard.module.less";
 
 const ClaimsCard: FC<Partial<IClaims>> = ({
+  id,
   title,
   planExecuteDate,
   executorName,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <section className={styles.claims_card__container}>
       <div className={styles.claims_card__head}>
@@ -28,7 +32,7 @@ const ClaimsCard: FC<Partial<IClaims>> = ({
       <button
         type="button"
         className={styles.claims_card__button}
-        onClick={() => console.log({ planExecuteDate })}
+        onClick={() => navigate(`/claims/view/${id}`)}
       >
         <Arrow />
       </button>

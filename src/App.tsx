@@ -13,7 +13,7 @@ import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import { PrivateOutlet } from "src/utils/PrivateOutlet";
 import ViewClaims from "src/pages/claims/components/viewClaims/ViewClaims";
 import AddClaims from "src/pages/claims/components/addClaims/AddClaims";
-import EditNews from "./pages/news/components/editNews/EditNews";
+import EditNews from "src/pages/news/components/editNews/EditNews";
 
 const App = () => (
   <BrowserRouter>
@@ -32,7 +32,7 @@ const App = () => (
             </Route>
             <Route path="/claims" element={<Outlet />}>
               <Route index element={<ClaimsPage />} />
-              <Route path="view" element={<ViewClaims />} />
+              <Route path="view/:id" element={<ViewClaims />} />
               <Route path="add" element={<AddClaims />} />
             </Route>
             <Route path="/terms-of-use" element={<TermsOfUse />} />

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { categories } from "src/common/categories";
 import { selectUserInfo } from "src/features/auth/authSlice";
 import { INews } from "src/pages/news/NewsPage";
+import { getRefDate, getRefChecked, getRefValue } from "src/utils/GetRef";
 import styles from "./FormNews.module.less";
 
 const FormNews = ({
@@ -25,23 +26,6 @@ const FormNews = ({
   const checkActiveRef = React.createRef<HTMLInputElement>();
   const userInfo = useSelector(selectUserInfo);
 
-  const getRefValue = (ref: any, value: any) =>
-    ref.current ? ref.current.value : value;
-
-  const getRefChecked = (ref: any, value: any) =>
-    ref.current ? ref.current.checked : value;
-
-  const getDate = (): number => {
-    if (dateRef.current && timeRef.current) {
-      const date = new Date(
-        `${dateRef.current.value} ${timeRef.current.value}`
-      );
-      console.log(date.toString());
-      return date.getTime();
-    }
-    return Date.now();
-  };
-
   const submitValue = () => {
     submit({
       createDate: news.createDate || Date.now(),
@@ -51,14 +35,14 @@ const FormNews = ({
       title: getRefValue(titleRef, ""),
       creatorId: userInfo.id,
       creatorName: `${userInfo.firstName} ${userInfo.lastName} ${userInfo.middleName}`,
-      publishDate: getDate(),
+      publishDate: getRefDate(dateRef, timeRef),
       id: news.id || 0,
     });
     navigation("/news");
   };
 
   return (
-    <div className={styles.add_news__conatainer}>
+    <div className={styles.form_news__container}>
       <header className={styles.header_news}>
         <div className={styles.header_title}>{title}</div>
       </header>
