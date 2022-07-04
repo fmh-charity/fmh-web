@@ -16,8 +16,8 @@ interface CssExports {
   'claims_time': string;
   'edit_claims__conatainer': string;
   'edit_claims__form': string;
-  'edit_claims__header': string;
-  'edit_claims__header_title': string;
+  'view_claims__header': string;
+  'view_claims__header_title': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from "src/App.module.less";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import Login from "src/pages/login/Login";
 import Header from "src/components/header/Header";
 import Navbar from "src/components/navbar/Navbar";
@@ -11,9 +11,12 @@ import AddNews from "src/pages/news/components/addNews/AddNews";
 import TermsOfUse from "src/pages/legal/TermsOfUse";
 import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import { PrivateOutlet } from "src/utils/PrivateOutlet";
-import ViewClaims from "src/pages/claims/components/viewClaims/ViewClaims";
+import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import AddClaims from "src/pages/claims/components/addClaims/AddClaims";
 import EditNews from "src/pages/news/components/editNews/EditNews";
+import WishesPage from "./pages/wishes/WishesPage";
+import ViewWishes from "./pages/wishes/components/viewWishesCard/ViewWishes";
+import AddWishes from "./pages/wishes/components/addWishes/AddWishes";
 
 const App = () => (
   <BrowserRouter>
@@ -33,11 +36,15 @@ const App = () => (
             <Route path="/claims" element={<Outlet />}>
               <Route index element={<ClaimsPage />} />
               <Route path="view/:id" element={<ViewClaims />} />
-              <Route path="add" element={<AddClaims />} />
+            </Route>
+            <Route path="/wishes" element={<Outlet />}>
+              <Route index element={<WishesPage />} />
+              <Route path="view/:id" element={<ViewWishes />} />
             </Route>
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Route>
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </div>

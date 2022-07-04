@@ -1,11 +1,11 @@
 @media (max-width: 550px) {
-  .edit_claims__form {
+  .edit_wishes__form {
     width: 100%;
     height: max-content;
   }
 }
 
-.edit_claims__conatainer {
+.edit_wishes__conatainer {
   display: grid;
 	grid-template-rows: max-content 1fr;
 	grid-template-columns: 1fr;
@@ -14,7 +14,7 @@
   align-items: flex-start;
 }
 
-.view_claims__header {
+.view_wishes__header {
   display: grid;
   grid-template-columns: 1fr max-content;
   background-color: #EAEAEA;
@@ -23,7 +23,7 @@
   justify-content: center;
 }
 
-.view_claims__header_title {
+.view_wishes__header_title {
   display: grid;
   padding: 0 16px;
   height: 32px;
@@ -35,7 +35,7 @@
   border-radius: 4px;
 }
 
-.claims_form {
+.wishes_form {
 	display: grid;
 	grid-template-rows: 48px 48px max-content max-content;
 	grid-row-gap: 16px;
@@ -48,49 +48,49 @@
 	padding: 16px 16px 32px 16px;
 }
 
-.claims_create {
+.wishes_create {
 	display: grid;
 	border: 2px solid lightgrey;
 	padding: 8px 8px;
 	border-radius: 8px;
 }
 
-.claims_category:extend(.claims_create) {
+.wishes_category:extend(.wishes_create) {
 }
 
-.claims_date {
+.wishes_date {
 	display: grid;
-	input:extend(.claims_create) {
+	input:extend(.wishes_create) {
 		display: block;
 	}
 }
 
-.claims_time {
+.wishes_time {
 	display: grid;
-	input:extend(.claims_create) {
+	input:extend(.wishes_create) {
 		display: block;
 	}
 }
 
-.claims_name:extend(.claims_create) {
+.wishes_name:extend(.wishes_create) {
 }
 
-.claims_description:extend(.claims_create) {
+.wishes_description:extend(.wishes_create) {
 	min-height: 100px;
 	font-size: large;
 }
 
-.claims_cb:extend(.claims_create) {
+.wishes_cb:extend(.wishes_create) {
 	justify-self: center;
 }
 
-.claims_row {
+.wishes_row {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 16px;
 }
 
-.claims_controls {
+.wishes_controls {
 	display: grid;
 	justify-content: center;
 	white-space: nowrap;
@@ -98,14 +98,14 @@
 	grid-column-gap: 16px;
 }
 
-.claims_activity {
+.wishes_activity {
 	display: grid;
 	grid-template-columns: max-content max-content;
 	grid-column-gap: 16px;
 	justify-content: center;
 }
 
-.claims_add__button {
+.wishes_add__button {
 	display: grid;
 	height: 32px;
 	width: 128px;
@@ -117,7 +117,7 @@
 	font-size: small;
 }
 
-.claims_add__button_save {
+.wishes_add__button_save {
 	background-color: #01a19f;
 	color: white;
 	border: none;

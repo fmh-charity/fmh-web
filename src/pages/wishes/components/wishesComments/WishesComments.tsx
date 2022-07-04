@@ -1,23 +1,23 @@
 import { format } from "date-fns";
 import React from "react";
-import { useGetClaimCommentsQuery } from "src/services/api/claimsApi";
-import styles from "./ClaimComment.module.less";
+import { useGetWishesCommentsQuery } from "src/services/api/wishesApi";
+import styles from "./WishesComment.module.less";
 
-export interface IClaimComment {
+export interface IWishesComment {
   id: number;
-  claimId: number;
+  wishesId: number;
   createDate: number;
   creatorId: number;
   creatorName: string;
   description: string;
 }
 
-const ClaimComments = ({ claimId }: { claimId: number }) => {
-  const { data: comments } = useGetClaimCommentsQuery(claimId.toString());
+const WishesComments = ({ wishesId }: { wishesId: number }) => {
+  const { data: comments } = useGetWishesCommentsQuery(wishesId.toString());
 
   return comments ? (
     <div>
-      {comments?.map((comment: IClaimComment) => (
+      {comments?.map((comment: IWishesComment) => (
         <CommentCard key={comment.id} comment={comment} />
       ))}
     </div>
@@ -26,7 +26,7 @@ const ClaimComments = ({ claimId }: { claimId: number }) => {
   );
 };
 
-const CommentCard = ({ comment }: { comment: IClaimComment }) => (
+const CommentCard = ({ comment }: { comment: IWishesComment }) => (
   <div className={styles.comment_card__container}>
     <div
       title={comment.description}
@@ -41,4 +41,4 @@ const CommentCard = ({ comment }: { comment: IClaimComment }) => (
   </div>
 );
 
-export default ClaimComments;
+export default WishesComments;

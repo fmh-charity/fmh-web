@@ -44,7 +44,7 @@ const ViewClaims = () => {
   };
 
   return !data.data ? (
-    <h1>Null</h1>
+    <br />
   ) : (
     <ViewClaimCard claim={data.data} addComment={addComment} />
   );
@@ -57,43 +57,43 @@ const ViewClaimCard = ({
   claim: IClaims;
   addComment: () => void;
 }) => (
-  <div className={styles.edit_claims__container}>
-    <header className={styles.edit_claims__page_header}>
-      <div className={styles.edit_claims__header_title}>Заявки</div>
+  <div className={styles.view_claims__container}>
+    <header className={styles.view_claims__page_header}>
+      <div className={styles.view_claims__header_title}>Заявки</div>
     </header>
-    <div className={styles.edit_claims__wrapper}>
-      <div className={styles.edit_claims__header}>
+    <div className={styles.view_claims__wrapper}>
+      <div className={styles.view_claims__header}>
         <span>Тема</span>
         <span>{claim.title}</span>
       </div>
-      <div className={styles.edit_claims__wrapper_content}>
-        <div className={`${styles.edit_claims__row} ${styles.two_columns}`}>
+      <div className={styles.view_claims__wrapper_content}>
+        <div className={`${styles.view_claims__row} ${styles.two_columns}`}>
           <span className={styles.underline}>Исполнитель</span>
           <span>{claim.executorName}</span>
         </div>
-        <div className={`${styles.edit_claims__row} ${styles.two_columns}`}>
+        <div className={`${styles.view_claims__row} ${styles.two_columns}`}>
           <span className={styles.underline}>Плановая дата</span>
           <span>{format(claim.planExecuteDate, "dd.MM.yyyy")}</span>
         </div>
-        <div className={`${styles.edit_claims__row} ${styles.just_center}`}>
+        <div className={`${styles.view_claims__row} ${styles.just_center}`}>
           {claim.status}
         </div>
-        <div className={`${styles.edit_claims__description}`}>
+        <div className={`${styles.view_claims__description}`}>
           {claim.description}
         </div>
-        <div className={`${styles.edit_claims__row} ${styles.two_columns}`}>
+        <div className={`${styles.view_claims__row} ${styles.two_columns}`}>
           <span className={styles.underline}>Aвтор</span>
           <span>{claim.creatorName}</span>
         </div>
-        <div className={`${styles.edit_claims__row} ${styles.two_columns}`}>
+        <div className={`${styles.view_claims__row} ${styles.two_columns}`}>
           <span className={styles.underline}>Создана</span>
           <span>{format(claim.createDate, "dd.MM.yyyy")}</span>
         </div>
-        <div className={styles.edit_claims__comments}>
+        <div className={styles.view_claims__comments}>
           <ClaimComments claimId={claim.id} />
         </div>
       </div>
-      <div className={styles.edit_claims__icons}>
+      <div className={styles.view_claims__icons}>
         <Link to="/claims">
           <ArrowLeftIcon />
         </Link>

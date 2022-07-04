@@ -6,15 +6,28 @@ const NavbarLink = ({
   icon,
   title,
   url,
+  disabled,
 }: {
   icon: ReactNode;
   title: string;
   url: string;
+  disabled?: boolean;
 }) => (
-  <Link to={url} className={styles.navbar_link}>
+  <Link
+    to={url}
+    className={
+      disabled
+        ? `${styles.navbar_link} ${styles.disabled_link}`
+        : `${styles.navbar_link}`
+    }
+  >
     <span className={styles.navbar_icon}>{icon}</span>
     <span>{title}</span>
   </Link>
 );
+
+NavbarLink.defaultProps = {
+  disabled: false,
+};
 
 export default NavbarLink;

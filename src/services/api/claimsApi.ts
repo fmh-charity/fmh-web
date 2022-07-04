@@ -42,7 +42,7 @@ export const claimsApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["IClaims"],
+      invalidatesTags: ["IClaimComment"],
     }),
   }),
 });

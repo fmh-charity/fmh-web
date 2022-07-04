@@ -36,18 +36,45 @@ const Navbar = () => (
       <NavbarLink url="/" title="Главная" icon={<MainIcon />} />
       <NavbarLink url="/news" title="Новости" icon={<NewsIcon />} />
       <NavbarLink url="/claims" title="Заявки" icon={<RequestIcon />} />
-      <NavbarLink url="/claims" title="Просьбы" icon={<RequestIcon />} />
-      <NavbarLink url="/claims" title="Палаты" icon={<ChamberIcon />} />
-      <NavbarLink url="/claims" title="Документы" icon={<DocumentIcon />} />
-      <NavbarLink url="/claims" title="Пациенты" icon={<PatientsIcon />} />
+      <NavbarLink url="/wishes" title="Просьбы" icon={<RequestIcon />} />
       <NavbarLink
+        disabled
+        url="/claims"
+        title="Палаты"
+        icon={<ChamberIcon />}
+      />
+      <NavbarLink
+        disabled
+        url="/claims"
+        title="Документы"
+        icon={<DocumentIcon />}
+      />
+      <NavbarLink
+        disabled
+        url="/claims"
+        title="Пациенты"
+        icon={<PatientsIcon />}
+      />
+      <NavbarLink
+        disabled
         url="/claims"
         title="График дежурств"
         icon={<RequestIcon />}
       />
-      <NavbarLink url="/claims" title="Сотрудники" icon={<EmployeesIcon />} />
-      <NavbarLink url="/claims" title="Наша миссия" icon={<InfoIcon />} />
       <NavbarLink
+        disabled
+        url="/claims"
+        title="Сотрудники"
+        icon={<EmployeesIcon />}
+      />
+      <NavbarLink
+        disabled
+        url="/claims"
+        title="Наша миссия"
+        icon={<InfoIcon />}
+      />
+      <NavbarLink
+        disabled
         url="/claims"
         title="Новости роль чтения"
         icon={<NewsIcon />}

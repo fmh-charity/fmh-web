@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import FormClaims from "src/pages/claims/components/formClaims/FormClaims";
-import { IClaims } from "src/pages/claims/ClaimsPage";
-import { useAddClaimsMutation } from "src/services/api/claimsApi";
+import FormWishes from "src/pages/wishes/components/formWishes/FormWishes";
+import { IWishes } from "src/pages/wishes/WishesPage";
+import { useAddWishesMutation } from "src/services/api/wishesApi";
 import ModalComponent from "src/components/modalComponent/ModalComponent";
 
-const AddClaims = () => {
-  const [addClaim] = useAddClaimsMutation();
-  const newClaim: IClaims = {
+const AddWishes = () => {
+  const [addClaim] = useAddWishesMutation();
+  const newClaim: IWishes = {
     createDate: Date.now(),
     creatorId: 0,
-    creatorName: "",
+    // TODO Fix
+    patientId: 1,
     description: "",
     executorId: 0,
     executorName: "",
@@ -27,8 +28,8 @@ const AddClaims = () => {
 
   return (
     <ModalComponent visible={visible} setVisible={changeVisible}>
-      <FormClaims
-        claims={newClaim}
+      <FormWishes
+        wishes={newClaim}
         titlePage="Создание заявки"
         submit={addClaim}
         cancelButton={changeVisible}
@@ -37,4 +38,4 @@ const AddClaims = () => {
   );
 };
 
-export default AddClaims;
+export default AddWishes;

@@ -1,28 +1,29 @@
 import { format } from "date-fns";
 import React from "react";
-import { IClaims } from "src/pages/claims/claimsPage";
+import { IWishes } from "src/pages/wishes/wishesPage";
 import { useGetUsersQuery } from "src/services/api/usersApi";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
 import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { number, object, string } from "yup";
-import styles from "./Formclaims.module.less";
+import { UserInfo } from "src/services/api/authApi";
+import styles from "./FormWishes.module.less";
 
-const claimSchema = object({
+const wishesSchema = object({
   description: string().required().min(5),
   executorId: number().required().positive(),
   title: string().required().min(3),
 });
 
-const FormClaims = ({
-  claims,
+const FormWishes = ({
+  wishes,
   titlePage,
   submit,
   cancelButton
 }: {
-  claims: IClaims;
+  wishes: IWishes;
   titlePage: string;
-  submit: (formData: IClaims) => void;
+  submit: (formData: IWishes) => void;
   cancelButton: () => void;
 }) => {
   const creatorUserInfo = useSelector(selectUserInfo);
@@ -33,48 +34,50 @@ const FormClaims = ({
   const descriptionRef = React.createRef<HTMLTextAreaElement>();
   const { data: users } = useGetUsersQuery();
 
-  const getUserById = (id: number) => users?.find((user) => user.id === id);
+  const getUserById = (id: number) =>
+    users?.find((user: UserInfo) => user.id === id);
 
   const submitClaim = async () => {
     const executor = getUserById(parseInt(getRefValue(executorRef, "0"), 10));
-    const claim = {
+    const wish = {
       createDate: Date.now(),
       creatorId: creatorUserInfo.id,
-      creatorName: `${creatorUserInfo.lastName} ${creatorUserInfo.firstName} ${creatorUserInfo.middleName}`,
+      // TODO get patient id
+      patientId: 1,
       description: getRefValue(descriptionRef, ""),
       executorId: executor?.id || 0,
       executorName: `${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`,
       factExecuteDate: null,
-      id: claims.id || 0,
+      id: wishes.id || 0,
       planExecuteDate: getRefDate(dateRef, timeRef),
       status: "IN_PROGRESS",
       title: getRefValue(titleRef, ""),
     };
-    await claimSchema
-      .validate(claim, { abortEarly: false })
+    await wishesSchema
+      .validate(wish, { abortEarly: false })
       .then(async () => {
-        await submit(claim);
+        await submit(wish);
         cancelButton();
       })
-      .catch((e) => alert(e.errors.join("\n\r")));
+      .catch((e: any) => alert(e.errors.join("\n\r")));
   };
 
   return (
-    <div className={styles.edit_claims__conatainer}>
-      <header className={styles.view_claims__header}>
-        <div className={styles.view_claims__header_title}>{titlePage}</div>
+    <div className={styles.edit_wishes__conatainer}>
+      <header className={styles.view_wishes__header}>
+        <div className={styles.view_wishes__header_title}>{titlePage}</div>
       </header>
-      <div className={styles.claims_form}>
+      <div className={styles.wishes_form}>
         <input
-          className={styles.claims_category}
+          className={styles.wishes_category}
           type="text"
           placeholder="Тема"
           ref={titleRef}
-          defaultValue={claims ? claims.title : ""}
+          defaultValue={wishes ? wishes.title : ""}
           minLength={3}
         />
-        <div className={styles.claims_row}>
-          <select className={styles.claims_category} ref={executorRef}>
+        <div className={styles.wishes_row}>
+          <select className={styles.wishes_category} ref={executorRef}>
             <option>Выберите исполнителя</option>
             {users &&
               users?.map((userInfo) => (
@@ -83,46 +86,46 @@ const FormClaims = ({
                 </option>
               ))}
           </select>
-          <div className={styles.claims_date}>
+          <div className={styles.wishes_date}>
             <input
               type="date"
               ref={dateRef}
               min={format(new Date(), "yyyy-MM-dd")}
               defaultValue={
-                format(claims.planExecuteDate, "yyyy-MM-dd") ||
+                format(wishes.planExecuteDate, "yyyy-MM-dd") ||
                 format(new Date(), "yyyy-MM-dd")
               }
             />
           </div>
-          <div className={styles.claims_time}>
+          <div className={styles.wishes_time}>
             <input
               type="time"
               ref={timeRef}
               defaultValue={
-                format(claims.planExecuteDate, "HH:mm") ||
+                format(wishes.planExecuteDate, "HH:mm") ||
                 format(new Date(), "HH:mm")
               }
             />
           </div>
         </div>
         <textarea
-          className={styles.claims_description}
+          className={styles.wishes_description}
           placeholder="Описание"
           ref={descriptionRef}
-          defaultValue={claims ? claims.description : ""}
+          defaultValue={wishes ? wishes.description : ""}
           minLength={5}
         />
-        <div className={styles.claims_controls}>
+        <div className={styles.wishes_controls}>
           <button
             type="button"
-            className={`${styles.claims_add__button} ${styles.claims_add__button_save}`}
+            className={`${styles.wishes_add__button} ${styles.wishes_add__button_save}`}
             onClick={submitClaim}
           >
             СОХРАНИТЬ
           </button>
           <button
             type="button"
-            className={styles.claims_add__button}
+            className={styles.wishes_add__button}
             onClick={cancelButton}
           >
             ОТМЕНИТЬ
@@ -133,4 +136,4 @@ const FormClaims = ({
   );
 };
 
-export default FormClaims;
+export default FormWishes;
