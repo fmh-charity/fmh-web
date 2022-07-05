@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React from "react";
+import React, { useState } from "react";
 import { IWishes } from "src/pages/wishes/wishesPage";
 import { useGetUsersQuery } from "src/services/api/usersApi";
 import { useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { selectUserInfo } from "src/features/auth/authSlice";
 import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { number, object, string } from "yup";
 import { UserInfo } from "src/services/api/authApi";
+import { useGetPatientsQuery } from "src/services/api/patientApi";
 import styles from "./FormWishes.module.less";
 
 const wishesSchema = object({
@@ -19,7 +20,7 @@ const FormWishes = ({
   wishes,
   titlePage,
   submit,
-  cancelButton
+  cancelButton,
 }: {
   wishes: IWishes;
   titlePage: string;
@@ -27,12 +28,14 @@ const FormWishes = ({
   cancelButton: () => void;
 }) => {
   const creatorUserInfo = useSelector(selectUserInfo);
+  const patientRef = React.createRef<HTMLSelectElement>();
   const executorRef = React.createRef<HTMLSelectElement>();
   const dateRef = React.createRef<HTMLInputElement>();
   const timeRef = React.createRef<HTMLInputElement>();
   const titleRef = React.createRef<HTMLInputElement>();
   const descriptionRef = React.createRef<HTMLTextAreaElement>();
   const { data: users } = useGetUsersQuery();
+  const { data: patients } = useGetPatientsQuery();
 
   const getUserById = (id: number) =>
     users?.find((user: UserInfo) => user.id === id);
@@ -42,8 +45,7 @@ const FormWishes = ({
     const wish = {
       createDate: Date.now(),
       creatorId: creatorUserInfo.id,
-      // TODO get patient id
-      patientId: 1,
+      patientId: getRefValue(patientRef, 0),
       description: getRefValue(descriptionRef, ""),
       executorId: executor?.id || 0,
       executorName: `${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`,
@@ -76,6 +78,15 @@ const FormWishes = ({
           defaultValue={wishes ? wishes.title : ""}
           minLength={3}
         />
+        <select className={styles.wishes_category} ref={patientRef}>
+          <option>Выберите пациента</option>
+          {patients &&
+            patients?.map((patient) => (
+              <option key={patient.id} value={patient.id}>
+                {`${patient.lastName} ${patient.firstName} ${patient.middleName}`}
+              </option>
+            ))}
+        </select>
         <div className={styles.wishes_row}>
           <select className={styles.wishes_category} ref={executorRef}>
             <option>Выберите исполнителя</option>

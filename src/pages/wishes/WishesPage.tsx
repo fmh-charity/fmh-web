@@ -9,6 +9,7 @@ import FilterIcon from "src/assets/icons/filter.svg";
 import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import ModalComponent from "src/components/modalComponent/ModalComponent";
+import { useGetPatientsQuery } from "src/services/api/patientApi";
 import styles from "./WishesPage.module.less";
 import FormWishes from "./components/formWishes/FormWishes";
 
@@ -26,13 +27,16 @@ export interface IWishes {
   title: string;
 }
 
-const WishesNode = ({ data }: { data: IWishes[] }) =>
-  data!.length > 0 ? (
+const WishesNode = ({ data }: { data: IWishes[] }) => {
+  useGetPatientsQuery();
+
+  return data!.length > 0 ? (
     <div className={styles.wishes_page__container}>
       {data?.map((wishes) => (
         <WishesCard
           key={wishes.id}
           id={wishes.id}
+          patientId={wishes.patientId}
           title={wishes.title}
           planExecuteDate={wishes.planExecuteDate}
           executorName={wishes.executorName}
@@ -42,6 +46,7 @@ const WishesNode = ({ data }: { data: IWishes[] }) =>
   ) : (
     <h1>Просьб на данный момент нет</h1>
   );
+};
 
 const WishesPage = () => {
   const { isLoading, data: wishes } = useGetWishesQuery();

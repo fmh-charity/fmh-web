@@ -7,6 +7,7 @@ import { newsApi } from "src/services/api/newsApi";
 import authReducer from "src/features/auth/authSlice";
 import { usersApi } from "src/services/api/usersApi";
 import { wishesApi } from "src/services/api/wishesApi";
+import { patientApi } from "src/services/api/patientApi";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     [claimsApi.reducerPath]: claimsApi.reducer,
     [wishesApi.reducerPath]: wishesApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
+    [patientApi.reducerPath]: patientApi.reducer,
     [api.reducerPath]: api.reducer,
     auth: authReducer,
   },
@@ -24,6 +26,7 @@ export const store = configureStore({
       claimsApi.middleware,
       wishesApi.middleware,
       usersApi.middleware,
+      patientApi.middleware,
       api.middleware
     ),
 });
