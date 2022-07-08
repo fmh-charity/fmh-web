@@ -12,11 +12,9 @@ import TermsOfUse from "src/pages/legal/TermsOfUse";
 import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import { PrivateOutlet } from "src/utils/PrivateOutlet";
 import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
-import AddClaims from "src/pages/claims/components/addClaims/AddClaims";
 import EditNews from "src/pages/news/components/editNews/EditNews";
 import WishesPage from "./pages/wishes/WishesPage";
 import ViewWishes from "./pages/wishes/components/viewWishesCard/ViewWishes";
-import AddWishes from "./pages/wishes/components/addWishes/AddWishes";
 
 const App = () => (
   <BrowserRouter>

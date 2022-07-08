@@ -20,7 +20,6 @@ export interface IWishes {
   executorId: number;
   factExecuteDate: number | null;
   id: number;
-  executorName: string;
   patientId: number;
   planExecuteDate: number;
   status: string;
@@ -39,7 +38,7 @@ const WishesNode = ({ data }: { data: IWishes[] }) => {
           patientId={wishes.patientId}
           title={wishes.title}
           planExecuteDate={wishes.planExecuteDate}
-          executorName={wishes.executorName}
+          executorId={wishes.executorId}
         />
       ))}
     </div>
@@ -58,7 +57,6 @@ const WishesPage = () => {
     patientId: 1,
     description: "",
     executorId: 0,
-    executorName: "",
     factExecuteDate: null,
     id: 0,
     planExecuteDate: Date.now(),

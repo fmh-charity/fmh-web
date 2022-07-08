@@ -12,6 +12,8 @@ import {
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
+import { useGetPatientByIdFromCache } from "src/hooks/useGetPatientByIdFromCache";
+import { useGetUserByIdFromCache } from "src/hooks/useGetUserByIdFromCache";
 import styles from "./ViewWishes.module.less";
 import { IWishes } from "../../WishesPage";
 import WishesComments from "../wishesComments/WishesComments";
@@ -56,54 +58,59 @@ const ViewWishesCard = ({
 }: {
   wishes: IWishes;
   addComment: () => void;
-}) => (
-  <div className={styles.view_wishes__container}>
-    <header className={styles.view_wishes__page_header}>
-      <div className={styles.view_wishes__header_title}>Заявки</div>
-    </header>
-    <div className={styles.view_wishes__wrapper}>
-      <div className={styles.view_wishes__header}>
-        <span>Тема</span>
-        <span>{wishes.title}</span>
-      </div>
-      <div className={styles.view_wishes__wrapper_content}>
-        <div className={`${styles.view_wishes__row} ${styles.two_columns}`}>
-          <span className={styles.underline}>Исполнитель</span>
-          <span>{wishes.executorName}</span>
+}) => {
+  const patient = useGetPatientByIdFromCache(wishes.patientId);
+  const executor = useGetUserByIdFromCache(wishes.executorId);
+
+  return (
+    <div className={styles.view_wishes__container}>
+      <header className={styles.view_wishes__page_header}>
+        <div className={styles.view_wishes__header_title}>Заявки</div>
+      </header>
+      <div className={styles.view_wishes__wrapper}>
+        <div className={styles.view_wishes__header}>
+          <span>Тема</span>
+          <span>{wishes.title}</span>
         </div>
-        <div className={`${styles.view_wishes__row} ${styles.two_columns}`}>
-          <span className={styles.underline}>Плановая дата</span>
-          <span>{format(wishes.planExecuteDate, "dd.MM.yyyy")}</span>
+        <div className={styles.view_wishes__wrapper_content}>
+          <div className={`${styles.view_wishes__row} ${styles.two_columns}`}>
+            <span className={styles.underline}>Исполнитель</span>
+            <span>{`${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`}</span>
+          </div>
+          <div className={`${styles.view_wishes__row} ${styles.two_columns}`}>
+            <span className={styles.underline}>Плановая дата</span>
+            <span>{format(wishes.planExecuteDate, "dd.MM.yyyy")}</span>
+          </div>
+          <div className={`${styles.view_wishes__row} ${styles.just_center}`}>
+            {wishes.status}
+          </div>
+          <div className={`${styles.view_wishes__description}`}>
+            {wishes.description}
+          </div>
+          <div className={`${styles.view_wishes__row} ${styles.two_columns}`}>
+            <span className={styles.underline}>Пациент</span>
+            <span>{`${patient?.lastName} ${patient?.firstName} ${patient?.middleName}`}</span>
+          </div>
+          <div className={`${styles.view_wishes__row} ${styles.two_columns}`}>
+            <span className={styles.underline}>Создана</span>
+            <span>{format(wishes.createDate, "dd.MM.yyyy")}</span>
+          </div>
+          <div className={styles.view_wishes__comments}>
+            <WishesComments wishesId={wishes.id} />
+          </div>
         </div>
-        <div className={`${styles.view_wishes__row} ${styles.just_center}`}>
-          {wishes.status}
+        <div className={styles.view_wishes__icons}>
+          <Link to="/wishes">
+            <ArrowLeftIcon />
+          </Link>
+          <StaffIcon />
+          <StatusIcon />
+          <AddIcon onClick={addComment} />
+          <EditIcon />
         </div>
-        <div className={`${styles.view_wishes__description}`}>
-          {wishes.description}
-        </div>
-        <div className={`${styles.view_wishes__row} ${styles.two_columns}`}>
-          <span className={styles.underline}>Пациент</span>
-          <span>{wishes.patientId}</span>
-        </div>
-        <div className={`${styles.view_wishes__row} ${styles.two_columns}`}>
-          <span className={styles.underline}>Создана</span>
-          <span>{format(wishes.createDate, "dd.MM.yyyy")}</span>
-        </div>
-        <div className={styles.view_wishes__comments}>
-          <WishesComments wishesId={wishes.id} />
-        </div>
-      </div>
-      <div className={styles.view_wishes__icons}>
-        <Link to="/wishes">
-          <ArrowLeftIcon />
-        </Link>
-        <StaffIcon />
-        <StatusIcon />
-        <AddIcon onClick={addComment} />
-        <EditIcon />
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default ViewWishes;

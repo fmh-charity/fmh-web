@@ -16,7 +16,7 @@ const ModalComponent = ({
     rootClasses.push(styles.active);
   }
 
-  return (
+  return visible ? (
     <div
       role="presentation"
       className={rootClasses.join(" ")}
@@ -30,7 +30,7 @@ const ModalComponent = ({
         {children}
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default ModalComponent;

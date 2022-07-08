@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { IWishes } from "src/pages/wishes/wishesPage";
 import { useGetUsersQuery } from "src/services/api/usersApi";
 import { useSelector } from "react-redux";
@@ -8,10 +8,12 @@ import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { number, object, string } from "yup";
 import { UserInfo } from "src/services/api/authApi";
 import { useGetPatientsQuery } from "src/services/api/patientApi";
+import Select, { GroupBase, Options } from "react-select";
 import styles from "./FormWishes.module.less";
 
 const wishesSchema = object({
   description: string().required().min(5),
+  patientId: number().required().positive(),
   executorId: number().required().positive(),
   title: string().required().min(3),
 });
@@ -28,8 +30,8 @@ const FormWishes = ({
   cancelButton: () => void;
 }) => {
   const creatorUserInfo = useSelector(selectUserInfo);
-  const patientRef = React.createRef<HTMLSelectElement>();
-  const executorRef = React.createRef<HTMLSelectElement>();
+  const patientRef = useRef(null);
+  const executorRef = useRef(null);
   const dateRef = React.createRef<HTMLInputElement>();
   const timeRef = React.createRef<HTMLInputElement>();
   const titleRef = React.createRef<HTMLInputElement>();
@@ -40,12 +42,14 @@ const FormWishes = ({
   const getUserById = (id: number) =>
     users?.find((user: UserInfo) => user.id === id);
 
-  const submitClaim = async () => {
-    const executor = getUserById(parseInt(getRefValue(executorRef, "0"), 10));
+  const submitWishes = async () => {
+    const executor = getUserById(
+      (executorRef.current as any).getValue()[0].value
+    );
     const wish = {
       createDate: Date.now(),
       creatorId: creatorUserInfo.id,
-      patientId: getRefValue(patientRef, 0),
+      patientId: (patientRef.current as any).getValue()[0].value,
       description: getRefValue(descriptionRef, ""),
       executorId: executor?.id || 0,
       executorName: `${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`,
@@ -55,6 +59,7 @@ const FormWishes = ({
       status: "IN_PROGRESS",
       title: getRefValue(titleRef, ""),
     };
+    console.log(wish);
     await wishesSchema
       .validate(wish, { abortEarly: false })
       .then(async () => {
@@ -78,25 +83,31 @@ const FormWishes = ({
           defaultValue={wishes ? wishes.title : ""}
           minLength={3}
         />
-        <select className={styles.wishes_category} ref={patientRef}>
-          <option>Выберите пациента</option>
-          {patients &&
-            patients?.map((patient) => (
-              <option key={patient.id} value={patient.id}>
-                {`${patient.lastName} ${patient.firstName} ${patient.middleName}`}
-              </option>
-            ))}
-        </select>
+        <div>
+          <Select
+            isMulti={false}
+            name="patients"
+            ref={patientRef}
+            options={patients?.map((patient) => ({
+              label: `${patient.lastName} ${patient.firstName} ${patient.middleName}`,
+              value: patient.id,
+            }))}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
+        </div>
         <div className={styles.wishes_row}>
-          <select className={styles.wishes_category} ref={executorRef}>
-            <option>Выберите исполнителя</option>
-            {users &&
-              users?.map((userInfo) => (
-                <option key={userInfo.id} value={userInfo.id}>
-                  {`${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`}
-                </option>
-              ))}
-          </select>
+          <Select
+            isMulti={false}
+            name="users"
+            ref={executorRef}
+            options={users?.map((userInfo) => ({
+              label: `${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`,
+              value: userInfo.id,
+            }))}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
           <div className={styles.wishes_date}>
             <input
               type="date"
@@ -130,7 +141,7 @@ const FormWishes = ({
           <button
             type="button"
             className={`${styles.wishes_add__button} ${styles.wishes_add__button_save}`}
-            onClick={submitClaim}
+            onClick={submitWishes}
           >
             СОХРАНИТЬ
           </button>

@@ -4,18 +4,24 @@ import { format } from "date-fns";
 import { IWishes } from "src/pages/wishes/WishesPage";
 import { useNavigate } from "react-router-dom";
 import { useGetPatientsQuery } from "src/services/api/patientApi";
+import { useGetUsersQuery } from "src/services/api/usersApi";
 import styles from "./WishesCard.module.less";
 
 const WishesCard: FC<Partial<IWishes>> = ({
   id,
   title,
   planExecuteDate,
-  executorName,
+  executorId,
   patientId,
 }) => {
   const { patient } = useGetPatientsQuery(undefined, {
     selectFromResult: ({ data }) => ({
       patient: data?.find((p) => p.id === patientId),
+    }),
+  });
+  const { executor } = useGetUsersQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      executor: data?.find((p) => p.id === executorId),
     }),
   });
   const navigate = useNavigate();
@@ -36,7 +42,11 @@ const WishesCard: FC<Partial<IWishes>> = ({
       </div>
       <div className={styles.wishes_card__row}>
         <span>Исполнитель</span>
-        <span title={executorName}>{executorName}</span>
+        <span
+          title={`${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`}
+        >
+          {`${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`}
+        </span>
       </div>
       <div className={styles.wishes_card__row}>
         <span>Плановая</span>
