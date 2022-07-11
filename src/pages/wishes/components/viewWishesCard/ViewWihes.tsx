@@ -1,37 +1,39 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  useAddClaimCommentsMutation,
-  useGetClaimCommentsQuery,
-  useLazyGetClaimByIdQuery,
-} from "src/services/api/claimsApi";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
 import DrawCard from "src/components/viewCard/ViewCard";
 import CommentCard, { IComment } from "src/components/comment/CommentCards";
+import {
+  useAddWishesCommentsMutation,
+  useGetWishesCommentsQuery,
+  useLazyGetWishesByIdQuery,
+} from "src/services/api/wishesApi";
+import { UserName, PatientName } from "src/pages/wishes/WishesPage";
 
-export interface IClaimComment extends IComment {}
+export interface IWishComment extends IComment {}
 
-const ViewClaims = () => {
-  const { id: claimId } = useParams();
-  const [trigger, data] = useLazyGetClaimByIdQuery();
-  const [addCommentTrigger] = useAddClaimCommentsMutation();
+const ViewWishes = () => {
+  const { id: wishId } = useParams();
+  const [trigger, data] = useLazyGetWishesByIdQuery();
+  const [addCommentTrigger] = useAddWishesCommentsMutation();
   const userInfo = useSelector(selectUserInfo);
 
   useEffect(() => {
-    if (claimId) {
-      trigger(claimId);
+    if (wishId) {
+      trigger(wishId);
     }
   }, []);
 
   // TODO change on model
   const addComment = () => {
     const comment = prompt("Коменть!");
-    if (comment && claimId) {
+    console.log(`${userInfo.id} AAAAAAAAAAAAAAAAAA`);
+    if (comment && wishId) {
       addCommentTrigger({
         id: 0,
-        objId: parseInt(claimId, 10),
+        objId: parseInt(wishId, 10),
         createDate: Date.now(),
         creatorId: userInfo.id,
         description: comment,
@@ -48,8 +50,13 @@ const ViewClaims = () => {
       viewCardTheme={{ key: "Тема", value: data.data.title }}
       obj={[
         {
+          key: "Пациент",
+          value: <PatientName id={data.data.patientId} />,
+          style: "view_card__row two_columns",
+        },
+        {
           key: "Исполнитель",
-          value: data.data.executorName,
+          value: <UserName id={data.data.executorId} />,
           style: "view_card__row two_columns",
         },
         {
@@ -69,7 +76,7 @@ const ViewClaims = () => {
         },
         {
           key: "Автор",
-          value: data.data.creatorName,
+          value: <UserName id={data.data.creatorId} />,
           style: "view_card__row two_columns",
         },
         {
@@ -78,18 +85,18 @@ const ViewClaims = () => {
           style: "view_card__row two_columns",
         },
       ]}
-      comments={<ClaimComments claimId={claimId!} />}
+      comments={<WishComments wishId={wishId!} />}
       addComment={addComment}
     />
   );
 };
 
-const ClaimComments = ({ claimId }: { claimId: string }) => {
-  const { data: comments } = useGetClaimCommentsQuery(claimId);
+const WishComments = ({ wishId }: { wishId: string }) => {
+  const { data: comments } = useGetWishesCommentsQuery(wishId);
 
   return comments ? (
     <div>
-      {comments?.map((comment: IClaimComment) => (
+      {comments?.map((comment: IWishComment) => (
         <CommentCard key={comment.id} comment={comment} />
       ))}
     </div>
@@ -98,4 +105,4 @@ const ClaimComments = ({ claimId }: { claimId: string }) => {
   );
 };
 
-export default ViewClaims;
+export default ViewWishes;

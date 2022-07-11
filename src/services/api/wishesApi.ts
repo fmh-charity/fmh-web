@@ -1,12 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { IWishes } from "src/pages/wishes/WishesPage";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
-import { IWishesComment } from "src/pages/wishes/components/wishesComments/WishesComments";
+import { IWishComment } from "src/pages/wishes/components/viewWishesCard/ViewWihes";
 
 export const wishesApi = createApi({
   reducerPath: "wishesApi",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["IWishes", "IWishesComment"],
+  tagTypes: ["IWishes", "IWishComment"],
   endpoints: (builder) => ({
     getWishes: builder.query<IWishes[], void>({
       query: () => "wishes",
@@ -32,23 +32,24 @@ export const wishesApi = createApi({
       }),
       invalidatesTags: ["IWishes"],
     }),
-    getWishesComments: builder.query<IWishesComment[], string>({
+    getWishesComments: builder.query<IWishComment[], string>({
       query: (id: string) => `wishes/${id}/comments`,
-      providesTags: ["IWishesComment"],
+      providesTags: ["IWishComment"],
     }),
-    addWishesComments: builder.mutation<IWishesComment, IWishesComment>({
-      query: (body: IWishesComment) => ({
-        url: `wishes/${body.wishesId}/comments`,
+    addWishesComments: builder.mutation<IWishComment, IWishComment>({
+      query: (body: IWishComment) => ({
+        url: `wishes/${body.objId}/comments`,
         method: "POST",
         body,
       }),
-      invalidatesTags: ["IWishesComment"],
+      invalidatesTags: ["IWishComment"],
     }),
   }),
 });
 
 export const {
   useGetWishesQuery,
+  useGetWishesByIdQuery,
   useLazyGetWishesByIdQuery,
   useAddWishesMutation,
   useUpdateWishesMutation,

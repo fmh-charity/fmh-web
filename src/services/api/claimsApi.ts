@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { IClaims } from "src/pages/claims/ClaimsPage";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
-import { IClaimComment } from "src/pages/claims/components/claimComments/ClaimComments";
+import { IClaimComment } from "src/pages/claims/components/viewClaimCard/ViewClaims";
 
 export const claimsApi = createApi({
   reducerPath: "claimsApi",
@@ -38,7 +38,7 @@ export const claimsApi = createApi({
     }),
     addClaimComments: builder.mutation<IClaimComment, IClaimComment>({
       query: (body: IClaimComment) => ({
-        url: `claims/${body.claimId}/comments`,
+        url: `claims/${body.objId}/comments`,
         method: "POST",
         body,
       }),
@@ -49,6 +49,7 @@ export const claimsApi = createApi({
 
 export const {
   useGetClaimsQuery,
+  useGetClaimByIdQuery,
   useLazyGetClaimByIdQuery,
   useAddClaimsMutation,
   useUpdateClaimsMutation,

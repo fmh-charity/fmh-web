@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ClaimsCard from "src/pages/claims/components/claimsCard/ClaimsCard";
 import Loader from "src/components/loader/Loader";
 import {
   useAddClaimsMutation,
@@ -9,6 +8,9 @@ import FilterIcon from "src/assets/icons/filter.svg";
 import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import ModalComponent from "src/components/modalComponent/ModalComponent";
+import Card from "src/components/card/Card";
+import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 import styles from "./ClaimsPage.module.less";
 import FormClaims from "./components/formClaims/FormClaims";
 
@@ -26,22 +28,30 @@ export interface IClaims {
   title: string;
 }
 
-const ClaimsNode = ({ data }: { data: IClaims[] }) =>
-  data!.length > 0 ? (
+const ClaimsNode = ({ data }: { data: IClaims[] }) => {
+  const navigate = useNavigate();
+
+  return data!.length > 0 ? (
     <div className={styles.claims_page__container}>
       {data?.map((claim) => (
-        <ClaimsCard
+        <Card
           key={claim.id}
-          id={claim.id}
-          title={claim.title}
-          planExecuteDate={claim.planExecuteDate}
-          executorName={claim.executorName}
+          title={{ key: "Тема", value: claim.title }}
+          callback={() => navigate(`/claims/view/${claim.id}`)}
+          rows={[
+            { key: "Исполнитель", value: claim.executorName },
+            {
+              key: "Плановая дата",
+              value: format(claim.planExecuteDate, "dd.MM.yyyy"),
+            },
+          ]}
         />
       ))}
     </div>
   ) : (
     <h1>Заявок на данный момент нет</h1>
   );
+};
 
 const ClaimsPage = () => {
   const { isLoading, data: claims } = useGetClaimsQuery();
@@ -72,9 +82,6 @@ const ClaimsPage = () => {
           <button type="button" onClick={changeVisible}>
             <AddIcon />
           </button>
-          {/* <Link to="/claims/add">
-            <AddIcon />
-          </Link> */}
           <FilterIcon />
           <SortIcon />
         </div>

@@ -1,10 +1,10 @@
-.view_claims__container {
+.view_card__container {
   display: grid;
   grid-template-rows: max-content max-content;
   grid-row-gap: 32px;
 }
 
-.view_claims__page_header {
+.view_card__page_header {
   display: grid;
   background-color: #EAEAEA;
   height: 56px;
@@ -12,7 +12,7 @@
   justify-content: center;
 }
 
-.view_claims__wrapper {
+.view_card__wrapper {
   display: grid;
   grid-auto-flow: row;
   grid-row-gap: 8px;
@@ -22,14 +22,14 @@
   justify-self: center;
 }
 
-.view_claims__wrapper_content {
+.view_card__wrapper_content {
   display: grid;
   grid-template-rows: repeat(7, max-content);
   grid-row-gap: 16px;
   padding: 0 16px;
 }
 
-.view_claims__header_title {
+.view_card__header_title {
   display: grid;
   padding: 0 16px;
   background-color: #D1FFFE;
@@ -38,41 +38,42 @@
   border-radius: 4px;
 }
 
-.view_claims__row {
+.view_card__row {
   display: grid;
   justify-content: space-between;
   align-content: center;
+  padding: 8px 16px;
   overflow: hidden;
 }
 
-.view_claims__header:extend(.view_claims__row, .two_columns, .underline) {
-  padding: 8px 16px;
+.view_card__header:extend(.view_card__row, .two_columns, .underline) {
   background-color: #FFECE0;
 }
 
-.view_claims__description:extend(.just_center) {
+.view_card__description:extend(.just_center) {
   display: grid;
   grid-template-columns: 1fr;
   padding: 8px;
+  margin: 0 16px;
   max-height: 65px;
   background-color: #EAEAEA;
   box-shadow: 0 2px 5px #d1d1d1;
 }
 
-.view_claims__comments {
+.view_card__comments {
   max-height: 300px;
+  margin: 16px;
   border: 1px solid #EAEAEA;
   box-shadow: 0 5px 10px #EAEAEA;
   overflow-y: auto;
 }
 
-.view_claims__icons {
+.view_card__icons {
   display: grid;
   grid-auto-flow: column;
   padding: 8px 16px;
   justify-content: space-between;
 }
-
 
 .just_center {
   justify-content: center;

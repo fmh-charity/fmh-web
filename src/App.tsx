@@ -1,6 +1,12 @@
 import * as React from "react";
 import styles from "src/App.module.less";
-import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import Login from "src/pages/login/Login";
 import Header from "src/components/header/Header";
 import Navbar from "src/components/navbar/Navbar";
@@ -11,10 +17,10 @@ import AddNews from "src/pages/news/components/addNews/AddNews";
 import TermsOfUse from "src/pages/legal/TermsOfUse";
 import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import { PrivateOutlet } from "src/utils/PrivateOutlet";
-import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import EditNews from "src/pages/news/components/editNews/EditNews";
+import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import WishesPage from "./pages/wishes/WishesPage";
-import ViewWishes from "./pages/wishes/components/viewWishesCard/ViewWishes";
+import ViewWishes from "./pages/wishes/components/viewWishesCard/ViewWihes";
 
 const App = () => (
   <BrowserRouter>

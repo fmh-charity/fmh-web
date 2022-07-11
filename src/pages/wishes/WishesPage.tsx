@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import WishesCard from "src/pages/wishes/components/wishesCard/WishesCard";
 import Loader from "src/components/loader/Loader";
 import {
   useAddWishesMutation,
@@ -9,9 +8,13 @@ import FilterIcon from "src/assets/icons/filter.svg";
 import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import ModalComponent from "src/components/modalComponent/ModalComponent";
-import { useGetPatientsQuery } from "src/services/api/patientApi";
-import styles from "./WishesPage.module.less";
+import Card from "src/components/card/Card";
+import { format } from "date-fns";
+import { useGetPatientByIdFromCache } from "src/hooks/useGetPatientByIdFromCache";
+import { useGetUserByIdFromCache } from "src/hooks/useGetUserByIdFromCache";
+import { useNavigate } from "react-router-dom";
 import FormWishes from "./components/formWishes/FormWishes";
+import styles from "./WishesPage.module.less";
 
 export interface IWishes {
   createDate: number;
@@ -26,24 +29,53 @@ export interface IWishes {
   title: string;
 }
 
+export const UserName = ({ id }: { id: number }) => {
+  const executor = useGetUserByIdFromCache(id);
+  return (
+    <span>
+      {`${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`}
+    </span>
+  );
+};
+
+export const PatientName = ({ id }: { id: number }) => {
+  const patient = useGetPatientByIdFromCache(id);
+  return (
+    <span>
+      {`${patient?.lastName} ${patient?.firstName} ${patient?.middleName}`}
+    </span>
+  );
+};
+
 const WishesNode = ({ data }: { data: IWishes[] }) => {
-  useGetPatientsQuery();
+  const navigate = useNavigate();
 
   return data!.length > 0 ? (
     <div className={styles.wishes_page__container}>
-      {data?.map((wishes) => (
-        <WishesCard
-          key={wishes.id}
-          id={wishes.id}
-          patientId={wishes.patientId}
-          title={wishes.title}
-          planExecuteDate={wishes.planExecuteDate}
-          executorId={wishes.executorId}
+      {data?.map((wish) => (
+        <Card
+          key={wish.id}
+          title={{ key: "Тема", value: wish.title }}
+          callback={() => navigate(`/wishes/view/${wish.id}`)}
+          rows={[
+            {
+              key: "Пациент",
+              value: <PatientName id={wish.patientId} />,
+            },
+            {
+              key: "Исполнитель",
+              value: <UserName id={wish.executorId} />,
+            },
+            {
+              key: "Плановая дата",
+              value: format(wish.planExecuteDate, "dd.MM.yyyy"),
+            },
+          ]}
         />
       ))}
     </div>
   ) : (
-    <h1>Просьб на данный момент нет</h1>
+    <h1>Заявок на данный момент нет</h1>
   );
 };
 
