@@ -5,12 +5,11 @@ import { useGetUsersQuery } from "src/services/api/usersApi";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
 import { getRefDate, getRefValue } from "src/utils/GetRef";
-import { number, object, string } from "yup";
+import { object, string } from "yup";
 import styles from "./Formclaims.module.less";
 
 const claimSchema = object({
   description: string().required().min(5),
-  executorId: number().required().positive(),
   title: string().required().min(3),
 });
 
@@ -18,7 +17,7 @@ const FormClaims = ({
   claims,
   titlePage,
   submit,
-  cancelButton
+  cancelButton,
 }: {
   claims: IClaims;
   titlePage: string;
@@ -37,7 +36,7 @@ const FormClaims = ({
 
   const submitClaim = async () => {
     const executor = getUserById(parseInt(getRefValue(executorRef, "0"), 10));
-    const claim = {
+    const claim: IClaims = {
       createDate: Date.now(),
       creatorId: creatorUserInfo.id,
       creatorName: `${creatorUserInfo.lastName} ${creatorUserInfo.firstName} ${creatorUserInfo.middleName}`,
@@ -47,9 +46,14 @@ const FormClaims = ({
       factExecuteDate: null,
       id: claims.id || 0,
       planExecuteDate: getRefDate(dateRef, timeRef),
-      status: "IN_PROGRESS",
+      status: executor?.id === 0 ? "OPEN" : "IN_PROGRESS",
       title: getRefValue(titleRef, ""),
     };
+
+    if (executor === undefined) {
+      delete claim.executorId;
+    }
+
     await claimSchema
       .validate(claim, { abortEarly: false })
       .then(async () => {
