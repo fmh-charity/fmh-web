@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import React from "react";
-import { IClaims } from "src/pages/claims/claimsPage";
+import { IClaims } from "src/model/IClaim";
 import { useGetUsersQuery } from "src/services/api/usersApi";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
