@@ -1,3 +1,16 @@
+button {
+  padding: 4px;
+  background-color: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    background-color: #01a19f;
+  }
+}
+
 .view_card__container {
   display: grid;
   grid-template-rows: max-content max-content;
@@ -19,6 +32,8 @@
   width: 600px;
   background-color: white;
   border: 2px solid grey;
+  border-radius: 4px;
+  box-shadow: 0 5.5px 5px rgba(0, 0, 0, 0.24), 0px 9px 18px rgba(0, 0, 0, 0.18);
   justify-self: center;
 }
 
@@ -73,6 +88,49 @@
   grid-auto-flow: column;
   padding: 8px 16px;
   justify-content: space-between;
+  align-items: center;
+}
+
+.status_select{
+  display: grid;
+  align-items: center;
+  position: relative;
+  border-radius: 50px;
+  border: 2px solid transparent;
+  padding: 8px;
+}
+
+.status_select_icon {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.status_select:hover {
+  border: 2px solid #01a19f;
+
+  .status_select_visible{
+    display: grid;
+  }
+}
+
+.status_select_visible {
+  position: absolute;
+  display: none;
+  grid-auto-flow: row;
+  grid-row-gap: 4px;
+  margin: 8px 0;
+  top: 32px;
+  left: -100%;
+  border-radius: 8px;
+  border: 2px solid #01a19f;
+  background-color: white;
+  padding: 8px;
+  list-style-type: none;
+}
+
+.status_select_visible li{
+  white-space: nowrap;
 }
 
 .just_center {
