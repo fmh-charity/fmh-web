@@ -19,7 +19,7 @@ const FormClaims = ({
   submit,
   cancelButton,
 }: {
-  claims: IClaims;
+  claims: IClaims | null;
   titlePage: string;
   submit: (formData: IClaims) => void;
   cancelButton: () => void;
@@ -44,7 +44,7 @@ const FormClaims = ({
       executorId: executor?.id || 0,
       executorName: `${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`,
       factExecuteDate: null,
-      id: claims.id || 0,
+      id: claims?.id || 0,
       planExecuteDate: getRefDate(dateRef, timeRef),
       status: executor?.id === 0 ? "OPEN" : "IN_PROGRESS",
       title: getRefValue(titleRef, ""),
@@ -93,8 +93,9 @@ const FormClaims = ({
               ref={dateRef}
               min={format(new Date(), "yyyy-MM-dd")}
               defaultValue={
-                format(claims.planExecuteDate, "yyyy-MM-dd") ||
-                format(new Date(), "yyyy-MM-dd")
+                claims
+                  ? format(claims.planExecuteDate, "yyyy-MM-dd")
+                  : format(new Date(), "yyyy-MM-dd")
               }
             />
           </div>
@@ -103,8 +104,9 @@ const FormClaims = ({
               type="time"
               ref={timeRef}
               defaultValue={
-                format(claims.planExecuteDate, "HH:mm") ||
-                format(new Date(), "HH:mm")
+                claims
+                  ? format(claims.planExecuteDate, "HH:mm")
+                  : format(new Date(), "HH:mm")
               }
             />
           </div>
