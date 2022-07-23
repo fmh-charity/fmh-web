@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { IWishes } from "src/model/IWish";
+import { IWish } from "src/model/IWish";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 import { IWishComment } from "src/pages/wishes/components/viewWishesCard/ViewWihes";
 
@@ -8,15 +8,15 @@ export const wishesApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ["IWishes", "IWishComment"],
   endpoints: (builder) => ({
-    getWishes: builder.query<IWishes[], void>({
+    getWishes: builder.query<IWish[], void>({
       query: () => "wishes",
       providesTags: ["IWishes"],
     }),
-    getWishesById: builder.query<IWishes, number>({
+    getWishesById: builder.query<IWish, number>({
       query: (id: number) => `wishes/${id}`,
       providesTags: ["IWishes"],
     }),
-    addWishes: builder.mutation<IWishes, IWishes>({
+    addWishes: builder.mutation<IWish, IWish>({
       query: (body) => ({
         url: "wishes",
         method: "POST",
@@ -24,7 +24,7 @@ export const wishesApi = createApi({
       }),
       invalidatesTags: ["IWishes"],
     }),
-    updateWishes: builder.mutation<IWishes, IWishes>({
+    updateWishes: builder.mutation<IWish, IWish>({
       query: (body) => ({
         url: "wishes",
         method: "PUT",

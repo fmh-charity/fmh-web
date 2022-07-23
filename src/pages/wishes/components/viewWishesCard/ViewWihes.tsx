@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
@@ -12,6 +12,7 @@ import {
 import { useGetUsersQuery } from "src/services/api/usersApi";
 import { IComment } from "src/model/IComment";
 import { PatientName, UserName } from "src/utils/GetNames";
+import EditWish from "src/pages/wishes/components/editWishes/EditWishes";
 
 export interface IWishComment extends IComment {}
 
@@ -36,6 +37,14 @@ const ViewWishes = ({ id }: { id: number }) => {
       return false;
     }
   };
+
+  const editObj = ({
+    changeVisible,
+  }: {
+    changeVisible: () => void;
+  }): ReactElement => (
+    <EditWish wish={data.data} changeVisible={changeVisible} />
+  );
 
   return !data.data ? (
     <br />
@@ -83,6 +92,7 @@ const ViewWishes = ({ id }: { id: number }) => {
       comments={<WishComments wishId={id} />}
       addComment={addComment}
       changeStatus={() => {}}
+      editObj={editObj}
     />
   );
 };

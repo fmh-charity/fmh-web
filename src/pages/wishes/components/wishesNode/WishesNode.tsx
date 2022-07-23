@@ -1,12 +1,12 @@
 import Card from "src/components/card/Card";
 import { format } from "date-fns";
 import React from "react";
-import { IWishes } from "src/model/IWish";
+import { IWish } from "src/model/IWish";
 import ViewWishes from "src/pages/wishes/components/viewWishesCard/ViewWihes";
 import { PatientName, UserName } from "src/utils/GetNames";
 import styles from "./WishesNode.module.less";
 
-const WishesNode = ({ data }: { data: IWishes[] }) =>
+const WishesNode = ({ data }: { data: IWish[] }) =>
   data!.length > 0 ? (
     <div className={styles.wishes_page__container}>
       {data?.map((wish) => (

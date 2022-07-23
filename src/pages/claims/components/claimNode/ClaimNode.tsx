@@ -1,11 +1,11 @@
-import { IClaims } from "src/model/IClaim";
+import { IClaim } from "src/model/IClaim";
 import Card from "src/components/card/Card";
 import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import { format } from "date-fns";
 import React from "react";
 import styles from "./ClaimNode.module.less";
 
-const ClaimsNode = ({ data }: { data: IClaims[] }) =>
+const ClaimsNode = ({ data }: { data: IClaim[] }) =>
   data!.length > 0 ? (
     <div className={styles.claims_page__container}>
       {data?.map((claim) => (

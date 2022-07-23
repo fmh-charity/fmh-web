@@ -3,18 +3,15 @@ import styles from "./AddComment.module.less";
 
 const AddComment = ({
   addComment,
+  changeVisible,
 }: {
   addComment: (description: string) => Promise<boolean>;
+  changeVisible: () => void;
 }) => {
-  const [visibleAddComment, setVisibleAddComment] = useState(false);
   const [description, setDescription] = useState("");
 
   const changeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(e.target.value);
-  };
-
-  const changeVisible = () => {
-    setVisibleAddComment((currentState) => !currentState);
   };
 
   const submit = async () => {

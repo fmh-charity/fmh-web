@@ -1,4 +1,4 @@
-export interface IClaims {
+export interface IClaim {
   createDate: number;
   creatorId: number;
   creatorName: string;

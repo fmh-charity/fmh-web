@@ -1,22 +1,22 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 import { IClaimComment } from "src/pages/claims/components/viewClaimCard/ViewClaims";
-import { IClaims } from "src/model/IClaim";
+import { IClaim } from "src/model/IClaim";
 
 export const claimsApi = createApi({
   reducerPath: "claimsApi",
   baseQuery: baseQueryWithReauth,
   tagTypes: ["IClaims", "IClaimComment"],
   endpoints: (builder) => ({
-    getClaims: builder.query<IClaims[], void>({
+    getClaims: builder.query<IClaim[], void>({
       query: () => "claims",
       providesTags: ["IClaims"],
     }),
-    getClaimById: builder.query<IClaims, number>({
+    getClaimById: builder.query<IClaim, number>({
       query: (id: number) => `claims/${id}`,
       providesTags: ["IClaims"],
     }),
-    addClaims: builder.mutation<IClaims, IClaims>({
+    addClaims: builder.mutation<IClaim, IClaim>({
       query: (body) => ({
         url: "claims",
         method: "POST",
@@ -24,7 +24,7 @@ export const claimsApi = createApi({
       }),
       invalidatesTags: ["IClaims"],
     }),
-    updateClaims: builder.mutation<IClaims, IClaims>({
+    updateClaims: builder.mutation<IClaim, IClaim>({
       query: (body) => ({
         url: "claims",
         method: "PUT",

@@ -22,7 +22,7 @@ const WishesPage = () => {
     changeVisible: () => void;
   }): ReactElement => (
     <FormWishes
-      wishes={null}
+      propWish={null}
       titlePage="Создание просьбы"
       submit={addWishes}
       cancelButton={changeVisible}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import {
   useAddClaimCommentsMutation,
   useGetClaimByIdQuery,
@@ -10,6 +10,7 @@ import { selectUserInfo } from "src/features/auth/authSlice";
 import DrawCard from "src/components/card/viewCard/ViewCard";
 import CommentCard from "src/components/comment/CommentCards";
 import { IComment } from "src/model/IComment";
+import EditClaims from "src/pages/claims/components/editClaims/EditClaims";
 
 export interface IClaimComment extends IComment {}
 
@@ -38,6 +39,14 @@ const ViewClaims = ({ id }: { id: number }) => {
       return false;
     }
   };
+
+  const editObj = ({
+    changeVisible,
+  }: {
+    changeVisible: () => void;
+  }): ReactElement => (
+    <EditClaims claim={data.data} changeVisible={changeVisible} />
+  );
 
   return !data.data ? (
     <br />
@@ -80,6 +89,7 @@ const ViewClaims = ({ id }: { id: number }) => {
       comments={<ClaimComments claimId={id} />}
       addComment={addComment}
       changeStatus={changeStatus}
+      editObj={editObj}
     />
   );
 };

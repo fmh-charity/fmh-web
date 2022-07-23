@@ -1,4 +1,4 @@
-export interface IWishes {
+export interface IWish {
   createDate: number;
   creatorId: number;
   description: string;

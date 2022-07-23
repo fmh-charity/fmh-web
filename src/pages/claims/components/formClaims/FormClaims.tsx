@@ -1,11 +1,12 @@
 import { format } from "date-fns";
 import React from "react";
-import { IClaims } from "src/model/IClaim";
+import { IClaim } from "src/model/IClaim";
 import { useGetUsersQuery } from "src/services/api/usersApi";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
 import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { object, string } from "yup";
+import Select from "react-select";
 import styles from "./Formclaims.module.less";
 
 const claimSchema = object({
@@ -19,9 +20,9 @@ const FormClaims = ({
   submit,
   cancelButton,
 }: {
-  claims: IClaims | null;
+  claims: IClaim | null | undefined;
   titlePage: string;
-  submit: (formData: IClaims) => void;
+  submit: (formData: IClaim) => void;
   cancelButton: () => void;
 }) => {
   const creatorUserInfo = useSelector(selectUserInfo);
@@ -36,7 +37,7 @@ const FormClaims = ({
 
   const submitClaim = async () => {
     const executor = getUserById(parseInt(getRefValue(executorRef, "0"), 10));
-    const claim: IClaims = {
+    const claim: IClaim = {
       createDate: Date.now(),
       creatorId: creatorUserInfo.id,
       creatorName: `${creatorUserInfo.lastName} ${creatorUserInfo.firstName} ${creatorUserInfo.middleName}`,
@@ -63,6 +64,7 @@ const FormClaims = ({
       .catch((e) => alert(e.errors.join("\n\r")));
   };
 
+  console.log(claims);
   return (
     <div className={styles.edit_claims__conatainer}>
       <header className={styles.view_claims__header}>
@@ -78,15 +80,35 @@ const FormClaims = ({
           minLength={3}
         />
         <div className={styles.claims_row}>
-          <select className={styles.claims_category} ref={executorRef}>
-            <option>Выберите исполнителя</option>
-            {users &&
-              users?.map((userInfo) => (
-                <option key={userInfo.id} value={userInfo.id}>
-                  {`${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`}
-                </option>
-              ))}
-          </select>
+          <Select
+            isMulti={false}
+            name="users"
+            options={users?.map((userInfo) => ({
+              label: `${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`,
+              value: userInfo.id,
+            }))}
+            defaultValue={
+              claims && claims.executorId
+                ? {
+                    label: `${getUserById(claims.executorId)!.lastName} ${
+                      getUserById(claims.executorId)!.middleName
+                    } ${getUserById(claims.executorId)!.firstName}`,
+                    value: claims.executorId,
+                  }
+                : { label: "Не назначен", value: 0 }
+            }
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
+          {/* <select className={styles.claims_category} ref={executorRef}> */}
+          {/*   <option>Выберите исполнителя</option> */}
+          {/*   {users && */}
+          {/*     users?.map((userInfo) => ( */}
+          {/*       <option key={userInfo.id} value={userInfo.id}> */}
+          {/*         {`${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`} */}
+          {/*       </option> */}
+          {/*     ))} */}
+          {/* </select> */}
           <div className={styles.claims_date}>
             <input
               type="date"

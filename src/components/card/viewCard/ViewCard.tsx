@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import StatusIcon from "src/assets/icons/status_processing.svg";
 import StaffIcon from "src/assets/icons/staff.svg";
 import EditIcon from "src/assets/icons/edit_icon.svg";
@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import "./ViewCard.less";
 import AddComment from "src/components/comment/addComment/AddComment";
 import Modal from "src/components/modal/Modal";
+import { IWish } from "src/model/IWish";
+import { IClaim } from "src/model/IClaim";
 
 const DrawCard = ({
   title,
@@ -16,6 +18,7 @@ const DrawCard = ({
   comments,
   addComment,
   changeStatus,
+  editObj,
 }: {
   title: string;
   viewCardTheme: { key: string; value: string };
@@ -23,13 +26,14 @@ const DrawCard = ({
   comments: ReactNode;
   addComment: (description: string) => Promise<boolean>;
   changeStatus: () => void;
+  editObj: ({ changeVisible }: { changeVisible: () => void }) => ReactElement;
 }) => {
-  const addIconComponent = ({
+  const addCommentComponent = ({
     changeVisible,
   }: {
     changeVisible: () => void;
   }): ReactElement => (
-    <AddComment addComment={addComment} />
+    <AddComment changeVisible={changeVisible} addComment={addComment} />
   );
 
   return (
@@ -80,10 +84,12 @@ const DrawCard = ({
                 { value: "Отменить", func: changeStatus },
               ]}
             />
-            <Modal modal={addIconComponent}>
+            <Modal modal={addCommentComponent}>
               {({ changeVisible }) => <AddIcon onClick={changeVisible} />}
             </Modal>
-            <EditIcon />
+            <Modal modal={editObj}>
+              {({ changeVisible }) => <EditIcon onClick={changeVisible} />}
+            </Modal>
           </div>
         </div>
       </div>
