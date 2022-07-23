@@ -7,6 +7,7 @@ import { selectUserInfo } from "src/features/auth/authSlice";
 import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { object, string } from "yup";
 import Select from "react-select";
+import { IUserInfo } from "src/services/api/authApi";
 import styles from "./Formclaims.module.less";
 
 const claimSchema = object({
@@ -32,6 +33,7 @@ const FormClaims = ({
   const titleRef = React.createRef<HTMLInputElement>();
   const descriptionRef = React.createRef<HTMLTextAreaElement>();
   const { data: users } = useGetUsersQuery();
+  let user: IUserInfo | undefined;
 
   const getUserById = (id: number) => users?.find((user) => user.id === id);
 
@@ -64,7 +66,10 @@ const FormClaims = ({
       .catch((e) => alert(e.errors.join("\n\r")));
   };
 
-  console.log(claims);
+  if (claims && claims.executorId) {
+    user = getUserById(claims.executorId);
+  }
+
   return (
     <div className={styles.edit_claims__conatainer}>
       <header className={styles.view_claims__header}>
@@ -88,12 +93,10 @@ const FormClaims = ({
               value: userInfo.id,
             }))}
             defaultValue={
-              claims && claims.executorId
+              user
                 ? {
-                    label: `${getUserById(claims.executorId)!.lastName} ${
-                      getUserById(claims.executorId)!.middleName
-                    } ${getUserById(claims.executorId)!.firstName}`,
-                    value: claims.executorId,
+                    label: `${user.lastName} ${user.middleName} ${user.firstName}`,
+                    value: user.id,
                   }
                 : { label: "Не назначен", value: 0 }
             }

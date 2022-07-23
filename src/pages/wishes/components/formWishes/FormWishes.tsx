@@ -7,7 +7,7 @@ import { selectUserInfo } from "src/features/auth/authSlice";
 import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { number, object, string } from "yup";
 import { IUserInfo } from "src/services/api/authApi";
-import {IPatient, useGetPatientsQuery} from "src/services/api/patientApi";
+import { IPatient, useGetPatientsQuery } from "src/services/api/patientApi";
 import Select from "react-select";
 import { useGetUserByIdFromCache } from "src/hooks/useGetUserByIdFromCache";
 import styles from "./FormWishes.module.less";
@@ -38,12 +38,14 @@ const FormWishes = ({
   const descriptionRef = React.createRef<HTMLTextAreaElement>();
   const { data: users } = useGetUsersQuery();
   const { data: patients } = useGetPatientsQuery();
+  let user: IUserInfo | undefined;
+  let patient: IPatient | undefined;
 
   const getUserById = (id: number) =>
-    users?.find((user: IUserInfo) => user.id === id);
+    users?.find((u: IUserInfo) => u.id === id);
 
   const getPatienById = (id: number) =>
-    patients?.find((patient: IPatient) => patient.id === id);
+    patients?.find((p: IPatient) => p.id === id);
 
   const submitWishes = async () => {
     const executor = getUserById(
@@ -75,6 +77,11 @@ const FormWishes = ({
       .catch((e: any) => alert(e.errors.join("\n\r")));
   };
 
+  if (propWish && propWish.patientId && propWish.executorId) {
+    user = getUserById(propWish.executorId);
+    patient = getPatienById(propWish.patientId);
+  }
+
   return (
     <div className={styles.edit_wishes__conatainer}>
       <header className={styles.view_wishes__header}>
@@ -94,17 +101,15 @@ const FormWishes = ({
             isMulti={false}
             name="patients"
             ref={patientRef}
-            options={patients?.map((patient) => ({
-              label: `${patient.lastName} ${patient.firstName} ${patient.middleName}`,
-              value: patient.id,
+            options={patients?.map((p) => ({
+              label: `${p.lastName} ${p.firstName} ${p.middleName}`,
+              value: p.id,
             }))}
             defaultValue={
-              propWish && propWish.patientId
+              patient
                 ? {
-                    label: `${getPatienById(propWish.patientId)!.lastName} ${
-                      getPatienById(propWish.patientId)!.middleName
-                    } ${getPatienById(propWish.patientId)!.firstName}`,
-                    value: propWish.patientId,
+                    label: `${patient.lastName} ${patient.middleName} ${patient.firstName}`,
+                    value: patient.id,
                   }
                 : { label: "Исполнитель", value: 0 }
             }
@@ -122,12 +127,10 @@ const FormWishes = ({
               value: userInfo.id,
             }))}
             defaultValue={
-              propWish && propWish.executorId
+              user
                 ? {
-                    label: `${getUserById(propWish.executorId)!.lastName} ${
-                      getUserById(propWish.executorId)!.middleName
-                    } ${getUserById(propWish.executorId)!.firstName}`,
-                    value: propWish.executorId,
+                    label: `${user.lastName} ${user.middleName} ${user.firstName}`,
+                    value: user.id,
                   }
                 : { label: "Исполнитель", value: 0 }
             }
