@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { categories } from "src/common/categories";
 import { selectUserInfo } from "src/features/auth/authSlice";
-import { INews } from "src/pages/news/NewsPage";
+import { INews } from "src/model/INews";
 import { getRefDate, getRefChecked, getRefValue } from "src/utils/GetRef";
 import styles from "./FormNews.module.less";
 

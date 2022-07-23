@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { IClaims } from "src/pages/claims/ClaimsPage";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 import { IClaimComment } from "src/pages/claims/components/viewClaimCard/ViewClaims";
+import { IClaims } from "src/model/IClaim";
 
 export const claimsApi = createApi({
   reducerPath: "claimsApi",
@@ -12,8 +12,8 @@ export const claimsApi = createApi({
       query: () => "claims",
       providesTags: ["IClaims"],
     }),
-    getClaimById: builder.query<IClaims, string>({
-      query: (id: string) => `claims/${id}`,
+    getClaimById: builder.query<IClaims, number>({
+      query: (id: number) => `claims/${id}`,
       providesTags: ["IClaims"],
     }),
     addClaims: builder.mutation<IClaims, IClaims>({
@@ -32,8 +32,8 @@ export const claimsApi = createApi({
       }),
       invalidatesTags: ["IClaims"],
     }),
-    getClaimComments: builder.query<IClaimComment[], string>({
-      query: (id: string) => `claims/${id}/comments`,
+    getClaimComments: builder.query<IClaimComment[], number>({
+      query: (id: number) => `claims/${id}/comments`,
       providesTags: ["IClaimComment"],
     }),
     addClaimComments: builder.mutation<IClaimComment, IClaimComment>({
@@ -50,7 +50,6 @@ export const claimsApi = createApi({
 export const {
   useGetClaimsQuery,
   useGetClaimByIdQuery,
-  useLazyGetClaimByIdQuery,
   useAddClaimsMutation,
   useUpdateClaimsMutation,
   useGetClaimCommentsQuery,

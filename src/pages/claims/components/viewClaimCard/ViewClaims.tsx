@@ -1,42 +1,41 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import {
   useAddClaimCommentsMutation,
+  useGetClaimByIdQuery,
   useGetClaimCommentsQuery,
-  useLazyGetClaimByIdQuery,
 } from "src/services/api/claimsApi";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
-import DrawCard from "src/components/viewCard/ViewCard";
-import CommentCard, { IComment } from "src/components/comment/CommentCards";
+import DrawCard from "src/components/card/viewCard/ViewCard";
+import CommentCard from "src/components/comment/CommentCards";
+import { IComment } from "src/model/IComment";
 
 export interface IClaimComment extends IComment {}
 
-const ViewClaims = () => {
-  const { id: claimId } = useParams();
-  const [trigger, data] = useLazyGetClaimByIdQuery();
+const ViewClaims = ({ id }: { id: number }) => {
+  const data = useGetClaimByIdQuery(id);
   const [addCommentTrigger] = useAddClaimCommentsMutation();
   const userInfo = useSelector(selectUserInfo);
 
-  useEffect(() => {
-    if (claimId) {
-      trigger(claimId);
-    }
-  }, []);
+  const changeStatus = () => {
+    console.log("changeStatus");
+  };
 
-  // TODO change on model
-  const addComment = () => {
-    const comment = prompt("Коменть!");
-    if (comment && claimId) {
-      addCommentTrigger({
+  const addComment = async (description: string): Promise<boolean> => {
+    try {
+      await addCommentTrigger({
         id: 0,
-        objId: parseInt(claimId, 10),
+        objId: id,
         createDate: Date.now(),
         creatorId: userInfo.id,
-        description: comment,
+        description,
         creatorName: "",
-      });
+      }).unwrap();
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
     }
   };
 
@@ -49,7 +48,7 @@ const ViewClaims = () => {
       obj={[
         {
           key: "Исполнитель",
-          value: data.data.executorName,
+          value: data.data.executorName || "Не назначен",
           style: "view_card__row two_columns",
         },
         {
@@ -78,13 +77,14 @@ const ViewClaims = () => {
           style: "view_card__row two_columns",
         },
       ]}
-      comments={<ClaimComments claimId={claimId!} />}
+      comments={<ClaimComments claimId={id} />}
       addComment={addComment}
+      changeStatus={changeStatus}
     />
   );
 };
 
-const ClaimComments = ({ claimId }: { claimId: string }) => {
+const ClaimComments = ({ claimId }: { claimId: number }) => {
   const { data: comments } = useGetClaimCommentsQuery(claimId);
 
   return comments ? (

@@ -1,16 +1,7 @@
 import { format } from "date-fns";
 import React from "react";
-import { useGetClaimCommentsQuery } from "src/services/api/claimsApi";
+import { IComment } from "src/model/IComment";
 import styles from "./CommentCard.module.less";
-
-export interface IComment {
-  id: number;
-  objId: number;
-  createDate: number;
-  creatorId: number;
-  creatorName: string;
-  description: string;
-}
 
 const CommentCard = ({ comment }: { comment: IComment }) => (
   <div className={styles.comment_card__container}>

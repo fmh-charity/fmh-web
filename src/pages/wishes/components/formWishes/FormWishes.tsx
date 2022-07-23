@@ -1,6 +1,6 @@
 import { format } from "date-fns";
-import React, { useRef, useState } from "react";
-import { IWishes } from "src/pages/wishes/wishesPage";
+import React, { useRef } from "react";
+import { IWishes } from "src/model/IWish";
 import { useGetUsersQuery } from "src/services/api/usersApi";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
@@ -8,13 +8,12 @@ import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { number, object, string } from "yup";
 import { UserInfo } from "src/services/api/authApi";
 import { useGetPatientsQuery } from "src/services/api/patientApi";
-import Select, { GroupBase, Options } from "react-select";
+import Select from "react-select";
 import styles from "./FormWishes.module.less";
 
 const wishesSchema = object({
   description: string().required().min(5),
   patientId: number().required().positive(),
-  executorId: number().required().positive(),
   title: string().required().min(3),
 });
 
@@ -24,7 +23,7 @@ const FormWishes = ({
   submit,
   cancelButton,
 }: {
-  wishes: IWishes;
+  wishes: IWishes | null;
   titlePage: string;
   submit: (formData: IWishes) => void;
   cancelButton: () => void;
@@ -44,22 +43,25 @@ const FormWishes = ({
 
   const submitWishes = async () => {
     const executor = getUserById(
-      (executorRef.current as any).getValue()[0].value
+      (executorRef.current as any).getValue()[0]?.value
     );
-    const wish = {
+    const wish: IWishes = {
       createDate: Date.now(),
       creatorId: creatorUserInfo.id,
       patientId: (patientRef.current as any).getValue()[0].value,
       description: getRefValue(descriptionRef, ""),
       executorId: executor?.id || 0,
-      executorName: `${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`,
       factExecuteDate: null,
-      id: wishes.id || 0,
+      id: wishes?.id || 0,
       planExecuteDate: getRefDate(dateRef, timeRef),
       status: "IN_PROGRESS",
       title: getRefValue(titleRef, ""),
     };
-    console.log(wish);
+
+    if (executor === undefined) {
+      delete wish.executorId;
+    }
+
     await wishesSchema
       .validate(wish, { abortEarly: false })
       .then(async () => {
@@ -114,8 +116,9 @@ const FormWishes = ({
               ref={dateRef}
               min={format(new Date(), "yyyy-MM-dd")}
               defaultValue={
-                format(wishes.planExecuteDate, "yyyy-MM-dd") ||
-                format(new Date(), "yyyy-MM-dd")
+                wishes
+                  ? format(wishes.planExecuteDate, "yyyy-MM-dd")
+                  : format(new Date(), "yyyy-MM-dd")
               }
             />
           </div>
@@ -124,8 +127,9 @@ const FormWishes = ({
               type="time"
               ref={timeRef}
               defaultValue={
-                format(wishes.planExecuteDate, "HH:mm") ||
-                format(new Date(), "HH:mm")
+                wishes
+                  ? format(wishes.planExecuteDate, "HH:mm")
+                  : format(new Date(), "HH:mm")
               }
             />
           </div>

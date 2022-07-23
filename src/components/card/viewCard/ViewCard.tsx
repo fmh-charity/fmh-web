@@ -7,6 +7,7 @@ import ArrowLeftIcon from "src/assets/icons/arrow_left.svg";
 import { Link } from "react-router-dom";
 import "./ViewCard.less";
 import AddComment from "src/components/comment/addComment/AddComment";
+import Modal from "src/components/modal/Modal";
 
 const DrawCard = ({
   title,
@@ -23,6 +24,14 @@ const DrawCard = ({
   addComment: (description: string) => Promise<boolean>;
   changeStatus: () => void;
 }) => {
+  const addIconComponent = ({
+    changeVisible,
+  }: {
+    changeVisible: () => void;
+  }): ReactElement => (
+    <AddComment addComment={addComment} />
+  );
+
   return (
     <div className="view_card__container">
       <header className="view_card__page_header">
@@ -71,9 +80,9 @@ const DrawCard = ({
                 { value: "Отменить", func: changeStatus },
               ]}
             />
-            <AddComment addComment={addComment}>
+            <Modal modal={addIconComponent}>
               {({ changeVisible }) => <AddIcon onClick={changeVisible} />}
-            </AddComment>
+            </Modal>
             <EditIcon />
           </div>
         </div>

@@ -3,7 +3,7 @@ import format from "date-fns/format";
 import deleteIcon from "src/assets/icons/delete.png";
 import EditIcon from "src/assets/icons/edit_icon.svg";
 import { categories } from "src/common/categories";
-import { INews } from "src/pages/news/NewsPage";
+import { INews } from "src/model/INews";
 import { useDeleteNewsMutation } from "src/services/api/newsApi";
 import { Link } from "react-router-dom";
 import styles from "./NewsCard.module.less";

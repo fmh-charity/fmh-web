@@ -8,18 +8,6 @@ import { Link } from "react-router-dom";
 import NewsCard from "./components/NewsCard/NewsCard";
 import styles from "./News.module.less";
 
-export interface INews {
-  createDate: number;
-  creatorId: number;
-  creatorName: string;
-  description: string;
-  id: number;
-  newsCategoryId: number;
-  publishDate: number;
-  publishEnabled: boolean;
-  title: string;
-}
-
 const NewsPage = (): any => {
   const { isLoading, data } = useGetNewsQuery();
 

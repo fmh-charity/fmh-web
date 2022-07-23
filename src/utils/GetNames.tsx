@@ -1,5 +1,5 @@
-import {useGetUserByIdFromCache} from "src/hooks/useGetUserByIdFromCache";
-import {useGetPatientByIdFromCache} from "src/hooks/useGetPatientByIdFromCache";
+import { useGetUserByIdFromCache } from "src/hooks/useGetUserByIdFromCache";
+import { useGetPatientByIdFromCache } from "src/hooks/useGetPatientByIdFromCache";
 import React from "react";
 
 export const UserName = ({ id }: { id: number }) => {
@@ -7,8 +7,8 @@ export const UserName = ({ id }: { id: number }) => {
   return (
     <span>
       {`${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`}
-  </span>
-);
+    </span>
+  );
 };
 
 export const PatientName = ({ id }: { id: number }) => {
@@ -16,6 +16,6 @@ export const PatientName = ({ id }: { id: number }) => {
   return (
     <span>
       {`${patient?.lastName} ${patient?.firstName} ${patient?.middleName}`}
-  </span>
-);
+    </span>
+  );
 };

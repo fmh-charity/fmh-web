@@ -39,11 +39,9 @@ const App = () => (
             </Route>
             <Route path="/claims" element={<Outlet />}>
               <Route index element={<ClaimsPage />} />
-              <Route path="view/:id" element={<ViewClaims />} />
             </Route>
             <Route path="/wishes" element={<Outlet />}>
               <Route index element={<WishesPage />} />
-              <Route path="view/:id" element={<ViewWishes />} />
             </Route>
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

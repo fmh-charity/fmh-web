@@ -1,44 +1,39 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
-import DrawCard from "src/components/viewCard/ViewCard";
-import CommentCard, { IComment } from "src/components/comment/CommentCards";
+import DrawCard from "src/components/card/viewCard/ViewCard";
+import CommentCard from "src/components/comment/CommentCards";
 import {
   useAddWishesCommentsMutation,
+  useGetWishesByIdQuery,
   useGetWishesCommentsQuery,
-  useLazyGetWishesByIdQuery,
 } from "src/services/api/wishesApi";
-import { UserName, PatientName } from "src/pages/wishes/WishesPage";
+import { useGetUsersQuery } from "src/services/api/usersApi";
+import { IComment } from "src/model/IComment";
+import { PatientName, UserName } from "src/utils/GetNames";
 
 export interface IWishComment extends IComment {}
 
-const ViewWishes = () => {
-  const { id: wishId } = useParams();
-  const [trigger, data] = useLazyGetWishesByIdQuery();
+const ViewWishes = ({ id }: { id: number }) => {
+  const data = useGetWishesByIdQuery(id);
   const [addCommentTrigger] = useAddWishesCommentsMutation();
   const userInfo = useSelector(selectUserInfo);
 
-  useEffect(() => {
-    if (wishId) {
-      trigger(wishId);
-    }
-  }, []);
-
-  // TODO change on model
-  const addComment = () => {
-    const comment = prompt("Коменть!");
-    console.log(`${userInfo.id} AAAAAAAAAAAAAAAAAA`);
-    if (comment && wishId) {
-      addCommentTrigger({
+  const addComment = async (description: string): Promise<boolean> => {
+    try {
+      await addCommentTrigger({
         id: 0,
-        objId: parseInt(wishId, 10),
+        objId: id,
         createDate: Date.now(),
         creatorId: userInfo.id,
-        description: comment,
+        description,
         creatorName: "",
-      });
+      }).unwrap();
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
     }
   };
 
@@ -46,7 +41,7 @@ const ViewWishes = () => {
     <br />
   ) : (
     <DrawCard
-      title="Заявки"
+      title="Просьбы"
       viewCardTheme={{ key: "Тема", value: data.data.title }}
       obj={[
         {
@@ -56,7 +51,7 @@ const ViewWishes = () => {
         },
         {
           key: "Исполнитель",
-          value: <UserName id={data.data.executorId} />,
+          value: data.data.executorId && <UserName id={data.data.executorId} />,
           style: "view_card__row two_columns",
         },
         {
@@ -85,18 +80,28 @@ const ViewWishes = () => {
           style: "view_card__row two_columns",
         },
       ]}
-      comments={<WishComments wishId={wishId!} />}
+      comments={<WishComments wishId={id} />}
       addComment={addComment}
+      changeStatus={() => {}}
     />
   );
 };
 
-const WishComments = ({ wishId }: { wishId: string }) => {
+const WishComments = ({ wishId }: { wishId: number }) => {
   const { data: comments } = useGetWishesCommentsQuery(wishId);
+  const { data: users } = useGetUsersQuery();
+
+  const commentsWithCreatorNames = comments?.map((comment: IWishComment) => {
+    const commentWithCreatorName = { ...comment };
+    const user = users?.find((u) => u.id === commentWithCreatorName.creatorId);
+    commentWithCreatorName.creatorName = `${user?.lastName} ${user?.firstName} ${user?.middleName}`;
+
+    return commentWithCreatorName;
+  });
 
   return comments ? (
     <div>
-      {comments?.map((comment: IWishComment) => (
+      {commentsWithCreatorNames?.map((comment: IWishComment) => (
         <CommentCard key={comment.id} comment={comment} />
       ))}
     </div>

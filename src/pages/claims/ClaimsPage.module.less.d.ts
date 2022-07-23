@@ -2,7 +2,6 @@
 // Please do not change this file!
 interface CssExports {
   'claims_page__claims': string;
-  'claims_page__container': string;
   'claims_page__header_icons': string;
   'claims_page__header_title': string;
 }

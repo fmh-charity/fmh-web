@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { IWishes } from "src/pages/wishes/WishesPage";
+import { IWishes } from "src/model/IWish";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 import { IWishComment } from "src/pages/wishes/components/viewWishesCard/ViewWihes";
 
@@ -12,8 +12,8 @@ export const wishesApi = createApi({
       query: () => "wishes",
       providesTags: ["IWishes"],
     }),
-    getWishesById: builder.query<IWishes, string>({
-      query: (id: string) => `wishes/${id}`,
+    getWishesById: builder.query<IWishes, number>({
+      query: (id: number) => `wishes/${id}`,
       providesTags: ["IWishes"],
     }),
     addWishes: builder.mutation<IWishes, IWishes>({
@@ -32,8 +32,8 @@ export const wishesApi = createApi({
       }),
       invalidatesTags: ["IWishes"],
     }),
-    getWishesComments: builder.query<IWishComment[], string>({
-      query: (id: string) => `wishes/${id}/comments`,
+    getWishesComments: builder.query<IWishComment[], number>({
+      query: (id: number) => `wishes/${id}/comments`,
       providesTags: ["IWishComment"],
     }),
     addWishesComments: builder.mutation<IWishComment, IWishComment>({

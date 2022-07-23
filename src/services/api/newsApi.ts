@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { INews } from "src/pages/news/NewsPage";
+import { INews } from "src/model/INews";
 import { NewsPost } from "src/pages/news/components/addNews/AddNews";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 

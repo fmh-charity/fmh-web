@@ -1,31 +1,48 @@
-import React, { ReactNode } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 import Arrow from "src/assets/icons/arrow.svg";
+import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
+import ViewWihes from "src/pages/wishes/components/viewWishesCard/ViewWihes";
+import Modal from "src/components/modal/Modal";
 import styles from "./Card.module.less";
 
 const Card = ({
+  id,
   title,
-  callback,
   rows,
+  View,
 }: {
+  id: number;
   title: { key: string; value: string };
-  callback: () => void;
   rows: { key: string; value: string | ReactNode }[];
-}) => (
-  <section className={styles.card__container}>
-    <div className={styles.card__head}>
-      <span>{title.key}</span>
-      <span title={title.value}>{title.value}</span>
-    </div>
-    {rows.map((row) => (
-      <div key={row.key} className={styles.card__row}>
-        <span>{row.key}</span>
-        <span>{row.value}</span>
+  View: typeof ViewClaims | typeof ViewWihes;
+}) => {
+  const showView = (): ReactElement => <View id={id} />;
+
+  return (
+    <section className={styles.card__container}>
+      <div className={styles.card__head}>
+        <span>{title.key}</span>
+        <span title={title.value}>{title.value}</span>
       </div>
-    ))}
-    <button type="button" className={styles.card__button} onClick={callback}>
-      <Arrow />
-    </button>
-  </section>
-);
+      {rows.map((row) => (
+        <div key={row.key} className={styles.card__row}>
+          <span>{row.key}</span>
+          <span>{row.value}</span>
+        </div>
+      ))}
+      <Modal modal={showView}>
+        {({ changeVisible }) => (
+          <button
+            type="button"
+            className={styles.card__button}
+            onClick={changeVisible}
+          >
+            <Arrow />
+          </button>
+        )}
+      </Modal>
+    </section>
+  );
+};
 
 export default Card;

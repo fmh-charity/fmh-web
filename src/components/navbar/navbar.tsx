@@ -15,21 +15,13 @@ import styles from "./navbar.module.less";
 import NavbarLink from "./components/NavbarLink";
 
 const Navbar = () => (
-  // const menuActive = useAppSelector(
-  //   (state: RootState) => state.navbar.menuActive
-  // );
-  // const dispatch = useAppDispatch();
-
   <div className={styles.navbar}>
     <div className={styles.header}>
       <div
         className={styles.header_button}
         role="button"
-        // onClick={() => dispatch(toggle())}
-        // onKeyDown={() => dispatch(toggle())}
         tabIndex={0}
       >
-        {/* <BurgerMenuIcon /> */}
       </div>
     </div>
     <div className={styles.navbar_links}>
