@@ -52,7 +52,7 @@ const ViewClaims = ({ id }: { id: number }) => {
     <br />
   ) : (
     <DrawCard
-      title="Заявки"
+      title="Заявка"
       viewCardTheme={{ key: "Тема", value: data.data.title }}
       obj={[
         {

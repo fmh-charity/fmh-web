@@ -1,15 +1,12 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useContext } from "react";
 import StatusIcon from "src/assets/icons/status_processing.svg";
 import StaffIcon from "src/assets/icons/staff.svg";
 import EditIcon from "src/assets/icons/edit_icon.svg";
 import AddIcon from "src/assets/icons/add.svg";
 import ArrowLeftIcon from "src/assets/icons/arrow_left.svg";
-import { Link } from "react-router-dom";
 import "./ViewCard.less";
 import AddComment from "src/components/comment/addComment/AddComment";
-import Modal from "src/components/modal/Modal";
-import { IWish } from "src/model/IWish";
-import { IClaim } from "src/model/IClaim";
+import Modal, { ModalContext } from "src/components/modal/Modal";
 
 const DrawCard = ({
   title,
@@ -36,6 +33,8 @@ const DrawCard = ({
     <AddComment changeVisible={changeVisible} addComment={addComment} />
   );
 
+  const closeView = useContext(ModalContext);
+
   return (
     <div className="view_card__container">
       <header className="view_card__page_header">
@@ -55,9 +54,7 @@ const DrawCard = ({
           ))}
           <div className="view_card__comments">{comments}</div>
           <div className="view_card__icons">
-            <Link to="/claims">
-              <ArrowLeftIcon />
-            </Link>
+            <ArrowLeftIcon onClick={closeView} />
             {/* TODO Зона видимости в разработке на беке */}
             <ViewCardIconSelect
               icon={

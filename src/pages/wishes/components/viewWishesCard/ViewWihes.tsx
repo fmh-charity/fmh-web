@@ -50,7 +50,7 @@ const ViewWishes = ({ id }: { id: number }) => {
     <br />
   ) : (
     <DrawCard
-      title="Просьбы"
+      title="Просьба"
       viewCardTheme={{ key: "Тема", value: data.data.title }}
       obj={[
         {

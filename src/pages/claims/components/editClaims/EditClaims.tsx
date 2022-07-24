@@ -10,13 +10,13 @@ const EditClaims = ({
   claim: IClaim | undefined;
   changeVisible: () => void;
 }) => {
-  const [updateclaim] = useUpdateClaimsMutation();
+  const [updateСlaim] = useUpdateClaimsMutation();
 
   return (
     <FormClaims
       claims={claim}
       titlePage="Изменить просьбу"
-      submit={updateclaim}
+      submit={updateСlaim}
       cancelButton={changeVisible}
     />
   );

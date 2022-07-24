@@ -1,6 +1,8 @@
 import React, { ReactElement, useState } from "react";
 import styles from "./ModalComponent.module.less";
 
+export const ModalContext = React.createContext<null | (() => void)>(null);
+
 const Modal = ({
   children,
   modal,
@@ -9,9 +11,9 @@ const Modal = ({
   modal: ({ changeVisible }: { changeVisible: () => void }) => ReactElement;
 }) => {
   const [visibleAddComment, setVisibleAddComment] = useState(false);
-  const changeVisible = () => {
+  const changeVisible = React.useCallback(() => {
     setVisibleAddComment((currentState) => !currentState);
-  };
+  }, []);
 
   const rootClasses = [styles.myModal];
 
@@ -20,7 +22,7 @@ const Modal = ({
   }
 
   return (
-    <>
+    <ModalContext.Provider value={changeVisible}>
       {children({
         changeVisible,
       })}
@@ -37,7 +39,7 @@ const Modal = ({
           {visibleAddComment ? modal({ changeVisible }) : null}
         </div>
       </div>
-    </>
+    </ModalContext.Provider>
   );
 };
 

@@ -39,8 +39,12 @@ const ClaimsPage = () => {
               <button type="button" onClick={changeVisible}>
                 <AddIcon />
               </button>
-              <FilterIcon />
-              <SortIcon />
+              <button type="button" onClick={() => console.log("Фильтр")}>
+                <FilterIcon />
+              </button>
+              <button type="button" onClick={() => console.log("Сортировка")}>
+                <SortIcon />
+              </button>
             </div>
           </header>
           {isLoading ? <Loader /> : <ClaimsNode data={claims || []} />}

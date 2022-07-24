@@ -9,7 +9,6 @@ import { number, object, string } from "yup";
 import { IUserInfo } from "src/services/api/authApi";
 import { IPatient, useGetPatientsQuery } from "src/services/api/patientApi";
 import Select from "react-select";
-import { useGetUserByIdFromCache } from "src/hooks/useGetUserByIdFromCache";
 import styles from "./FormWishes.module.less";
 
 const wishesSchema = object({

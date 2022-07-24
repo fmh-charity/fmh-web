@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import Arrow from "src/assets/icons/arrow.svg";
 import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import ViewWihes from "src/pages/wishes/components/viewWishesCard/ViewWihes";

@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React from "react";
+import React, { useRef } from "react";
 import { IClaim } from "src/model/IClaim";
 import { useGetUsersQuery } from "src/services/api/usersApi";
 import { useSelector } from "react-redux";
@@ -27,7 +27,7 @@ const FormClaims = ({
   cancelButton: () => void;
 }) => {
   const creatorUserInfo = useSelector(selectUserInfo);
-  const executorRef = React.createRef<HTMLSelectElement>();
+  const executorRef = useRef(null);
   const dateRef = React.createRef<HTMLInputElement>();
   const timeRef = React.createRef<HTMLInputElement>();
   const titleRef = React.createRef<HTMLInputElement>();
@@ -35,16 +35,19 @@ const FormClaims = ({
   const { data: users } = useGetUsersQuery();
   let user: IUserInfo | undefined;
 
-  const getUserById = (id: number) => users?.find((user) => user.id === id);
+  const getUserById = (id: number) => users?.find((u) => u.id === id);
 
   const submitClaim = async () => {
-    const executor = getUserById(parseInt(getRefValue(executorRef, "0"), 10));
+    const executor = getUserById(
+      (executorRef.current as any).getValue()[0]?.value
+    );
+
     const claim: IClaim = {
       createDate: Date.now(),
       creatorId: creatorUserInfo.id,
       creatorName: `${creatorUserInfo.lastName} ${creatorUserInfo.firstName} ${creatorUserInfo.middleName}`,
       description: getRefValue(descriptionRef, ""),
-      executorId: executor?.id || 0,
+      executorId: (executorRef.current as any).getValue()[0].value,
       executorName: `${executor?.lastName} ${executor?.firstName} ${executor?.middleName}`,
       factExecuteDate: null,
       id: claims?.id || 0,
@@ -88,6 +91,7 @@ const FormClaims = ({
           <Select
             isMulti={false}
             name="users"
+            ref={executorRef}
             options={users?.map((userInfo) => ({
               label: `${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`,
               value: userInfo.id,
@@ -103,15 +107,6 @@ const FormClaims = ({
             className="basic-multi-select"
             classNamePrefix="select"
           />
-          {/* <select className={styles.claims_category} ref={executorRef}> */}
-          {/*   <option>Выберите исполнителя</option> */}
-          {/*   {users && */}
-          {/*     users?.map((userInfo) => ( */}
-          {/*       <option key={userInfo.id} value={userInfo.id}> */}
-          {/*         {`${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`} */}
-          {/*       </option> */}
-          {/*     ))} */}
-          {/* </select> */}
           <div className={styles.claims_date}>
             <input
               type="date"
