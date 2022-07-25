@@ -26,7 +26,7 @@ const FormWishes = ({
   propWish: IWish | null | undefined;
   titlePage: string;
   submit: (formData: IWish) => void;
-  cancelButton: () => void;
+  cancelButton: (() => void) | null;
 }) => {
   const creatorUserInfo = useSelector(selectUserInfo);
   const patientRef = useRef(null);
@@ -71,7 +71,7 @@ const FormWishes = ({
       .validate(wish, { abortEarly: false })
       .then(async () => {
         await submit(wish);
-        cancelButton();
+        cancelButton?.();
       })
       .catch((e: any) => alert(e.errors.join("\n\r")));
   };
@@ -178,7 +178,7 @@ const FormWishes = ({
           <button
             type="button"
             className={styles.wishes_add__button}
-            onClick={cancelButton}
+            onClick={() => cancelButton?.()}
           >
             ОТМЕНИТЬ
           </button>

@@ -23,17 +23,10 @@ const DrawCard = ({
   comments: ReactNode;
   addComment: (description: string) => Promise<boolean>;
   changeStatus: () => void;
-  editObj: ({ changeVisible }: { changeVisible: () => void }) => ReactElement;
+  editObj: ReactElement;
 }) => {
-  const addCommentComponent = ({
-    changeVisible,
-  }: {
-    changeVisible: () => void;
-  }): ReactElement => (
-    <AddComment changeVisible={changeVisible} addComment={addComment} />
-  );
-
   const closeView = useContext(ModalContext);
+  const changeVisible = useContext(ModalContext);
 
   return (
     <div className="view_card__container">
@@ -81,11 +74,18 @@ const DrawCard = ({
                 { value: "Отменить", func: changeStatus },
               ]}
             />
-            <Modal modal={addCommentComponent}>
-              {({ changeVisible }) => <AddIcon onClick={changeVisible} />}
+            <Modal
+              modal={
+                <AddComment
+                  changeVisible={() => changeVisible}
+                  addComment={addComment}
+                />
+              }
+            >
+              <AddIcon onClick={() => changeVisible} />
             </Modal>
             <Modal modal={editObj}>
-              {({ changeVisible }) => <EditIcon onClick={changeVisible} />}
+              <EditIcon onClick={() => changeVisible} />
             </Modal>
           </div>
         </div>

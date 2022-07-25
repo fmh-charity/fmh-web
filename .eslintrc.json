@@ -30,7 +30,7 @@
         "extensions": [".tsx"]
       }
     ],
-    "import/no-unresolved": "off",
+    "import/no-unresolved": "error",
     "import/prefer-default-export": "off",
     "prettier/prettier": [
       "error",

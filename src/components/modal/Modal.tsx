@@ -7,8 +7,8 @@ const Modal = ({
   children,
   modal,
 }: {
-  children: ({ changeVisible }: { changeVisible: () => void }) => ReactElement;
-  modal: ({ changeVisible }: { changeVisible: () => void }) => ReactElement;
+  children: ReactElement;
+  modal: ReactElement;
 }) => {
   const [visibleAddComment, setVisibleAddComment] = useState(false);
   const changeVisible = React.useCallback(() => {
@@ -23,9 +23,7 @@ const Modal = ({
 
   return (
     <ModalContext.Provider value={changeVisible}>
-      {children({
-        changeVisible,
-      })}
+      {children}
       <div
         role="presentation"
         className={rootClasses.join(" ")}
@@ -36,7 +34,7 @@ const Modal = ({
           className={styles.myModalContent}
           onClick={(e) => e.stopPropagation()}
         >
-          {visibleAddComment ? modal({ changeVisible }) : null}
+          {visibleAddComment ? modal : null}
         </div>
       </div>
     </ModalContext.Provider>

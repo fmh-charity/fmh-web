@@ -1,8 +1,8 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useContext } from "react";
 import Arrow from "src/assets/icons/arrow.svg";
 import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import ViewWihes from "src/pages/wishes/components/viewWishesCard/ViewWihes";
-import Modal from "src/components/modal/Modal";
+import Modal, { ModalContext } from "src/components/modal/Modal";
 import styles from "./Card.module.less";
 
 const Card = ({
@@ -16,7 +16,7 @@ const Card = ({
   rows: { key: string; value: string | ReactNode }[];
   View: typeof ViewClaims | typeof ViewWihes;
 }) => {
-  const showView = (): ReactElement => <View id={id} />;
+  const changeVisible = useContext(ModalContext);
 
   return (
     <section className={styles.card__container}>
@@ -30,16 +30,14 @@ const Card = ({
           <span>{row.value}</span>
         </div>
       ))}
-      <Modal modal={showView}>
-        {({ changeVisible }) => (
-          <button
-            type="button"
-            className={styles.card__button}
-            onClick={changeVisible}
-          >
-            <Arrow />
-          </button>
-        )}
+      <Modal modal={<View id={id} />}>
+        <button
+          type="button"
+          className={styles.card__button}
+          onClick={() => changeVisible}
+        >
+          <Arrow />
+        </button>
       </Modal>
     </section>
   );

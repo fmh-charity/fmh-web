@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useContext } from "react";
 import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { selectUserInfo } from "src/features/auth/authSlice";
@@ -13,6 +13,7 @@ import { useGetUsersQuery } from "src/services/api/usersApi";
 import { IComment } from "src/model/IComment";
 import { PatientName, UserName } from "src/utils/GetNames";
 import EditWish from "src/pages/wishes/components/editWishes/EditWishes";
+import { ModalContext } from "src/components/modal/Modal";
 
 export interface IWishComment extends IComment {}
 
@@ -20,6 +21,7 @@ const ViewWishes = ({ id }: { id: number }) => {
   const data = useGetWishesByIdQuery(id);
   const [addCommentTrigger] = useAddWishesCommentsMutation();
   const userInfo = useSelector(selectUserInfo);
+  const changeVisible = useContext(ModalContext);
 
   const addComment = async (description: string): Promise<boolean> => {
     try {
@@ -37,14 +39,6 @@ const ViewWishes = ({ id }: { id: number }) => {
       return false;
     }
   };
-
-  const editObj = ({
-    changeVisible,
-  }: {
-    changeVisible: () => void;
-  }): ReactElement => (
-    <EditWish wish={data.data} changeVisible={changeVisible} />
-  );
 
   return !data.data ? (
     <br />
@@ -92,7 +86,9 @@ const ViewWishes = ({ id }: { id: number }) => {
       comments={<WishComments wishId={id} />}
       addComment={addComment}
       changeStatus={() => {}}
-      editObj={editObj}
+      editObj={
+        <EditWish wish={data.data} changeVisible={() => changeVisible} />
+      }
     />
   );
 };

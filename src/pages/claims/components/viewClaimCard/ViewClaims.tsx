@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useContext } from "react";
 import {
   useAddClaimCommentsMutation,
   useGetClaimByIdQuery,
@@ -11,6 +11,7 @@ import DrawCard from "src/components/card/viewCard/ViewCard";
 import CommentCard from "src/components/comment/CommentCards";
 import { IComment } from "src/model/IComment";
 import EditClaims from "src/pages/claims/components/editClaims/EditClaims";
+import { ModalContext } from "src/components/modal/Modal";
 
 export interface IClaimComment extends IComment {}
 
@@ -18,6 +19,7 @@ const ViewClaims = ({ id }: { id: number }) => {
   const data = useGetClaimByIdQuery(id);
   const [addCommentTrigger] = useAddClaimCommentsMutation();
   const userInfo = useSelector(selectUserInfo);
+  const changeVisible = useContext(ModalContext);
 
   const changeStatus = () => {
     console.log("changeStatus");
@@ -39,14 +41,6 @@ const ViewClaims = ({ id }: { id: number }) => {
       return false;
     }
   };
-
-  const editObj = ({
-    changeVisible,
-  }: {
-    changeVisible: () => void;
-  }): ReactElement => (
-    <EditClaims claim={data.data} changeVisible={changeVisible} />
-  );
 
   return !data.data ? (
     <br />
@@ -89,7 +83,9 @@ const ViewClaims = ({ id }: { id: number }) => {
       comments={<ClaimComments claimId={id} />}
       addComment={addComment}
       changeStatus={changeStatus}
-      editObj={editObj}
+      editObj={
+        <EditClaims claim={data.data} changeVisible={() => changeVisible} />
+      }
     />
   );
 };
