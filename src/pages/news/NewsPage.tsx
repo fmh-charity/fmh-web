@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Loader from "src/components/loader/Loader";
 import FilterIcon from "src/assets/icons/filter.svg";
 import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import { useGetNewsQuery } from "src/services/api/newsApi";
-import { Link } from "react-router-dom";
+import Modal, { ModalContext } from "src/components/modal/Modal";
+import AddNews from "src/pages/news/components/addNews/AddNews";
 import NewsCard from "./components/NewsCard/NewsCard";
 import styles from "./News.module.less";
+
+const AddIconComp = () => {
+  const changeVisible = useContext(ModalContext);
+  return <AddIcon onClick={changeVisible} />;
+};
 
 const NewsPage = (): any => {
   const { isLoading, data } = useGetNewsQuery();
@@ -16,9 +22,9 @@ const NewsPage = (): any => {
       <header className={styles.header_news}>
         <div className={styles.header_title}>Новости</div>
         <div className={styles.header_icons}>
-          <Link to="/news/add">
-            <AddIcon />
-          </Link>
+          <Modal modal={<AddNews />}>
+            <AddIconComp />
+          </Modal>
           <FilterIcon />
           <SortIcon />
         </div>

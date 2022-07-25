@@ -8,6 +8,30 @@ import "./ViewCard.less";
 import AddComment from "src/components/comment/addComment/AddComment";
 import Modal, { ModalContext } from "src/components/modal/Modal";
 
+const EditIconComp = () => {
+  const changeVisible = useContext(ModalContext);
+  return <EditIcon onClick={changeVisible} />;
+};
+
+const AddIconComp = () => {
+  const changeVisible = useContext(ModalContext);
+  return <AddIcon onClick={changeVisible} />;
+};
+
+const AddCommentComp = ({
+  addComment,
+}: {
+  addComment: (description: string) => Promise<boolean>;
+}) => {
+  const changeVisible = useContext(ModalContext);
+  return (
+    <AddComment
+      changeVisible={() => changeVisible?.()}
+      addComment={addComment}
+    />
+  );
+};
+
 const DrawCard = ({
   title,
   viewCardTheme,
@@ -26,7 +50,6 @@ const DrawCard = ({
   editObj: ReactElement;
 }) => {
   const closeView = useContext(ModalContext);
-  const changeVisible = useContext(ModalContext);
 
   return (
     <div className="view_card__container">
@@ -74,18 +97,11 @@ const DrawCard = ({
                 { value: "Отменить", func: changeStatus },
               ]}
             />
-            <Modal
-              modal={
-                <AddComment
-                  changeVisible={() => changeVisible}
-                  addComment={addComment}
-                />
-              }
-            >
-              <AddIcon onClick={() => changeVisible} />
+            <Modal modal={<AddCommentComp addComment={addComment} />}>
+              <AddIconComp />
             </Modal>
             <Modal modal={editObj}>
-              <EditIcon onClick={() => changeVisible} />
+              <EditIconComp />
             </Modal>
           </div>
         </div>

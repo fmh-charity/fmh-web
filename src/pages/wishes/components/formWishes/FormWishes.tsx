@@ -26,7 +26,7 @@ const FormWishes = ({
   propWish: IWish | null | undefined;
   titlePage: string;
   submit: (formData: IWish) => void;
-  cancelButton: (() => void) | null;
+  cancelButton: () => void;
 }) => {
   const creatorUserInfo = useSelector(selectUserInfo);
   const patientRef = useRef(null);
@@ -71,14 +71,17 @@ const FormWishes = ({
       .validate(wish, { abortEarly: false })
       .then(async () => {
         await submit(wish);
-        cancelButton?.();
+        cancelButton();
       })
       .catch((e: any) => alert(e.errors.join("\n\r")));
   };
 
-  if (propWish && propWish.patientId && propWish.executorId) {
-    user = getUserById(propWish.executorId);
+  if (propWish && propWish.patientId) {
     patient = getPatienById(propWish.patientId);
+  }
+
+  if (propWish && propWish.executorId) {
+    user = getUserById(propWish.executorId);
   }
 
   return (
@@ -110,7 +113,7 @@ const FormWishes = ({
                     label: `${patient.lastName} ${patient.middleName} ${patient.firstName}`,
                     value: patient.id,
                   }
-                : { label: "Исполнитель", value: 0 }
+                : { label: "Пациент", value: 0 }
             }
             className="basic-multi-select"
             classNamePrefix="select"
@@ -178,7 +181,7 @@ const FormWishes = ({
           <button
             type="button"
             className={styles.wishes_add__button}
-            onClick={() => cancelButton?.()}
+            onClick={cancelButton}
           >
             ОТМЕНИТЬ
           </button>

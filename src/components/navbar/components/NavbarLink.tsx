@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import styles from "../navbar.module.less";
+import styles from "../Navbar.module.less";
 
 const NavbarLink = ({
   icon,

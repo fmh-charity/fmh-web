@@ -5,6 +5,19 @@ import ViewWihes from "src/pages/wishes/components/viewWishesCard/ViewWihes";
 import Modal, { ModalContext } from "src/components/modal/Modal";
 import styles from "./Card.module.less";
 
+const ViewComp = () => {
+  const changeVisible = useContext(ModalContext);
+  return (
+    <button
+      type="button"
+      className={styles.card__button}
+      onClick={() => changeVisible?.()}
+    >
+      <Arrow />
+    </button>
+  );
+};
+
 const Card = ({
   id,
   title,
@@ -16,8 +29,6 @@ const Card = ({
   rows: { key: string; value: string | ReactNode }[];
   View: typeof ViewClaims | typeof ViewWihes;
 }) => {
-  const changeVisible = useContext(ModalContext);
-
   return (
     <section className={styles.card__container}>
       <div className={styles.card__head}>
@@ -31,13 +42,7 @@ const Card = ({
         </div>
       ))}
       <Modal modal={<View id={id} />}>
-        <button
-          type="button"
-          className={styles.card__button}
-          onClick={() => changeVisible}
-        >
-          <Arrow />
-        </button>
+        <ViewComp />
       </Modal>
     </section>
   );

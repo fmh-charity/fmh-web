@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from "react";
+import React, { useContext } from "react";
 import Loader from "src/components/loader/Loader";
 import {
   useAddWishesMutation,
@@ -12,20 +12,23 @@ import Modal, { ModalContext } from "src/components/modal/Modal";
 import FormWishes from "./components/formWishes/FormWishes";
 import styles from "./WishesPage.module.less";
 
-const BodyWish = (): ReactElement => {
+const WishesPageComp = () => {
   const { isLoading, data: wishes } = useGetWishesQuery();
-  const changeVisibleContext = useContext(ModalContext);
-
+  const changeVisible = useContext(ModalContext);
   return (
     <div>
       <header className={styles.wishes_page__wishes}>
         <div className={styles.wishes_page__header_title}>Просьбы</div>
         <div className={styles.wishes_page__header_icons}>
-          <button type="button" onClick={() => changeVisibleContext?.()}>
+          <button type="button" onClick={() => changeVisible?.()}>
             <AddIcon />
           </button>
-          <FilterIcon />
-          <SortIcon />
+          <button type="button" onClick={() => console.log("Сортировка")}>
+            <SortIcon />
+          </button>
+          <button type="button" onClick={() => console.log("Фильтр")}>
+            <FilterIcon />
+          </button>
         </div>
       </header>
       {isLoading ? <Loader /> : <WishesNode data={wishes || []} />}
@@ -33,24 +36,23 @@ const BodyWish = (): ReactElement => {
   );
 };
 
-const FormWish = (): ReactElement => {
-  const changeVisibleContext = useContext(ModalContext);
+const FormWishesComp = () => {
   const [addWishes] = useAddWishesMutation();
-
+  const changeVisible = useContext(ModalContext);
   return (
     <FormWishes
       propWish={null}
       titlePage="Создание просьбы"
       submit={addWishes}
-      cancelButton={changeVisibleContext}
+      cancelButton={() => changeVisible?.()}
     />
   );
 };
 
 const WishesPage = () => {
   return (
-    <Modal modal={<FormWish />}>
-      <BodyWish />
+    <Modal modal={<FormWishesComp />}>
+      <WishesPageComp />
     </Modal>
   );
 };

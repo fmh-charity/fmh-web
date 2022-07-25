@@ -5,6 +5,7 @@
         "name": "typescript-plugin-css-modules"
       }
     ],
+    "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "sourceMap": true,
     "module": "CommonJS",

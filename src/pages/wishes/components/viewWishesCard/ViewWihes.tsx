@@ -14,14 +14,19 @@ import { IComment } from "src/model/IComment";
 import { PatientName, UserName } from "src/utils/GetNames";
 import EditWish from "src/pages/wishes/components/editWishes/EditWishes";
 import { ModalContext } from "src/components/modal/Modal";
+import { IWish } from "src/model/IWish";
 
 export interface IWishComment extends IComment {}
+
+const EditObjComp = ({ data }: { data: IWish }) => {
+  const changeVisible = useContext(ModalContext);
+  return <EditWish wish={data} changeVisible={() => changeVisible?.()} />;
+};
 
 const ViewWishes = ({ id }: { id: number }) => {
   const data = useGetWishesByIdQuery(id);
   const [addCommentTrigger] = useAddWishesCommentsMutation();
   const userInfo = useSelector(selectUserInfo);
-  const changeVisible = useContext(ModalContext);
 
   const addComment = async (description: string): Promise<boolean> => {
     try {
@@ -86,9 +91,7 @@ const ViewWishes = ({ id }: { id: number }) => {
       comments={<WishComments wishId={id} />}
       addComment={addComment}
       changeStatus={() => {}}
-      editObj={
-        <EditWish wish={data.data} changeVisible={() => changeVisible} />
-      }
+      editObj={<EditObjComp data={data.data} />}
     />
   );
 };

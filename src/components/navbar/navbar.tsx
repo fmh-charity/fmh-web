@@ -1,8 +1,4 @@
 import React from "react";
-import BurgerMenuIcon from "src/assets/icons/for-header/burger.svg";
-import { useAppDispatch, useAppSelector } from "src/app/hooks";
-import { toggle } from "src/features/navbar/navbarSlice";
-import { RootState } from "src/app/store";
 import MainIcon from "src/assets/icons/MainIcon.svg";
 import RequestIcon from "src/assets/icons/RequestIcon.svg";
 import NewsIcon from "src/assets/icons/NewsIcon.svg";
@@ -11,18 +7,13 @@ import ChamberIcon from "src/assets/icons/ChamberIcon.svg";
 import DocumentIcon from "src/assets/icons/DocumentIcon.svg";
 import EmployeesIcon from "src/assets/icons/EmployeesIcon.svg";
 import PatientsIcon from "src/assets/icons/PatientsIcon.svg";
-import styles from "./navbar.module.less";
 import NavbarLink from "./components/NavbarLink";
+import styles from "./Navbar.module.less";
 
 const Navbar = () => (
   <div className={styles.navbar}>
     <div className={styles.header}>
-      <div
-        className={styles.header_button}
-        role="button"
-        tabIndex={0}
-      >
-      </div>
+      <div className={styles.header_button} />
     </div>
     <div className={styles.navbar_links}>
       <NavbarLink url="/" title="Главная" icon={<MainIcon />} />

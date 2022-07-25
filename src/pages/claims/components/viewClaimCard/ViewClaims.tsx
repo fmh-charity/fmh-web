@@ -12,14 +12,21 @@ import CommentCard from "src/components/comment/CommentCards";
 import { IComment } from "src/model/IComment";
 import EditClaims from "src/pages/claims/components/editClaims/EditClaims";
 import { ModalContext } from "src/components/modal/Modal";
+import { IClaim } from "src/model/IClaim";
 
 export interface IClaimComment extends IComment {}
+
+const EditClaimsComp = ({ data }: { data: IClaim }) => {
+  const changeVisible = useContext(ModalContext);
+  return (
+    <EditClaims claim={data} changeVisible={() => changeVisible?.()} />
+  );
+};
 
 const ViewClaims = ({ id }: { id: number }) => {
   const data = useGetClaimByIdQuery(id);
   const [addCommentTrigger] = useAddClaimCommentsMutation();
   const userInfo = useSelector(selectUserInfo);
-  const changeVisible = useContext(ModalContext);
 
   const changeStatus = () => {
     console.log("changeStatus");
@@ -83,9 +90,7 @@ const ViewClaims = ({ id }: { id: number }) => {
       comments={<ClaimComments claimId={id} />}
       addComment={addComment}
       changeStatus={changeStatus}
-      editObj={
-        <EditClaims claim={data.data} changeVisible={() => changeVisible} />
-      }
+      editObj={<EditClaimsComp data={data.data} />}
     />
   );
 };

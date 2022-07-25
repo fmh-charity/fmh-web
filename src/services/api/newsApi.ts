@@ -12,7 +12,7 @@ export const newsApi = createApi({
       query: () => "news",
       providesTags: ["INews"],
     }),
-    getNewsById: builder.query<INews, string>({
+    getNewsById: builder.query<INews, number>({
       query: (id) => `news/${id}`,
       providesTags: ["INews"],
     }),
