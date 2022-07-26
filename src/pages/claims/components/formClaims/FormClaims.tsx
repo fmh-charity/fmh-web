@@ -8,7 +8,7 @@ import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { object, string } from "yup";
 import Select from "react-select";
 import { IUserInfo } from "src/services/api/authApi";
-import styles from "./Formclaims.module.less";
+import styles from "./FormClaims.module.less";
 
 const claimSchema = object({
   description: string().required().min(5),
