@@ -8,7 +8,7 @@ import { getRefDate, getRefValue } from "src/utils/GetRef";
 import { object, string } from "yup";
 import Select from "react-select";
 import { IUserInfo } from "src/services/api/authApi";
-import styles from "./Formclaims.module.less";
+import styles from "./FormClaims.module.less";
 
 const claimSchema = object({
   description: string().required().min(5),
@@ -92,17 +92,24 @@ const FormClaims = ({
             isMulti={false}
             name="users"
             ref={executorRef}
-            options={users?.map((userInfo) => ({
-              label: `${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`,
-              value: userInfo.id,
-            }))}
+            options={
+              users && users.length > 0
+                ? [
+                    { label: "Исполнитель...", value: 0 },
+                    ...users!.map((userInfo) => ({
+                      label: `${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`,
+                      value: userInfo.id,
+                    })),
+                  ]
+                : [{ label: "Исполнитель...", value: 0 }]
+            }
             defaultValue={
               user
                 ? {
                     label: `${user.lastName} ${user.middleName} ${user.firstName}`,
                     value: user.id,
                   }
-                : { label: "Не назначен", value: 0 }
+                : { label: "Исполнитель...", value: 0 }
             }
             className="basic-multi-select"
             classNamePrefix="select"
