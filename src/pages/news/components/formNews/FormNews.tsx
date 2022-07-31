@@ -99,13 +99,13 @@ const FormNews = ({
           minLength={5}
         />
         <div className={styles.news_activity}>
-          <span>Не активна</span>
           <input
             type="checkbox"
             className={styles.news_cb}
             defaultChecked={news?.publishEnabled || false}
             ref={checkActiveRef}
           />
+          <span>Не активна</span>
         </div>
         <div className={styles.news_controls}>
           <button

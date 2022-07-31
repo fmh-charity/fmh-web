@@ -124,10 +124,17 @@ const FormWishes = ({
             isMulti={false}
             name="users"
             ref={executorRef}
-            options={users?.map((userInfo) => ({
-              label: `${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`,
-              value: userInfo.id,
-            }))}
+            options={
+              users && users.length > 0
+                ? [
+                    { label: "Исполнитель...", value: 0 },
+                    ...users!.map((userInfo) => ({
+                      label: `${userInfo.lastName} ${userInfo.firstName} ${userInfo.middleName}`,
+                      value: userInfo.id,
+                    })),
+                  ]
+                : [{ label: "Исполнитель...", value: 0 }]
+            }
             defaultValue={
               user
                 ? {

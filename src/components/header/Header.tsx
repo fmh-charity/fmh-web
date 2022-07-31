@@ -18,10 +18,7 @@ const Header = () => {
   };
 
   return (
-    <header className={styles.menuActive}>
-      <div className={styles.button} role="button" tabIndex={0}>
-        {/* <BurgerMenuIcon /> */}
-      </div>
+    <header className={styles.header}>
       <img className={styles.logo} src={Logo} alt="Logo" />
       <div className={styles.icons}>
         <Butterfly />

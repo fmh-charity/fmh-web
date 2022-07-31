@@ -12,9 +12,6 @@ import styles from "./Navbar.module.less";
 
 const Navbar = () => (
   <div className={styles.navbar}>
-    <div className={styles.header}>
-      <div className={styles.header_button} />
-    </div>
     <div className={styles.navbar_links}>
       <NavbarLink url="/" title="Главная" icon={<MainIcon />} />
       <NavbarLink url="/news" title="Новости" icon={<NewsIcon />} />

@@ -6,7 +6,6 @@ interface CssExports {
   'icons': string;
   'logo': string;
   'logout_button': string;
-  'menuActive': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
