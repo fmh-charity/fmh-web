@@ -1,30 +1,26 @@
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr max-content;
   justify-content: space-between;
   align-items: center;
-  min-height: 56px;
-  padding-left: 127px;
-  padding-right: 25px;
-  background-color: var(--main);
-  color: var(--white);
-  transition-duration: 300ms;
-}
-
-.menuActive {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 56px;
+  height: 56px;
   padding-left: 32px;
   padding-right: 32px;
-  background-color: var(--main);
+  background-color: #01a19f;
   color: var(--white);
   transition-duration: 300ms;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
 }
 
 .logo {
   width: 128px;
   height: 49px;
+  padding-left: 256px;
+  justify-self: center;
 }
 
 .icons {

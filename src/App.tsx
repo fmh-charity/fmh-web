@@ -14,14 +14,14 @@ import WishesPage from "./pages/wishes/WishesPage";
 
 const App = () => (
   <BrowserRouter>
+    <Header />
+    <Navbar />
     <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
-      <Navbar />
       <div className={`${styles.container}`}>
-        <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<PrivateOutlet />}>
-            <Route path="/main-page" element={<MainPage />} />
+            <Route index element={<MainPage />} />
             <Route path="/news" element={<NewsPage />} />
             <Route path="/claims" element={<ClaimsPage />} />
             <Route path="/wishes" element={<WishesPage />} />
