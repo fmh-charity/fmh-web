@@ -8,6 +8,7 @@ import { Mutex } from "async-mutex";
 import { tokenReceived, loggedOut } from "src/features/auth/authSlice";
 import { environment } from "src/common/environment";
 import { UserResponse } from "src/services/api/authApi";
+import { IBaseQueryErrorData } from "src/model/IBaseQueryErrorData";
 import { RootState } from "./store";
 
 const mutex = new Mutex();
@@ -28,7 +29,12 @@ export const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
-  if (result.error && result.error.status === 401) {
+  const data = result?.error?.data as IBaseQueryErrorData;
+  if (
+    result.error &&
+    result.error.status === 401 &&
+    data.code !== "ERR_INVALID_LOGIN"
+  ) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
       const { refreshToken } = (api.getState() as RootState).auth;
