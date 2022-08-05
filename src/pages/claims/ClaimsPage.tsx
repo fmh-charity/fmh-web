@@ -9,14 +9,14 @@ import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import ClaimsNode from "src/pages/claims/components/claimNode/ClaimNode";
 import Modal, { ModalContext } from "src/components/modal/Modal";
+import PaginateComponent from "src/components/paginateComponent/PaginateComponent";
 import styles from "./ClaimsPage.module.less";
 import FormClaims from "./components/formClaims/FormClaims";
 
 const ClaimsPageComp = () => {
-  const { isLoading, data: claims } = useGetClaimsQuery();
   const changeVisible = useContext(ModalContext);
   return (
-    <div>
+    <div className={styles.claims_page__wrapper}>
       <header className={styles.claims_page__claims}>
         <div className={styles.claims_page__header_title}>Заявки</div>
         <div className={styles.claims_page__header_icons}>
@@ -31,7 +31,7 @@ const ClaimsPageComp = () => {
           </button>
         </div>
       </header>
-      {isLoading ? <Loader /> : <ClaimsNode data={claims || []} />}
+      <PaginateComponent useQuery={useGetClaimsQuery} CardNode={ClaimsNode} />
     </div>
   );
 };
@@ -49,12 +49,10 @@ const FormClaimsComp = () => {
   );
 };
 
-const ClaimsPage = () => {
-  return (
-    <Modal modal={<FormClaimsComp />}>
-      <ClaimsPageComp />
-    </Modal>
-  );
-};
+const ClaimsPage = () => (
+  <Modal modal={<FormClaimsComp />}>
+    <ClaimsPageComp />
+  </Modal>
+);
 
 export default ClaimsPage;

@@ -4,6 +4,7 @@ interface CssExports {
   'wishes_page__header_icons': string;
   'wishes_page__header_title': string;
   'wishes_page__wishes': string;
+  'wishes_page__wrapper': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

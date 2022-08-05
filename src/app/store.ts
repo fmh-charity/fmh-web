@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
-import navbarReducer from "src/features/navbar/navbarSlice";
 import { api } from "src/services/api/authApi";
 import { claimsApi } from "src/services/api/claimsApi";
 import { newsApi } from "src/services/api/newsApi";
@@ -11,7 +10,6 @@ import { patientApi } from "src/services/api/patientApi";
 
 export const store = configureStore({
   reducer: {
-    navbar: navbarReducer,
     [newsApi.reducerPath]: newsApi.reducer,
     [claimsApi.reducerPath]: claimsApi.reducer,
     [wishesApi.reducerPath]: wishesApi.reducer,

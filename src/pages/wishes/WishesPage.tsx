@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import Loader from "src/components/loader/Loader";
 import {
   useAddWishesMutation,
   useGetWishesQuery,
@@ -9,14 +8,14 @@ import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
 import WishesNode from "src/pages/wishes/components/wishesNode/WishesNode";
 import Modal, { ModalContext } from "src/components/modal/Modal";
+import PaginateComponent from "src/components/paginateComponent/PaginateComponent";
 import FormWishes from "./components/formWishes/FormWishes";
 import styles from "./WishesPage.module.less";
 
 const WishesPageComp = () => {
-  const { isLoading, data: wishes } = useGetWishesQuery();
   const changeVisible = useContext(ModalContext);
   return (
-    <div>
+    <div className={styles.wishes_page__wrapper}>
       <header className={styles.wishes_page__wishes}>
         <div className={styles.wishes_page__header_title}>Просьбы</div>
         <div className={styles.wishes_page__header_icons}>
@@ -31,7 +30,7 @@ const WishesPageComp = () => {
           </button>
         </div>
       </header>
-      {isLoading ? <Loader /> : <WishesNode data={wishes || []} />}
+      <PaginateComponent useQuery={useGetWishesQuery} CardNode={WishesNode} />
     </div>
   );
 };
@@ -49,12 +48,10 @@ const FormWishesComp = () => {
   );
 };
 
-const WishesPage = () => {
-  return (
-    <Modal modal={<FormWishesComp />}>
-      <WishesPageComp />
-    </Modal>
-  );
-};
+const WishesPage = () => (
+  <Modal modal={<FormWishesComp />}>
+    <WishesPageComp />
+  </Modal>
+);
 
 export default WishesPage;
