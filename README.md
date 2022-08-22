@@ -1,7 +1,5 @@
 # mh-web
 
-// enum ApplicationProperties {
-//   HOST = "https://test.vhospice.org/api",
-// }
+Перед запуском docker-compose собрать проект.
 
 ### repository for web app

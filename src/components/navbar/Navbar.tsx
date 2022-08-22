@@ -47,12 +47,7 @@ const Navbar = () => (
         title="Сотрудники"
         icon={<EmployeesIcon />}
       />
-      <NavbarLink
-        disabled
-        url="/claims"
-        title="Наша миссия"
-        icon={<InfoIcon />}
-      />
+      <NavbarLink url="/our-missions" title="Наша миссия" icon={<InfoIcon />} />
       <NavbarLink
         disabled
         url="/claims"

@@ -15,7 +15,7 @@ const EditClaims = ({
   return (
     <FormClaims
       claims={claim}
-      titlePage="Изменить просьбу"
+      titlePage="Изменить заявку"
       submit={updateСlaim}
       cancelButton={changeVisible}
     />

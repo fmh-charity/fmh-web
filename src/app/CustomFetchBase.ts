@@ -12,7 +12,7 @@ import { RootState } from "./store";
 
 const mutex = new Mutex();
 const baseQuery = fetchBaseQuery({
-  baseUrl: `${environment.API_HOST}/api/fmh/`,
+  baseUrl: `${environment.API_HOST}/fmh/`,
   prepareHeaders: (headers, { getState }) => {
     const { accessToken } = (getState() as RootState).auth;
 
