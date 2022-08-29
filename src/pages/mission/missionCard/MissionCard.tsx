@@ -17,7 +17,10 @@ const MissionCard = ({ card }: { card: IMissionCard }) => {
     <div className={styles.mission_card__wrapper}>
       <div className={styles.mission_card__icons_wrapper}>
         <LeafIcon />
-        <ArrowDownIcon onClick={() => setOpen(!open)} />
+        <ArrowDownIcon
+          className={styles.mission_card__icons}
+          onClick={() => setOpen(!open)}
+        />
       </div>
       <div
         className={styles.mission_card__title}

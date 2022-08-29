@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useContext } from "react";
+import React, { ReactElement, ReactNode, useContext, useEffect } from "react";
 import StatusIcon from "src/assets/icons/status_processing.svg";
 import StaffIcon from "src/assets/icons/staff.svg";
 import EditIcon from "src/assets/icons/edit_icon.svg";
@@ -10,12 +10,12 @@ import Modal, { ModalContext } from "src/components/modal/Modal";
 
 const EditIconComp = () => {
   const changeVisible = useContext(ModalContext);
-  return <EditIcon onClick={changeVisible} />;
+  return <EditIcon className="icons" onClick={changeVisible} />;
 };
 
 const AddIconComp = () => {
   const changeVisible = useContext(ModalContext);
-  return <AddIcon onClick={changeVisible} />;
+  return <AddIcon className="icons" onClick={changeVisible} />;
 };
 
 const AddCommentComp = ({
@@ -51,6 +51,22 @@ const DrawCard = ({
 }) => {
   const closeView = useContext(ModalContext);
 
+  useEffect(() => {
+    const keyDownHandler = (event: any) => {
+      if (event.key === "Escape" && closeView) {
+        event.preventDefault();
+
+        closeView();
+      }
+    };
+
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, []);
+
   return (
     <div className="view_card__container">
       <header className="view_card__page_header">
@@ -70,7 +86,7 @@ const DrawCard = ({
           ))}
           <div className="view_card__comments">{comments}</div>
           <div className="view_card__icons">
-            <ArrowLeftIcon onClick={closeView} />
+            <ArrowLeftIcon className="icons" onClick={closeView} />
             {/* TODO Зона видимости в разработке на беке */}
             <ViewCardIconSelect
               icon={

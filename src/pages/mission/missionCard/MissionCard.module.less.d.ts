@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'mission_card__description': string;
+  'mission_card__icons': string;
   'mission_card__icons_wrapper': string;
   'mission_card__title': string;
   'mission_card__wrapper': string;
