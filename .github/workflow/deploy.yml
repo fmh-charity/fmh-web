@@ -2,9 +2,7 @@ name: Run tests, build docker image and deploy
 
 on:
   push:
-    branches:
-      - main
-      - main_v2
+    branches: ["main", "main_v2"]
 
 env:
   REGISTRY: ghcr.io
