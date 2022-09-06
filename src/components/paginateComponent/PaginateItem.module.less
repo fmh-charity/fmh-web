@@ -1,0 +1,47 @@
+.paginator_comp__wrapper {
+  display: grid;
+  grid-template-rows: 1fr max-content;
+  grid-row-gap: 4px;
+}
+
+.paginator_comp__container {
+  display: grid;
+  position: relative;
+}
+
+.paginator_comp__body_wrapper {
+  display: grid;
+  position: absolute;
+  inset: 0;             //Top bottom right left 0
+  overflow: auto;
+}
+
+.paginator_comp__body {
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 8px;
+  padding: 32px 16px;
+  align-content: flex-start;
+}
+
+.paginator_comp__switcher {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 8px;
+  font-size: larger;
+  background-color: #EAEAEA;
+  justify-content: flex-start;
+  justify-self: center;
+  & li {
+    list-style: none;
+    padding: 4px;
+    border: 1px solid #878787;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+
+
+
+

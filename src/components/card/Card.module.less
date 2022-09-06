@@ -1,0 +1,27 @@
+.card__container {
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 4px;
+  border: 2px solid #868686;
+  background: #ffffff;
+}
+
+.card__row {  
+  display: grid;
+  justify-content: space-between;
+  padding: 4px;
+  overflow: hidden;
+  text-decoration: 1px underline lightgrey;
+  grid-template-columns: max-content max-content;
+}
+
+.card__head:extend(.card__row){
+  border-bottom: 1px solid lightgrey;
+  background-color: #FFECE0;
+}
+
+.card__button {
+  border: 0;
+  border-top: 1px solid lightgrey;
+  background-color: transparent;
+}
