@@ -7,6 +7,7 @@ import ClaimsNode from "src/pages/claims/components/claimNode/ClaimNode";
 import WishesNode from "src/pages/wishes/components/wishesNode/WishesNode";
 import NewsNode from "src/pages/news/components/newsNode/NewsNode";
 import style from "./PaginateItem.module.less";
+import Loader from "../loader/Loader";
 
 interface IUseQuery {
   CardNode: typeof ClaimsNode | typeof WishesNode | typeof NewsNode;
@@ -17,6 +18,7 @@ interface IUseQuery {
 }
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
+  const [ isLoading, setLoad ] = useState<boolean>(false);
   const { data } = useQuery();
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [pageCount, setPageCount] = useState(0);
@@ -26,8 +28,10 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     if (data) {
+      setLoad(true)
       setCurrentItems(data.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(data.length / itemsPerPage));
+      setLoad(!isLoading)
     }
   }, [itemOffset, data]);
 
@@ -38,12 +42,13 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     setItemOffset((event.selected * itemsPerPage) % data.length);
   };
 
-  return (
+  return isLoading 
+  ? (
     <div className={style.paginator_comp__wrapper}>
       <div className={style.paginator_comp__container}>
         <div className={style.paginator_comp__body_wrapper}>
           <div className={style.paginator_comp__body}>
-            {currentItems && <CardNode data={currentItems} />}
+            {(currentItems && <CardNode data={currentItems} />)}
           </div>
         </div>
       </div>
@@ -57,7 +62,8 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
         className={style.paginator_comp__switcher}
       />
     </div>
-  );
+  )
+  : (<div className={style.paginator_comp__loader}><Loader /></div>);
 };
 
 export default PaginateComponent;

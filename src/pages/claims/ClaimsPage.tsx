@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import Loader from "src/components/loader/Loader";
 import {
   useAddClaimsMutation,
   useGetClaimsQuery,
