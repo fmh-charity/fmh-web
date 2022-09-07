@@ -18,7 +18,7 @@ interface IUseQuery {
 }
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
-  const [ isLoading, setLoad ] = useState<boolean>(false);
+  const [ isLoading, setIsLoad ] = useState<boolean>(true);
   const { data } = useQuery();
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [pageCount, setPageCount] = useState(0);
@@ -28,10 +28,10 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     if (data) {
-      setLoad(true)
+      setIsLoad(true);
       setCurrentItems(data.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(data.length / itemsPerPage));
-      setLoad(!isLoading)
+      setIsLoad(false);
     }
   }, [itemOffset, data]);
 
@@ -42,7 +42,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     setItemOffset((event.selected * itemsPerPage) % data.length);
   };
 
-  return isLoading 
+  return !isLoading 
   ? (
     <div className={style.paginator_comp__wrapper}>
       <div className={style.paginator_comp__container}>
@@ -63,7 +63,11 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
       />
     </div>
   )
-  : (<div className={style.paginator_comp__loader}><Loader /></div>);
+  : (
+    <div className={style.paginator_comp__loader}>
+      <Loader />
+    </div>
+    );
 };
 
 export default PaginateComponent;
