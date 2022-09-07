@@ -23,7 +23,7 @@ const config: any = (env: any, args: any) => ({
     new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
       "process.env.API_PORT": 8080,
-      "process.env.API_HOST": JSON.stringify("http://host.docker.internal:5000"),
+      "process.env.API_HOST": JSON.stringify("https://test.vhospice.org"),
       "process.env.API_SEED": webpack.DefinePlugin.runtimeValue(
         () => JSON.stringify(Math.random()),
         {
