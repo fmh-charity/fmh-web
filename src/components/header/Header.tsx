@@ -19,9 +19,13 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <img className={styles.logo} src={Logo} alt="Logo" />
+      <Link className={styles.butterfly} to="/">
+        <img className={styles.logo} src={Logo} alt="Logo" />
+      </Link>
       <div className={styles.icons}>
-        <Butterfly />
+        <Link className={styles.butterfly} to="/">
+          <Butterfly />
+        </Link>
         {auth.userInfo ? (
           <button
             className={styles.logout_button}
