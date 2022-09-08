@@ -5,7 +5,9 @@ interface CssExports {
   'paginator_comp__body_wrapper': string;
   'paginator_comp__container': string;
   'paginator_comp__loader': string;
+  'paginator_comp__select': string;
   'paginator_comp__switcher': string;
+  'paginator_comp__with_selector': string;
   'paginator_comp__wrapper': string;
 }
 export const cssExports: CssExports;

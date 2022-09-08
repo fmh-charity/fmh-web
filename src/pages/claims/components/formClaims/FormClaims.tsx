@@ -63,7 +63,7 @@ const FormClaims = ({
     await claimSchema
       .validate(claim, { abortEarly: false })
       .then(async () => {
-        await submit(claim);
+        submit(claim);
         cancelButton();
       })
       .catch((e) => alert(e.errors.join("\n\r")));

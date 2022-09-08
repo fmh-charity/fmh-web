@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGetNewsQuery } from "src/services/api/newsApi";
 import ReactPaginate from "react-paginate";
 import { useGetClaimsQuery } from "src/services/api/claimsApi";
@@ -18,22 +18,22 @@ interface IUseQuery {
 }
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
-  const [ isLoading, setLoad ] = useState<boolean>(false);
+  const [ isLoading, setIsLoad ] = useState<boolean>(true);
   const { data } = useQuery();
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(4);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     if (data) {
-      setLoad(true)
+      setIsLoad(true);
       setCurrentItems(data.slice(itemOffset, endOffset));
       setPageCount(Math.ceil(data.length / itemsPerPage));
-      setLoad(!isLoading)
+      setIsLoad(false);
     }
-  }, [itemOffset, data]);
+  }, [itemOffset, data, itemsPerPage]);
 
   const handlePageClick = (event: any) => {
     if (!data) {
@@ -42,28 +42,47 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     setItemOffset((event.selected * itemsPerPage) % data.length);
   };
 
+  function changeItemsPerPage(event: any) {
+    setItemsPerPage(parseInt(event.target.value))
+  }
+
   return isLoading 
   ? (
+    <div className={style.paginator_comp__loader}>
+      <Loader />
+    </div>
+    )
+  : (
     <div className={style.paginator_comp__wrapper}>
       <div className={style.paginator_comp__container}>
         <div className={style.paginator_comp__body_wrapper}>
           <div className={style.paginator_comp__body}>
             {(currentItems && <CardNode data={currentItems} />)}
+            
           </div>
         </div>
       </div>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="Вперёд >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={2}
-        pageCount={pageCount}
-        previousLabel="< Назад"
-        className={style.paginator_comp__switcher}
-      />
+      <div className={style.paginator_comp__with_selector}>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Вперёд >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={2}
+          pageCount={pageCount}
+          previousLabel="< Назад"
+          className={style.paginator_comp__switcher}
+        />
+        <select className={style.paginator_comp__select} value={itemsPerPage} onChange={changeItemsPerPage}>
+          <option defaultValue="4">4</option>
+          <option value="6">6</option>
+          <option value="8">8</option>
+          <option value="12">12</option>
+          <option value="20">20</option>
+          <option value="40">40</option>
+        </select>
+      </div>      
     </div>
-  )
-  : (<div className={style.paginator_comp__loader}><Loader /></div>);
+  );
 };
 
 export default PaginateComponent;
