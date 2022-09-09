@@ -18,7 +18,7 @@ interface IUseQuery {
 }
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
-  const [ isLoading, setIsLoad ] = useState<boolean>(true);
+  const [isLoading, setIsLoad] = useState<boolean>(true);
   const { data } = useQuery();
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [pageCount, setPageCount] = useState(0);
@@ -26,6 +26,12 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
   useEffect(() => {
+    if (localStorage.getItem("itemsPerPage")) {
+      setItemsPerPage(
+        parseInt(localStorage.getItem("itemsPerPage") || "4", 10)
+      );
+    }
+
     const endOffset = itemOffset + itemsPerPage;
     if (data) {
       setIsLoad(true);
@@ -43,22 +49,21 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   };
 
   function changeItemsPerPage(event: any) {
-    setItemsPerPage(parseInt(event.target.value))
+    const perPage = event.target.value;
+    setItemsPerPage(parseInt(perPage, 10));
+    localStorage.setItem("itemsPerPage", perPage);
   }
 
-  return isLoading 
-  ? (
+  return isLoading ? (
     <div className={style.paginator_comp__loader}>
       <Loader />
     </div>
-    )
-  : (
+  ) : (
     <div className={style.paginator_comp__wrapper}>
       <div className={style.paginator_comp__container}>
         <div className={style.paginator_comp__body_wrapper}>
           <div className={style.paginator_comp__body}>
-            {(currentItems && <CardNode data={currentItems} />)}
-            
+            {currentItems && <CardNode data={currentItems} />}
           </div>
         </div>
       </div>
@@ -72,7 +77,11 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
           previousLabel="< Назад"
           className={style.paginator_comp__switcher}
         />
-        <select className={style.paginator_comp__select} value={itemsPerPage} onChange={changeItemsPerPage}>
+        <select
+          className={style.paginator_comp__select}
+          value={itemsPerPage}
+          onChange={changeItemsPerPage}
+        >
           <option defaultValue="4">4</option>
           <option value="6">6</option>
           <option value="8">8</option>
@@ -80,7 +89,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
           <option value="20">20</option>
           <option value="40">40</option>
         </select>
-      </div>      
+      </div>
     </div>
   );
 };
