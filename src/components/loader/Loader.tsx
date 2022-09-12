@@ -1,14 +1,10 @@
 import React from "react";
-import cl from "./Loader.module.less";
 
 const Loader = () => {
-    const loadPic = Math.floor(Math.random() * 14) + 1;
+  const loadPic = Math.floor(Math.random() * 14) + 1;
 
-    return (
-        <div className="page__wrapper">
-            <img src={require("src/assets/images/" + loadPic + ".png")} />
-        </div>
-    )
-}
+  // eslint-disable-next-line jsx-a11y/alt-text, import/no-dynamic-require, global-require
+  return <img src={require(`src/assets/images/${loadPic}.webp`)} />;
+};
 
 export default Loader;

@@ -128,7 +128,7 @@ const config: any = (env: any, args: any) => ({
         ],
       },
       {
-        test: /\.(png|jpg|jpeg|gif)$/,
+        test: /\.(png|jpg|jpeg|gif|webp)$/,
         type: "asset/resource",
         generator: {
           filename: "images/[hash][ext][query]",
