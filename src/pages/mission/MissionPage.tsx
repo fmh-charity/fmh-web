@@ -1,7 +1,5 @@
 import React from "react";
-import MissionCard, {
-  IMissionCard,
-} from "src/pages/mission/missionCard/MissionCard";
+import MissionCard from "src/pages/mission/missionCard/MissionCard";
 import { cards } from "src/pages/mission/cards";
 import styles from "./MissionPage.module.less";
 
