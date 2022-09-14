@@ -74,8 +74,12 @@ const DrawCard = ({
       </header>
       <div className="view_card__wrapper">
         <div className="view_card__header">
-          <span>{viewCardTheme.key}</span>
-          <span>{viewCardTheme.value}</span>
+          <span className="view_card__header_span_title">
+            {viewCardTheme.key}
+          </span>
+          <span className="card__header_span_title_value">
+            {viewCardTheme.value}
+          </span>
         </div>
         <div>
           {obj.map((ob) => (

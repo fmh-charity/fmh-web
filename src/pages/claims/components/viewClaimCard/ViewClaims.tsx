@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from "react";
+import React, { useContext } from "react";
 import {
   useAddClaimCommentsMutation,
   useGetClaimByIdQuery,
@@ -18,9 +18,7 @@ export interface IClaimComment extends IComment {}
 
 const EditClaimsComp = ({ data }: { data: IClaim }) => {
   const changeVisible = useContext(ModalContext);
-  return (
-    <EditClaims claim={data} changeVisible={() => changeVisible?.()} />
-  );
+  return <EditClaims claim={data} changeVisible={() => changeVisible?.()} />;
 };
 
 const ViewClaims = ({ id }: { id: number }) => {
