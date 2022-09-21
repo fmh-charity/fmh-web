@@ -1,12 +1,12 @@
 import React from "react";
-import { INews } from "src/model/INews";
+import { INewsPagination } from "src/model/INews";
 import NewsCard from "src/pages/news/components/NewsCard/NewsCard";
 import styles from "./NewsNode.module.less";
 
-const NewsNode = ({ data }: { data: INews[] | undefined }) =>
-  data!.length > 0 ? (
+const NewsNode = ({ data }: { data: INewsPagination | undefined }) =>
+  data!.pages > 0 ? (
     <div className={styles.news_page__container}>
-      {data?.map((news) => (
+      {data!.elements?.map((news) => (
         <NewsCard
           key={news.id}
           id={news.id}

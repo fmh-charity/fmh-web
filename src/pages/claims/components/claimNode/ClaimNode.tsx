@@ -1,14 +1,14 @@
-import { IClaim } from "src/model/IClaim";
+import { IClaimPagination } from "src/model/IClaim";
 import Card from "src/components/card/Card";
 import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import { format } from "date-fns";
 import React from "react";
 import styles from "./ClaimNode.module.less";
 
-const ClaimsNode = ({ data }: { data: IClaim[] }) =>
-  data!.length > 0 ? (
+const ClaimsNode = ({ data }: { data: IClaimPagination }) =>
+  data.pages > 0 ? (
     <div className={styles.claims_page__container}>
-      {data?.map((claim) => (
+      {data.elements?.map((claim) => (
         <Card
           key={claim.id}
           id={claim.id}

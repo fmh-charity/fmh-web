@@ -11,3 +11,8 @@ export interface IClaim {
   status: string;
   title: string;
 }
+
+export interface IClaimPagination {
+  pages: number;
+  elements: IClaim[];
+}

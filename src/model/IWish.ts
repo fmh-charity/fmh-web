@@ -9,4 +9,9 @@ export interface IWish {
   planExecuteDate: number;
   status: string;
   title: string;
-};
+}
+
+export interface IWishPagination {
+  pages: number;
+  elements: IWish[];
+}

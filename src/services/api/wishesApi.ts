@@ -1,14 +1,14 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { IWish } from "src/model/IWish";
+import { IWish, IWishPagination } from "src/model/IWish";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 import { IWishComment } from "src/pages/wishes/components/viewWishesCard/ViewWihes";
 
 export const wishesApi = createApi({
   reducerPath: "wishesApi",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["IWishes", "IWishComment"],
+  tagTypes: ["IWishes", "IWishPagination", "IWishComment"],
   endpoints: (builder) => ({
-    getWishes: builder.query<IWish[], void>({
+    getWishes: builder.query<IWishPagination, void>({
       query: () => "wishes",
       providesTags: ["IWishes"],
     }),
