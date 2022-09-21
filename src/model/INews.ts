@@ -9,3 +9,8 @@ export interface INews {
   publishEnabled: boolean;
   title: string;
 }
+
+export interface INewsPagination {
+  pages: number;
+  elements: INews[];
+}

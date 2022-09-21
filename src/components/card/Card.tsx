@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useContext } from "react";
+import React, { ReactNode, useContext } from "react";
 import Arrow from "src/assets/icons/arrow.svg";
 import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import ViewWihes from "src/pages/wishes/components/viewWishesCard/ViewWihes";
@@ -28,24 +28,22 @@ const Card = ({
   title: { key: string; value: string };
   rows: { key: string; value: string | ReactNode }[];
   View: typeof ViewClaims | typeof ViewWihes;
-}) => {
-  return (
-    <section className={styles.card__container}>
-      <div className={styles.card__head}>
-        <span>{title.key}</span>
-        <span title={title.value}>{title.value}</span>
+}) => (
+  <section className={styles.card__container}>
+    <div className={styles.card__head}>
+      <span className={styles.card__header_span_title}>{title.key}</span>
+      <span title={title.value}>{title.value}</span>
+    </div>
+    {rows.map((row) => (
+      <div key={row.key} className={styles.card__row}>
+        <span>{row.key}</span>
+        <span>{row.value}</span>
       </div>
-      {rows.map((row) => (
-        <div key={row.key} className={styles.card__row}>
-          <span>{row.key}</span>
-          <span>{row.value}</span>
-        </div>
-      ))}
-      <Modal modal={<View id={id} />}>
-        <ViewComp />
-      </Modal>
-    </section>
-  );
-};
+    ))}
+    <Modal modal={<View id={id} />}>
+      <ViewComp />
+    </Modal>
+  </section>
+);
 
 export default Card;

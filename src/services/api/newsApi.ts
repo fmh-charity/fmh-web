@@ -1,14 +1,14 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { INews } from "src/model/INews";
+import { INews, INewsPagination } from "src/model/INews";
 import { NewsPost } from "src/pages/news/components/addNews/AddNews";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 
 export const newsApi = createApi({
   reducerPath: "newsApi",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["INews"],
+  tagTypes: ["INews", "INewsPagination"],
   endpoints: (builder) => ({
-    getNews: builder.query<INews[], void>({
+    getNews: builder.query<INewsPagination, void>({
       query: () => "news",
       providesTags: ["INews"],
     }),

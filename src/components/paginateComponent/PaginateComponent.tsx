@@ -32,11 +32,10 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
       );
     }
 
-    const endOffset = itemOffset + itemsPerPage;
     if (data) {
       setIsLoad(true);
-      setCurrentItems(data.slice(itemOffset, endOffset));
-      setPageCount(Math.ceil(data.length / itemsPerPage));
+      setCurrentItems(data.elements);
+      setPageCount(Math.ceil(data.pages / itemsPerPage));
       setIsLoad(false);
     }
   }, [itemOffset, data, itemsPerPage]);
@@ -45,7 +44,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     if (!data) {
       return;
     }
-    setItemOffset((event.selected * itemsPerPage) % data.length);
+    setItemOffset((event.selected * itemsPerPage) % data.pages);
   };
 
   function changeItemsPerPage(event: any) {
