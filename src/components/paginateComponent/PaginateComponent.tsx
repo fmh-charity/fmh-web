@@ -19,11 +19,17 @@ interface IUseQuery {
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   const [isLoading, setIsLoad] = useState<boolean>(true);
-  const { data } = useQuery();
+
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
+  const { data } = useQuery({
+    pages: pageCount,
+    elements: itemsPerPage,
+    status: "OPEN",
+    sortByNewCreateDate: true,
+  });
 
   useEffect(() => {
     if (localStorage.getItem("itemsPerPage")) {
