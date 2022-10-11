@@ -2,14 +2,16 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
 import { IClaimComment } from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import { IClaim, IClaimPagination } from "src/model/IClaim";
+import { IPaginationOptions } from "src/model/IPaginationOptions";
 
 export const claimsApi = createApi({
   reducerPath: "claimsApi",
   baseQuery: baseQueryWithReauth,
   tagTypes: ["IClaims", "IClaimPagination", "IClaimComment"],
   endpoints: (builder) => ({
-    getClaims: builder.query<IClaimPagination, void>({
-      query: () => "claims",
+    getClaims: builder.query<IClaimPagination, IPaginationOptions>({
+      query: (p: IPaginationOptions) =>
+        `claims?createDate=${p.sortByNewCreateDate}&elements=${p.elements}&pages=${p.pages}`,
       providesTags: ["IClaims"],
     }),
     getClaimById: builder.query<IClaim, number>({

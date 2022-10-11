@@ -2,14 +2,16 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { INews, INewsPagination } from "src/model/INews";
 import { NewsPost } from "src/pages/news/components/addNews/AddNews";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
+import { IPaginationOptions } from "src/model/IPaginationOptions";
 
 export const newsApi = createApi({
   reducerPath: "newsApi",
   baseQuery: baseQueryWithReauth,
   tagTypes: ["INews", "INewsPagination"],
   endpoints: (builder) => ({
-    getNews: builder.query<INewsPagination, void>({
-      query: () => "news",
+    getNews: builder.query<INewsPagination, IPaginationOptions>({
+      query: (p: IPaginationOptions) =>
+        `news?createDate=${p.sortByNewCreateDate}&elements=${p.elements}&pages=${p.pages}`,
       providesTags: ["INews"],
     }),
     getNewsById: builder.query<INews, number>({
