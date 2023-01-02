@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetNewsQuery } from "src/services/api/newsApi";
 import ReactPaginate from "react-paginate";
 import { useGetClaimsQuery } from "src/services/api/claimsApi";
@@ -19,10 +19,8 @@ interface IUseQuery {
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   const [isLoading, setIsLoad] = useState<boolean>(true);
-
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const { data } = useQuery({
     pages: pageCount,
@@ -41,16 +39,17 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     if (data) {
       setIsLoad(true);
       setCurrentItems(data.elements);
-      setPageCount(Math.ceil(data.pages / itemsPerPage));
+      setPageCount(pageCount);
       setIsLoad(false);
     }
-  }, [itemOffset, data, itemsPerPage]);
+  }, [data, itemsPerPage]);
 
   const handlePageClick = (event: any) => {
     if (!data) {
       return;
     }
-    setItemOffset((event.selected * itemsPerPage) % data.pages);
+    // в event приходит правильный номер pages который нужно отправить серверу
+    setPageCount(event.selected);
   };
 
   function changeItemsPerPage(event: any) {
@@ -78,7 +77,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
           nextLabel="Вперёд >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={2}
-          pageCount={pageCount}
+          pageCount={(data && data.pages) || 1}
           previousLabel="< Назад"
           className={style.paginator_comp__switcher}
         />
