@@ -3,9 +3,12 @@
 interface CssExports {
   'disabled_link': string;
   'navbar': string;
+  'navbar_activeLink': string;
   'navbar_icon': string;
   'navbar_link': string;
+  'navbar_link_container': string;
   'navbar_links': string;
+  'navbar_mainLink': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

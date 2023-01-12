@@ -11,11 +11,11 @@
 }
 
 .navbar_links {
-  margin: 32px 32px;
   display: grid;
   grid-auto-flow: row;
-  grid-row-gap: 32px;
+  grid-row-gap: 16px;
   align-content: flex-start;
+  margin-top: 22px;
 }
 
 .navbar_link {
@@ -24,6 +24,7 @@
   column-gap: 16px;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.54);
+  margin-left: 30px;
 }
 
 .navbar_link:hover {
@@ -39,4 +40,18 @@
 
 .disabled_link {
   pointer-events: none;
+}
+
+.navbar_link_container {
+  display: flex;
+  align-items: center;
+  height: 34px;
+}
+
+.navbar_mainLink {
+  color: #01a19f;
+}
+
+.navbar_activeLink {
+  background: #f0f0f0;
 }

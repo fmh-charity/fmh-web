@@ -13,7 +13,7 @@ import styles from "./Navbar.module.less";
 const Navbar = () => (
   <div className={styles.navbar}>
     <div className={styles.navbar_links}>
-      <NavbarLink url="/" title="Главная" icon={<MainIcon />} />
+      <NavbarLink url="/" title="Главная" icon={<MainIcon />} mainLink />
       <NavbarLink url="/news" title="Новости" icon={<NewsIcon />} />
       <NavbarLink url="/claims" title="Заявки" icon={<RequestIcon />} />
       <NavbarLink url="/wishes" title="Просьбы" icon={<RequestIcon />} />
