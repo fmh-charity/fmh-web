@@ -40,7 +40,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
       setCurrentItems(data.elements);
       setPageCount(data.pages);
     }
-  }, [data, itemsPerPage, currentPage]);
+  }, [data]);
 
   const handlePageClick = (event: any) => {
     if (!data) {
@@ -52,9 +52,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   function changeItemsPerPage(event: any) {
     const perPage = event.target.value;
     setItemsPerPage(parseInt(perPage, 10));
-    setCurrentPage(
-      Math.floor((itemsPerPage * (pageCount - 1) + 1) / parseInt(perPage, 10))
-    );
+    setCurrentPage(0);
     localStorage.setItem("itemsPerPage", perPage);
   }
 
