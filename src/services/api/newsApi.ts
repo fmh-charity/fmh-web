@@ -10,14 +10,8 @@ export const newsApi = createApi({
   tagTypes: ["INews", "INewsPagination"],
   endpoints: (builder) => ({
     getNews: builder.query<INewsPagination, IPaginationOptions>({
-      query: ({ pages, sortByNewCreateDate = false, elements }) => ({
-        url: "news?",
-        params: {
-          pages,
-          sortByNewCreateDate,
-          elements,
-        },
-      }),
+      query: (p: IPaginationOptions) =>
+        `news?createDate=${p.sortByNewCreateDate}&elements=${p.elements}&pages=${p.pages}`,
       providesTags: ["INews"],
     }),
     getNewsById: builder.query<INews, number>({
