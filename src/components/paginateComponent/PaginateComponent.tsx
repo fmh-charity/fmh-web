@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetNewsQuery } from "src/services/api/newsApi";
 import ReactPaginate from "react-paginate";
 import { useGetClaimsQuery } from "src/services/api/claimsApi";
@@ -18,17 +18,15 @@ interface IUseQuery {
 }
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
-  const [isLoading, setIsLoad] = useState<boolean>(true);
-
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
-  const { data } = useQuery({
-    pages: pageCount,
+  const [currentPage, setCurrentPage] = useState(0);
+  const { data, isLoading } = useQuery({
+    pages: currentPage,
     elements: itemsPerPage,
     status: "OPEN",
-    sortByNewCreateDate: true,
+    publishDate: false,
   });
 
   useEffect(() => {
@@ -39,31 +37,34 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     }
 
     if (data) {
-      setIsLoad(true);
       setCurrentItems(data.elements);
-      setPageCount(Math.ceil(data.pages / itemsPerPage));
-      setIsLoad(false);
+      setPageCount(data.pages);
     }
-  }, [itemOffset, data, itemsPerPage]);
+  }, [data, itemsPerPage, currentPage]);
 
   const handlePageClick = (event: any) => {
     if (!data) {
       return;
     }
-    setItemOffset((event.selected * itemsPerPage) % data.pages);
+    setCurrentPage(event.selected);
   };
 
   function changeItemsPerPage(event: any) {
     const perPage = event.target.value;
     setItemsPerPage(parseInt(perPage, 10));
+    setCurrentPage(
+      Math.floor((itemsPerPage * (pageCount - 1) + 1) / parseInt(perPage, 10))
+    );
     localStorage.setItem("itemsPerPage", perPage);
   }
 
-  return isLoading ? (
-    <div className={style.paginator_comp__loader}>
-      <Loader />
-    </div>
-  ) : (
+  if (isLoading)
+    return (
+      <div className={style.paginator_comp__loader}>
+        <Loader />
+      </div>
+    );
+  return (
     <div className={style.paginator_comp__wrapper}>
       <div className={style.paginator_comp__container}>
         <div className={style.paginator_comp__body_wrapper}>
@@ -77,10 +78,11 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
           breakLabel="..."
           nextLabel="Вперёд >"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={2}
           pageCount={pageCount}
           previousLabel="< Назад"
           className={style.paginator_comp__switcher}
+          activeClassName={style.selected}
+          forcePage={currentPage}
         />
         <select
           className={style.paginator_comp__select}
