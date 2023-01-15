@@ -21,14 +21,14 @@ const sizes = [8, 20, 30, 40];
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   const [currentItems, setCurrentItems] = useState<any>([]);
-  const [pageCount, setPageCount] = useState(0);
+  const [pageCount, setPageCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(
     parseInt(localStorage.getItem("itemsPerPage") || "0", 10) || sizes[0] || 10
   );
 
   const { data, isLoading } = useQuery({
-    pages: currentPage,
+    pages: currentPage > 0 ? currentPage : 0,
     elements: itemsPerPage,
     status: "OPEN",
     publishDate: false,
