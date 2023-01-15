@@ -1,6 +1,7 @@
 .navbar {
   display: grid;
   position: fixed;
+  overflow: auto;
   z-index: 10;
   bottom: 0;
   left: 0;
@@ -11,20 +12,20 @@
 }
 
 .navbar_links {
-  display: grid;
-  grid-auto-flow: row;
-  grid-row-gap: 16px;
-  align-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   margin-top: 22px;
+  flex-wrap: wrap;
 }
 
 .navbar_link {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  column-gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 1px;
+  padding-bottom: 1px;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.54);
-  margin-left: 30px;
 }
 
 .navbar_link:hover {
@@ -32,8 +33,9 @@
 }
 
 .navbar_icon {
-  display: grid;
+  display: flex;
   width: 32px;
+  height: 32px;
   justify-content: center;
   align-items: center;
 }
@@ -45,13 +47,14 @@
 .navbar_link_container {
   display: flex;
   align-items: center;
-  height: 34px;
-}
-
-.navbar_mainLink {
-  color: #01a19f;
+  gap: 28px;
+  margin-left: 25px;
 }
 
 .navbar_activeLink {
   background: #f0f0f0;
+}
+
+.navbar_activeLink_text {
+  color: #01a19f;
 }
