@@ -1,12 +1,30 @@
 import { format } from "date-fns";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { categories } from "src/common/categories";
 import { selectUserInfo } from "src/features/auth/authSlice";
 import { INews } from "src/model/INews";
 import { getRefDate, getRefChecked, getRefValue } from "src/utils/GetRef";
 import { ModalContext } from "src/components/modal/Modal";
+import { object, string, number, setLocale } from "yup";
 import styles from "./FormNews.module.less";
+
+setLocale({
+  mixed: {
+    required: "${label} указать обязательно",
+  },
+  string: {
+    min: "${label} должен содержать минимум ${min} символов",
+    max: "${label} должен содержать не более ${max} символов",
+  },
+});
+
+const newSchema = object().shape({
+  title: string().required().min(2).max(50).label("Заголовок"),
+  description: string().required().min(20).max(250).label("Описание"),
+  newsCategoryId: string().required().label("Категорию"),
+  publishDate: number().required().typeError("Дата публикации не выбрана"),
+});
 
 const FormNews = ({
   news,
@@ -25,9 +43,14 @@ const FormNews = ({
   const descriptionRef = React.createRef<HTMLTextAreaElement>();
   const checkActiveRef = React.createRef<HTMLInputElement>();
   const userInfo = useSelector(selectUserInfo);
+  const [errors, setErrors] = useState([]);
+  const [checked, setChecked] = useState(false);
+  const handleChange = () => {
+    setChecked(!checked);
+  };
 
-  const submitValue = () => {
-    submit({
+  const submitValue = async () => {
+    const form = {
       createDate: news?.createDate || Date.now(),
       description: getRefValue(descriptionRef, ""),
       newsCategoryId: getRefValue(categoryRef, 0),
@@ -37,10 +60,26 @@ const FormNews = ({
       creatorName: `${userInfo.firstName} ${userInfo.lastName} ${userInfo.middleName}`,
       publishDate: getRefDate(dateRef, timeRef),
       id: news?.id || 0,
-    });
-    changeVisible?.();
-  };
+    };
 
+    await newSchema
+      .validate(
+        {
+          title: form.title,
+          description: form.description,
+          newsCategoryId: form.newsCategoryId,
+          publishDate: form.publishDate,
+        },
+        { abortEarly: false }
+      )
+      .then(() => {
+        submit(form);
+        changeVisible?.();
+      })
+      .catch((e) => {
+        setErrors(e.errors);
+      });
+  };
   return (
     <div className={styles.form_news__container}>
       <header className={styles.header_news}>
@@ -48,16 +87,18 @@ const FormNews = ({
       </header>
       <div className={styles.news_form}>
         <div className={styles.news_row}>
-          <select
-            className={styles.news_category}
-            ref={categoryRef}
-            defaultValue={news?.newsCategoryId || 0}
-          >
-            {categories.map((category, index) => (
-              <option key={category.title} value={index + 1}>
-                {category.title}
-              </option>
-            ))}
+          <select className={styles.news_category} ref={categoryRef}>
+            {[{ title: "Выберите категорию", img: "" }, ...categories].map(
+              (category, index) => (
+                <option
+                  hidden={!index}
+                  key={category.title}
+                  value={index > 0 ? index : ""}
+                >
+                  {category.title}
+                </option>
+              )
+            )}
           </select>
           <div className={styles.news_date}>
             <input
@@ -102,11 +143,19 @@ const FormNews = ({
           <input
             type="checkbox"
             className={styles.news_cb}
-            defaultChecked={news?.publishEnabled || false}
             ref={checkActiveRef}
+            checked={checked}
+            onChange={handleChange}
           />
-          <span>Не активна</span>
+          <span>{checked ? "Активна" : "Не активна"}</span>
         </div>
+        {errors && (
+          <div className={styles.news_error}>
+            {errors.map((error) => (
+              <p>{error}</p>
+            ))}
+          </div>
+        )}
         <div className={styles.news_controls}>
           <button
             type="button"
