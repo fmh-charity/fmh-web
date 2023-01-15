@@ -17,11 +17,16 @@ interface IUseQuery {
     | typeof useGetWishesQuery;
 }
 
+const sizes = [8, 20, 30, 40];
+
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   const [currentItems, setCurrentItems] = useState<any>([]);
   const [pageCount, setPageCount] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
   const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(
+    parseInt(localStorage.getItem("itemsPerPage") || "0", 10) || sizes[0] || 10
+  );
+
   const { data, isLoading } = useQuery({
     pages: currentPage,
     elements: itemsPerPage,
@@ -30,12 +35,6 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("itemsPerPage")) {
-      setItemsPerPage(
-        parseInt(localStorage.getItem("itemsPerPage") || "4", 10)
-      );
-    }
-
     if (data) {
       setCurrentItems(data.elements);
       setPageCount(data.pages);
@@ -87,12 +86,11 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
           value={itemsPerPage}
           onChange={changeItemsPerPage}
         >
-          <option defaultValue="4">4</option>
-          <option value="6">6</option>
-          <option value="8">8</option>
-          <option value="12">12</option>
-          <option value="20">20</option>
-          <option value="40">40</option>
+          {sizes.map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
+          ))}
         </select>
       </div>
     </div>
