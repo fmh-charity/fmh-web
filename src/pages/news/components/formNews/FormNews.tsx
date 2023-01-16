@@ -130,14 +130,14 @@ const FormNews = ({
           placeholder="Заголовок"
           ref={titleRef}
           defaultValue={news?.title || ""}
-          minLength={3}
+          minLength={2}
         />
         <textarea
           className={styles.news_description}
           placeholder="Описание"
           ref={descriptionRef}
           defaultValue={news ? news.description : ""}
-          minLength={5}
+          minLength={20}
         />
         <div className={styles.news_activity}>
           <input

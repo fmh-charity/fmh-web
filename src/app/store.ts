@@ -7,6 +7,7 @@ import authReducer from "src/features/auth/authSlice";
 import { usersApi } from "src/services/api/usersApi";
 import { wishesApi } from "src/services/api/wishesApi";
 import { patientApi } from "src/services/api/patientApi";
+import { sortReducer } from "src/features/sort/sortSlice";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     [patientApi.reducerPath]: patientApi.reducer,
     [api.reducerPath]: api.reducer,
     auth: authReducer,
+    sort: sortReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(

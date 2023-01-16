@@ -6,6 +6,7 @@ import { useGetWishesQuery } from "src/services/api/wishesApi";
 import ClaimsNode from "src/pages/claims/components/claimNode/ClaimNode";
 import WishesNode from "src/pages/wishes/components/wishesNode/WishesNode";
 import NewsNode from "src/pages/news/components/newsNode/NewsNode";
+import { useAppSelector } from "src/app/hooks";
 import style from "./PaginateItem.module.less";
 import Loader from "../loader/Loader";
 
@@ -26,12 +27,13 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   const [itemsPerPage, setItemsPerPage] = useState(
     parseInt(localStorage.getItem("itemsPerPage") || "0", 10) || sizes[0] || 10
   );
+  const { byAsc } = useAppSelector((state) => state.sort);
 
   const { data, isLoading } = useQuery({
     pages: currentPage > 0 ? currentPage : 0,
     elements: itemsPerPage,
     status: "OPEN",
-    publishDate: false,
+    publishDate: byAsc,
   });
 
   useEffect(() => {

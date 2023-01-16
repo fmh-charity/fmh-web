@@ -7,7 +7,14 @@ import Modal, { ModalContext } from "src/components/modal/Modal";
 import AddNews from "src/pages/news/components/addNews/AddNews";
 import NewsNode from "src/pages/news/components/newsNode/NewsNode";
 import PaginateComponent from "src/components/paginateComponent/PaginateComponent";
+import { useAppDispatch } from "src/app/hooks";
+import { toggleSort } from "src/features/sort/sortSlice";
 import styles from "./News.module.less";
+
+const SortIconComponent = () => {
+  const dispatch = useAppDispatch();
+  return <SortIcon onClick={() => dispatch(toggleSort())} />;
+};
 
 const AddIconComp = () => {
   const changeVisible = useContext(ModalContext);
@@ -23,7 +30,7 @@ const NewsPage = (): any => (
           <AddIconComp />
         </Modal>
         <FilterIcon />
-        <SortIcon />
+        <SortIconComponent />
       </div>
     </header>
     <PaginateComponent useQuery={useGetNewsQuery} CardNode={NewsNode} />
