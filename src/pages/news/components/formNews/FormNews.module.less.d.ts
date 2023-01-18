@@ -14,7 +14,6 @@ interface CssExports {
   'news_create': string;
   'news_date': string;
   'news_description': string;
-  'news_error': string;
   'news_form': string;
   'news_name': string;
   'news_row': string;

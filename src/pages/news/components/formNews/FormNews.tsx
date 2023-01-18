@@ -7,17 +7,12 @@ import { INews } from "src/model/INews";
 import { getRefDate, getRefChecked, getRefValue } from "src/utils/GetRef";
 import { ModalContext } from "src/components/modal/Modal";
 import { object, string, number, setLocale } from "yup";
+import ru from "src/hooks/useValidation/localeRu";
+import { ErrorComponents } from "src/components/errorComponent/ErrorComponents";
+import { useValidation } from "src/hooks/useValidation/useValidation";
 import styles from "./FormNews.module.less";
 
-setLocale({
-  mixed: {
-    required: "${label} указать обязательно",
-  },
-  string: {
-    min: "${label} должен содержать минимум ${min} символов",
-    max: "${label} должен содержать не более ${max} символов",
-  },
-});
+setLocale(ru);
 
 const newSchema = object().shape({
   title: string().required().min(2).max(50).label("Заголовок"),
@@ -43,8 +38,10 @@ const FormNews = ({
   const descriptionRef = React.createRef<HTMLTextAreaElement>();
   const checkActiveRef = React.createRef<HTMLInputElement>();
   const userInfo = useSelector(selectUserInfo);
-  const [errors, setErrors] = useState([]);
   const [checked, setChecked] = useState(false);
+
+  const [setter, callbackReset, errorMessages] = useValidation([]);
+
   const handleChange = () => {
     setChecked(!checked);
   };
@@ -77,7 +74,7 @@ const FormNews = ({
         changeVisible?.();
       })
       .catch((e) => {
-        setErrors(e.errors);
+        setter(e.errors);
       });
   };
   return (
@@ -149,13 +146,12 @@ const FormNews = ({
           />
           <span>{checked ? "Активна" : "Не активна"}</span>
         </div>
-        {errors && (
-          <div className={styles.news_error}>
-            {errors.map((error) => (
-              <p key={error}>{error}</p>
-            ))}
-          </div>
-        )}
+
+        <ErrorComponents
+          errorMessages={errorMessages}
+          callbackReset={callbackReset}
+        />
+
         <div className={styles.news_controls}>
           <button
             type="button"
