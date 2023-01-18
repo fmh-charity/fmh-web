@@ -4,5 +4,5 @@ import { selectUserInfo } from "src/features/auth/authSlice";
 
 export const IsAdmin = ({ children }: { children: ReactElement }) => {
   const user = useAppSelector(selectUserInfo);
-  return user.admin ? children : null;
+  return user && user.admin ? children : null;
 };
