@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from "react";
+import React, { useContext } from "react";
 import FilterIcon from "src/assets/icons/filter.svg";
 import AddIcon from "src/assets/icons/add.svg";
 import SortIcon from "src/assets/icons/sort.svg";
@@ -7,9 +7,10 @@ import Modal, { ModalContext } from "src/components/modal/Modal";
 import AddNews from "src/pages/news/components/addNews/AddNews";
 import NewsNode from "src/pages/news/components/newsNode/NewsNode";
 import PaginateComponent from "src/components/paginateComponent/PaginateComponent";
-import { useAppDispatch, useAppSelector } from "src/app/hooks";
+import { useAppDispatch } from "src/app/hooks";
 import { toggleSort } from "src/features/sort/sortSlice";
-import { selectUserInfo } from "src/features/auth/authSlice";
+import { IsAdmin } from "src/components/isAdmin/isAdmin";
+
 import styles from "./News.module.less";
 
 const SortIconComponent = () => {
@@ -20,11 +21,6 @@ const SortIconComponent = () => {
 const AddIconComp = () => {
   const changeVisible = useContext(ModalContext);
   return <AddIcon onClick={changeVisible} />;
-};
-
-const IsAdmin = ({ children }: { children: ReactElement }) => {
-  const user = useAppSelector(selectUserInfo);
-  return user.admin ? children : null;
 };
 
 const NewsPage = (): any => (
