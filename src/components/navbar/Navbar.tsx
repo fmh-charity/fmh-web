@@ -14,6 +14,13 @@ import NavbarLink from "./components/NavbarLink";
 import styles from "./Navbar.module.less";
 
 const Navbar = () => {
+  // export interface IMissionCard {
+  //   color: string;
+  //   title: string;
+  //   description: string;
+  //   author?: string;
+  // }
+
   const menuItems = [
     {
       url: "/",
@@ -94,6 +101,7 @@ const Navbar = () => {
       <div className={styles.navbar_links}>
         {menuItems.map((menuItem) => (
           <NavbarLink
+            key={menuItem.url}
             url={menuItem.url}
             title={menuItem.title}
             icon={menuItem.icon}

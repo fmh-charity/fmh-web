@@ -33,7 +33,7 @@
 }
 
 .navbar_icon {
-  display: flex;
+  display: grid;
   width: 32px;
   height: 32px;
   justify-content: center;
@@ -45,9 +45,10 @@
 }
 
 .navbar_link_container {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content 1fr;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
   margin-left: 25px;
 }
 
