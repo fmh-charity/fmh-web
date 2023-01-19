@@ -58,12 +58,12 @@ const News: FC<INews> = ({
       <div>{categories[newsCategoryId - 1]?.img}</div>
       <div className={styles.news_card_head_title}>{title}</div>
       <div className={styles.news_card_head_date}>
-        Публикация: {format(publishDate, "dd.MM.yyyy")}
+        {format(publishDate, "dd.MM.yyyy")}
       </div>
-      <div className={styles.news_card_head_date}>|</div>
-      <div className={styles.news_card_head_date}>
-        Создание: {format(createDate, "dd.MM.yyyy")}
-      </div>
+      {/* <div className={styles.news_card_head_date}>|</div>
+        <div className={styles.news_card_head_date}>
+          Создание: {format(createDate, "dd.MM.yyyy")}
+        </div> */}
     </div>
     <div className={styles.news_card_content}>
       <span>{description}</span>

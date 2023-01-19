@@ -6,6 +6,8 @@ import styles from "./NewsNode.module.less";
 const NewsNode = ({ data }: { data: INews[] | undefined }) =>
   data && data.length > 0 ? (
     <div className={styles.news_page__container}>
+      <div className={styles.news_page__header}>Новости</div>
+      <div className={styles.news_page__description}>ВСЕ НОВОСТИ</div>
       {data?.map((news) => (
         <NewsCard
           key={news.id}
@@ -24,5 +26,6 @@ const NewsNode = ({ data }: { data: INews[] | undefined }) =>
   ) : (
     <h1>На данный момент новостей нет</h1>
   );
+
 
 export default NewsNode;

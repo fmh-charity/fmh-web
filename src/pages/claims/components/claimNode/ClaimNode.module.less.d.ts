@@ -2,6 +2,8 @@
 // Please do not change this file!
 interface CssExports {
   'claims_page__container': string;
+  'claims_page__header': string;
+  'news_claims__description': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
