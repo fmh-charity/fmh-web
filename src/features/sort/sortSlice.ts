@@ -1,14 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface Sort {
+interface App {
   byAsc: boolean;
+  dateFrom: string;
+  dateTo: string;
+  newsCategoryId: number;
 }
 
-const initialState: Sort = {
+const initialState: App = {
   byAsc: JSON.parse(localStorage.getItem("sortByAsc") || "false"),
+  dateFrom: "",
+  dateTo: "",
+  newsCategoryId: 0,
 };
 
-const sortSlice = createSlice({
+const AppSlice = createSlice({
   initialState,
   name: "sort",
   reducers: {
@@ -17,8 +23,14 @@ const sortSlice = createSlice({
       state.byAsc = !byAsc;
       localStorage.setItem("sortByAsc", `${byAsc}`);
     },
+    filterNews: (state, payload: any) => {
+      const { dateFrom, dateTo, newsCategoryId } = payload.payload;
+      state.dateFrom = dateFrom;
+      state.dateTo = dateTo;
+      state.newsCategoryId = newsCategoryId;
+    },
   },
 });
 
-export const { toggleSort } = sortSlice.actions;
-export const sortReducer = sortSlice.reducer;
+export const { toggleSort, filterNews } = AppSlice.actions;
+export const sortReducer = AppSlice.reducer;

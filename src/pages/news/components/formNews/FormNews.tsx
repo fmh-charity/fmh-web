@@ -6,20 +6,9 @@ import { selectUserInfo } from "src/features/auth/authSlice";
 import { INews } from "src/model/INews";
 import { getRefDate, getRefChecked, getRefValue } from "src/utils/GetRef";
 import { ModalContext } from "src/components/modal/Modal";
-import { object, string, number, setLocale } from "yup";
-import ru from "src/hooks/useValidation/localeRu";
 import { ErrorComponents } from "src/components/errorComponent/ErrorComponents";
 import { useValidation } from "src/hooks/useValidation/useValidation";
 import styles from "./FormNews.module.less";
-
-setLocale(ru);
-
-const newSchema = object().shape({
-  title: string().required().min(2).max(50).label("Заголовок"),
-  description: string().required().min(20).max(250).label("Описание"),
-  newsCategoryId: string().required().label("Категорию"),
-  publishDate: number().required().typeError("Дата публикации не выбрана"),
-});
 
 const FormNews = ({
   news,
@@ -40,14 +29,14 @@ const FormNews = ({
   const userInfo = useSelector(selectUserInfo);
   const [checked, setChecked] = useState(false);
 
-  const [setter, callbackReset, errorMessages] = useValidation([]);
+  const [validate, messages] = useValidation();
 
   const handleChange = () => {
     setChecked(!checked);
   };
 
   const submitValue = async () => {
-    const form = {
+    const formData = {
       createDate: news?.createDate || Date.now(),
       description: getRefValue(descriptionRef, ""),
       newsCategoryId: getRefValue(categoryRef, 0),
@@ -58,24 +47,11 @@ const FormNews = ({
       publishDate: getRefDate(dateRef, timeRef),
       id: news?.id || 0,
     };
-
-    await newSchema
-      .validate(
-        {
-          title: form.title,
-          description: form.description,
-          newsCategoryId: form.newsCategoryId,
-          publishDate: form.publishDate,
-        },
-        { abortEarly: false }
-      )
-      .then(() => {
-        submit(form);
-        changeVisible?.();
-      })
-      .catch((e) => {
-        setter(e.errors);
-      });
+    const dataIsValid = await validate(formData);
+    if (dataIsValid) {
+      submit(formData);
+      changeVisible?.();
+    }
   };
   return (
     <div className={styles.form_news__container}>
@@ -100,6 +76,7 @@ const FormNews = ({
           <div className={styles.news_date}>
             <input
               type="date"
+              placeholder="Дата"
               ref={dateRef}
               min={format(new Date(), "yyyy-MM-dd")}
               defaultValue={
@@ -148,8 +125,8 @@ const FormNews = ({
         </div>
 
         <ErrorComponents
-          errorMessages={errorMessages}
-          callbackReset={callbackReset}
+          errorMessages={messages}
+          callbackReset={() => console.log("reset")}
         />
 
         <div className={styles.news_controls}>

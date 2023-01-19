@@ -5,6 +5,7 @@ import SortIcon from "src/assets/icons/sort.svg";
 import { useGetNewsQuery } from "src/services/api/newsApi";
 import Modal, { ModalContext } from "src/components/modal/Modal";
 import AddNews from "src/pages/news/components/addNews/AddNews";
+import FilterNews from "src/pages/news/components/filterNews/FilterNews";
 import NewsNode from "src/pages/news/components/newsNode/NewsNode";
 import PaginateComponent from "src/components/paginateComponent/PaginateComponent";
 import { useAppDispatch } from "src/app/hooks";
@@ -18,9 +19,14 @@ const SortIconComponent = () => {
   return <SortIcon onClick={() => dispatch(toggleSort())} />;
 };
 
-const AddIconComp = () => {
+const AddIconComponent = () => {
   const changeVisible = useContext(ModalContext);
   return <AddIcon onClick={changeVisible} />;
+};
+
+const FilterComponent = () => {
+  const changeVisible = useContext(ModalContext);
+  return <FilterIcon onClick={changeVisible} />;
 };
 
 const NewsPage = (): any => (
@@ -30,10 +36,12 @@ const NewsPage = (): any => (
       <div className={styles.header_icons}>
         <IsAdmin>
           <Modal modal={<AddNews />}>
-            <AddIconComp />
+            <AddIconComponent />
           </Modal>
         </IsAdmin>
-        <FilterIcon />
+        <Modal modal={<FilterNews />}>
+          <FilterComponent />
+        </Modal>
         <SortIconComponent />
       </div>
     </header>

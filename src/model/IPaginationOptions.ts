@@ -4,4 +4,7 @@ export interface IPaginationOptions {
   status: string;
   sortByNewCreateDate?: boolean;
   publishDate?: boolean;
+  publishDateTo?: string;
+  publishDateFrom?: string;
+  newsCategoryId?: number;
 }
