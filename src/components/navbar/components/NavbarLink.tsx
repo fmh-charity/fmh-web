@@ -4,13 +4,11 @@ import styles from "../Navbar.module.less";
 
 const NavbarLink = ({
   icon,
-  iconGreen,
   title,
   url,
   disabled,
 }: {
   icon: ReactNode;
-  iconGreen: ReactNode;
   title: string;
   url: string;
   disabled?: boolean;
@@ -20,18 +18,18 @@ const NavbarLink = ({
     className={({ isActive }) =>
       `${styles.navbar_link} + 
     ${disabled ? styles.disabled_link : ""} + 
-    ${isActive ? styles.navbar_activeLink : ""} + `
+    ${isActive ? styles.navbar_activeLink : ""}`
     }
   >
     {({ isActive }) => {
       return (
-        <div className={styles.navbar_link_container}>
-          <div className={styles.navbar_icon}>
-            {isActive ? iconGreen : icon}
-          </div>
-          <span className={isActive ? `${styles.navbar_activeLink_text}` : ""}>
-            {title}
-          </span>
+        <div
+          className={`${styles.navbar_link_container} + ${
+            isActive ? `${styles.navbar_activeLink}` : ""
+          }`}
+        >
+          <div className={styles.navbar_icon}>{icon}</div>
+          <span>{title}</span>
         </div>
       );
     }}

@@ -4,7 +4,6 @@ interface CssExports {
   'disabled_link': string;
   'navbar': string;
   'navbar_activeLink': string;
-  'navbar_activeLink_text': string;
   'navbar_icon': string;
   'navbar_link': string;
   'navbar_link_container': string;
