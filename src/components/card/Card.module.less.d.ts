@@ -6,6 +6,7 @@ interface CssExports {
   'card__head': string;
   'card__header_span_title': string;
   'card__row': string;
+  'card__row_span': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

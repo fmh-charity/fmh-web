@@ -36,7 +36,7 @@ const Card = ({
     </div>
     {rows.map((row) => (
       <div key={row.key} className={styles.card__row}>
-        <span>{row.key}</span>
+        <span className={styles.card__row_span}>{row.key}</span>
         <span>{row.value}</span>
       </div>
     ))}
