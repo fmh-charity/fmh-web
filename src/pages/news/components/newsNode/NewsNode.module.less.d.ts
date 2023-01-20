@@ -3,7 +3,10 @@
 interface CssExports {
   'news_page__container': string;
   'news_page__description': string;
-  'news_page__header': string;
+  'news_page__header_container': string;
+  'news_page__header_icons': string;
+  'news_page__header_info': string;
+  'news_page__header_title': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

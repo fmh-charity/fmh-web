@@ -3,6 +3,9 @@
 interface CssExports {
   'claims_page__container': string;
   'claims_page__header': string;
+  'claims_page__header_container': string;
+  'claims_page__header_icon': string;
+  'claims_page__header_icons': string;
   'news_claims__description': string;
 }
 export const cssExports: CssExports;

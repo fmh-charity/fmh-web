@@ -4,11 +4,27 @@ import ViewClaims from "src/pages/claims/components/viewClaimCard/ViewClaims";
 import { format } from "date-fns";
 import React from "react";
 import styles from "./ClaimNode.module.less";
+import InfoIcon from "src/assets/icons/info.svg";
+import ArrowUpIcon from "src/assets/icons/arrow_up.svg";
+import AddIcon from "src/assets/icons/add.svg";
 
 const ClaimsNode = ({ data }: { data: IClaim[] }) =>
   data.length > 0 ? (
     <div>
-      <div className={styles.claims_page__header}>Заявки</div>
+      <div className={styles.claims_page__header_container}>
+        <div className={styles.claims_page__header}>Заявки</div>
+        <div className={styles.claims_page__header_icons}>
+          <button className={styles.claims_page__header_icon} type="button" onClick={() => console.log("Информация")}>
+            <InfoIcon />
+          </button>
+          <button className={styles.claims_page__header_icon} type="button" onClick={() => console.log("Раскрытие списка")}>
+            <AddIcon />
+          </button>
+          <button type="button" onClick={() => console.log("Раскрытие списка")}>
+            <ArrowUpIcon />
+          </button>
+        </div>
+      </div>
       <div className={styles.news_claims__description}>ВСЕ ЗАЯВКИ</div>
       <div className={styles.claims_page__container}>
         {data?.map((claim) => (
