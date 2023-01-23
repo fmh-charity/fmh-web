@@ -12,9 +12,9 @@ import Loader from "../loader/Loader";
 interface IUseQuery {
   CardNode: typeof ClaimsNode | typeof WishesNode | typeof NewsNode;
   useQuery:
-    | typeof useGetNewsQuery
-    | typeof useGetClaimsQuery
-    | typeof useGetWishesQuery;
+  | typeof useGetNewsQuery
+  | typeof useGetClaimsQuery
+  | typeof useGetWishesQuery;
 }
 
 const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
@@ -75,11 +75,11 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
       <div className={style.paginator_comp__with_selector}>
         <ReactPaginate
           breakLabel="..."
-          nextLabel="Вперёд >"
+          nextLabel="вперёд ›"
           onPageChange={handlePageClick}
           pageRangeDisplayed={2}
           pageCount={pageCount}
-          previousLabel="< Назад"
+          previousLabel="‹ назад"
           className={style.paginator_comp__switcher}
         />
         <select
