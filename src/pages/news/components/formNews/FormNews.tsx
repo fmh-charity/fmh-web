@@ -6,7 +6,8 @@ import { selectUserInfo } from "src/features/auth/authSlice";
 import { INews } from "src/model/INews";
 import { getRefDate, getRefChecked, getRefValue } from "src/utils/GetRef";
 import { ModalContext } from "src/components/modal/Modal";
-import { ErrorComponents } from "src/components/errorComponent/ErrorComponents";
+import { object, string, number } from "yup";
+import { ErrorMessage } from "src/components/errorMessage/ErrorMessage";
 import { useValidation } from "src/hooks/useValidation/useValidation";
 import styles from "./FormNews.module.less";
 
@@ -29,7 +30,7 @@ const FormNews = ({
   const userInfo = useSelector(selectUserInfo);
   const [checked, setChecked] = useState(false);
 
-  const [validate, messages] = useValidation();
+  const [validate, messages, reset] = useValidation();
 
   const handleChange = () => {
     setChecked(!checked);
@@ -47,7 +48,16 @@ const FormNews = ({
       publishDate: getRefDate(dateRef, timeRef),
       id: news?.id || 0,
     };
-    const dataIsValid = await validate(formData);
+
+    const newSchema = object().shape({
+      title: string().required().min(2).max(50).label("Заголовок"),
+      description: string().required().min(20).max(250).label("Описание"),
+      newsCategoryId: string().required().label("Категорию"),
+      publishDate: number().required().typeError("Дата публикации не выбрана"),
+    });
+
+    const dataIsValid = await validate(formData, newSchema);
+
     if (dataIsValid) {
       submit(formData);
       changeVisible?.();
@@ -124,11 +134,6 @@ const FormNews = ({
           <span>{checked ? "Активна" : "Не активна"}</span>
         </div>
 
-        <ErrorComponents
-          errorMessages={messages}
-          callbackReset={() => console.log("reset")}
-        />
-
         <div className={styles.news_controls}>
           <button
             type="button"
@@ -145,6 +150,7 @@ const FormNews = ({
             ОТМЕНИТЬ
           </button>
         </div>
+        <ErrorMessage errorMessages={messages} callbackReset={() => reset()} />
       </div>
     </div>
   );

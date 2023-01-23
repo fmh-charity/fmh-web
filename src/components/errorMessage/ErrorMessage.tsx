@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./ErrorComponent.module.less";
+import styles from "./ErrorMessage.module.less";
 
-interface ErrorComponentsProps {
+interface ErrorMessageProps {
   errorMessages: string[];
   callbackReset: () => void;
 }
 
-export const ErrorComponents: React.FC<ErrorComponentsProps> = ({
+export const ErrorMessage: React.FC<ErrorMessageProps> = ({
   errorMessages,
   callbackReset,
 }) =>

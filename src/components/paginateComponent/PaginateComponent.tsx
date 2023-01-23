@@ -28,7 +28,11 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     parseInt(localStorage.getItem("itemsPerPage") || "0", 10) || sizes[0] || 10
   );
   const { byAsc } = useAppSelector((state) => state.sort);
-  const { newsCategoryId } = useAppSelector((state) => state.sort);
+  const {
+    newsCategoryId,
+    dateFrom: publishDateFrom,
+    // dateTo: publishDateTo,
+  } = useAppSelector((state) => state.sort);
 
   const { data, isLoading } = useQuery({
     pages: currentPage > 0 ? currentPage : 0,
@@ -36,6 +40,8 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     status: "OPEN",
     publishDate: byAsc,
     newsCategoryId,
+    publishDateFrom,
+    // publishDateTo,
     // publishDateFrom: 1672531200000,
     // publishDateTo: "01/01/23",
     // publishDateTo: "2023-01-02",

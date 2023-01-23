@@ -28,6 +28,7 @@ const AppSlice = createSlice({
       state.dateFrom = dateFrom;
       state.dateTo = dateTo;
       state.newsCategoryId = newsCategoryId;
+      console.log(dateFrom, dateTo);
     },
   },
 });

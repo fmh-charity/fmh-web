@@ -6,41 +6,55 @@ import { categories } from "src/common/categories";
 import styles from "../formNews/FormNews.module.less";
 
 export const FormFilter = ({
-  publishDate,
+  // publishDate,
   title,
 }: {
-  publishDate: number;
+  // publishDate: number;
   title: string;
 }) => {
   const dispatch = useAppDispatch();
   const changeVisible = useContext(ModalContext);
-  // const [dateFrom, setDateFrom] = useState("");
-  // const [dateTo, setDateTo] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const [newsCategoryId, setNewsCategoryId] = useState(0);
   const dateFromRef = React.useRef<HTMLInputElement | null>(null);
   const dateToRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleChange = (e: any) => {
-    const dateFrom = Date.parse("2023-01-01");
-    const dateTo = "2023-01-15";
     setNewsCategoryId(e.target.value);
     dispatch(filterNews({ dateTo, dateFrom, newsCategoryId }));
   };
 
-  // const handleChange = (e: any) => {
-  //   setDateFrom(e.target.value);
-  //   setDateTo("2023-01-01");
-  // };
+  const handleChangeDate = (e: any) => {
+    setDateFrom(e.target.value);
+    setDateTo(e.target.value);
+    // console.log(publishDate);
+  };
   const removePlaceholder = () => {
-    if (dateToRef.current) dateToRef.current.type = "date";
-    if (dateFromRef.current) dateFromRef.current.type = "date";
+    if (dateToRef.current) {
+      // dateToRef.current.type = "date";
+      console.log(dateToRef.current);
+    }
+    // if (dateFromRef.current) dateFromRef.current.type = "date";
+  };
+
+  const changeDateFormat = (formDate: string) => {
+    const date = new Date(formDate);
+    return (
+      `${date.getDate()}/`.padStart(3, "0") +
+      `${date.getMonth() + 1}/`.padStart(3, "0") +
+      `${date.getFullYear()}`.slice(2, 4)
+    );
   };
 
   const handleSubmit = () => {
-    console.log(publishDate);
-    const dateFrom = Date.parse("2023-01-01");
-    const dateTo = Date.parse("2023-01-15");
-    dispatch(filterNews({ dateTo, dateFrom, newsCategoryId }));
+    dispatch(
+      filterNews({
+        dateTo: changeDateFormat(dateTo),
+        dateFrom: changeDateFormat(dateFrom),
+        newsCategoryId,
+      })
+    );
   };
   return (
     <div className={styles.form_news__container}>
@@ -55,8 +69,8 @@ export const FormFilter = ({
               type="text"
               ref={dateFromRef}
               placeholder="Дата от"
-              // value={dateFrom}
               onFocus={() => removePlaceholder()}
+              onChange={(e) => handleChangeDate(e)}
             />
           </div>
           <div className={styles.news_date}>
@@ -66,7 +80,7 @@ export const FormFilter = ({
               placeholder="Дата до"
               ref={dateToRef}
               onFocus={() => removePlaceholder()}
-              // value={dateTo}
+              onChange={(e) => handleChangeDate(e)}
             />
           </div>
           <select

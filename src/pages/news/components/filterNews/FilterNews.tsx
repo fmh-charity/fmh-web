@@ -18,7 +18,7 @@ export interface NewsPost {
 }
 
 const FilterNews = () => {
-  const publishDate = Date.now();
+  // const publishDate = Date.now();
   // const [addNews] = useAddNewsMutation();
   // const newsPost: INews = {
   //   createDate: Date.now(),
@@ -32,7 +32,7 @@ const FilterNews = () => {
   //   id: 0,
   // };
 
-  return <FormFilter publishDate={publishDate} title="Фильтр новостей" />;
+  return <FormFilter title="Фильтр новостей" />;
   // return <FormNews news={newsPost} title="Создать новость" submit={addNews} />;
 };
 

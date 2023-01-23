@@ -1,17 +1,14 @@
 import React, { KeyboardEvent, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { ErrorMessage } from "src/components/errorMessage/ErrorMessage";
 import { useAuth } from "src/hooks/useAuth";
+import { useValidation } from "src/hooks/useValidation/useValidation";
 import {
   useLazyUserInfoQuery,
   useLoginMutation,
 } from "src/services/api/authApi";
 import { object, string } from "yup";
 import styles from "./Login.module.less";
-
-const userSchema = object({
-  userName: string().required().min(3),
-  password: string().required().min(5),
-});
 
 const Login = () => {
   const auth = useAuth();
@@ -29,22 +26,45 @@ const Login = () => {
     path = "/";
   }
 
+  const [validate, messages, reset] = useValidation();
+
   const keyPressSubmit = (e: KeyboardEvent) =>
     e.key === "Enter" && setTimeout(onSubmit, 0);
 
+  const userSchema = object({
+    userName: string().required().min(3).label("Логин"),
+    password: string().required().min(5).label("Пароль"),
+  });
+
+  const [authMessages, setAuthMessages] = useState([]);
+
   async function onSubmit() {
-    await userSchema
-      .validate({ userName, password }, { abortEarly: false })
-      .then(async () => {
-        try {
-          await login({ login: userName, password }).unwrap();
-          await getUserInfo();
-          navigate(`${path}`);
-        } catch (err) {
-          console.log(err);
-        }
-      })
-      .catch((e) => alert(e.errors.join("\n\r")));
+    const formData = { userName, password };
+    const dataIsValid = await validate(formData, userSchema);
+
+    if (dataIsValid) {
+      try {
+        await login({ login: userName, password }).unwrap();
+        await getUserInfo();
+        navigate(`${path}`);
+      } catch (err) {
+        setAuthMessages(err.data.message);
+        console.log(err);
+      }
+    }
+
+    // await userSchema
+    //   .validate({ userName, password }, { abortEarly: false })
+    //   .then(async () => {
+    //     try {
+    //       await login({ login: userName, password }).unwrap();
+    //       await getUserInfo();
+    //       navigate(`${path}`);
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    //   })
+    //   .catch((e) => alert(e.errors.join("\n\r")));
   }
 
   return !auth.userInfo ? (
@@ -56,6 +76,7 @@ const Login = () => {
           onChange={(e) => setUserName(e.target.value)}
           onKeyDown={keyPressSubmit}
           maxLength={25}
+          placeholder="Логин"
         />
         <input
           className={styles.input}
@@ -63,6 +84,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           onKeyDown={keyPressSubmit}
           maxLength={25}
+          placeholder="Пароль"
         />
         <button
           disabled={isLoading}
@@ -72,6 +94,10 @@ const Login = () => {
         >
           Войти
         </button>
+        <ErrorMessage
+          errorMessages={messages || [`${authMessages}`]}
+          callbackReset={() => reset()}
+        />
       </form>
     </div>
   ) : (
