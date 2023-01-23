@@ -31,7 +31,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   const {
     newsCategoryId,
     dateFrom: publishDateFrom,
-    // dateTo: publishDateTo,
+    dateTo: publishDateTo,
   } = useAppSelector((state) => state.sort);
 
   const { data, isLoading } = useQuery({
@@ -41,7 +41,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     publishDate: byAsc,
     newsCategoryId,
     publishDateFrom,
-    // publishDateTo,
+    publishDateTo,
     // publishDateFrom: 1672531200000,
     // publishDateTo: "01/01/23",
     // publishDateTo: "2023-01-02",

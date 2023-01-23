@@ -5,44 +5,30 @@ import { filterNews } from "src/features/sort/sortSlice";
 import { categories } from "src/common/categories";
 import styles from "../formNews/FormNews.module.less";
 
-export const FormFilter = ({
-  // publishDate,
-  title,
-}: {
-  // publishDate: number;
-  title: string;
-}) => {
+export const FormFilter = ({ title }: { title: string }) => {
   const dispatch = useAppDispatch();
   const changeVisible = useContext(ModalContext);
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
+  const [dateRange, setDateRange] = useState({});
   const [newsCategoryId, setNewsCategoryId] = useState(0);
+
   const dateFromRef = React.useRef<HTMLInputElement | null>(null);
   const dateToRef = React.useRef<HTMLInputElement | null>(null);
 
-  const handleChange = (e: any) => {
+  const handleChangeCategory = (e: any) => {
     setNewsCategoryId(e.target.value);
-    dispatch(filterNews({ dateTo, dateFrom, newsCategoryId }));
+    dispatch(filterNews({ ...dateRange, newsCategoryId }));
   };
 
   const handleChangeDate = (e: any) => {
-    setDateFrom(e.target.value);
-    setDateTo(e.target.value);
-    // console.log(publishDate);
-  };
-  const removePlaceholder = () => {
-    if (dateToRef.current) {
-      // dateToRef.current.type = "date";
-      console.log(dateToRef.current);
-    }
-    // if (dateFromRef.current) dateFromRef.current.type = "date";
+    const { value, name } = e.target;
+    setDateRange({ ...dateRange, [name]: changeDateFormat(value) });
   };
 
   const changeDateFormat = (formDate: string) => {
     const date = new Date(formDate);
     return (
-      `${date.getDate()}/`.padStart(3, "0") +
       `${date.getMonth() + 1}/`.padStart(3, "0") +
+      `${date.getDate()}/`.padStart(3, "0") +
       `${date.getFullYear()}`.slice(2, 4)
     );
   };
@@ -50,57 +36,53 @@ export const FormFilter = ({
   const handleSubmit = () => {
     dispatch(
       filterNews({
-        dateTo: changeDateFormat(dateTo),
-        dateFrom: changeDateFormat(dateFrom),
+        ...dateRange,
         newsCategoryId,
       })
     );
   };
+
   return (
     <div className={styles.form_news__container}>
       <header className={styles.header_news}>
         <div className={styles.header_title}>{title}</div>
       </header>
       <div className={styles.news_form}>
-        <div className={styles.news_row}>
-          <div className={styles.news_date}>
-            <input
-              name="from"
-              type="text"
-              ref={dateFromRef}
-              placeholder="Дата от"
-              onFocus={() => removePlaceholder()}
-              onChange={(e) => handleChangeDate(e)}
-            />
-          </div>
-          <div className={styles.news_date}>
-            <input
-              name="to"
-              type="text"
-              placeholder="Дата до"
-              ref={dateToRef}
-              onFocus={() => removePlaceholder()}
-              onChange={(e) => handleChangeDate(e)}
-            />
-          </div>
-          <select
-            className={styles.news_category}
-            name=""
-            id=""
-            value={newsCategoryId}
-            onChange={(e) => handleChange(e)}
-          >
-            {[
-              { title: "Категория", img: "" },
-              { title: "Все", img: "" },
-              ...categories,
-            ].map((category, index) => (
-              <option key={category.title} value={index} hidden={!index}>
-                {category.title}
-              </option>
-            ))}
-          </select>
+        <div className={styles.news_date}>
+          <input
+            name="dateFrom"
+            type="date"
+            ref={dateFromRef}
+            placeholder="Дата от"
+            onChange={(e) => handleChangeDate(e)}
+          />
         </div>
+        <div className={styles.news_date}>
+          <input
+            name="dateTo"
+            type="date"
+            placeholder="Дата до"
+            ref={dateToRef}
+            onChange={(e) => handleChangeDate(e)}
+          />
+        </div>
+        <select
+          className={styles.news_category}
+          name=""
+          id=""
+          value={newsCategoryId}
+          onChange={(e) => handleChangeCategory(e)}
+        >
+          {[
+            { title: "Категория", img: "" },
+            { title: "Все", img: "" },
+            ...categories,
+          ].map((category, index) => (
+            <option key={category.title} value={index + 1} hidden={!index}>
+              {category.title}
+            </option>
+          ))}
+        </select>
       </div>
       <div className={styles.news_controls}>
         <button
