@@ -26,7 +26,11 @@ const Login = () => {
     path = "/";
   }
 
-  const [validate, messages, reset] = useValidation();
+  const [setter, messages, reset] = useValidation();
+
+  const ruAuth = {
+    ERR_INVALID_LOGIN: "Ошибка: Логин или пароль указаны неверно",
+  };
 
   const keyPressSubmit = (e: KeyboardEvent) =>
     e.key === "Enter" && setTimeout(onSubmit, 0);
@@ -36,35 +40,21 @@ const Login = () => {
     password: string().required().min(5).label("Пароль"),
   });
 
-  const [authMessages, setAuthMessages] = useState([]);
-
   async function onSubmit() {
-    const formData = { userName, password };
-    const dataIsValid = await validate(formData, userSchema);
-
-    if (dataIsValid) {
-      try {
-        await login({ login: userName, password }).unwrap();
-        await getUserInfo();
-        navigate(`${path}`);
-      } catch (err) {
-        setAuthMessages(err.data.message);
-        console.log(err);
-      }
-    }
-
-    // await userSchema
-    //   .validate({ userName, password }, { abortEarly: false })
-    //   .then(async () => {
-    //     try {
-    //       await login({ login: userName, password }).unwrap();
-    //       await getUserInfo();
-    //       navigate(`${path}`);
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   })
-    //   .catch((e) => alert(e.errors.join("\n\r")));
+    await userSchema
+      .validate({ userName, password }, { abortEarly: false })
+      .then(async () => {
+        try {
+          await login({ login: userName, password }).unwrap();
+          await getUserInfo();
+          navigate(`${path}`);
+        } catch (err) {
+          setter([ruAuth[err.data.message as keyof typeof ruAuth]]);
+        }
+      })
+      .catch((e: any) => {
+        setter(e.errors);
+      });
   }
 
   return !auth.userInfo ? (
@@ -94,10 +84,7 @@ const Login = () => {
         >
           Войти
         </button>
-        <ErrorMessage
-          errorMessages={messages || [`${authMessages}`]}
-          callbackReset={() => reset()}
-        />
+        <ErrorMessage errorMessages={messages} callbackReset={() => reset()} />
       </form>
     </div>
   ) : (

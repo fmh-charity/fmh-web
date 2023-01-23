@@ -30,14 +30,21 @@ const FormNews = ({
   const userInfo = useSelector(selectUserInfo);
   const [checked, setChecked] = useState(false);
 
-  const [validate, messages, reset] = useValidation();
+  const [setter, messages, reset] = useValidation();
 
   const handleChange = () => {
     setChecked(!checked);
   };
 
+  const newSchema = object().shape({
+    title: string().required().min(2).max(50).label("Заголовок"),
+    description: string().required().min(20).max(250).label("Описание"),
+    newsCategoryId: string().required().label("Категорию"),
+    publishDate: number().required().typeError("Дата публикации не выбрана"),
+  });
+
   const submitValue = async () => {
-    const formData = {
+    const form = {
       createDate: news?.createDate || Date.now(),
       description: getRefValue(descriptionRef, ""),
       newsCategoryId: getRefValue(categoryRef, 0),
@@ -49,20 +56,25 @@ const FormNews = ({
       id: news?.id || 0,
     };
 
-    const newSchema = object().shape({
-      title: string().required().min(2).max(50).label("Заголовок"),
-      description: string().required().min(20).max(250).label("Описание"),
-      newsCategoryId: string().required().label("Категорию"),
-      publishDate: number().required().typeError("Дата публикации не выбрана"),
-    });
-
-    const dataIsValid = await validate(formData, newSchema);
-
-    if (dataIsValid) {
-      submit(formData);
-      changeVisible?.();
-    }
+    await newSchema
+      .validate(
+        {
+          title: form.title,
+          description: form.description,
+          newsCategoryId: form.newsCategoryId,
+          publishDate: form.publishDate,
+        },
+        { abortEarly: false }
+      )
+      .then(() => {
+        submit(form);
+        changeVisible?.();
+      })
+      .catch((e) => {
+        setter(e.errors);
+      });
   };
+
   return (
     <div className={styles.form_news__container}>
       <header className={styles.header_news}>
