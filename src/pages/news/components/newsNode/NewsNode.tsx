@@ -4,6 +4,7 @@ import NewsCard from "src/pages/news/components/NewsCard/NewsCard";
 import styles from "./NewsNode.module.less";
 import InfoIcon from "src/assets/icons/info.svg";
 import ArrowUpIcon from "src/assets/icons/arrow_up.svg";
+import ArrowDown from "src/assets/icons/arrow-down.svg";
 
 const NewsNode = ({ data }: { data: INews[] | undefined }) =>
   data && data.length > 0 ? (
@@ -16,6 +17,9 @@ const NewsNode = ({ data }: { data: INews[] | undefined }) =>
           </button>
           <button type="button" onClick={() => console.log("Раскрытие списка")}>
             <ArrowUpIcon />
+          </button>
+          <button type="button" onClick={() => console.log("Раскрытие списка")}>
+            <ArrowDown />
           </button>
         </div>
       </div>

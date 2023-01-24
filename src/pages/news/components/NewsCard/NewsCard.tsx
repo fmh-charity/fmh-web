@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import format from "date-fns/format";
 import DeleteIcon from "src/assets/icons/Delete.svg";
 import EditIcon from "src/assets/icons/edit_icon.svg";
@@ -13,6 +13,7 @@ import Modal, { ModalContext } from "src/components/modal/Modal";
 import FormNews from "src/pages/news/components/formNews/FormNews";
 import ConfirmComponent from "src/components/confirmComponent/ConfirmComponent";
 import styles from "./NewsCard.module.less";
+import ArrowUpIcon from "src/assets/icons/arrow_up.svg";
 
 const EditComp = ({ newsId }: { newsId: number }) => {
   const { data } = useGetNewsByIdQuery(newsId);
@@ -52,31 +53,38 @@ const News: FC<INews> = ({
   newsCategoryId,
   publishDate,
   createDate,
-}) => (
-  <div className={styles.news_card}>
-    <div className={styles.news_card_head}>
-      <div>{categories[newsCategoryId - 1]?.img}</div>
-      <div className={styles.news_card_head_title}>{title}</div>
-      <div className={styles.news_card_head_date}>
-        {format(publishDate, "dd.MM.yyyy")}
-      </div>
-      {/* <div className={styles.news_card_head_date}>|</div>
+}) => {
+  const [toogleArrow, setToogle] = useState(false);
+  return (
+    <div className={styles.news_card}>
+      <div className={styles.news_card_head}>
+        <div>{categories[newsCategoryId - 1]?.img}</div>
+        <div className={styles.news_card_head_title}>{title}</div>
         <div className={styles.news_card_head_date}>
-          Создание: {format(createDate, "dd.MM.yyyy")}
-        </div> */}
+          {format(publishDate, "dd.MM.yyyy")}
+        </div>
+        <div>
+          <button type="button" onClick={() => console.log("Раскрытие списка")}>
+            <ArrowUpIcon />
+          </button></div>
+        {/* <div className={styles.news_card_head_date}>|</div>
+      <div className={styles.news_card_head_date}>
+        Создание: {format(createDate, "dd.MM.yyyy")}
+      </div> */}
+      </div>
+      <div className={styles.news_card_content}>
+        <span>{description}</span>
+      </div>
+      <div className={styles.news_card_footer}>
+        <Modal modal={<EditComp newsId={id} />}>
+          <EditIconComp />
+        </Modal>
+        <Modal modal={<DeleteComp newsId={id} />}>
+          <DeleteIconComp />
+        </Modal>
+      </div>
     </div>
-    <div className={styles.news_card_content}>
-      <span>{description}</span>
-    </div>
-    <div className={styles.news_card_footer}>
-      <Modal modal={<EditComp newsId={id} />}>
-        <EditIconComp />
-      </Modal>
-      <Modal modal={<DeleteComp newsId={id} />}>
-        <DeleteIconComp />
-      </Modal>
-    </div>
-  </div>
-);
+  )
+};
 
 export default News;
