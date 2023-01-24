@@ -9,7 +9,7 @@ import FilterNews from "src/pages/news/components/filterNews/FilterNews";
 import NewsNode from "src/pages/news/components/newsNode/NewsNode";
 import PaginateComponent from "src/components/paginateComponent/PaginateComponent";
 import { useAppDispatch } from "src/app/hooks";
-import { toggleSort } from "src/features/sort/sortSlice";
+import { toggleSort } from "src/features/sort/appSlice";
 import { IsAdmin } from "src/components/isAdmin/isAdmin";
 
 import styles from "./News.module.less";

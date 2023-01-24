@@ -80,7 +80,7 @@ const FormNews = ({
       <header className={styles.header_news}>
         <div className={styles.header_title}>{title}</div>
       </header>
-      <div className={styles.news_form}>
+      <div className={`${styles.news_form} ${styles.newsadd_form}`}>
         <div className={styles.news_row}>
           <select className={styles.news_category} ref={categoryRef}>
             {[{ title: "Выберите категорию", img: "" }, ...categories].map(

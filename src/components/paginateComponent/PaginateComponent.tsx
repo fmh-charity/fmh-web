@@ -42,11 +42,6 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     newsCategoryId,
     publishDateFrom,
     publishDateTo,
-    // publishDateFrom: 1672531200000,
-    // publishDateTo: "01/01/23",
-    // publishDateTo: "2023-01-02",
-
-    // 1672531200000 1673740800000 01/12/22
   });
 
   useEffect(() => {

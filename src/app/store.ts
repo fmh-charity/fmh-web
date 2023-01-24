@@ -7,7 +7,7 @@ import authReducer from "src/features/auth/authSlice";
 import { usersApi } from "src/services/api/usersApi";
 import { wishesApi } from "src/services/api/wishesApi";
 import { patientApi } from "src/services/api/patientApi";
-import { sortReducer } from "src/features/sort/sortSlice";
+import { sortReducer } from "src/features/sort/appSlice";
 
 export const store = configureStore({
   reducer: {

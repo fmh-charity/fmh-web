@@ -10,6 +10,7 @@ interface CssExports {
   'news_add__button_save': string;
   'news_category': string;
   'news_cb': string;
+  'news_col': string;
   'news_controls': string;
   'news_create': string;
   'news_date': string;
@@ -18,6 +19,8 @@ interface CssExports {
   'news_name': string;
   'news_row': string;
   'news_time': string;
+  'newsadd_form': string;
+  'newsfilter_form': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
