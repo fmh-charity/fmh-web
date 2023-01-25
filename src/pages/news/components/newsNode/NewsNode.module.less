@@ -9,6 +9,7 @@ padding: 16px;
 font-weight: 400;
 font-size: 19px;
 line-height: 22px;
+opacity: 1;
 
 }
 
@@ -36,4 +37,40 @@ font-style: normal;
 
 .news_page__header_info{
   padding-right: 2rem;
+}
+
+
+
+@keyframes open {
+  0% {
+    opacity: 0;
+    transform: translateY(0)}
+  100% {
+    opacity: 1;
+    transform: translateY(0)}
+  
+}
+
+@keyframes close {
+  0% {
+    opacity: 1;
+    transform: translateY(0)}
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+    }
+  
+}
+
+.news_page_open {
+  transition: 1s all ease;
+  animation: open 1s ease-in-out;
+  display: block;
+
+}
+
+.news_page_close {
+  transition: 1s all ease;
+animation: close 1s ease-in-out;
+display: none;
 }
