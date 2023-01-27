@@ -14,6 +14,7 @@ import FormNews from "src/pages/news/components/formNews/FormNews";
 import ConfirmComponent from "src/components/confirmComponent/ConfirmComponent";
 import styles from "./NewsCard.module.less";
 import ArrowUpIcon from "src/assets/icons/arrow_up.svg";
+import ArrowDown from "src/assets/icons/arrow-down.svg";
 
 const EditComp = ({ newsId }: { newsId: number }) => {
   const { data } = useGetNewsByIdQuery(newsId);
@@ -55,6 +56,9 @@ const News: FC<INews> = ({
   createDate,
 }) => {
   const [toogleArrow, setToogle] = useState(false);
+  const handleToogle = () => {
+    setToogle(!toogleArrow)
+  }
   return (
     <div className={styles.news_card}>
       <div className={styles.news_card_head}>
@@ -64,25 +68,34 @@ const News: FC<INews> = ({
           {format(publishDate, "dd.MM.yyyy")}
         </div>
         <div>
-          <button type="button" onClick={() => console.log("Раскрытие списка")}>
-            <ArrowUpIcon />
-          </button></div>
+          {toogleArrow ?
+            <button type="button" onClick={handleToogle}>
+              <ArrowUpIcon />
+            </button> :
+            <button type="button" onClick={handleToogle}>
+              <ArrowDown />
+            </button>
+          }
+        </div>
         {/* <div className={styles.news_card_head_date}>|</div>
       <div className={styles.news_card_head_date}>
         Создание: {format(createDate, "dd.MM.yyyy")}
       </div> */}
       </div>
-      <div className={styles.news_card_content}>
-        <span>{description}</span>
+      {toogleArrow && <div>
+        <div className={styles.news_card_content}>
+          <span>{description}</span>
+        </div>
+        <div className={styles.news_card_footer}>
+          <Modal modal={<EditComp newsId={id} />}>
+            <EditIconComp />
+          </Modal>
+          <Modal modal={<DeleteComp newsId={id} />}>
+            <DeleteIconComp />
+          </Modal>
+        </div>
       </div>
-      <div className={styles.news_card_footer}>
-        <Modal modal={<EditComp newsId={id} />}>
-          <EditIconComp />
-        </Modal>
-        <Modal modal={<DeleteComp newsId={id} />}>
-          <DeleteIconComp />
-        </Modal>
-      </div>
+      }
     </div>
   )
 };
