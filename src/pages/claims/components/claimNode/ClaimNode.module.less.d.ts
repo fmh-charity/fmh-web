@@ -7,6 +7,8 @@ interface CssExports {
   'claims_page__header_icon': string;
   'claims_page__header_icons': string;
   'news_claims__description': string;
+  'news_claims_close': string;
+  'news_claims_open': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

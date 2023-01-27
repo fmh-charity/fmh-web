@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { INews, INewsPagination } from "src/model/INews";
 import NewsCard from "src/pages/news/components/NewsCard/NewsCard";
-import NewsCardExpand from "src/pages/news/components/NewsCard/NewsCard";
+import NewsCardExpand from "src/pages/news/components/NewsCard/NewsCardExpand";
 import styles from "./NewsNode.module.less";
 import InfoIcon from "src/assets/icons/info.svg";
 import ArrowUpIcon from "src/assets/icons/arrow_up.svg";
@@ -13,7 +13,7 @@ const NewsNode = ({ data }: { data: INews[] | undefined }) => {
   const handleToogle = () => {
     setToogle(!toogleArrow)
   }
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   return (
     data && data.length > 0 ? (
       <div className={styles.news_page__container}>
@@ -38,7 +38,7 @@ const NewsNode = ({ data }: { data: INews[] | undefined }) => {
         </div>
         <div className={toogleArrow ? styles.news_page_close : styles.news_page_open}>
           <div className={styles.news_page__description}>ВСЕ НОВОСТИ</div>
-          {data?.map((news) => (
+          {checked ? data?.map((news) => (
             <NewsCardExpand
               key={news.id}
               id={news.id}
@@ -52,6 +52,20 @@ const NewsNode = ({ data }: { data: INews[] | undefined }) => {
               publishEnabled={news.publishEnabled}
             />
           ))
+            : data?.map((news) => (
+              <NewsCard
+                key={news.id}
+                id={news.id}
+                title={news.title}
+                createDate={news.createDate}
+                creatorId={news.creatorId}
+                creatorName={news.creatorName}
+                description={news.description}
+                newsCategoryId={news.newsCategoryId}
+                publishDate={news.publishDate}
+                publishEnabled={news.publishEnabled}
+              />
+            ))
           }
         </div>
       </div>
