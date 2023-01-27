@@ -38,7 +38,7 @@ const NewsNode = ({ data }: { data: INews[] | undefined }) => {
         </div>
         <div className={toogleArrow ? styles.news_page_close : styles.news_page_open}>
           <div className={styles.news_page__description}>ВСЕ НОВОСТИ</div>
-          {checked ? data?.map((news) => (
+          {data?.map((news) => (
             <NewsCardExpand
               key={news.id}
               id={news.id}
@@ -52,19 +52,6 @@ const NewsNode = ({ data }: { data: INews[] | undefined }) => {
               publishEnabled={news.publishEnabled}
             />
           ))
-            : data?.map((news) => (
-              <NewsCard
-                key={news.id}
-                id={news.id}
-                title={news.title}
-                createDate={news.createDate}
-                creatorId={news.creatorId}
-                creatorName={news.creatorName}
-                description={news.description}
-                newsCategoryId={news.newsCategoryId}
-                publishDate={news.publishDate}
-                publishEnabled={news.publishEnabled}
-              />))
           }
         </div>
       </div>
