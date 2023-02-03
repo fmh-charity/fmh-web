@@ -1,0 +1,111 @@
+.form_documents__container {
+  display: grid;
+	grid-template-columns: 1fr;
+	grid-row-gap: 50px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form_documents {
+	display: grid;
+	border-radius: 8px;
+	justify-self: center;
+
+	padding: 16px 16px 32px 16px;
+	color: rgba(0, 0, 0, 0.736);
+	background-color: white;
+	border-bottom: 2px #01a19f;
+	box-shadow: 0 2px 5px #01a19f;
+}
+
+.form_documents_edit {
+	width: 450px;
+	grid-template-rows: repeat(3, 90px);
+}
+
+.form_documents__header {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  background-color: #EAEAEA;
+  height: 56px;
+  align-items: center;
+  justify-content: center;
+}
+
+.form_documents__header_title {
+  display: grid;
+  padding: 0 16px;
+  height: 32px;
+  background-color: #D1FFFE;
+  font-size: 20px;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.form_documents_edit__item {
+	display: grid;
+	padding: 10px 12px;
+	border-radius: 4px;
+	grid-template-rows: 0.7fr 1fr;
+		& input,
+		& select {
+			color: rgba(0,0,0,.87);
+			background: #fff;
+			border: 1px solid rgba(34,36,38,.15);
+			padding: 0.67857143em 1em;
+			outline: none;
+			border-radius: 4px;
+			transition: all 0.2s;
+		}
+		& input:hover,
+		& select:hover {
+			border-color: #06a09f;
+		}
+		& input:focus,
+		& select:focus {
+			box-shadow: 0 0 0 0.1rem #59d2d091;
+			border-color: #06a09f;
+		}
+		& option:hover {
+			background-color: #00766c;
+		}
+}
+
+.form_documents__controls {
+	display: grid;
+	justify-content: center;
+	white-space: nowrap;
+	grid-template-columns: max-content max-content;
+	grid-column-gap: 16px;
+}
+
+.form_documents__button {
+	display: grid;
+	height: 32px;
+	width: 128px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	border: 2px solid lightgrey;
+	background-color: white;
+	font-size: small;
+	transition: 0.2s all;
+	&_primary {
+		background-color: #01a19f;
+		color: white;
+		border: none;
+	}
+	&_primary:hover {
+		background-color: #00766c;
+	}
+	&_secondary {
+		border: 1px solid #6c757d;
+	}
+	&_secondary:hover {
+		background-color: #f5f5f5;
+		color: #000;
+	}
+}
+

@@ -1,12 +1,17 @@
 /* eslint-disable no-template-curly-in-string */
-export const mixed = {
+const mixed = {
   required: "${label} указать обязательно",
 };
-export const string = {
+const string = {
   min: "${label} должен содержать минимум ${min} символов",
   max: "${label} должен содержать не более ${max} символов",
+};
+const number = {
+  min: "${label} должен быть минимум ${min}",
+  max: "${label} должен быть максимум ${max}",
 };
 export default Object.assign(Object.create(null), {
   mixed,
   string,
+  number,
 });
