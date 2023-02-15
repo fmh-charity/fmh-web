@@ -1,23 +1,31 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { DocumentsOptions, IDocuments } from "src/model/IDocument";
+import {
+  DocumentsCreateOptions,
+  DocumentsOptions,
+  IDocuments,
+  IDocumentsPagination,
+} from "src/model/IDocument";
 import { baseQueryWithReauth } from "src/app/CustomFetchBase";
+import { IPaginationOptions } from "src/model/IPaginationOptions";
 
 export const documentsApi = createApi({
   reducerPath: "documentsApi",
   baseQuery: baseQueryWithReauth,
   tagTypes: ["IDocuments"],
   endpoints: (builder) => ({
-    getDocuments: builder.query<IDocuments[], string>({
-      query: (admin) => ({
-        url: `documents${admin ? "/admin" : ""}`,
-      }),
+    getDocuments: builder.query<IDocumentsPagination, IPaginationOptions>({
+      query: () => "documents",
+      providesTags: ["IDocuments"],
+    }),
+    getDocumentsAdmin: builder.query<IDocumentsPagination, IPaginationOptions>({
+      query: () => "documents/admin",
       providesTags: ["IDocuments"],
     }),
     getDocumentsById: builder.query<IDocuments, number>({
       query: (id) => `documents/${id}`,
       providesTags: ["IDocuments"],
     }),
-    addDocuments: builder.mutation<IDocuments, IDocuments>({
+    addDocuments: builder.mutation<IDocuments, DocumentsCreateOptions>({
       query: (body) => ({
         url: "documents",
         method: "POST",
@@ -25,7 +33,7 @@ export const documentsApi = createApi({
       }),
       invalidatesTags: ["IDocuments"],
     }),
-    uploadDocuments: builder.mutation<string, IDocuments>({
+    uploadDocuments: builder.mutation<string, FormData>({
       query: (body) => ({
         url: "documents/upload",
         method: "POST",
@@ -45,21 +53,22 @@ export const documentsApi = createApi({
       },
       invalidatesTags: ["IDocuments"],
     }),
-    // deleteNews: builder.mutation<boolean, number>({
-    //   query: (id) => ({
-    //     url: `news/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: ["INews"],
-    // }),
+    deleteDocuments: builder.mutation<boolean, number>({
+      query: (id) => ({
+        url: `documents/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["IDocuments"],
+    }),
   }),
 });
 
 export const {
   useGetDocumentsQuery,
+  useGetDocumentsAdminQuery,
   useAddDocumentsMutation,
   useUploadDocumentsMutation,
-  // useDeleteNewsMutation,
+  useDeleteDocumentsMutation,
   useGetDocumentsByIdQuery,
   // useLazyGetNewsByIdQuery,
   useEditDocumentsMutation,

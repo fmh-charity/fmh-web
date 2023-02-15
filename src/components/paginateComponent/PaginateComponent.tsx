@@ -6,16 +6,28 @@ import { useGetWishesQuery } from "src/services/api/wishesApi";
 import ClaimsNode from "src/pages/claims/components/claimNode/ClaimNode";
 import WishesNode from "src/pages/wishes/components/wishesNode/WishesNode";
 import NewsNode from "src/pages/news/components/newsNode/NewsNode";
+import {
+  useGetDocumentsAdminQuery,
+  useGetDocumentsQuery,
+} from "src/services/api/documentsApi";
 import { useAppSelector } from "src/app/hooks";
+import DocumentsNode from "src/pages/documents/components/documentsNode/DocumentsNode";
+
 import style from "./PaginateItem.module.less";
 import Loader from "../loader/Loader";
 
 interface IUseQuery {
-  CardNode: typeof ClaimsNode | typeof WishesNode | typeof NewsNode;
+  CardNode:
+    | typeof ClaimsNode
+    | typeof WishesNode
+    | typeof NewsNode
+    | typeof DocumentsNode;
   useQuery:
     | typeof useGetNewsQuery
     | typeof useGetClaimsQuery
-    | typeof useGetWishesQuery;
+    | typeof useGetWishesQuery
+    | typeof useGetDocumentsAdminQuery
+    | typeof useGetDocumentsQuery;
 }
 
 const sizes = [8, 20, 30, 40];

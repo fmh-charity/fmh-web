@@ -11,7 +11,6 @@ import PaginateComponent from "src/components/paginateComponent/PaginateComponen
 import { useAppDispatch } from "src/app/hooks";
 import { toggleSort } from "src/features/sort/appSlice";
 import { IsAdmin } from "src/components/isAdmin/isAdmin";
-
 import styles from "./News.module.less";
 
 const SortIconComponent = () => {
