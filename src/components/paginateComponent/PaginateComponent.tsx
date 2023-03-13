@@ -54,6 +54,7 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
     newsCategoryId,
     publishDateFrom,
     publishDateTo,
+    isAscendingNameSort: byAsc,
   });
 
   useEffect(() => {

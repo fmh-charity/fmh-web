@@ -7,4 +7,5 @@ export interface IPaginationOptions {
   publishDateTo?: string;
   publishDateFrom?: string;
   newsCategoryId?: number;
+  isAscendingNameSort?: boolean;
 }

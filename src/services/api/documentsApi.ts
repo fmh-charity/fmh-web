@@ -18,8 +18,11 @@ export const documentsApi = createApi({
       providesTags: ["IDocuments"],
     }),
     getDocumentsAdmin: builder.query<IDocumentsPagination, IPaginationOptions>({
-      query: () => "documents/admin",
-      providesTags: ["IDocuments"],
+      query: (isAscendingNameSort) => ({
+        url: "documents/admin",
+        providesTags: ["IDocuments"],
+        params: isAscendingNameSort,
+      }),
     }),
     getDocumentsById: builder.query<IDocuments, number>({
       query: (id) => `documents/${id}`,
