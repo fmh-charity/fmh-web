@@ -2,7 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'disabled_link': string;
-  'navbar': string;
+  'link_group': string;
   'navbar_icon': string;
   'navbar_link': string;
   'navbar_links': string;

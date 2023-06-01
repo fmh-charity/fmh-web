@@ -10,14 +10,14 @@ import NewsPage from "src/pages/news/NewsPage";
 import TermsOfUse from "src/pages/legal/TermsOfUse";
 import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import { PrivateOutlet } from "src/utils/PrivateOutlet";
-import WishesPage from "./pages/wishes/WishesPage";
 import MissionPage from "src/pages/mission/MissionPage";
+import WishesPage from "./pages/wishes/WishesPage";
 
 const App = () => (
   <BrowserRouter>
     <Header />
-    <Navbar />
     <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
+      <Navbar />
       <div className={`${styles.container}`}>
         <Routes>
           <Route path="/login" element={<Login />} />
