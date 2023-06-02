@@ -19,10 +19,11 @@ const Navbar = () => (
       <NavbarLink disabled url="/" title="Сотрудники" icon={<EmployeeIcon />} />
       <NavbarLink disabled url="/" title="Документы" icon={<DocumentIcon />} />
       <NavbarLink disabled url="/" title="Палаты" icon={<HospitalIcon />} />
+      {/* Не влезает полностью */}
       <NavbarLink
         disabled
         url="/"
-        title="Управление пользователями"
+        title="Упр. пользов."
         icon={<HospitalIcon />}
       />
     </ul>
