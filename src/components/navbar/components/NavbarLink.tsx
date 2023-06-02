@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "../Navbar.module.less";
 
@@ -8,22 +8,22 @@ const NavbarLink = ({
   url,
   disabled,
 }: {
-  icon: ReactNode;
+  icon: React.ReactElement;
   title: string;
   url: string;
   disabled?: boolean;
 }) => (
-  <Link
-    to={url}
-    className={
-      disabled
-        ? `${styles.navbar_link} ${styles.disabled_link}`
-        : `${styles.navbar_link}`
-    }
-  >
-    <span className={styles.navbar_icon}>{icon}</span>
-    <span>{title}</span>
-  </Link>
+  <li>
+    <Link
+      to={url}
+      className={`${styles.navbar_link} ${
+        disabled ? styles.disabled_link : ""
+      }`}
+    >
+      <span className={styles.navbar_icon}>{icon}</span>
+      <span>{title}</span>
+    </Link>
+  </li>
 );
 
 NavbarLink.defaultProps = {
