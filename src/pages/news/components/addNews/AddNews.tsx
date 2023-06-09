@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useAddNewsMutation } from "src/services/api/newsApi";
 import { selectUserInfo } from "src/features/auth/authSlice";
 import FormNews from "src/pages/news/components/formNews/FormNews";
-import {INews} from "src/model/INews";
+import { INews } from "src/model/INews";
 
 export interface NewsPost {
   createDate: number;

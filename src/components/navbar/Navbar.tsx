@@ -7,17 +7,20 @@ import MainIcon from "src/assets/icons/navbar/home.svg";
 import HospitalIcon from "src/assets/icons/navbar/hospital.svg";
 import PatientIcon from "src/assets/icons/navbar/patient.svg";
 import SettingsIcon from "src/assets/icons/navbar/settings.svg";
+import mainLogo from "src/assets/icons/navbar/mainLogo.png";
 import NavbarLink from "./components/NavbarLink";
 import styles from "./Navbar.module.less";
 
 const Navbar = () => (
-  <nav className={styles.navbar_links}>
+  <aside className={styles.navbarContainer}>
+    <img src={mainLogo} alt="" className={styles.mainLogo} />
+
     <ul className={styles.link_group}>
       <NavbarLink url="/" title="Главная" icon={<MainIcon />} />
       <NavbarLink disabled url="/" title="Пациенты" icon={<PatientIcon />} />
       <NavbarLink url="/wishes" title="Просьбы" icon={<RequestIcon />} />
       <NavbarLink disabled url="/" title="Сотрудники" icon={<EmployeeIcon />} />
-      <NavbarLink disabled url="/" title="Документы" icon={<DocumentIcon />} />
+      <NavbarLink url="/documents" title="Документы" icon={<DocumentIcon />} />
       <NavbarLink disabled url="/" title="Палаты" icon={<HospitalIcon />} />
       {/* Не влезает полностью */}
       <NavbarLink
@@ -40,7 +43,7 @@ const Navbar = () => (
         icon={<AndroidIcon />}
       />
     </ul>
-  </nav>
+  </aside>
 );
 
 export default Navbar;

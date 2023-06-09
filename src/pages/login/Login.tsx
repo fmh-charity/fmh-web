@@ -1,17 +1,14 @@
 import React, { KeyboardEvent, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { ErrorMessage } from "src/components/errorMessage/ErrorMessage";
 import { useAuth } from "src/hooks/useAuth";
+import { useValidation } from "src/hooks/useValidation/useValidation";
 import {
   useLazyUserInfoQuery,
   useLoginMutation,
 } from "src/services/api/authApi";
 import { object, string } from "yup";
 import styles from "./Login.module.less";
-
-const userSchema = object({
-  userName: string().required().min(3),
-  password: string().required().min(5),
-});
 
 const Login = () => {
   const auth = useAuth();
@@ -29,8 +26,19 @@ const Login = () => {
     path = "/";
   }
 
+  const [setter, messages, reset] = useValidation();
+
+  const ruAuth = {
+    ERR_INVALID_LOGIN: "Ошибка: Логин или пароль указаны неверно",
+  };
+
   const keyPressSubmit = (e: KeyboardEvent) =>
     e.key === "Enter" && setTimeout(onSubmit, 0);
+
+  const userSchema = object({
+    userName: string().required().min(3).label("Логин"),
+    password: string().required().min(5).label("Пароль"),
+  });
 
   async function onSubmit() {
     await userSchema
@@ -41,10 +49,12 @@ const Login = () => {
           await getUserInfo();
           navigate(`${path}`);
         } catch (err) {
-          console.log(err);
+          setter([ruAuth[err.data.message as keyof typeof ruAuth]]);
         }
       })
-      .catch((e) => alert(e.errors.join("\n\r")));
+      .catch((e: any) => {
+        setter(e.errors);
+      });
   }
 
   return !auth.userInfo ? (
@@ -56,6 +66,7 @@ const Login = () => {
           onChange={(e) => setUserName(e.target.value)}
           onKeyDown={keyPressSubmit}
           maxLength={25}
+          placeholder="Логин"
         />
         <input
           className={styles.input}
@@ -63,6 +74,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           onKeyDown={keyPressSubmit}
           maxLength={25}
+          placeholder="Пароль"
         />
         <button
           disabled={isLoading}
@@ -72,6 +84,7 @@ const Login = () => {
         >
           Войти
         </button>
+        <ErrorMessage errorMessages={messages} callbackReset={() => reset()} />
       </form>
     </div>
   ) : (

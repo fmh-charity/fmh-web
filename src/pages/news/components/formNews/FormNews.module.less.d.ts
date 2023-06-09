@@ -18,6 +18,8 @@ interface CssExports {
   'news_name': string;
   'news_row': string;
   'news_time': string;
+  'newsadd_form': string;
+  'newsfilter_form': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

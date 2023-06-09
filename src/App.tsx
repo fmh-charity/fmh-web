@@ -1,9 +1,9 @@
 import * as React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import styles from "src/App.module.less";
-import Header from "src/components/header/Header";
 import Navbar from "src/components/navbar/Navbar";
 import ClaimsPage from "src/pages/claims/ClaimsPage";
+import DocumentsPage from "src/pages/documents";
 import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
 import TermsOfUse from "src/pages/legal/TermsOfUse";
 import Login from "src/pages/login/Login";
@@ -15,7 +15,6 @@ import WishesPage from "./pages/wishes/WishesPage";
 
 const App = () => (
   <BrowserRouter>
-    <Header />
     <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
       <Navbar />
       <div className={`${styles.container}`}>
@@ -29,6 +28,7 @@ const App = () => (
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/our-missions" element={<MissionPage />} />
+            <Route path="/documents" element={<DocumentsPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

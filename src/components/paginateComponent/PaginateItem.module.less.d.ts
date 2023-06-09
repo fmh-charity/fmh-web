@@ -9,6 +9,7 @@ interface CssExports {
   'paginator_comp__switcher': string;
   'paginator_comp__with_selector': string;
   'paginator_comp__wrapper': string;
+  'selected': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
