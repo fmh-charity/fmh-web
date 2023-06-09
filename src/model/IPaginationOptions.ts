@@ -2,5 +2,10 @@ export interface IPaginationOptions {
   pages: number;
   elements: number;
   status: string;
-  sortByNewCreateDate: boolean;
+  sortByNewCreateDate?: boolean;
+  publishDate?: boolean;
+  publishDateTo?: string;
+  publishDateFrom?: string;
+  newsCategoryId?: number;
+  isAscendingNameSort?: boolean;
 }

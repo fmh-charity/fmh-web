@@ -23,12 +23,7 @@ const Navbar = () => (
         title="Палаты"
         icon={<ChamberIcon />}
       />
-      <NavbarLink
-        disabled
-        url="/claims"
-        title="Документы"
-        icon={<DocumentIcon />}
-      />
+      <NavbarLink url="/documents" title="Документы" icon={<DocumentIcon />} />
       <NavbarLink
         disabled
         url="/claims"

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetNewsQuery } from "src/services/api/newsApi";
 import ReactPaginate from "react-paginate";
 import { useGetClaimsQuery } from "src/services/api/claimsApi";
@@ -6,64 +6,85 @@ import { useGetWishesQuery } from "src/services/api/wishesApi";
 import ClaimsNode from "src/pages/claims/components/claimNode/ClaimNode";
 import WishesNode from "src/pages/wishes/components/wishesNode/WishesNode";
 import NewsNode from "src/pages/news/components/newsNode/NewsNode";
+import {
+  useGetDocumentsAdminQuery,
+  useGetDocumentsQuery,
+} from "src/services/api/documentsApi";
+import { useAppSelector } from "src/app/hooks";
+import DocumentsNode from "src/pages/documents/components/documentsNode/DocumentsNode";
+
 import style from "./PaginateItem.module.less";
 import Loader from "../loader/Loader";
 
 interface IUseQuery {
-  CardNode: typeof ClaimsNode | typeof WishesNode | typeof NewsNode;
+  CardNode:
+    | typeof ClaimsNode
+    | typeof WishesNode
+    | typeof NewsNode
+    | typeof DocumentsNode;
   useQuery:
     | typeof useGetNewsQuery
     | typeof useGetClaimsQuery
-    | typeof useGetWishesQuery;
+    | typeof useGetWishesQuery
+    | typeof useGetDocumentsAdminQuery
+    | typeof useGetDocumentsQuery;
 }
 
-const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
-  const [isLoading, setIsLoad] = useState<boolean>(true);
+const sizes = [8, 20, 30, 40];
 
+const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
   const [currentItems, setCurrentItems] = useState<any>([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
-  const { data } = useQuery({
-    pages: pageCount,
+  const [pageCount, setPageCount] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(
+    parseInt(localStorage.getItem("itemsPerPage") || "0", 10) || sizes[0] || 10
+  );
+  const { byAsc } = useAppSelector((state) => state.sort);
+  const {
+    newsCategoryId,
+    dateFrom: publishDateFrom,
+    dateTo: publishDateTo,
+  } = useAppSelector((state) => state.sort);
+
+  const { data, isLoading } = useQuery({
+    pages: currentPage > 0 ? currentPage : 0,
     elements: itemsPerPage,
     status: "OPEN",
-    sortByNewCreateDate: true,
+    publishDate: byAsc,
+    newsCategoryId,
+    publishDateFrom,
+    publishDateTo,
+    isAscendingNameSort: byAsc,
   });
 
   useEffect(() => {
-    if (localStorage.getItem("itemsPerPage")) {
-      setItemsPerPage(
-        parseInt(localStorage.getItem("itemsPerPage") || "4", 10)
-      );
-    }
-
     if (data) {
-      setIsLoad(true);
       setCurrentItems(data.elements);
-      setPageCount(Math.ceil(data.pages / itemsPerPage));
-      setIsLoad(false);
+      setPageCount(data.pages);
     }
-  }, [itemOffset, data, itemsPerPage]);
+  }, [data]);
 
   const handlePageClick = (event: any) => {
     if (!data) {
       return;
     }
-    setItemOffset((event.selected * itemsPerPage) % data.pages);
+    setCurrentPage(event.selected);
   };
 
   function changeItemsPerPage(event: any) {
     const perPage = event.target.value;
     setItemsPerPage(parseInt(perPage, 10));
+    setCurrentPage(0);
     localStorage.setItem("itemsPerPage", perPage);
   }
 
-  return isLoading ? (
-    <div className={style.paginator_comp__loader}>
-      <Loader />
-    </div>
-  ) : (
+  if (isLoading)
+    return (
+      <div className={style.paginator_comp__loader}>
+        <Loader />
+      </div>
+    );
+  return (
     <div className={style.paginator_comp__wrapper}>
       <div className={style.paginator_comp__container}>
         <div className={style.paginator_comp__body_wrapper}>
@@ -77,22 +98,22 @@ const PaginateComponent: React.FC<IUseQuery> = ({ useQuery, CardNode }) => {
           breakLabel="..."
           nextLabel="Вперёд >"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={2}
           pageCount={pageCount}
           previousLabel="< Назад"
           className={style.paginator_comp__switcher}
+          activeClassName={style.selected}
+          forcePage={currentPage}
         />
         <select
           className={style.paginator_comp__select}
           value={itemsPerPage}
           onChange={changeItemsPerPage}
         >
-          <option defaultValue="4">4</option>
-          <option value="6">6</option>
-          <option value="8">8</option>
-          <option value="12">12</option>
-          <option value="20">20</option>
-          <option value="40">40</option>
+          {sizes.map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
+          ))}
         </select>
       </div>
     </div>

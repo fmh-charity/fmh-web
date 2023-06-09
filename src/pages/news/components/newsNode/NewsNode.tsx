@@ -1,5 +1,5 @@
 import React from "react";
-import { INews, INewsPagination } from "src/model/INews";
+import { INews } from "src/model/INews";
 import NewsCard from "src/pages/news/components/NewsCard/NewsCard";
 import styles from "./NewsNode.module.less";
 
