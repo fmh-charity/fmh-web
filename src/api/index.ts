@@ -1,6 +1,8 @@
+export * as authentication from "./authentication";
+export * as news from "./news";
+
 import { configureRefreshFetch, fetchJSON } from "refresh-fetch";
 import { LOGIN_LOCALSTORAGE_KEY } from "../shared/contants";
-export { loginQuery, userInfoQuery } from "./authentication";
 
 const retrieveRefreshToken = () => {
   try {
@@ -29,7 +31,6 @@ const retrieveAccessToken = () => {
 };
 
 const saveToken = (token: any) => {
-  console.log("saveToken", token);
   window.localStorage.setItem(LOGIN_LOCALSTORAGE_KEY, token);
 };
 
