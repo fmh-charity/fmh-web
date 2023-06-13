@@ -2,10 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { WishDto } from './WishDto';
+import type { WishDto } from "./WishDto";
 
 export type WishPaginationDto = {
-    pages?: number;
-    elements?: Array<WishDto>;
+  pages?: number;
+  elements?: Array<WishDto>;
 };
-

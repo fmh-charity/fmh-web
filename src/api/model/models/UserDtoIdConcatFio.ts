@@ -6,7 +6,6 @@
  * Создатель документа
  */
 export type UserDtoIdConcatFio = {
-    id?: number;
-    userName?: string;
+  id?: number;
+  userName?: string;
 };
-

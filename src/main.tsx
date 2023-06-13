@@ -1,16 +1,28 @@
-import "./index.less";
+import "normalize.css";
+import "./styles/fonts.css";
+import "./styles/index.less";
 
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-import { App } from "./Components/App";
-import { RootRoute, loader as loaderRoot } from "./routes/root";
-import { LoginRoute, action as loginAction, loader as loaderLogin } from "./routes/login";
+import ReactDOM from "react-dom/client";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import App from "./Components/App";
+import {
+  LoginRoute,
+  loader as loaderLogin,
+  action as loginAction,
+} from "./routes/login";
 import { loader as loaderLogout } from "./routes/logout";
 import { NewsRoute, loader as loaderNews } from "./routes/news";
-import { RegistrationRoute, loader as loaderRegistration, action as actionRegistration } from "./routes/registration";
-import { ResetPassword, loader as loaderResetPassword } from "./routes/resetPassword";
+import {
+  RegistrationRoute,
+  action as actionRegistration,
+  loader as loaderRegistration,
+} from "./routes/registration";
+import {
+  ResetPassword,
+  loader as loaderResetPassword,
+} from "./routes/resetPassword";
+import { RootRoute, loader as loaderRoot } from "./routes/root";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,7 +43,11 @@ const router = createBrowserRouter([
         element: <RootRoute />,
         children: [
           { element: <div>index</div>, index: true },
-          { path: "news", loader: loaderNews(queryClient), element: <NewsRoute /> },
+          {
+            path: "news",
+            loader: loaderNews(queryClient),
+            element: <NewsRoute />,
+          },
           {
             path: "*",
             element: <div>*</div>,
@@ -52,13 +68,13 @@ const router = createBrowserRouter([
         path: "/registration",
         loader: loaderRegistration(queryClient),
         action: actionRegistration(queryClient),
-        element: <RegistrationRoute />
+        element: <RegistrationRoute />,
       },
       {
         path: "/resetPassword",
         loader: loaderResetPassword(queryClient),
-        element: <ResetPassword />
-      }
+        element: <ResetPassword />,
+      },
     ],
   },
 ]);
@@ -66,5 +82,5 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
-  </QueryClientProvider>,
+  </QueryClientProvider>
 );

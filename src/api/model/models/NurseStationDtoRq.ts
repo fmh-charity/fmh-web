@@ -6,13 +6,12 @@
  * Информация о посте
  */
 export type NurseStationDtoRq = {
-    /**
-     * Название поста
-     */
-    name?: string;
-    /**
-     * Комментарий
-     */
-    comment?: string;
+  /**
+   * Название поста
+   */
+  name?: string;
+  /**
+   * Комментарий
+   */
+  comment?: string;
 };
-

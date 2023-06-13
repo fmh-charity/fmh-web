@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type Violation = {
-    fieldName?: string;
-    message?: string;
+  fieldName?: string;
+  message?: string;
 };
-

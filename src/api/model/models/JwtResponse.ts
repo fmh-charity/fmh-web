@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type JwtResponse = {
-    accessToken?: string;
-    refreshToken?: string;
+  accessToken?: string;
+  refreshToken?: string;
 };
-
