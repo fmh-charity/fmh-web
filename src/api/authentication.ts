@@ -1,5 +1,10 @@
-import { LoginRequest, UserShortInfoDto } from "./model";
-import { API_URL, LOGIN_QUERY, USERINFO_QUERY } from "../shared/contants";
+import { LoginRequest, RoleDtoRs, UserShortInfoDto } from "./model";
+import {
+  API_URL,
+  LOGIN_QUERY,
+  ROLES_QUERY,
+  USERINFO_QUERY,
+} from "../shared/contants";
 import { customFetch } from ".";
 
 /**
@@ -44,14 +49,14 @@ export const userInfoQuery = () => ({
 });
 
 export const rolesQuery = () => ({
-  queryKey: [USERINFO_QUERY],
+  queryKey: [ROLES_QUERY],
   queryFn: async () => {
-    return customFetch(`${API_URL + "/authentication/userInfo"}`, {
+    return customFetch(`${API_URL + "/authentication/roles"}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
       },
-    }).then((r: { body: UserShortInfoDto }) => r.body);
+    }).then((r: { body: RoleDtoRs[] }) => r.body);
   },
   ...{
     staleTime: 0, // override main staleTime
