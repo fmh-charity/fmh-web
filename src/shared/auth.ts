@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
-import { AUTH_LOCALSTORAGE_QUERY } from "./contants";
+import { LOGIN_LOCALSTORAGE_KEY, USERINFO_LOCALSTORAGE_KEY } from "./contants";
 import { loginQuery, userInfoQuery } from "../api";
 
 export const authBroadcastChannel = new BroadcastChannel(
@@ -9,7 +9,7 @@ export const authBroadcastChannel = new BroadcastChannel(
 export const ensureSession = async (queryClient: QueryClient) => {
   let storageValue = null;
   try {
-    const session = window?.localStorage.getItem(AUTH_LOCALSTORAGE_QUERY);
+    const session = window?.localStorage.getItem(LOGIN_LOCALSTORAGE_KEY);
     if (session) {
       storageValue = JSON.parse(session);
     }
@@ -22,20 +22,22 @@ export const ensureSession = async (queryClient: QueryClient) => {
 
 export const doLogin = async (queryClient: QueryClient, data: any) => {
   const login = await queryClient.fetchQuery(loginQuery(data));
-  if (login && login.accessToken) {
-    const userInfo = await queryClient.fetchQuery(
-      userInfoQuery(login.accessToken)
-    );
+  if (login) {
+    window.localStorage.setItem(LOGIN_LOCALSTORAGE_KEY, login);
+
+    const userInfo = await queryClient.fetchQuery(userInfoQuery());
     window.localStorage.setItem(
-      AUTH_LOCALSTORAGE_QUERY,
-      JSON.stringify({ login, userInfo })
+      USERINFO_LOCALSTORAGE_KEY,
+      JSON.stringify(userInfo)
     );
+
     authBroadcastChannel.postMessage({ type: "login" });
   }
 };
 
 export const doLogout = async (queryClient: QueryClient) => {
-  window.localStorage.removeItem(AUTH_LOCALSTORAGE_QUERY);
+  window.localStorage.removeItem(LOGIN_LOCALSTORAGE_KEY);
+  window.localStorage.removeItem(USERINFO_LOCALSTORAGE_KEY);
   await queryClient.resetQueries();
   authBroadcastChannel.postMessage({ type: "logout" });
 };

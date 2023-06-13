@@ -1,5 +1,15 @@
 import { JwtResponse, LoginRequest, UserShortInfoDto } from "./model";
-import { API_URL, LOGIN_QUERY } from "../shared/contants";
+import { API_URL, LOGIN_QUERY, USERINFO_QUERY } from "../shared/contants";
+import { customFetch } from ".";
+
+/**
+ *
+ * loginQuery uses original "fetch" function
+ * all others required authentication endpoints uses "customFetch" function
+ *
+ * @param data { login: string, password: string }
+ * @returns
+ */
 
 export const loginQuery = (data: LoginRequest) => ({
   queryKey: [LOGIN_QUERY],
@@ -11,23 +21,22 @@ export const loginQuery = (data: LoginRequest) => ({
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-    }).then((r) => r.json() as JwtResponse);
+    }).then((r) => r.text());
   },
   ...{
     staleTime: 0, // override main staleTime
   },
 });
 
-export const userInfoQuery = (accessToken: string) => ({
-  queryKey: [LOGIN_QUERY],
+export const userInfoQuery = () => ({
+  queryKey: [USERINFO_QUERY],
   queryFn: async () => {
-    return fetch(`${API_URL + "/authentication/userInfo"}`, {
+    return customFetch(`${API_URL + "/authentication/userInfo"}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
-        Authorization: accessToken,
       },
-    }).then((r) => r.json() as UserShortInfoDto);
+    }).then((r: { body: UserShortInfoDto }) => r.body);
   },
   ...{
     staleTime: 0, // override main staleTime

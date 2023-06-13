@@ -49,7 +49,7 @@ export const LoginRoute = () => {
           {fetcher.data?.password && <div>{fetcher.data.password}</div>}
         </div>
         <div>
-          <button type="submit">login</button>
+          <button type="submit" disabled={fetcher.state === "submitting"}>login</button>
           <input type="hidden" name="redirectTo" defaultValue={redirectTo} />
         </div>
       </div>
