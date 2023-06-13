@@ -2,10 +2,11 @@
 // Please do not change this file!
 interface CssExports {
   'disabled_link': string;
-  'navbar': string;
+  'link_group': string;
+  'mainLogo': string;
+  'navbarContainer': string;
   'navbar_icon': string;
   'navbar_link': string;
-  'navbar_links': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

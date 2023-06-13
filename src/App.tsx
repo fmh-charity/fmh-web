@@ -1,24 +1,22 @@
 import * as React from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import styles from "src/App.module.less";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from "src/pages/login/Login";
-import Header from "src/components/header/Header";
 import Navbar from "src/components/navbar/Navbar";
 import ClaimsPage from "src/pages/claims/ClaimsPage";
-import MainPage from "src/pages/main/MainPage";
-import NewsPage from "src/pages/news/NewsPage";
-import TermsOfUse from "src/pages/legal/TermsOfUse";
+import DocumentsPage from "src/pages/documents";
 import PrivacyPolicy from "src/pages/legal/PrivacyPolicy";
-import { PrivateOutlet } from "src/utils/PrivateOutlet";
+import TermsOfUse from "src/pages/legal/TermsOfUse";
+import Login from "src/pages/login/Login";
+import MainPage from "src/pages/main/MainPage";
 import MissionPage from "src/pages/mission/MissionPage";
+import NewsPage from "src/pages/news/NewsPage";
+import { PrivateOutlet } from "src/utils/PrivateOutlet";
 import WishesPage from "./pages/wishes/WishesPage";
-import { DocumentsPage } from "./pages/documents/DocumentsPage";
 
 const App = () => (
   <BrowserRouter>
-    <Header />
-    <Navbar />
     <div className={`${styles.wrapper} ${styles["base-colors"]}`}>
+      <Navbar />
       <div className={`${styles.container}`}>
         <Routes>
           <Route path="/login" element={<Login />} />

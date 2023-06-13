@@ -4,7 +4,7 @@
   grid-row-gap: 4px;
 }
 
-.paginator_comp__loader{
+.paginator_comp__loader {
   display: grid;
   justify-content: center;
   align-content: center;
@@ -16,9 +16,7 @@
 }
 
 .paginator_comp__body_wrapper {
-  display: grid;
-  position: absolute;
-  inset: 0;             //Top bottom right left 0
+  width: 100%;
   overflow: auto;
 }
 
@@ -35,7 +33,7 @@
   grid-auto-flow: column;
   grid-column-gap: 8px;
   font-size: larger;
-  background-color: #EAEAEA;
+  background-color: #eaeaea;
   justify-content: flex-start;
   justify-self: center;
   & li {
@@ -51,7 +49,6 @@
   }
 }
 
-
 .paginator_comp__with_selector {
   display: grid;
   grid-template-columns: 1fr max-content;
@@ -65,8 +62,3 @@
   background-color: #eeecec;
   cursor: pointer;
 }
-
-
-
-
-

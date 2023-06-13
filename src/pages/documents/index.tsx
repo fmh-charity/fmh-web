@@ -10,17 +10,17 @@ import { DocumentsList } from "./modules/documentsList/DocumentsList";
 
 import styles from "./Documents.module.less";
 
-const SortIconComponent = () => {
+const SortIconComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   return <SortIcon onClick={() => dispatch(toggleSort())} />;
 };
 
-const AddIconComponent = () => {
+const AddIconComponent: React.FC = () => {
   const changeVisible = useContext(ModalContext);
   return <AddIcon onClick={changeVisible} />;
 };
 
-export const DocumentsPage = () => (
+const DocumentsPage: React.FC = () => (
   <div className={styles.documents_page__wrapper}>
     <header className={styles.documents_page__header}>
       <div className={styles.documents_page__header_title}>Документы</div>
@@ -36,3 +36,5 @@ export const DocumentsPage = () => (
     <DocumentsList />
   </div>
 );
+
+export default DocumentsPage;
