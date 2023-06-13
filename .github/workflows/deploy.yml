@@ -2,7 +2,7 @@ name: Run tests, build docker image and deploy
 
 on:
   push:
-    branches: [ "main", "main_v2" ]
+    branches: ["main", "main_v2"]
 
 env:
   REGISTRY: ghcr.io
@@ -13,42 +13,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: 'npm'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
 
-    - name: Dependencies
-      run: npm install
+      - name: Dependencies
+        run: npm install
 
-    - name: Build
-      run: npm run build
+      - name: Build
+        run: npm run build
 
-    - name: Delete the previous web build
-      uses: appleboy/ssh-action@v0.1.4
-      with:
-        host: ${{ secrets.REMOTE_HOST }}
-        port: ${{ secrets.REMOTE_PORT }}
-        username: ${{ secrets.REMOTE_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: 'rm -rf /usr/src/docker/build'
+      - name: Delete the previous web build
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          port: ${{ secrets.REMOTE_PORT }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: "rm -rf /usr/src/docker/build"
 
-    - name: Copy folder content recursively to remote
-      uses: garygrossgarten/github-action-scp@release
-      with:
-        local: dist
-        remote: /usr/src/docker/build
-        host: ${{ secrets.REMOTE_HOST }}
-        port: ${{ secrets.REMOTE_PORT }}
-        username: ${{ secrets.REMOTE_USER }}
-        privateKey: ${{ secrets.SSH_KEY }}
-       
-    - name: Deploy
-      uses: appleboy/ssh-action@v0.1.4
-      with:
-        host: ${{ secrets.REMOTE_HOST }}
-        port: ${{ secrets.REMOTE_PORT }}
-        username: ${{ secrets.REMOTE_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script: 'cd /usr/src/docker && docker-compose stop && yes | docker-compose pull && docker-compose up -d'
+      - name: Copy folder content recursively to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: dist
+          remote: /usr/src/docker/build
+          host: ${{ secrets.REMOTE_HOST }}
+          port: ${{ secrets.REMOTE_PORT }}
+          username: ${{ secrets.REMOTE_USER }}
+          privateKey: ${{ secrets.SSH_KEY }}
+
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          port: ${{ secrets.REMOTE_PORT }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: "cd /usr/src/docker && docker-compose stop && yes | docker-compose pull && docker-compose up -d"
