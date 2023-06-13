@@ -1,11 +1,11 @@
 import { customFetch } from ".";
-import { API_URL, NEWS_QUERY } from "../shared/contants";
+import { NEWS_QUERY } from "../shared/contants";
 import { NewsDto, NewsPaginationDto } from "./model";
 
 export const newsQuery = (data?: NewsPaginationDto) => ({
   queryKey: [NEWS_QUERY],
   queryFn: async () => {
-    return customFetch(`${API_URL + "/news"}`, {
+    return customFetch("/api/fmh/news", {
       method: "GET",
       body: JSON.stringify(data),
       headers: {

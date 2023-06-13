@@ -1,10 +1,5 @@
 import { LoginRequest, RoleDtoRs, UserShortInfoDto } from "./model";
-import {
-  API_URL,
-  LOGIN_QUERY,
-  ROLES_QUERY,
-  USERINFO_QUERY,
-} from "../shared/contants";
+import { LOGIN_QUERY, ROLES_QUERY, USERINFO_QUERY } from "../shared/contants";
 import { customFetch } from ".";
 
 /**
@@ -19,7 +14,7 @@ import { customFetch } from ".";
 export const loginQuery = (data: LoginRequest) => ({
   queryKey: [LOGIN_QUERY],
   queryFn: async () => {
-    return fetch(`${API_URL + "/authentication/login"}`, {
+    return fetch("/api/fmh/authentication/login", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -36,7 +31,7 @@ export const loginQuery = (data: LoginRequest) => ({
 export const userInfoQuery = () => ({
   queryKey: [USERINFO_QUERY],
   queryFn: async () => {
-    return customFetch(`${API_URL + "/authentication/userInfo"}`, {
+    return customFetch("/api/fmh/authentication/userInfo", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -51,7 +46,7 @@ export const userInfoQuery = () => ({
 export const rolesQuery = () => ({
   queryKey: [ROLES_QUERY],
   queryFn: async () => {
-    return customFetch(`${API_URL + "/authentication/roles"}`, {
+    return customFetch("/api/fmh/authentication/roles", {
       method: "GET",
       headers: {
         Accept: "application/json",
