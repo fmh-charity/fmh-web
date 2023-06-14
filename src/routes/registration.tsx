@@ -35,18 +35,21 @@ export const action =
       return json({ errors, passwordErrors });
     }
 
-    try {
-      const registrationReq = await queryClient.fetchQuery(
-        api.authentication.registrationQuery({
-          ...formObj,
-          roleIds: [parseInt(roleIds as string, 10)],
-        } as unknown as RegistrationRequest)
-      );
-      return registrationReq;
-    } catch (error) {
-      return (error as any).body;
-    }
-  };
+      try {
+        const registrationReq = await queryClient.fetchQuery(
+          api.authentication.registrationQuery({
+            ...formObj,
+            roleIds: [parseInt(roleIds as string, 10)]
+          } as unknown as RegistrationRequest)
+        );
+        if (registrationReq === "") {
+          return json({ data: "Регистрация успешно завершена" });
+        }
+        return json(registrationReq);
+      } catch (error) {
+        return json((error as any).body);
+      }
+    };
 
 export const RegistrationRoute = () => {
   const [showPassword, setShowPassword] = useState(false);
