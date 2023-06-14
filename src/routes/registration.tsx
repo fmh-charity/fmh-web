@@ -36,9 +36,12 @@ export const action =
             roleIds: [parseInt(roleIds as string, 10)]
           } as unknown as RegistrationRequest)
         );
-        return registrationReq;
+        if (registrationReq === "") {
+          return json({ data: "Регистрация успешно завершена" });
+        }
+        return json(registrationReq);
       } catch (error) {
-        return (error as any).body;
+        return json((error as any).body);
       }
     };
 

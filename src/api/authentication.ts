@@ -78,7 +78,10 @@ export const registrationQuery = (data: RegistrationRequest) => ({
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    }).then((r: { body: any }) => r.body);
+    }).then((r: { body: any }) => {
+      console.log("registrationQuery", r);
+      return r.body;
+    });
   },
   ...{
     staleTime: 0, // override main staleTime
