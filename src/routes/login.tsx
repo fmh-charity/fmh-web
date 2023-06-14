@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
-import { redirect, useLoaderData, json, useFetcher } from "react-router-dom";
+import { redirect, useLoaderData, json, useFetcher, Link } from "react-router-dom";
 import { assertObjectBySchema } from "../shared/utils";
 import { loginSchema } from "../validation/login";
 import { doLogin, ensureSession } from "../shared/auth";
@@ -51,6 +51,9 @@ export const LoginRoute = () => {
         <div>
           <button type="submit" disabled={fetcher.state === "submitting"}>login</button>
           <input type="hidden" name="redirectTo" defaultValue={redirectTo} />
+        </div>
+        <div>
+          <Link to="/registration">Зарегистрироваться</Link> | <Link to="/passwordReset">Сбросить пароль</Link>
         </div>
       </div>
     </fetcher.Form>

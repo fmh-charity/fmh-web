@@ -38,8 +38,7 @@ const clearToken = () => {
 const fetchJSONWithToken = (url: any, options = {}) => {
   const token = retrieveAccessToken();
 
-  let optionsWithToken = options;
-  optionsWithToken = {
+  const optionsWithToken = {
     ...options,
     headers: {
       ...(options as any).headers,

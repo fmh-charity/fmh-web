@@ -1,5 +1,15 @@
-import { LoginRequest, RoleDtoRs, UserShortInfoDto } from "./model";
-import { LOGIN_QUERY, ROLES_QUERY, USERINFO_QUERY } from "../shared/contants";
+import {
+  LoginRequest,
+  RegistrationRequest,
+  RoleDtoRs,
+  UserShortInfoDto,
+} from "./model";
+import {
+  LOGIN_QUERY,
+  REGISTRATION_QUERY,
+  ROLES_QUERY,
+  USERINFO_QUERY,
+} from "../shared/contants";
 import { customFetch } from ".";
 
 /**
@@ -52,6 +62,23 @@ export const rolesQuery = () => ({
         Accept: "application/json",
       },
     }).then((r: { body: RoleDtoRs[] }) => r.body);
+  },
+  ...{
+    staleTime: 0, // override main staleTime
+  },
+});
+
+export const registrationQuery = (data: RegistrationRequest) => ({
+  queryKey: [REGISTRATION_QUERY],
+  queryFn: async () => {
+    return customFetch("/api/fmh/authentication/registration", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((r: { body: any }) => r.body);
   },
   ...{
     staleTime: 0, // override main staleTime

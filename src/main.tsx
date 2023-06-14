@@ -9,6 +9,8 @@ import { RootRoute, loader as loaderRoot } from "./routes/root";
 import { LoginRoute, action as loginAction, loader as loaderLogin } from "./routes/login";
 import { loader as loaderLogout } from "./routes/logout";
 import { NewsRoute, loader as loaderNews } from "./routes/news";
+import { RegistrationRoute, loader as loaderRegistration, action as actionRegistration } from "./routes/registration";
+import { ResetPassword, loader as loaderResetPassword } from "./routes/resetPassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +47,17 @@ const router = createBrowserRouter([
       {
         path: "/logout",
         loader: loaderLogout(queryClient),
+      },
+      {
+        path: "/registration",
+        loader: loaderRegistration(queryClient),
+        action: actionRegistration(queryClient),
+        element: <RegistrationRoute />
+      },
+      {
+        path: "/resetPassword",
+        loader: loaderResetPassword(queryClient),
+        element: <ResetPassword />
       }
     ],
   },
