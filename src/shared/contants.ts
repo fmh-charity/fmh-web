@@ -11,11 +11,35 @@ export const REGISTRATION_QUERY = "REGISTRATION_QUERY";
 // News
 export const NEWS_QUERY = "NEWS_QUERY";
 
-export const APP_ROLES: { [key: string]: string } = {
-  ROLE_GUEST: "Гость",
-  ROLE_ADMINISTRATOR: "Администратор системы",
-  ROLE_MEDICAL_WORKER: "Медработник",
-  ROLE_VOLUNTEER: "Волонтер",
-  ROLE_VOLUNTEER_COORDINATOR: "Координатор волонтеров",
-  ROLE_PATIENT: "Пациент",
-};
+export const APP_ROLES = [
+  {
+    id: 1,
+    key: "ROLE_ADMINISTRATOR",
+    name: "Администратор системы",
+  },
+  {
+    id: 2,
+    key: "ROLE_MEDICAL_WORKER",
+    name: "Медработник",
+  },
+  {
+    id: 3,
+    key: "ROLE_VOLUNTEER",
+    name: "Волонтер",
+  },
+  {
+    id: 4,
+    key: "ROLE_VOLUNTEER_COORDINATOR",
+    name: "Координатор волонтеров",
+  },
+  {
+    id: 5,
+    key: "ROLE_PATIENT",
+    name: "Пациент",
+  },
+  {
+    id: 6,
+    key: "ROLE_GUEST",
+    name: "Гость",
+  },
+];

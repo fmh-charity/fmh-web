@@ -32,7 +32,7 @@ export const action =
       const registrationReq = await queryClient.fetchQuery(
         api.authentication.registrationQuery({
           ...formObj,
-          roleIds: [0]
+          roleIds: [parseInt(roleIds as string, 10)]
         } as unknown as RegistrationRequest)
       );
       return registrationReq;
@@ -65,12 +65,8 @@ export const RegistrationRoute = () => {
           </div>
           <div>
             Выбор роли*
-            <select name="roleIds" defaultValue="ROLE_GUEST">
-              {Object.keys(APP_ROLES).map((roleKey: string) => (
-                <option key={roleKey} value={roleKey}>
-                  {APP_ROLES[roleKey]}
-                </option>
-              ))}
+            <select name="roleIds" defaultValue="6">
+              {APP_ROLES.map((role) => <option key={role.id} value={role.id}>{`[${role.key}] ${role.name}`}</option>)}
             </select>
           </div>
           <div>
