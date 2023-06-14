@@ -5,7 +5,7 @@ import "./styles/index.less";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import App from "./Components/App";
+import App from "./components/app";
 import {
   LoginRoute,
   loader as loaderLogin,

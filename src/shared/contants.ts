@@ -42,4 +42,4 @@ export const APP_ROLES = [
     key: "ROLE_GUEST",
     name: "Гость",
   },
-];
+] as const;
