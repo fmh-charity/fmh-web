@@ -29,13 +29,17 @@ export const action =
         return json({ errors, passwordErrors });
       }
 
-      const registrationReq = await queryClient.fetchQuery(
-        api.authentication.registrationQuery({
-          ...formObj,
-          roleIds: [parseInt(roleIds as string, 10)]
-        } as unknown as RegistrationRequest)
-      );
-      return registrationReq;
+      try {
+        const registrationReq = await queryClient.fetchQuery(
+          api.authentication.registrationQuery({
+            ...formObj,
+            roleIds: [parseInt(roleIds as string, 10)]
+          } as unknown as RegistrationRequest)
+        );
+        return registrationReq;
+      } catch (error) {
+        return (error as any).body;
+      }
     };
 
 export const RegistrationRoute = () => {
