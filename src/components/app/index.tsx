@@ -15,12 +15,13 @@ export default function App(): React.ReactElement {
           src="/assets/icons/navbar/mainLogo.png"
         />
         <ul className={styles.linkGroup}>
-          {roleTabs.ROLE_ADMINISTRATOR?.map(item =>
+          {roleTabs.ROLE_ADMINISTRATOR?.map((item) => (
             <NavBarLink
               to={item.to}
               icon={<i className={item.icon} aria-hidden="true"></i>}
               children={item.title}
-            />)}
+            />
+          ))}
         </ul>
         <ul className={styles.linkGroup}>
           <NavBarLink

@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { QueryClient } from "@tanstack/query-core";
+import type { QueryClient } from "@tanstack/query-core";
 import { json, useLoaderData } from "react-router-dom";
 
 export const loader = (queryClient: QueryClient) => async () => {

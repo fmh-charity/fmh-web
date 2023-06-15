@@ -1,7 +1,7 @@
 import * as api from "../api";
 import { useState } from "react";
 import { useFetcher, json, redirect } from "react-router-dom";
-import { QueryClient } from "@tanstack/query-core";
+import type { QueryClient } from "@tanstack/query-core";
 import { ensureSession } from "../shared/auth";
 import { APP_ROLES } from "../shared/contants";
 import { assertObjectBySchema } from "../shared/utils";
@@ -9,7 +9,7 @@ import {
   registrationPasswordMatchSchema,
   registrationSchema,
 } from "../validation/registration";
-import { RegistrationRequest } from "../api/model";
+import type { RegistrationRequest } from "../api/model";
 
 export const loader = (queryClient: QueryClient) => async () => {
   const session = await ensureSession(queryClient);
@@ -35,21 +35,21 @@ export const action =
       return json({ errors, passwordErrors });
     }
 
-      try {
-        const registrationReq = await queryClient.fetchQuery(
-          api.authentication.registrationQuery({
-            ...formObj,
-            roleIds: [parseInt(roleIds as string, 10)]
-          } as unknown as RegistrationRequest)
-        );
-        if (registrationReq === "") {
-          return json({ data: "Регистрация успешно завершена" });
-        }
-        return json(registrationReq);
-      } catch (error) {
-        return json((error as any).body);
+    try {
+      const registrationReq = await queryClient.fetchQuery(
+        api.authentication.registrationQuery({
+          ...formObj,
+          roleIds: [parseInt(roleIds as string, 10)],
+        } as unknown as RegistrationRequest)
+      );
+      if (registrationReq === "") {
+        return json({ data: "Регистрация успешно завершена" });
       }
-    };
+      return json(registrationReq);
+    } catch (error) {
+      return json((error as any).body);
+    }
+  };
 
 export const RegistrationRoute = () => {
   const [showPassword, setShowPassword] = useState(false);

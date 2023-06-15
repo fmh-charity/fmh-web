@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { QueryClient } from "@tanstack/react-query";
+import type { QueryClient } from "@tanstack/react-query";
 import { LOGIN_LOCALSTORAGE_KEY, USERINFO_LOCALSTORAGE_KEY } from "./contants";
 
 export const authBroadcastChannel = new BroadcastChannel(

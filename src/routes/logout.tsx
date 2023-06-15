@@ -1,4 +1,4 @@
-import { QueryClient } from "@tanstack/react-query";
+import type { QueryClient } from "@tanstack/react-query";
 import { redirect } from "react-router-dom";
 import { doLogout } from "../shared/auth";
 

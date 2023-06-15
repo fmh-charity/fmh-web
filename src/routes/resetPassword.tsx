@@ -1,4 +1,4 @@
-import { QueryClient } from "@tanstack/query-core";
+import type { QueryClient } from "@tanstack/query-core";
 
 export const loader = (queryClient: QueryClient) => async () => {
   return "";

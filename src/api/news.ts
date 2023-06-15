@@ -1,6 +1,6 @@
 import { customFetch } from ".";
 import { NEWS_QUERY } from "../shared/contants";
-import { NewsDto, NewsPaginationDto } from "./model";
+import type { NewsDto, NewsPaginationDto } from "./model";
 
 export const newsQuery = (data?: NewsPaginationDto) => ({
   queryKey: [NEWS_QUERY],
