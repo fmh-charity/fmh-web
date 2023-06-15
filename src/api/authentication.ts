@@ -31,7 +31,7 @@ export const loginQuery = (data: LoginRequest) => ({
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-    }).then((r) => r.text());
+    }).then((r) => r.json());
   },
   ...{
     staleTime: 0, // override main staleTime

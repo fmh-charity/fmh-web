@@ -1,12 +1,12 @@
 import type { QueryClient } from "@tanstack/react-query";
 import { Outlet, redirect } from "react-router";
 import { Link } from "react-router-dom";
-import { ensureSession } from "../shared/auth";
+import { ensureLogin } from "../shared/auth";
 
 export const loader =
   (queryClient: QueryClient) =>
   async ({ request }: { request: Request }) => {
-    const session = await ensureSession(queryClient);
+    const session = await ensureLogin(queryClient);
     if (session) {
       return session;
     }

@@ -1,10 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import { useAuthBroadcastRevalidator } from "../../shared/hooks";
 import NavBarLink from "../navbar-link";
-import styles from "./styles.module.less";
 import roleTabs from "./roleTabs";
+import { Notifications } from "../notifications";
+import styles from "./styles.module.less";
+import type { QueryClient } from "@tanstack/react-query";
+import { ensureUserInfo } from "../../shared/auth";
 
-export default function App(): React.ReactElement {
+export const loader = (queryClient: QueryClient) => async () => {
+  return await ensureUserInfo(queryClient);
+};
+
+export const App = () => {
+  const data = useLoaderData();
+  console.log({ data });
+
   useAuthBroadcastRevalidator();
 
   return (
@@ -36,6 +46,7 @@ export default function App(): React.ReactElement {
         </ul>
       </aside>
       <Outlet />
+      <Notifications />
     </main>
   );
-}
+};

@@ -2,7 +2,7 @@ import * as api from "../api";
 import { useState } from "react";
 import { useFetcher, json, redirect } from "react-router-dom";
 import type { QueryClient } from "@tanstack/query-core";
-import { ensureSession } from "../shared/auth";
+import { ensureLogin } from "../shared/auth";
 import { APP_ROLES } from "../shared/contants";
 import { assertObjectBySchema } from "../shared/utils";
 import {
@@ -12,7 +12,7 @@ import {
 import type { RegistrationRequest } from "../api/model";
 
 export const loader = (queryClient: QueryClient) => async () => {
-  const session = await ensureSession(queryClient);
+  const session = await ensureLogin(queryClient);
   if (session) {
     return redirect("/");
   }

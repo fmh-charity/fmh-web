@@ -1,15 +1,16 @@
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { LOGIN_LOCALSTORAGE_KEY, USERINFO_LOCALSTORAGE_KEY } from "./contants";
+import { notification } from "./notifications";
 
 export const authBroadcastChannel = new BroadcastChannel(
   "auth-broadcast-channel"
 );
 
-export const ensureSession = async (queryClient: QueryClient) => {
+const ensureSession = (key: string) => async (queryClient: QueryClient) => {
   let storageValue = null;
   try {
-    const session = window?.localStorage.getItem(LOGIN_LOCALSTORAGE_KEY);
+    const session = window?.localStorage.getItem(key);
     if (session) {
       storageValue = JSON.parse(session);
     }
@@ -20,22 +21,38 @@ export const ensureSession = async (queryClient: QueryClient) => {
   return storageValue;
 };
 
+export const ensureLogin = ensureSession(LOGIN_LOCALSTORAGE_KEY);
+export const ensureUserInfo = ensureSession(USERINFO_LOCALSTORAGE_KEY);
+
 export const doLogin = async (queryClient: QueryClient, data: any) => {
-  const login = await queryClient.fetchQuery(
-    api.authentication.loginQuery(data)
-  );
-  if (login) {
-    window.localStorage.setItem(LOGIN_LOCALSTORAGE_KEY, login);
+  try {
+    const login = await queryClient.fetchQuery(
+      api.authentication.loginQuery(data)
+    );
+
+    if (login?.code === "ERR_INVALID_LOGIN") {
+      return login;
+    }
+
+    window.localStorage.setItem(LOGIN_LOCALSTORAGE_KEY, JSON.stringify(login));
 
     const userInfo = await queryClient.fetchQuery(
       api.authentication.userInfoQuery()
     );
+
     window.localStorage.setItem(
       USERINFO_LOCALSTORAGE_KEY,
       JSON.stringify(userInfo)
     );
 
     authBroadcastChannel.postMessage({ type: "login" });
+  } catch (error) {
+    window.localStorage.removeItem(LOGIN_LOCALSTORAGE_KEY);
+    window.localStorage.removeItem(USERINFO_LOCALSTORAGE_KEY);
+    const { message, stack } = error as Error;
+    console.log({ error });
+    notification.addNotification({ label: message, text: stack });
+    return { error: (error as Error).message };
   }
 };
 

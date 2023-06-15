@@ -11,6 +11,7 @@ export const REGISTRATION_QUERY = "REGISTRATION_QUERY";
 // News
 export const NEWS_QUERY = "NEWS_QUERY";
 
+// App
 export const APP_ROLES = [
   {
     id: 1,
@@ -43,3 +44,7 @@ export const APP_ROLES = [
     name: "Гость",
   },
 ] as const;
+
+// notifications
+
+export const NOTIFICATION_ADD = "NOTIFICATION_ADD";

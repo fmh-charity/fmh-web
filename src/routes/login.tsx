@@ -8,12 +8,12 @@ import {
 } from "react-router-dom";
 import { assertObjectBySchema } from "../shared/utils";
 import { loginSchema } from "../validation/login";
-import { doLogin, ensureSession } from "../shared/auth";
+import { doLogin, ensureLogin } from "../shared/auth";
 
 export const loader =
   (queryClient: QueryClient) =>
   async ({ request }: { request: Request }) => {
-    const session = await ensureSession(queryClient);
+    const session = await ensureLogin(queryClient);
     const url = new URL(request.url);
     const redirectTo = url.searchParams.get("redirectTo") as string;
     const redirectToTemp = redirectTo
@@ -34,10 +34,11 @@ export const action =
     const formData = await request.formData();
     const { login, password, redirectTo } = Object.fromEntries(formData);
 
-    const errors = assertObjectBySchema({ login, password }, loginSchema);
-    if (errors) return json(errors);
+    const schamaErrors = assertObjectBySchema({ login, password }, loginSchema);
+    if (schamaErrors) return json(schamaErrors);
 
-    await doLogin(queryClient, { login, password });
+    const loginErrors = await doLogin(queryClient, { login, password });
+    if (loginErrors) return loginErrors;
 
     return redirect(redirectTo === "/login" ? "/" : (redirectTo as string));
   };
@@ -70,6 +71,7 @@ export const LoginRoute = () => {
           <Link to="/registration">Зарегистрироваться</Link> |{" "}
           <Link to="/passwordReset">Сбросить пароль</Link>
         </div>
+        <div>{JSON.stringify(fetcher.data)}</div>
       </div>
     </fetcher.Form>
   );
