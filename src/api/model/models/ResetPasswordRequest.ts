@@ -6,7 +6,6 @@
  * Информация по обновлению пароля
  */
 export type ResetPasswordRequest = {
-    login?: string;
-    password?: string;
+  login?: string;
+  password?: string;
 };
-

@@ -10,4 +10,11 @@ export default defineConfig({
       "/api/fmh": "https://test.vhospice.org",
     },
   },
+  css: {
+    preprocessorOptions: {
+      less: {
+        additionalData: '@import "/src/styles/variables.less";',
+      },
+    },
+  },
 });

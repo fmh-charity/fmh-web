@@ -6,10 +6,9 @@
  * Адрес почты пользователя
  */
 export type UserEmailDto = {
-    /**
-     * имя почты
-     */
-    name?: string;
-    confirmed?: boolean;
+  /**
+   * имя почты
+   */
+  name?: string;
+  confirmed?: boolean;
 };
-

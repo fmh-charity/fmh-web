@@ -2,10 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { DocumentForAdminRs } from './DocumentForAdminRs';
+import type { DocumentForAdminRs } from "./DocumentForAdminRs";
 
 export type DocumentForAdminPaginationRs = {
-    pages?: number;
-    elements?: Array<DocumentForAdminRs>;
+  pages?: number;
+  elements?: Array<DocumentForAdminRs>;
 };
-

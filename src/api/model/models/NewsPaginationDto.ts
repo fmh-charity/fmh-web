@@ -2,10 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { NewsDto } from './NewsDto';
+import type { NewsDto } from "./NewsDto";
 
 export type NewsPaginationDto = {
-    pages?: number;
-    elements?: Array<NewsDto>;
+  pages?: number;
+  elements?: Array<NewsDto>;
 };
-

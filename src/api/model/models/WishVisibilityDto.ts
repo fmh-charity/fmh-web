@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 export type WishVisibilityDto = {
-    id?: number;
-    name?: string;
+  id?: number;
+  name?: string;
 };
-

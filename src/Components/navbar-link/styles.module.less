@@ -1,0 +1,28 @@
+.navbarLink {
+  display: grid;
+  grid-template-columns: (24 / @rem) 1fr;
+  grid-gap: (12 / @rem);
+  border-radius: (8 / @rem);
+  padding: (12 / @rem) (16 / @rem);
+  align-items: center;
+  white-space: nowrap;
+  color: black;
+  transition: @default-transition;
+  div:first-child {
+    display: flex;
+    justify-content: center;
+  }
+  i {
+    font-size: (24 / @rem);
+  }
+  &:hover {
+    background: @color-primary;
+    color: white;
+    div {
+      font-weight: 600;
+    }
+    i {
+      color: white;
+    }
+  }
+}

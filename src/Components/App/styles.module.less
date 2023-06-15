@@ -1,0 +1,28 @@
+.mainClass {
+  display: grid;
+  grid-template-columns: (286 / @rem) 1fr;
+  background: #f4f5f7;
+  height: 100%;
+  .mainNavbar {
+    width: 100%;
+    padding: (55 / @rem) (28 / @rem) (115 / @rem);
+    background: white;
+    border-right: 1px solid #e7e7e7;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: repeat(3, min-content);
+    align-content: space-between;
+    .appLogo {
+      max-width: (151 / @rem);
+      max-height: (60 / @rem);
+      margin: 0 auto;
+    }
+    .linkGroup {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: (8 / @rem);
+      width: 100%;
+    }
+  }
+}

@@ -6,17 +6,16 @@
  * Информация о посте
  */
 export type NurseStationDtoRs = {
-    /**
-     * Идентификатор поста
-     */
-    id?: number;
-    /**
-     * Название поста
-     */
-    name?: string;
-    /**
-     * Комментарий
-     */
-    comment?: string;
+  /**
+   * Идентификатор поста
+   */
+  id?: number;
+  /**
+   * Название поста
+   */
+  name?: string;
+  /**
+   * Комментарий
+   */
+  comment?: string;
 };
-

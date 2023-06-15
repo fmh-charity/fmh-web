@@ -5,7 +5,10 @@ import { QueryClient } from "@tanstack/query-core";
 import { ensureSession } from "../shared/auth";
 import { APP_ROLES } from "../shared/contants";
 import { assertObjectBySchema } from "../shared/utils";
-import { registrationPasswordMatchSchema, registrationSchema } from "../validation/registration";
+import {
+  registrationPasswordMatchSchema,
+  registrationSchema,
+} from "../validation/registration";
 import { RegistrationRequest } from "../api/model";
 
 export const loader = (queryClient: QueryClient) => async () => {
@@ -18,16 +21,19 @@ export const loader = (queryClient: QueryClient) => async () => {
 
 export const action =
   (queryClient: QueryClient) =>
-    async ({ request }: { request: Request }) => {
-      const formData = await request.formData();
-      const { roleIds, ...formObj } = Object.fromEntries(formData);
+  async ({ request }: { request: Request }) => {
+    const formData = await request.formData();
+    const { roleIds, ...formObj } = Object.fromEntries(formData);
 
-      const passwordErrors = assertObjectBySchema(formObj, registrationPasswordMatchSchema);
-      const errors = assertObjectBySchema(formObj, registrationSchema);
+    const passwordErrors = assertObjectBySchema(
+      formObj,
+      registrationPasswordMatchSchema
+    );
+    const errors = assertObjectBySchema(formObj, registrationSchema);
 
-      if (errors || passwordErrors) {
-        return json({ errors, passwordErrors });
-      }
+    if (errors || passwordErrors) {
+      return json({ errors, passwordErrors });
+    }
 
       try {
         const registrationReq = await queryClient.fetchQuery(
@@ -73,7 +79,12 @@ export const RegistrationRoute = () => {
           <div>
             Выбор роли*
             <select name="roleIds" defaultValue="6">
-              {APP_ROLES.map((role) => <option key={role.id} value={role.id}>{`[${role.key}] ${role.name}`}</option>)}
+              {APP_ROLES.map((role) => (
+                <option
+                  key={role.id}
+                  value={role.id}
+                >{`[${role.key}] ${role.name}`}</option>
+              ))}
             </select>
           </div>
           <div>
@@ -98,9 +109,7 @@ export const RegistrationRoute = () => {
             {" | "}
             <button type="submit">Зарегистрироваться</button>
           </div>
-          <div>
-            {JSON.stringify(fetcher.data)}
-          </div>
+          <div>{JSON.stringify(fetcher.data)}</div>
         </div>
       </fetcher.Form>
     </div>

@@ -6,9 +6,8 @@
  * ФИО Исполнителя просьбы
  */
 export type UserDtoIdFio = {
-    id?: number;
-    firstName?: string;
-    middleName?: string;
-    lastName?: string;
+  id?: number;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
 };
-
