@@ -11,16 +11,19 @@ export default function App(): React.ReactElement {
     <main className={styles.mainClass}>
       <aside className={styles.mainNavbar}>
         <img
+          alt="main logo"
           className={styles.appLogo}
           src="/assets/icons/navbar/mainLogo.png"
         />
         <ul className={styles.linkGroup}>
           {roleTabs.ROLE_ADMINISTRATOR?.map((item) => (
             <NavBarLink
+              key={item.to + item.title}
               to={item.to}
               icon={<i className={item.icon} aria-hidden="true"></i>}
-              children={item.title}
-            />
+            >
+              {item.title}
+            </NavBarLink>
           ))}
         </ul>
         <ul className={styles.linkGroup}>
