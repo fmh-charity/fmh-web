@@ -1,6 +1,6 @@
 .navbarLink {
   display: grid;
-  grid-template-columns: (24 / @rem) 1fr min-content;
+  grid-template-columns: (24 / @rem) min-content min-content;
   grid-gap: (12 / @rem);
   border-radius: (8 / @rem);
   padding: (12 / @rem) (16 / @rem);
@@ -26,5 +26,16 @@
     i {
       color: white;
     }
+  }
+}
+
+.childList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: (8 / @rem);
+  padding-top: (8 / @rem);
+  .navbarLink {
+    padding-left: (45 / @rem);
   }
 }
