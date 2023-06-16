@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useLocation } from "react-router-dom";
 import { useAuthBroadcastRevalidator } from "../../shared/hooks";
 import NavBarLink from "../navbar-link";
 import getRoleTabs from "./roleTabs";
@@ -16,6 +16,7 @@ export const App = () => {
   console.log({ data });
 
   useAuthBroadcastRevalidator();
+  const location = useLocation();
 
   return (
     <main className={styles.mainClass}>
@@ -26,15 +27,19 @@ export const App = () => {
           src="/assets/icons/navbar/mainLogo.png"
         />
         <ul className={styles.linkGroup}>
-          {getRoleTabs(data.roles)?.map((item) => (
-            <NavBarLink
-              key={item.to + item.title}
-              to={item.to}
-              icon={<i className={item.icon} aria-hidden="true"></i>}
-            >
-              {item.title}
-            </NavBarLink>
-          ))}
+          {getRoleTabs(data.roles)?.map((item) => {
+            if (Array.isArray(item)) return null;
+            return (
+              <NavBarLink
+                isActive={item.to === location.pathname}
+                key={item.to + item.title}
+                to={item.to}
+                icon={<i className={item.icon} aria-hidden="true"></i>}
+              >
+                {item.title}
+              </NavBarLink>
+            );
+          })}
         </ul>
         <ul className={styles.linkGroup}>
           <NavBarLink
