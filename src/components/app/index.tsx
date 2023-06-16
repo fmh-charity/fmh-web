@@ -1,7 +1,7 @@
 import { Outlet, useLoaderData } from "react-router-dom";
 import { useAuthBroadcastRevalidator } from "../../shared/hooks";
 import NavBarLink from "../navbar-link";
-import roleTabs from "./roleTabs";
+import getRoleTabs from "./roleTabs";
 import { Notifications } from "../notifications";
 import styles from "./styles.module.less";
 import type { QueryClient } from "@tanstack/react-query";
@@ -26,7 +26,7 @@ export const App = () => {
           src="/assets/icons/navbar/mainLogo.png"
         />
         <ul className={styles.linkGroup}>
-          {roleTabs.ROLE_ADMINISTRATOR?.map((item) => (
+          {getRoleTabs(data.roles)?.map((item) => (
             <NavBarLink
               key={item.to + item.title}
               to={item.to}
