@@ -90,6 +90,54 @@ export const requestInitGetJSON: RequestInit = {
   },
 };
 
+/**
+ * 
+ * @param queryClient 
+ * 
+ * React-query client
+ * 
+ * @param url 
+ * 
+ * rest api url 
+ * 
+ * look at swagger
+ * https://test.vhospice.org/api/fmh/swagger-ui/index.html
+ * 
+ * @param options 
+ * 
+ * RequestInit options
+ * 
+ * @param body 
+ * 
+ * accept json
+ * 
+ * @param queryOptions 
+ * 
+ * React-query request options
+ * 
+ * @returns 
+ * 
+ * React-query return fetchQuery instance
+ * 
+ 
+ usage example:
+
+ data?: NewsPaginationDto - request parameters
+
+ const newsQuery: NewsDto[] - response data
+
+ export const newsQuery = (queryClient: QueryClient, data?: NewsPaginationDto) =>
+  createQuery<typeof data, NewsDto[]>(
+    queryClient,
+    "/api/fmh/news",
+    requestInitGetJSON,
+    data,
+    {
+      queryKey: [""],
+    }
+  );
+ */
+
 export const createQuery: <T, U>(
   queryClient: QueryClient,
   url: string,
@@ -110,6 +158,7 @@ export const createQuery: <T, U>(
         url,
         body ? Object.assign(options, { body: JSON.stringify(body) }) : options
       ).then((r: { body: U }) => r.body);
+      // TODO catch
     },
   });
 };
