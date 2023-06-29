@@ -2,6 +2,7 @@ import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { LOGIN_LOCALSTORAGE_KEY, USERINFO_LOCALSTORAGE_KEY } from "./contants";
 import { notification } from "./notifications";
+import type { LoginRequest } from "../api/model";
 
 export const authBroadcastChannel = new BroadcastChannel(
   "auth-broadcast-channel"
@@ -24,11 +25,9 @@ const ensureSession = (key: string) => async (queryClient: QueryClient) => {
 export const ensureLogin = ensureSession(LOGIN_LOCALSTORAGE_KEY);
 export const ensureUserInfo = ensureSession(USERINFO_LOCALSTORAGE_KEY);
 
-export const doLogin = async (queryClient: QueryClient, data: any) => {
+export const doLogin = async (queryClient: QueryClient, data: LoginRequest) => {
   try {
-    const login = await queryClient.fetchQuery(
-      api.authentication.loginQuery(data)
-    );
+    const login = await api.authentication.loginQuery(queryClient, data);
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -38,9 +37,7 @@ export const doLogin = async (queryClient: QueryClient, data: any) => {
 
     window.localStorage.setItem(LOGIN_LOCALSTORAGE_KEY, JSON.stringify(login));
 
-    const userInfo = await queryClient.fetchQuery(
-      api.authentication.userInfoQuery()
-    );
+    const userInfo = await api.authentication.userInfoQuery(queryClient);
 
     window.localStorage.setItem(
       USERINFO_LOCALSTORAGE_KEY,

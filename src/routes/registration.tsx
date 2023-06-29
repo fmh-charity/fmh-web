@@ -40,10 +40,11 @@ export const action =
     }
 
     try {
-      const registrationReq = await queryClient.fetchQuery(
-        api.authentication.registrationQuery(formObj)
+      const registrationReq = await api.authentication.registrationQuery(
+        queryClient,
+        formObj
       );
-      if (registrationReq === "") {
+      if (registrationReq === undefined) {
         return json({ data: "Регистрация успешно завершена" });
       }
       return json(registrationReq);

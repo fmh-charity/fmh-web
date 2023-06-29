@@ -1,3 +1,4 @@
+import * as api from "../api";
 import type {
   JwtResponse,
   LoginRequest,
@@ -11,7 +12,8 @@ import {
   ROLES_QUERY,
   USERINFO_QUERY,
 } from "../shared/contants";
-import { customFetch } from ".";
+import { createQuery } from ".";
+import type { QueryClient } from "@tanstack/react-query";
 
 /**
  *
@@ -22,71 +24,56 @@ import { customFetch } from ".";
  * @returns
  */
 
-export const loginQuery = (data: LoginRequest) => ({
-  queryKey: [LOGIN_QUERY],
-  queryFn: async () => {
-    return fetch("/api/fmh/authentication/login", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((r) => r.json() as JwtResponse)
-      .catch((r) => r);
-  },
-  ...{
-    staleTime: 0, // override main staleTime
-  },
-});
+export const loginQuery = (queryClient: QueryClient, data: LoginRequest) =>
+  queryClient.fetchQuery<typeof data, unknown, JwtResponse, string[]>({
+    queryKey: [LOGIN_QUERY],
+    queryFn: async () => {
+      return fetch("/api/fmh/authentication/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((r) => r.json())
+        .catch((r) => r);
+    },
+    ...{
+      staleTime: 0, // override main staleTime
+    },
+  });
 
-export const userInfoQuery = () => ({
-  queryKey: [USERINFO_QUERY],
-  queryFn: async () => {
-    return customFetch("/api/fmh/authentication/userInfo", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    }).then((r: { body: UserShortInfoDto }) => r.body);
-  },
-  ...{
-    staleTime: 0, // override main staleTime
-  },
-});
+export const userInfoQuery = (queryClient: QueryClient) =>
+  createQuery<UserShortInfoDto>(
+    queryClient,
+    "/api/fmh/authentication/userInfo",
+    api.requestInit.RequestInitGetJSON,
+    {
+      queryKey: [USERINFO_QUERY],
+    }
+  );
 
-export const rolesQuery = () => ({
-  queryKey: [ROLES_QUERY],
-  queryFn: async () => {
-    return customFetch("/api/fmh/authentication/roles", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    }).then((r: { body: RoleDtoRs[] }) => r.body);
-  },
-  ...{
-    staleTime: 0, // override main staleTime
-  },
-});
+export const rolesQuery = (queryClient: QueryClient) =>
+  createQuery<RoleDtoRs[]>(
+    queryClient,
+    "/api/fmh/authentication/roles",
+    api.requestInit.RequestInitGetJSON,
+    {
+      queryKey: [ROLES_QUERY],
+    }
+  );
 
-export const registrationQuery = (data: RegistrationRequest) => ({
-  queryKey: [REGISTRATION_QUERY],
-  queryFn: async () => {
-    return customFetch("/api/fmh/authentication/registration", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((r: { body: any }) => {
-      console.log("registrationQuery", r);
-      return r.body;
-    });
-  },
-  ...{
-    staleTime: 0, // override main staleTime
-  },
-});
+export const registrationQuery = (
+  queryClient: QueryClient,
+  data: RegistrationRequest
+) =>
+  createQuery<undefined, typeof data>(
+    queryClient,
+    "/api/fmh/authentication/registration",
+    api.requestInit.RequestInitPostJSON,
+    {
+      queryKey: [REGISTRATION_QUERY],
+    },
+    data
+  );

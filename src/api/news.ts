@@ -1,14 +1,15 @@
 import type { QueryClient } from "@tanstack/react-query";
-import { createQuery, requestInitGetJSON } from ".";
+import { createQuery } from ".";
 import type { NewsDto, NewsPaginationDto } from "./model";
+import * as api from "../api";
 
 export const newsQuery = (queryClient: QueryClient, data?: NewsPaginationDto) =>
-  createQuery<typeof data, NewsDto[]>(
+  createQuery<NewsDto[], typeof data>(
     queryClient,
     "/api/fmh/news",
-    requestInitGetJSON,
-    data,
+    api.requestInit.RequestInitGetJSON,
     {
       queryKey: [""],
-    }
+    },
+    data
   );

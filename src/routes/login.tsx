@@ -9,6 +9,7 @@ import {
 import { assertObjectBySchema } from "../shared/utils";
 import { loginSchema } from "../validation/login";
 import { doLogin, ensureLogin } from "../shared/auth";
+import type { LoginRequest } from "../api/model";
 
 export const loader =
   (queryClient: QueryClient) =>
@@ -37,7 +38,10 @@ export const action =
     const schamaErrors = assertObjectBySchema({ login, password }, loginSchema);
     if (schamaErrors) return json(schamaErrors);
 
-    const loginErrors = await doLogin(queryClient, { login, password });
+    const loginErrors = await doLogin(queryClient, {
+      login,
+      password,
+    } as LoginRequest);
     if (loginErrors) return loginErrors;
 
     return redirect(redirectTo === "/login" ? "/" : (redirectTo as string));

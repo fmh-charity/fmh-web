@@ -82,14 +82,6 @@ export const customFetch = configureRefreshFetch({
   fetch: fetchJSONWithToken,
 });
 
-export const requestInitGetJSON: RequestInit = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
-};
-
 /**
  * 
  * @param queryClient 
@@ -138,18 +130,29 @@ export const requestInitGetJSON: RequestInit = {
   );
  */
 
-export const createQuery: <T, U>(
+interface CreateQuery {
+  <U, T>(
+    queryClient: QueryClient,
+    url: string,
+    options: RequestInit,
+    queryOptions: FetchQueryOptions<T, unknown, U, string[]>,
+    body?: T
+  ): Promise<U>;
+  <U>(
+    queryClient: QueryClient,
+    url: string,
+    options: RequestInit,
+    queryOptions: FetchQueryOptions<unknown, unknown, U, string[]>,
+    body?: undefined
+  ): Promise<U>;
+}
+
+export const createQuery: CreateQuery = <U, T>(
   queryClient: QueryClient,
   url: string,
   options: RequestInit,
-  body: T,
-  queryOptions: FetchQueryOptions<T, unknown, U, string[]>
-) => Promise<U> = <T, U>(
-  queryClient: QueryClient,
-  url: string,
-  options: RequestInit,
-  body: T,
-  queryOptions: FetchQueryOptions<T, unknown, U, string[]>
+  queryOptions: FetchQueryOptions<T, unknown, U, string[]>,
+  body?: T
 ) => {
   return queryClient.fetchQuery({
     ...queryOptions,
