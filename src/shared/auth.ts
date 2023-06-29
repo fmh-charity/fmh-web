@@ -30,6 +30,8 @@ export const doLogin = async (queryClient: QueryClient, data: any) => {
       api.authentication.loginQuery(data)
     );
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     if (login?.code === "ERR_INVALID_LOGIN") {
       return login;
     }

@@ -23,7 +23,11 @@ export const action =
   (queryClient: QueryClient) =>
   async ({ request }: { request: Request }) => {
     const formData = await request.formData();
-    const { roleIds, ...formObj } = Object.fromEntries(formData);
+    const { roleIds, ...formObjRest } = Object.fromEntries(formData);
+    const formObj = {
+      ...formObjRest,
+      roleIds: [parseInt(roleIds as string, 10)],
+    } as unknown as RegistrationRequest;
 
     const passwordErrors = assertObjectBySchema(
       formObj,
@@ -37,10 +41,7 @@ export const action =
 
     try {
       const registrationReq = await queryClient.fetchQuery(
-        api.authentication.registrationQuery({
-          ...formObj,
-          roleIds: [parseInt(roleIds as string, 10)],
-        } as unknown as RegistrationRequest)
+        api.authentication.registrationQuery(formObj)
       );
       if (registrationReq === "") {
         return json({ data: "Регистрация успешно завершена" });

@@ -1,4 +1,5 @@
 import type {
+  JwtResponse,
   LoginRequest,
   RegistrationRequest,
   RoleDtoRs,
@@ -31,7 +32,9 @@ export const loginQuery = (data: LoginRequest) => ({
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-    }).then((r) => r.json());
+    })
+      .then((r) => r.json() as JwtResponse)
+      .catch((r) => r);
   },
   ...{
     staleTime: 0, // override main staleTime

@@ -1,4 +1,4 @@
-import { object, string, refine, optional, array } from "superstruct";
+import { object, string, refine, optional, array, number } from "superstruct";
 
 const EmailCheck = refine(string(), "EmailCheck", (value) => {
   if (value.length >= 6) {
@@ -20,7 +20,7 @@ export const registrationPasswordMatchSchema = refine(
     lastName: optional(string()),
     middleName: optional(string()),
     dateOfBirth: optional(string()),
-    roleIds: optional(array(string())),
+    roleIds: optional(array(number())),
     email: optional(string()),
     password: string(),
     passwordConfirm: string(),
@@ -39,7 +39,7 @@ export const registrationSchema = object({
   lastName: string(),
   middleName: string(),
   dateOfBirth: string(),
-  roleIds: optional(array(string())),
+  roleIds: optional(array(number())),
   email: EmailCheck,
   password: PasswordCheck,
   passwordConfirm: optional(string()),

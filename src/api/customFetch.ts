@@ -1,5 +1,6 @@
 import { configureRefreshFetch, fetchJSON } from "refresh-fetch";
 import { LOGIN_LOCALSTORAGE_KEY } from "../shared/contants";
+import type { FetchQueryOptions, QueryClient } from "@tanstack/react-query";
 
 const retrieveRefreshToken = () => {
   try {
@@ -80,3 +81,35 @@ export const customFetch = configureRefreshFetch({
   refreshToken,
   fetch: fetchJSONWithToken,
 });
+
+export const requestInitGetJSON: RequestInit = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+};
+
+export const createQuery: <T, U>(
+  queryClient: QueryClient,
+  url: string,
+  options: RequestInit,
+  body: T,
+  queryOptions: FetchQueryOptions<T, unknown, U, string[]>
+) => Promise<U> = <T, U>(
+  queryClient: QueryClient,
+  url: string,
+  options: RequestInit,
+  body: T,
+  queryOptions: FetchQueryOptions<T, unknown, U, string[]>
+) => {
+  return queryClient.fetchQuery({
+    ...queryOptions,
+    queryFn: async () => {
+      return customFetch(
+        url,
+        body ? Object.assign(options, { body: JSON.stringify(body) }) : options
+      ).then((r: { body: U }) => r.body);
+    },
+  });
+};

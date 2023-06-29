@@ -1,20 +1,14 @@
-import { customFetch } from ".";
-import { NEWS_QUERY } from "../shared/contants";
+import type { QueryClient } from "@tanstack/react-query";
+import { createQuery, requestInitGetJSON } from ".";
 import type { NewsDto, NewsPaginationDto } from "./model";
 
-export const newsQuery = (data?: NewsPaginationDto) => ({
-  queryKey: [NEWS_QUERY],
-  queryFn: async () => {
-    return customFetch("/api/fmh/news", {
-      method: "GET",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }).then((r: { body: NewsDto[] }) => r.body);
-  },
-  ...{
-    staleTime: 0, // override main staleTime
-  },
-});
+export const newsQuery = (queryClient: QueryClient, data?: NewsPaginationDto) =>
+  createQuery<typeof data, NewsDto[]>(
+    queryClient,
+    "/api/fmh/news",
+    requestInitGetJSON,
+    data,
+    {
+      queryKey: [""],
+    }
+  );
