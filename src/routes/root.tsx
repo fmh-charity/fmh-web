@@ -35,6 +35,9 @@ export const RootRoute = () => {
         <li>
           <Link to="/wishes">wishes</Link>
         </li>
+        <li>
+          <Link to="/nursestations">nurse stations</Link>
+        </li>
       </ul>
       <Outlet />
     </div>

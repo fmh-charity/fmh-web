@@ -24,6 +24,22 @@ import {
 } from "./routes/resetPassword";
 import { RootRoute, loader as loaderRoot } from "./routes/root";
 import { WishesRoute, loader as loaderWishes } from "./routes/wishes";
+import {
+  NurseStationsRoute,
+  loader as loaderNurseStations,
+} from "./routes/nursestations";
+import {
+  NurseStationsIndexPage,
+  loader as loaderNurseStationsIndex,
+} from "./routes/nursestations.index";
+import {
+  NurseStationsCreatePage,
+  action as actionNurseStationsCreateOrUpdate,
+} from "./routes/nursestations.create";
+import {
+  NurseStationsIdPage,
+  loader as loaderNurseStationsById,
+} from "./routes/nursestations.id";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,6 +70,29 @@ const router = createBrowserRouter([
             path: "wishes",
             loader: loaderWishes(queryClient),
             element: <WishesRoute />,
+          },
+          {
+            path: "nursestations",
+            loader: loaderNurseStations(queryClient),
+            element: <NurseStationsRoute />,
+            children: [
+              {
+                element: <NurseStationsIndexPage />,
+                loader: loaderNurseStationsIndex(queryClient),
+                index: true,
+              },
+              {
+                path: ":id",
+                element: <NurseStationsIdPage />,
+                loader: loaderNurseStationsById(queryClient),
+                action: actionNurseStationsCreateOrUpdate(queryClient),
+              },
+              {
+                path: "create",
+                element: <NurseStationsCreatePage />,
+                action: actionNurseStationsCreateOrUpdate(queryClient),
+              },
+            ],
           },
           {
             path: "*",

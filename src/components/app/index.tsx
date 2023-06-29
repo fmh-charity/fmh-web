@@ -23,7 +23,7 @@ export const App = () => {
         <img
           alt="main logo"
           className={styles.appLogo}
-          src="/assets/icons/navbar/mainLogo.png"
+          src="/images/navbar/mainLogo.png"
         />
         <ul className={styles.linkGroup}>
           {roleTabs.ROLE_ADMINISTRATOR?.map((item) => (

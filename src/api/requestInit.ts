@@ -13,3 +13,11 @@ export const RequestInitPostJSON: RequestInit = {
     Accept: "application/json",
   },
 };
+
+export const RequestInitPutJSON: RequestInit = {
+  method: "PUT",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+};
