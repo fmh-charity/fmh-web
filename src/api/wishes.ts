@@ -1,7 +1,7 @@
 import * as api from "../api";
 import { createQuery } from ".";
 import { getEncodeURICompoponent } from "../common/utils";
-import { WISHES_QUERY, type WISH_STATUSES } from "../common/contants";
+import { WISHES_QUERY, type WISH_STATUSES } from "../common/constants";
 import type { QueryClient } from "@tanstack/react-query";
 import type { WishDto, WishPaginationDto } from "./model";
 

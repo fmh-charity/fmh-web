@@ -1,4 +1,4 @@
-import type { APP_ROLES } from "../../common/contants";
+import type { APP_ROLES } from "../../common/constants";
 import type { NavBarScreenType } from "./tabs";
 import tabsJson from "./tabs";
 

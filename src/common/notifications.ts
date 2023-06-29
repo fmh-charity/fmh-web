@@ -1,4 +1,4 @@
-import { NOTIFICATION_ADD } from "./contants";
+import { NOTIFICATION_ADD } from "./constants";
 
 class NotificationsEmitter extends EventTarget {
   addNotification(data: { label: string; text?: string }) {

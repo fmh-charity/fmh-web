@@ -1,6 +1,6 @@
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
-import { LOGIN_LOCALSTORAGE_KEY, USERINFO_LOCALSTORAGE_KEY } from "./contants";
+import { LOGIN_LOCALSTORAGE_KEY, USERINFO_LOCALSTORAGE_KEY } from "./constants";
 import { notification } from "./notifications";
 import type { LoginRequest } from "../api/model";
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFetcher, json, redirect } from "react-router-dom";
 import type { QueryClient } from "@tanstack/query-core";
 import { ensureLogin } from "../common/auth";
-import { APP_ROLES } from "../common/contants";
+import { APP_ROLES } from "../common/constants";
 import { assertObjectBySchema } from "../common/utils";
 import {
   registrationPasswordMatchSchema,

@@ -1,5 +1,5 @@
 import { configureRefreshFetch, fetchJSON } from "refresh-fetch";
-import { LOGIN_LOCALSTORAGE_KEY } from "../common/contants";
+import { LOGIN_LOCALSTORAGE_KEY } from "../common/constants";
 import type { FetchQueryOptions, QueryClient } from "@tanstack/react-query";
 
 const retrieveRefreshToken = () => {

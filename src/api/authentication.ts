@@ -11,7 +11,7 @@ import {
   REGISTRATION_QUERY,
   ROLES_QUERY,
   USERINFO_QUERY,
-} from "../common/contants";
+} from "../common/constants";
 import { createQuery } from ".";
 import type { QueryClient } from "@tanstack/react-query";
 
