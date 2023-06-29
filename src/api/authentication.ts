@@ -11,7 +11,7 @@ import {
   REGISTRATION_QUERY,
   ROLES_QUERY,
   USERINFO_QUERY,
-} from "../shared/contants";
+} from "../common/contants";
 import { createQuery } from ".";
 import type { QueryClient } from "@tanstack/react-query";
 
@@ -38,9 +38,6 @@ export const loginQuery = (queryClient: QueryClient, data: LoginRequest) =>
       })
         .then((r) => r.json())
         .catch((r) => r);
-    },
-    ...{
-      staleTime: 0, // override main staleTime
     },
   });
 

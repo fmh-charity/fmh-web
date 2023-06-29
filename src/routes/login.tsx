@@ -6,9 +6,9 @@ import {
   useFetcher,
   Link,
 } from "react-router-dom";
-import { assertObjectBySchema } from "../shared/utils";
+import { assertObjectBySchema } from "../common/utils";
 import { loginSchema } from "../validation/login";
-import { doLogin, ensureLogin } from "../shared/auth";
+import { doLogin, ensureLogin } from "../common/auth";
 import type { LoginRequest } from "../api/model";
 
 export const loader =

@@ -2,9 +2,9 @@ import * as api from "../api";
 import { useState } from "react";
 import { useFetcher, json, redirect } from "react-router-dom";
 import type { QueryClient } from "@tanstack/query-core";
-import { ensureLogin } from "../shared/auth";
-import { APP_ROLES } from "../shared/contants";
-import { assertObjectBySchema } from "../shared/utils";
+import { ensureLogin } from "../common/auth";
+import { APP_ROLES } from "../common/contants";
+import { assertObjectBySchema } from "../common/utils";
 import {
   registrationPasswordMatchSchema,
   registrationSchema,

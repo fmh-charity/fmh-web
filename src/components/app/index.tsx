@@ -1,11 +1,11 @@
 import { Outlet, useLoaderData } from "react-router-dom";
-import { useAuthBroadcastRevalidator } from "../../shared/hooks";
+import { useAuthBroadcastRevalidator } from "../../common/hooks";
 import NavBarLink from "../navbar-link";
 import roleTabs from "./roleTabs";
 import { Notifications } from "../notifications";
 import styles from "./styles.module.less";
 import type { QueryClient } from "@tanstack/react-query";
-import { ensureUserInfo } from "../../shared/auth";
+import { ensureUserInfo } from "../../common/auth";
 
 export const loader = (queryClient: QueryClient) => async () => {
   return await ensureUserInfo(queryClient);

@@ -1,5 +1,5 @@
 import { configureRefreshFetch, fetchJSON } from "refresh-fetch";
-import { LOGIN_LOCALSTORAGE_KEY } from "../shared/contants";
+import { LOGIN_LOCALSTORAGE_KEY } from "../common/contants";
 import type { FetchQueryOptions, QueryClient } from "@tanstack/react-query";
 
 const retrieveRefreshToken = () => {
@@ -119,14 +119,14 @@ export const customFetch = configureRefreshFetch({
  const newsQuery: NewsDto[] - response data
 
  export const newsQuery = (queryClient: QueryClient, data?: NewsPaginationDto) =>
-  createQuery<typeof data, NewsDto[]>(
+  createQuery<NewsDto[], typeof data>(
     queryClient,
     "/api/fmh/news",
     requestInitGetJSON,
-    data,
     {
       queryKey: [""],
-    }
+    },
+    data,
   );
  */
 

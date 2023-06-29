@@ -27,7 +27,7 @@ import { RootRoute, loader as loaderRoot } from "./routes/root";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 10,
+      staleTime: 0, // 1000 * 10,
     },
   },
 });

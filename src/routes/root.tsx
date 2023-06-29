@@ -1,7 +1,7 @@
 import type { QueryClient } from "@tanstack/react-query";
 import { Outlet, redirect } from "react-router";
 import { Link } from "react-router-dom";
-import { ensureLogin } from "../shared/auth";
+import { ensureLogin } from "../common/auth";
 
 export const loader =
   (queryClient: QueryClient) =>

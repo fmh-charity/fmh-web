@@ -1,6 +1,6 @@
 import type { QueryClient } from "@tanstack/react-query";
 import { redirect } from "react-router-dom";
-import { doLogout } from "../shared/auth";
+import { doLogout } from "../common/auth";
 
 export const loader = (queryClient: QueryClient) => async () => {
   await doLogout(queryClient);

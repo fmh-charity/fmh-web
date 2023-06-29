@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { notification } from "../../shared/notifications";
+import { notification } from "../../common/notifications";
 import styles from "./styles.module.less";
-import { NOTIFICATION_ADD } from "../../shared/contants";
+import { NOTIFICATION_ADD } from "../../common/contants";
 
 type Notification = {
   id: number;
