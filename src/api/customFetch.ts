@@ -160,8 +160,9 @@ export const createQuery: CreateQuery = <U, T>(
       return customFetch(
         url,
         body ? Object.assign(options, { body: JSON.stringify(body) }) : options
-      ).then((r: { body: U }) => r.body);
-      // TODO catch
+      )
+        .then((r: { body: U }) => r.body)
+        .catch((error: Error) => error);
     },
   });
 };

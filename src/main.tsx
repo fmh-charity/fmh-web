@@ -23,6 +23,7 @@ import {
   loader as loaderResetPassword,
 } from "./routes/resetPassword";
 import { RootRoute, loader as loaderRoot } from "./routes/root";
+import { WishesRoute, loader as loaderWishes } from "./routes/wishes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
             path: "news",
             loader: loaderNews(queryClient),
             element: <NewsRoute />,
+          },
+          {
+            path: "wishes",
+            loader: loaderWishes(queryClient),
+            element: <WishesRoute />,
           },
           {
             path: "*",

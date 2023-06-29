@@ -18,3 +18,10 @@ export const assertObjectBySchema = (obj: any, schema: any) => {
   }
   return false;
 };
+
+export const getEncodeURICompoponent = <T extends object>(data: T) =>
+  encodeURIComponent(
+    Object.entries(data)
+      .map(([key, value]) => `${key}=${value}`)
+      .join("&")
+  );

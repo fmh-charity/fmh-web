@@ -48,3 +48,16 @@ export const APP_ROLES = [
 // notifications
 
 export const NOTIFICATION_ADD = "NOTIFICATION_ADD";
+
+// wishes
+
+export const WISHES_QUERY = "WISHES_QUERY";
+
+export const WISH_STATUSES = {
+  IN_PROGRESS: "IN_PROGRESS",
+  CANCELLED: "CANCELLED",
+  OPEN: "OPEN",
+  EXECUTED: "EXECUTED",
+  READY: "READY",
+  READY_CHECK: "READY_CHECK",
+};

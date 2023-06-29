@@ -24,7 +24,18 @@ export const loader =
 export const RootRoute = () => {
   return (
     <div>
-      hi there! <Link to="/logout">logout</Link>
+      <h1>В хосписе</h1>
+      <ul>
+        <li>
+          <Link to="/logout">logout</Link>
+        </li>
+        <li>
+          <Link to="/news">news</Link>
+        </li>
+        <li>
+          <Link to="/wishes">wishes</Link>
+        </li>
+      </ul>
       <Outlet />
     </div>
   );
