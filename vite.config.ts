@@ -12,10 +12,7 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
-      less: {
-        // eslint-disable-next-line quotes
-        additionalData: '@import "/src/styles/variables.less";',
-      },
+      less: {},
     },
   },
 });

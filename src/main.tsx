@@ -1,6 +1,4 @@
-import "normalize.css";
-import "./styles/fonts.css";
-import "./styles/index.less";
+import "./index.less";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactDOM from "react-dom/client";
