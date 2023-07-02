@@ -5,6 +5,7 @@ import { loginSchema } from "../validation/login";
 import { doLogin, ensureLogin } from "../common/auth";
 import type { LoginRequest } from "../api/model";
 import { Login } from "../components/login";
+import { notification } from "../common/notifications";
 
 export const loader =
   (queryClient: QueryClient) =>
@@ -37,7 +38,19 @@ export const action =
       login,
       password,
     } as LoginRequest);
-    if (loginErrors) return loginErrors;
+
+    // TODO typings
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (loginErrors.code === "ERR_INVALID_LOGIN") {
+      notification.addNotification({
+        label: "ERR_INVALID_LOGIN",
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        text: loginErrors.message,
+      });
+    }
+    if (loginErrors) return json(loginErrors);
 
     return redirect(redirectTo === "/login" ? "/" : (redirectTo as string));
   };

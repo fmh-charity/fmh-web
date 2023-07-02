@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import React, { forwardRef } from "react";
+import React from "react";
 import styles from "./index.module.less";
 
 export const Input: React.FC<{

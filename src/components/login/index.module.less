@@ -2,12 +2,29 @@
 
 .login {
   display: grid;
+  padding: 0 136px;
+  background-color: white;
+
   form {
     display: grid;
     grid-auto-flow: row;
     align-content: flex-start;
     grid-row-gap: 20px;
     padding-top: 200px;
+
+    .form {
+      display: grid;
+      padding-top: 40px;
+      grid-auto-flow: row;
+      align-content: flex-start;
+      grid-row-gap: 20px;
+    }
+
+    .button {
+      display: grid;
+      height: 48px;
+      margin-top: 52px;
+    }
 
     .welcome {
       display: grid;
@@ -36,6 +53,7 @@
       display: grid;
       height: 1px;
       background-color: @color-gray;
+      margin: 40px 0;
     }
   }
 }
