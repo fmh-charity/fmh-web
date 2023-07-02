@@ -1,11 +1,14 @@
 import type { QueryClient } from "@tanstack/react-query";
-import { Outlet, redirect } from "react-router";
-import { Link } from "react-router-dom";
+import { redirect } from "react-router";
 import { ensureLogin } from "../common/auth";
+import type { CreateLoader } from "../api";
+import { Root } from "../components/root";
+import { useLoaderData } from "react-router-dom";
+import type { JwtResponse } from "../api/model";
 
-export const loader =
+export const loader: CreateLoader =
   (queryClient: QueryClient) =>
-  async ({ request }: { request: Request }) => {
+  async ({ request }) => {
     const session = await ensureLogin(queryClient);
     if (session) {
       return session;
@@ -22,24 +25,6 @@ export const loader =
   };
 
 export const RootRoute = () => {
-  return (
-    <div>
-      <h1>В хосписе</h1>
-      <ul>
-        <li>
-          <Link to="/logout">logout</Link>
-        </li>
-        <li>
-          <Link to="/news">news</Link>
-        </li>
-        <li>
-          <Link to="/wishes">wishes</Link>
-        </li>
-        <li>
-          <Link to="/nursestations">nurse stations</Link>
-        </li>
-      </ul>
-      <Outlet />
-    </div>
-  );
+  const data = useLoaderData() as JwtResponse;
+  return <Root />;
 };

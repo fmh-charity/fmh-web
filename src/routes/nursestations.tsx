@@ -1,10 +1,11 @@
-import * as api from "../api";
+import type * as api from "../api";
 import { Link, Outlet, json } from "react-router-dom";
 import type { QueryClient } from "@tanstack/react-query";
 
-export const loader = (queryClient: QueryClient) => async () => {
-  return "";
-};
+export const loader: api.CreateLoader =
+  (queryClient: QueryClient) => async () => {
+    return "";
+  };
 
 export const NurseStationsRoute = () => {
   return (

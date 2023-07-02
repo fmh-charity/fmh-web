@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFetcher, json, redirect } from "react-router-dom";
 import type { QueryClient } from "@tanstack/query-core";
 import { ensureLogin } from "../common/auth";
-import { APP_ROLES } from "../common/constants";
+import { APP_ROLES } from "../common/roles";
 import { assertObjectBySchema } from "../common/utils";
 import {
   registrationPasswordMatchSchema,
@@ -11,15 +11,16 @@ import {
 } from "../validation/registration";
 import type { RegistrationRequest } from "../api/model";
 
-export const loader = (queryClient: QueryClient) => async () => {
-  const session = await ensureLogin(queryClient);
-  if (session) {
-    return redirect("/");
-  }
-  return json({});
-};
+export const loader: api.CreateLoader =
+  (queryClient: QueryClient) => async () => {
+    const session = await ensureLogin(queryClient);
+    if (session) {
+      return redirect("/");
+    }
+    return json({});
+  };
 
-export const action =
+export const action: api.CreateAction =
   (queryClient: QueryClient) =>
   async ({ request }: { request: Request }) => {
     const formData = await request.formData();

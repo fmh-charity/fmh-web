@@ -3,10 +3,13 @@ import { Link, json, useLoaderData } from "react-router-dom";
 import type { QueryClient } from "@tanstack/react-query";
 import type { NurseStationDto } from "../api/model";
 
-export const loader = (queryClient: QueryClient) => async () => {
-  const nurseStations = await api.nurseStations.nurseStationsQuery(queryClient);
-  return json(nurseStations);
-};
+export const loader: api.CreateLoader =
+  (queryClient: QueryClient) => async () => {
+    const nurseStations = await api.nurseStations.nurseStationsQuery(
+      queryClient
+    );
+    return json(nurseStations);
+  };
 
 export const NurseStationsIndexPage = () => {
   const nurseStations = useLoaderData() as NurseStationDto[];

@@ -1,0 +1,29 @@
+@import "../../variables.less";
+
+.splitComponent {
+  display: grid;
+  align-self: stretch;
+  grid-template-columns: 1fr 1fr;
+}
+
+.left {
+  display: grid;
+  background-color: @color-primary;
+  grid-template-rows: max-content 1fr;
+  .leftLogo {
+    display: grid;
+    align-items: baseline;
+    justify-content: center;
+    padding-top: 200px;
+  }
+  .leftText {
+    display: grid;
+    text-align: justify;
+    padding: 85px 66px 0 66px;
+  }
+  .leftSign {
+    display: grid;
+    text-align: center;
+    padding: 30px 66px;
+  }
+}

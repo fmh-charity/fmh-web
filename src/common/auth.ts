@@ -2,28 +2,32 @@ import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { LOGIN_LOCALSTORAGE_KEY, USERINFO_LOCALSTORAGE_KEY } from "./constants";
 import { notification } from "./notifications";
-import type { LoginRequest } from "../api/model";
+import type { JwtResponse, LoginRequest, UserInfoDto } from "../api/model";
 
 export const authBroadcastChannel = new BroadcastChannel(
   "auth-broadcast-channel"
 );
 
-const ensureSession = (key: string) => async (queryClient: QueryClient) => {
-  let storageValue = null;
-  try {
-    const session = window?.localStorage.getItem(key);
-    if (session) {
-      storageValue = JSON.parse(session);
+const ensureSession =
+  <T>(key: string): ((queryClient: QueryClient) => Promise<T>) =>
+  async (queryClient: QueryClient) => {
+    let storageValue = null;
+    try {
+      const session = window?.localStorage.getItem(key);
+      if (session) {
+        storageValue = JSON.parse(session);
+      }
+    } catch (e) {
+      doLogout(queryClient);
+      console.error(e);
     }
-  } catch (e) {
-    doLogout(queryClient);
-    console.error(e);
-  }
-  return storageValue;
-};
+    return storageValue;
+  };
 
-export const ensureLogin = ensureSession(LOGIN_LOCALSTORAGE_KEY);
-export const ensureUserInfo = ensureSession(USERINFO_LOCALSTORAGE_KEY);
+export const ensureLogin = ensureSession<JwtResponse>(LOGIN_LOCALSTORAGE_KEY);
+export const ensureUserInfo = ensureSession<UserInfoDto>(
+  USERINFO_LOCALSTORAGE_KEY
+);
 
 export const doLogin = async (queryClient: QueryClient, data: LoginRequest) => {
   try {

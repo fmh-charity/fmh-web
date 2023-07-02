@@ -4,9 +4,9 @@ import type { QueryClient } from "@tanstack/react-query";
 import type { NurseStationDtoRq } from "../api/model";
 import { NurseStationsForm } from "../components/nurse-stations/NurseStationForm";
 
-export const action =
+export const action: api.CreateAction =
   (queryClient: QueryClient) =>
-  async ({ request }: { request: Request }) => {
+  async ({ request }) => {
     const formData = await request.formData();
     const { intent, id, name, comment } = Object.fromEntries(formData);
 

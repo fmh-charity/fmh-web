@@ -1,6 +1,8 @@
 import { configureRefreshFetch, fetchJSON } from "refresh-fetch";
 import { LOGIN_LOCALSTORAGE_KEY } from "../common/constants";
 import type { FetchQueryOptions, QueryClient } from "@tanstack/react-query";
+import { notification } from "../common/notifications";
+import type { ActionFunction, LoaderFunction } from "react-router-dom";
 
 const retrieveRefreshToken = () => {
   try {
@@ -54,11 +56,13 @@ const shouldRefreshToken = (error: any) => {
   console.log("shouldRefreshToken", error);
   return (
     // TODO check real message
-    error.response.status === 401 && error.body.message === "Token has expired"
+    error.response.status === 401 &&
+    error.response.statusText === "Unauthorized"
   );
 };
 
 const refreshToken = async () => {
+  console.log("refreshToken");
   try {
     const response = await fetchJSONWithToken("/authentication/refresh", {
       method: "POST",
@@ -72,6 +76,10 @@ const refreshToken = async () => {
     return response;
   } catch (error) {
     clearToken();
+    notification.addNotification({
+      label: "Внимание",
+      text: "Кончился срок действия сессии",
+    });
     throw error;
   }
 };
@@ -166,3 +174,11 @@ export const createQuery: CreateQuery = <U, T>(
     },
   });
 };
+
+export interface CreateLoader {
+  (queryClient: QueryClient): LoaderFunction;
+}
+
+export interface CreateAction {
+  (queryClient: QueryClient): ActionFunction;
+}

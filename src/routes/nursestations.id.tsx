@@ -4,14 +4,18 @@ import type { QueryClient } from "@tanstack/react-query";
 import { NurseStationsForm } from "../components/nurse-stations/NurseStationForm";
 import type { NurseStationDto } from "../api/model";
 
-export const loader =
+export const loader: api.CreateLoader =
   (queryClient: QueryClient) =>
-  async ({ params }: { params: any }) => {
-    const nurseStations = await api.nurseStations.nurseStationByIdQuery(
-      queryClient,
-      params.id
-    );
-    return json(nurseStations);
+  async ({ params }) => {
+    if (params.id) {
+      const nurseStations = await api.nurseStations.nurseStationByIdQuery(
+        queryClient,
+        params.id
+      );
+      return json(nurseStations);
+    } else {
+      return json({ error: "nursestations.index no id provided" });
+    }
   };
 
 export const NurseStationsIdPage = () => {

@@ -1,0 +1,23 @@
+@import "../../variables.less";
+
+.wrapper {
+  display: grid;
+  position: fixed;
+  height: 88px;
+  inset: 0 0 auto 286px;
+  background-color: @color-light-gray2;
+  z-index: 10;
+  padding: 0 24px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr max-content max-content max-content max-content;
+  align-items: center;
+  grid-column-gap: 20px;
+}
+
+.column {
+  display: grid;
+  align-items: center;
+}
