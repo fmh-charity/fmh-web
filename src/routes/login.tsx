@@ -42,14 +42,15 @@ export const action =
     // TODO typings
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    if (loginErrors.code === "ERR_INVALID_LOGIN") {
-      notification.addNotification({
+    if (loginErrors?.code === "ERR_INVALID_LOGIN") {
+      notification?.addNotification({
         label: "ERR_INVALID_LOGIN",
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        text: loginErrors.message,
+        text: loginErrors?.message,
       });
     }
+
     if (loginErrors) return json(loginErrors);
 
     return redirect(redirectTo === "/login" ? "/" : (redirectTo as string));
