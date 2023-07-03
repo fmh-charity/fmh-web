@@ -4,6 +4,7 @@ import styles from "./index.module.less";
 import { Input } from "../input";
 import { Button } from "../button";
 import { Icon } from "../icon";
+import { ButtonLink } from "../button-link";
 
 export const Login = () => {
   const redirectTo = useLoaderData() as string;
@@ -35,19 +36,32 @@ export const Login = () => {
                 error={fetcher.data?.password}
               />
             </div>
-            <div className={styles.button}>
-              <Button type="submit" disabled={fetcher.state === "submitting"}>
-                Войти
-              </Button>
-            </div>
-            <div className={styles.separator}>
-              <div className={styles.line} />
-              <Icon.Heart16 />
-              <div className={styles.line} />
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <Link to="/registration">Зарегистрироваться</Link> |{" "}
-              <Link to="/passwordReset">Сбросить пароль</Link>
+            <div className={styles.controls}>
+              <div className={styles.button}>
+                <Button
+                  intent="primary"
+                  type="submit"
+                  justify="center"
+                  disabled={fetcher.state === "submitting"}
+                >
+                  Войти
+                </Button>
+              </div>
+              <div className={styles.separator}>
+                <div className={styles.line} />
+                <Icon.Heart16 />
+                <div className={styles.line} />
+              </div>
+
+              <div className={styles.button}>
+                <ButtonLink
+                  to="/registration"
+                  intent="secondary"
+                  justify="center"
+                >
+                  Регистрация
+                </ButtonLink>
+              </div>
             </div>
             <input type="hidden" name="redirectTo" defaultValue={redirectTo} />
           </fetcher.Form>

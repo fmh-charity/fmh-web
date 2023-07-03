@@ -1,11 +1,12 @@
 import React from "react";
-import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import classNames from "classnames";
 import styles from "./index.module.less";
+import { Link, type LinkProps } from "react-router-dom";
 
-export const Button: React.FC<
+export const ButtonLink: React.FC<
   PropsWithChildren<
-    ButtonHTMLAttributes<HTMLButtonElement> & {
+    LinkProps & {
       intent: "primary" | "secondary";
       justify?: "left" | "center" | "right";
     }
@@ -13,7 +14,7 @@ export const Button: React.FC<
 > = (props) => {
   console.log(props);
   return (
-    <button {...props} className={classNames(styles.button)}>
+    <Link {...props} className={classNames(styles.button)}>
       <span
         className={classNames(
           styles.wrapper,
@@ -23,6 +24,6 @@ export const Button: React.FC<
       >
         {props.children}
       </span>
-    </button>
+    </Link>
   );
 };
