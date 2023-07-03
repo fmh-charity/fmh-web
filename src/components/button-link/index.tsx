@@ -12,7 +12,6 @@ export const ButtonLink: React.FC<
     }
   >
 > = (props) => {
-  console.log(props);
   return (
     <Link {...props} className={classNames(styles.button)}>
       <span

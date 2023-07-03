@@ -1,4 +1,4 @@
-import { Link, useFetcher, useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router-dom";
 import { SplitComponent, SplitLeft } from "../split-component";
 import styles from "./index.module.less";
 import { Input } from "../input";
@@ -27,13 +27,15 @@ export const Login = () => {
                 label="Логин"
                 defaultValue="login1"
                 error={fetcher.data?.login}
+                placeholder="Email"
               />
               <Input
-                type="text"
+                type="password"
                 name="password"
                 label="Пароль"
                 defaultValue="password1"
                 error={fetcher.data?.password}
+                placeholder="Пароль"
               />
             </div>
             <div className={styles.controls}>

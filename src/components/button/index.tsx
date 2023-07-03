@@ -11,7 +11,6 @@ export const Button: React.FC<
     }
   >
 > = (props) => {
-  console.log(props);
   return (
     <button {...props} className={classNames(styles.button)}>
       <span

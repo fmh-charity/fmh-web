@@ -1,0 +1,41 @@
+@import "../../variables.less";
+
+.registration {
+  display: grid;
+  padding: 200px 136px 0 136px;
+  box-sizing: border-box;
+
+  form {
+    display: grid;
+    grid-auto-flow: row;
+    align-content: flex-start;
+    grid-row-gap: 24px;
+
+    .welcome {
+      display: grid;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 0em;
+      text-align: center;
+      color: @color-primary;
+    }
+    .button {
+      display: grid;
+      height: 48px;
+    }
+
+    .step1 {
+      display: grid;
+      grid-auto-flow: row;
+      align-content: flex-start;
+      grid-row-gap: 24px;
+    }
+    .gotoLogin {
+      display: grid;
+      justify-content: center;
+      grid-template-columns: max-content max-content;
+      grid-column-gap: 8px;
+    }
+  }
+}
