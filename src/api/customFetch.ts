@@ -143,23 +143,23 @@ interface CreateQuery {
     queryClient: QueryClient,
     url: string,
     options: RequestInit,
-    queryOptions: FetchQueryOptions<T, unknown, U, string[]>,
+    queryOptions: FetchQueryOptions<T, unknown, U, (string | number)[]>,
     body?: T
-  ): Promise<U>;
+  ): Promise<{ body: U; error: any }>;
   <U>(
     queryClient: QueryClient,
     url: string,
     options: RequestInit,
-    queryOptions: FetchQueryOptions<unknown, unknown, U, string[]>,
+    queryOptions: FetchQueryOptions<unknown, unknown, U, (string | number)[]>,
     body?: undefined
-  ): Promise<U>;
+  ): Promise<{ body: U; error: any }>;
 }
 
 export const createQuery: CreateQuery = <U, T>(
   queryClient: QueryClient,
   url: string,
   options: RequestInit,
-  queryOptions: FetchQueryOptions<T, unknown, U, string[]>,
+  queryOptions: FetchQueryOptions<T, unknown, U, (string | number)[]>,
   body?: T
 ) => {
   return queryClient.fetchQuery({
@@ -169,8 +169,8 @@ export const createQuery: CreateQuery = <U, T>(
         url,
         body ? Object.assign(options, { body: JSON.stringify(body) }) : options
       )
-        .then((r: { body: U }) => r.body)
-        .catch((error: Error) => error);
+        .then((r: { body: U }) => ({ body: r.body }))
+        .catch((error: Error) => ({ error }));
     },
   });
 };

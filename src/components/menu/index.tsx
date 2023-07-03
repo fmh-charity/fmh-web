@@ -27,7 +27,10 @@ const MenuGroup = ({ item }: { item: MenuItemGroup }) => {
           <button
             className={styles.groupCollapse}
             type="button"
-            onClick={() => setCollapse((c) => !c)}
+            onClick={(e) => {
+              e.preventDefault();
+              setCollapse((c) => !c);
+            }}
           >
             {collapse ? <Icon.Up16 /> : <Icon.Down16 />}
           </button>

@@ -8,6 +8,7 @@ import type {
 } from "./model";
 import {
   NURSE_STATIONS_CREATE_QUERY,
+  NURSE_STATIONS_ID_QUERY,
   NURSE_STATIONS_QUERY,
   NURSE_STATIONS_UPDATE_QUERY,
 } from "../common/constants";
@@ -31,7 +32,7 @@ export const nurseStationByIdQuery = (
     "/api/fmh/nurse_stations/" + id,
     api.requestInit.RequestInitGetJSON,
     {
-      queryKey: [NURSE_STATIONS_QUERY],
+      queryKey: [NURSE_STATIONS_ID_QUERY, id],
     }
   );
 

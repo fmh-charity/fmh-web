@@ -8,7 +8,7 @@ export const loader: api.CreateLoader =
     const nurseStations = await api.nurseStations.nurseStationsQuery(
       queryClient
     );
-    return json(nurseStations);
+    return json(nurseStations.body);
   };
 
 export const NurseStationsIndexPage = () => {

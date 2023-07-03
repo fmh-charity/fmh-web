@@ -8,11 +8,11 @@ export const loader: api.CreateLoader =
   (queryClient: QueryClient) =>
   async ({ params }) => {
     if (params.id) {
-      const nurseStations = await api.nurseStations.nurseStationByIdQuery(
+      const nurseStation = await api.nurseStations.nurseStationByIdQuery(
         queryClient,
         params.id
       );
-      return json(nurseStations);
+      return json(nurseStation.body);
     } else {
       return json({ error: "nursestations.index no id provided" });
     }

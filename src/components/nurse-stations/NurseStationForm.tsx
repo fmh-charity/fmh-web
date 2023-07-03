@@ -1,4 +1,4 @@
-import { useFetcher } from "react-router-dom";
+import { Link, useFetcher } from "react-router-dom";
 import type { NurseStationDto } from "../../api/model";
 
 export const NurseStationsForm = ({
@@ -16,6 +16,9 @@ export const NurseStationsForm = ({
   return (
     <div>
       <h1>{title}</h1>
+      <h4>
+        <Link to="/nursestations">back</Link>
+      </h4>
       <fetcher.Form method="POST">
         <div>
           <div>

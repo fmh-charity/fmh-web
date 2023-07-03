@@ -3,6 +3,7 @@ import { json, redirect } from "react-router-dom";
 import type { QueryClient } from "@tanstack/react-query";
 import type { NurseStationDtoRq } from "../api/model";
 import { NurseStationsForm } from "../components/nurse-stations/NurseStationForm";
+import { notification } from "../common/notifications";
 
 export const action: api.CreateAction =
   (queryClient: QueryClient) =>
@@ -21,8 +22,20 @@ export const action: api.CreateAction =
               comment,
             } as NurseStationDtoRq);
 
-          if (nurseStationCreate.id) {
-            return redirect("/nursestations/" + nurseStationCreate.id);
+          if (nurseStationCreate.error) {
+            notification.addNotification({
+              label: nurseStationCreate?.error?.code,
+              text: nurseStationCreate?.error?.code,
+            });
+          } else {
+            notification.addNotification({
+              label: "Успешно",
+              text: "пост создался",
+            });
+          }
+
+          if (nurseStationCreate.body.id) {
+            return redirect("/nursestations/" + nurseStationCreate.body.id);
           }
         }
         break;
@@ -36,6 +49,18 @@ export const action: api.CreateAction =
               comment,
             } as NurseStationDtoRq
           );
+
+        if (nurseStationUpdate.error) {
+          notification.addNotification({
+            label: nurseStationUpdate?.error?.code,
+            text: nurseStationUpdate?.error?.code,
+          });
+        } else {
+          notification.addNotification({
+            label: "Успешно",
+            text: "пост сохранился",
+          });
+        }
 
         console.log({ nurseStationUpdate });
       }
