@@ -3,7 +3,7 @@ import styles from "./index.module.less";
 import { Icon } from "../icon";
 
 export const Input: React.FC<{
-  type: "text" | "password";
+  type: "text" | "password" | "datetime-local";
   name: string;
   label: string;
   error: string;

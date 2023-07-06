@@ -2,14 +2,20 @@
 
 .registration {
   display: grid;
-  padding: 200px 136px 0 136px;
   box-sizing: border-box;
+  padding: 0 136px;
+  align-items: center;
+  background-color: white;
 
   form {
     display: grid;
     grid-auto-flow: row;
     align-content: flex-start;
     grid-row-gap: 24px;
+
+    .hidden {
+      display: none !important;
+    }
 
     .welcome {
       display: grid;
@@ -20,22 +26,25 @@
       text-align: center;
       color: @color-primary;
     }
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 20px;
+    }
     .button {
       display: grid;
       height: 48px;
     }
 
-    .step1 {
+    .step {
       display: grid;
       grid-auto-flow: row;
       align-content: flex-start;
       grid-row-gap: 24px;
     }
+
     .gotoLogin {
-      display: grid;
-      justify-content: center;
-      grid-template-columns: max-content max-content;
-      grid-column-gap: 8px;
+      text-align: center;
     }
   }
 }

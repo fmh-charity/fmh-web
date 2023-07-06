@@ -1,5 +1,5 @@
 import { useFetcher, useLoaderData } from "react-router-dom";
-import { SplitComponent, SplitLeft } from "../split-component";
+import { SplitComponent } from "../split-component";
 import styles from "./index.module.less";
 import { Input } from "../input";
 import { Button } from "../button";
@@ -12,7 +12,6 @@ export const Login = () => {
 
   return (
     <SplitComponent
-      left={<SplitLeft />}
       right={
         <div className={styles.login}>
           <fetcher.Form method="POST">

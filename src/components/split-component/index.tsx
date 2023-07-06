@@ -22,12 +22,12 @@ export const SplitComponent = ({
   left,
   right,
 }: {
-  left: React.ReactNode;
+  left?: React.ReactNode;
   right: React.ReactNode;
 }) => {
   return (
     <div className={styles.splitComponent}>
-      {left}
+      {left || <SplitLeft />}
       {right}
     </div>
   );
