@@ -4,11 +4,18 @@ import type { MenuItemGroup, MenuItem as MenuItemT } from "./menuItems"; // mad 
 import { footerMenu, menu } from "./menuItems";
 import { Icon } from "../icon";
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
 
 const MenuItem = ({ item }: { item: MenuItemT }) => {
   return (
     <div>
-      <NavLink to={item.to} className={styles.item}>
+      <NavLink
+        to={item.to}
+        className={({ isActive }) => {
+          console.log({ isActive });
+          return clsx({ [styles.item]: true, [styles.isActive]: isActive });
+        }}
+      >
         <item.Icon />
         <span>{item.title}</span>
       </NavLink>
@@ -21,7 +28,15 @@ const MenuGroup = ({ item }: { item: MenuItemGroup }) => {
   return (
     <div className={styles.group}>
       <div>
-        <NavLink to={item.to} className={styles.groupHeader}>
+        <NavLink
+          to={item.to}
+          className={({ isActive }) =>
+            clsx({
+              [styles.isActive]: isActive, //only when open === true
+              [styles.groupHeader]: true, //always applies
+            })
+          }
+        >
           <item.Icon />
           <span>{item.title}</span>
           <button

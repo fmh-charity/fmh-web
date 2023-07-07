@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useAuthBroadcastRevalidator } from "../../common/hooks";
 import { Notifications } from "../notifications";
 import styles from "./index.module.less";
@@ -10,9 +10,6 @@ export const loader = (queryClient: QueryClient) => async () => {
 };
 
 export const App = () => {
-  const data = useLoaderData();
-  console.log({ data });
-
   useAuthBroadcastRevalidator();
 
   return (

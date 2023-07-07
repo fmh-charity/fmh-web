@@ -21,7 +21,6 @@ import {
   loader as loaderResetPassword,
 } from "./routes/resetPassword";
 import { RootRoute, loader as loaderRoot } from "./routes/root";
-import { WishesRoute, loader as loaderWishes } from "./routes/wishes";
 import {
   NurseStationsRoute,
   loader as loaderNurseStations,
@@ -38,11 +37,22 @@ import {
   NurseStationsIdPage,
   loader as loaderNurseStationsById,
 } from "./routes/nursestations.id";
+import { WishesRoute } from "./routes/wishes";
+import {
+  WishesIndexRoute,
+  loader as loaderWishesIndex,
+} from "./routes/wishes.index";
+import { WishesIdRoute, loader as loaderWishesId } from "./routes/wishes.id";
+import {
+  WishesCreateRoute,
+  loader as loaderWishesCreate,
+  action as actionWishesCreate,
+} from "./routes/wishes.create";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0, // 1000 * 10,
+      staleTime: 0,
     },
   },
 });
@@ -66,8 +76,25 @@ const router = createBrowserRouter([
           },
           {
             path: "wishes",
-            loader: loaderWishes(queryClient),
             element: <WishesRoute />,
+            children: [
+              {
+                index: true,
+                loader: loaderWishesIndex(queryClient),
+                element: <WishesIndexRoute />,
+              },
+              {
+                path: ":id",
+                loader: loaderWishesId(queryClient),
+                element: <WishesIdRoute />,
+              },
+              {
+                path: "create",
+                loader: loaderWishesCreate(queryClient),
+                action: actionWishesCreate(queryClient),
+                element: <WishesCreateRoute />,
+              },
+            ],
           },
           {
             path: "nursestations",
