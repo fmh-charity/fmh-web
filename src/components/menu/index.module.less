@@ -10,11 +10,15 @@
   background-color: white;
   z-index: 11;
   grid-template-rows: max-content 1fr max-content;
+  border-right: 1px solid @color-light-gray;
 
   .isActive {
     background-color: @color-primary;
     border-radius: 8px;
     color: white !important;
+    .icon {
+      color: inherit !important;
+    }
   }
 
   .logo {
@@ -48,6 +52,12 @@
           background-color: @color-primary;
           border-radius: 8px;
           color: white;
+          .icon {
+            color: inherit !important;
+          }
+        }
+        .icon {
+          color: @color-primary;
         }
       }
       .group {
@@ -62,10 +72,18 @@
           padding: 12px 16px;
           color: @color-dark-gray;
           text-decoration: none;
+
+          .icon {
+            color: @color-primary;
+          }
+
           &:hover {
             background-color: @color-primary;
             border-radius: 8px;
             color: white;
+            .icon {
+              color: white;
+            }
           }
           .groupCollapse {
             display: grid;

@@ -14,7 +14,7 @@ const MenuItem = ({ item }: { item: MenuItemT }) => (
         clsx({ [styles.item]: true, [styles.isActive]: isActive })
       }
     >
-      <item.Icon />
+      <item.Icon className={styles.icon} />
       <span>{item.title}</span>
     </NavLink>
   </div>
@@ -34,7 +34,7 @@ const MenuGroup = ({ item }: { item: MenuItemGroup }) => {
             })
           }
         >
-          <item.Icon />
+          <item.Icon className={styles.icon} />
           <span>{item.title}</span>
           <button
             className={styles.groupCollapse}
