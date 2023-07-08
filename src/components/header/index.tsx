@@ -1,14 +1,27 @@
-import { Link, Outlet, useRoutes } from "react-router-dom";
+import { Link, Outlet, useRouteLoaderData, useRoutes } from "react-router-dom";
 import { Icon } from "../icon";
 import styles from "./index.module.less";
+import type { UserInfoDto } from "../../api/model";
+import type { Role, Roles } from "../../common/roles";
+import { getRoleNameByType } from "../../common/roles";
+import clsx from "clsx";
 
 export const Header = () => {
+  const data = useRouteLoaderData("app") as {
+    body?: UserInfoDto;
+    error?: any;
+  };
+
   const router = useRoutes([
     {
       path: "/",
       element: <Outlet />,
       children: [
         { element: <div>Главная</div>, index: true },
+        {
+          path: "profile/*",
+          element: <div>Профиль</div>,
+        },
         {
           path: "hospis",
           element: <div>Хоспис</div>,
@@ -64,22 +77,31 @@ export const Header = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <div className={styles.column}>{router}</div>
+        <div className={clsx(styles.column, styles.sectionName)}>{router}</div>
         <div className={styles.column}>
           <Icon.Notificatons24 />
         </div>
-        <div className={styles.column}>
-          <img src="/images/avatar_mock.png" alt="avatar" />
-        </div>
-        <div className={styles.column}>
-          <div>name</div>
-          <div>roles</div>
-        </div>
-        <div className={styles.column}>
-          <Link to="/logout" className={styles.column}>
-            <Icon.User24 />
-          </Link>
-        </div>
+        <Link to="/profile" className={clsx(styles.column, styles.profile)}>
+          <div className={styles.column}>
+            <img src="/images/avatar_mock.png" alt="avatar" />
+          </div>
+          <div>
+            <div className={styles.name}>
+              {data.body?.firstName} {data.body?.lastName}
+            </div>
+            <div className={styles.roles}>
+              {data.body?.roles
+                ?.map((roleType) => getRoleNameByType(roleType as Roles))
+                .filter(Boolean)
+                .map((role) => (
+                  <div key={role?.id}>{role?.roleName}</div>
+                ))}
+            </div>
+          </div>
+        </Link>
+        <Link to="/logout" className={clsx(styles.column, styles.action)}>
+          <Icon.ActionDefault24 />
+        </Link>
       </div>
     </div>
   );

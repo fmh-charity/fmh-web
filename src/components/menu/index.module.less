@@ -10,7 +10,6 @@
   background-color: white;
   z-index: 11;
   grid-template-rows: max-content 1fr max-content;
-  box-shadow: 3px 0px 4px -1px rgba(0, 0, 0, 0.1);
 
   .isActive {
     background-color: @color-primary;
@@ -76,10 +75,13 @@
             background-color: transparent;
             width: 24px;
             height: 24px;
+            color: white;
+
             &:hover {
               background-color: white;
               cursor: pointer;
               border-radius: 8px;
+              color: black;
             }
           }
         }

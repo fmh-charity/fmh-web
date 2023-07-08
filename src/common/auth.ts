@@ -9,8 +9,8 @@ export const authBroadcastChannel = new BroadcastChannel(
 );
 
 const ensureSession =
-  <T>(key: string): ((queryClient: QueryClient) => Promise<T>) =>
-  async (queryClient: QueryClient) => {
+  <T>(key: string): ((queryClient?: QueryClient) => Promise<T>) =>
+  async (queryClient?: QueryClient) => {
     let storageValue = null;
     try {
       const session = window?.localStorage.getItem(key);
@@ -18,7 +18,9 @@ const ensureSession =
         storageValue = JSON.parse(session);
       }
     } catch (e) {
-      doLogout(queryClient);
+      if (queryClient) {
+        doLogout(queryClient);
+      }
       console.error(e);
     }
     return storageValue;

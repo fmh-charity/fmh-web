@@ -1,8 +1,8 @@
 import React from "react";
 import type { PropsWithChildren } from "react";
-import classNames from "classnames";
 import styles from "./index.module.less";
 import { Link, type LinkProps } from "react-router-dom";
+import clsx from "clsx";
 
 export const ButtonLink: React.FC<
   PropsWithChildren<
@@ -13,9 +13,9 @@ export const ButtonLink: React.FC<
   >
 > = (props) => {
   return (
-    <Link {...props} className={classNames(styles.button)}>
+    <Link {...props} className={clsx(styles.button)}>
       <span
-        className={classNames(
+        className={clsx(
           styles.wrapper,
           styles[props.intent],
           styles[props.justify ?? "left"]

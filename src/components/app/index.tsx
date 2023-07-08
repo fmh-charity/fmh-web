@@ -4,8 +4,9 @@ import { Notifications } from "../notifications";
 import styles from "./index.module.less";
 import type { QueryClient } from "@tanstack/react-query";
 import { ensureUserInfo } from "../../common/auth";
+import type { CreateLoader } from "../../api";
 
-export const loader = (queryClient: QueryClient) => async () => {
+export const loader: CreateLoader = (queryClient: QueryClient) => async () => {
   return await ensureUserInfo(queryClient);
 };
 

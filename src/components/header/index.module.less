@@ -12,7 +12,7 @@
 
 .header {
   display: grid;
-  grid-template-columns: 1fr max-content max-content max-content max-content;
+  grid-template-columns: 1fr max-content max-content max-content;
   align-items: center;
   grid-column-gap: 20px;
 }
@@ -20,4 +20,48 @@
 .column {
   display: grid;
   align-items: center;
+}
+
+.sectionName {
+  font-size: 24px;
+  font-weight: 600;
+  color: @color-black;
+}
+
+.profile {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 10px;
+  justify-content: start;
+  text-decoration: none;
+}
+
+.name {
+  display: grid;
+  align-items: center;
+  //styleName: Semibold 16-24;
+  font-size: 16px;
+  font-weight: 600;
+  color: @color-dark-gray;
+}
+
+.roles {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 8px;
+  //styleName: Regular 12-16;
+  font-size: 12px;
+  font-weight: 400;
+  color: @color-dark-gray;
+}
+
+.action {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  &:hover {
+    border-radius: 50%;
+    background-color: @color-light-gray;
+  }
 }

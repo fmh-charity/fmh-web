@@ -61,10 +61,11 @@ const router = createBrowserRouter([
   {
     errorElement: <div>ups error</div>,
     element: <App />,
+    id: "app",
     loader: loaderApp(queryClient),
     children: [
       {
-        path: "/",
+        path: "*",
         loader: loaderRoot(queryClient),
         element: <RootRoute />,
         children: [

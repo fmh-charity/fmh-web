@@ -3,7 +3,7 @@
 .button {
   display: grid;
   align-items: center;
-  border: 1px solid @color-primary;
+  border: 0;
   border-radius: 8px;
 
   .primary {
@@ -11,9 +11,14 @@
     border-radius: 8px;
     font-weight: 700;
     color: white;
+    border: 1px solid @color-primary;
 
     &:hover {
-      background-color: @color-light-green;
+      background-color: @color-primary-hover;
+    }
+
+    &:active {
+      background-color: @color-primary-pressed;
     }
   }
 
@@ -22,6 +27,17 @@
     border-radius: 8px;
     font-weight: 700;
     color: @color-primary;
+    border: 1px solid @color-primary;
+
+    &:hover {
+      color: @color-primary-hover;
+      border: 2px solid @color-primary;
+    }
+
+    &:active {
+      color: white;
+      background-color: @color-primary;
+    }
   }
 
   .wrapper {

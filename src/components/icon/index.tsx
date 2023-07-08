@@ -24,6 +24,8 @@ import { ReactComponent as User24 } from "./24/user.svg";
 import { ReactComponent as Workers24 } from "./24/workers.svg";
 import { ReactComponent as Calendar24 } from "./24/Календарь.svg";
 import { ReactComponent as Ellipse24 } from "./24/ellipse.svg";
+import { ReactComponent as ActionDefault24 } from "./24/ActionDefault.svg";
+import { ReactComponent as ActionHover24 } from "./24/ActionHover.svg";
 
 import { ReactComponent as Cancel16 } from "./16/cancel.svg";
 import { ReactComponent as Change16 } from "./16/change.svg";
@@ -65,6 +67,8 @@ const Icon24Obj = {
   Workers24,
   Calendar24,
   Ellipse24,
+  ActionDefault24,
+  ActionHover24,
 };
 
 const Icon16Obj = {

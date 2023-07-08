@@ -9,40 +9,44 @@ export type Roles =
 
 export type Role = {
   id: number;
-  key: Roles;
-  name: string;
+  roleType: Roles;
+  roleName: string;
 };
 
 // App
 export const APP_ROLES: Role[] = [
   {
     id: 1,
-    key: "ROLE_ADMINISTRATOR",
-    name: "Администратор системы",
+    roleType: "ROLE_ADMINISTRATOR",
+    roleName: "Администратор системы",
   },
   {
     id: 2,
-    key: "ROLE_MEDICAL_WORKER",
-    name: "Медработник",
+    roleType: "ROLE_MEDICAL_WORKER",
+    roleName: "Медработник",
   },
   {
     id: 3,
-    key: "ROLE_VOLUNTEER",
-    name: "Волонтер",
+    roleType: "ROLE_VOLUNTEER",
+    roleName: "Волонтер",
   },
   {
     id: 4,
-    key: "ROLE_VOLUNTEER_COORDINATOR",
-    name: "Координатор волонтеров",
+    roleType: "ROLE_VOLUNTEER_COORDINATOR",
+    roleName: "Координатор волонтеров",
   },
   {
     id: 5,
-    key: "ROLE_PATIENT",
-    name: "Пациент",
+    roleType: "ROLE_PATIENT",
+    roleName: "Пациент",
   },
   {
     id: 6,
-    key: "ROLE_GUEST",
-    name: "Гость",
+    roleType: "ROLE_GUEST",
+    roleName: "Гость",
   },
 ];
+
+export const getRoleNameByType: (roleType: Roles) => Role | undefined = (
+  roleType: Roles
+) => APP_ROLES.find((r) => r.roleType === roleType);
