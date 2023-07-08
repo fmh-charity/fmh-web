@@ -29,8 +29,8 @@ const MenuGroup = ({ item }: { item: MenuItemGroup }) => {
           to={item.to}
           className={({ isActive }) =>
             clsx({
-              [styles.isActive]: isActive, //only when open === true
-              [styles.groupHeader]: true, //always applies
+              [styles.isActive]: isActive,
+              [styles.groupHeader]: true,
             })
           }
         >
