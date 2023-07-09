@@ -1,7 +1,7 @@
-import { Link, json, useLoaderData } from "react-router-dom";
+import { json } from "react-router-dom";
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
-import type { WishPaginationDto } from "../api/model";
+import { WishesIndex } from "../components/wishes-index";
 
 export const loader: api.CreateLoader =
   (queryClient: QueryClient) => async () => {
@@ -14,19 +14,5 @@ export const loader: api.CreateLoader =
   };
 
 export const WishesIndexRoute = () => {
-  const wishes = useLoaderData() as {
-    body: WishPaginationDto;
-    error: any;
-  };
-
-  return (
-    <div>
-      wishes
-      {wishes.body.elements?.map((e) => (
-        <div key={e.id}>
-          <Link to={`${e.id}`}>{e.title}</Link>
-        </div>
-      ))}
-    </div>
-  );
+  return <WishesIndex />;
 };
