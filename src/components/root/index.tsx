@@ -8,7 +8,7 @@ export const Root: React.FC = () => {
     <>
       <Sidebar />
       <Header />
-      <div className={styles.root}>
+      <div className={styles.content}>
         <div className={styles.outlet}>
           <Outlet />
         </div>
