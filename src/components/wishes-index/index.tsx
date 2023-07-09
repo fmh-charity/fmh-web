@@ -1,5 +1,6 @@
-import { Link, useLoaderData } from "react-router-dom";
-import type { WishDto, WishPaginationDto } from "../../api/model";
+/* eslint-disable react/prop-types */
+import { Link, useLoaderData, useRouteLoaderData } from "react-router-dom";
+import type { UserInfoDto, WishDto, WishPaginationDto } from "../../api/model";
 
 import {
   createColumnHelper,
@@ -9,6 +10,11 @@ import {
 } from "@tanstack/react-table";
 
 export const WishesIndex = () => {
+  const userInfo = useRouteLoaderData("app") as {
+    body?: UserInfoDto;
+    error?: any;
+  };
+
   const wishes = useLoaderData() as {
     body: WishPaginationDto;
     error: any;
@@ -17,19 +23,52 @@ export const WishesIndex = () => {
   const columnHelper = createColumnHelper<WishDto>();
 
   const columns = [
+    columnHelper.accessor("id", {
+      header: () => <span>№</span>,
+      cell: (props) => <span>{props.getValue()}</span>,
+    }),
+    columnHelper.accessor("title", {
+      header: () => <span>Просьба</span>,
+      cell: (props) => <span>{props.getValue()}</span>,
+    }),
+    columnHelper.accessor("planExecuteDate", {
+      header: () => <span>Выполнить до</span>,
+      cell: (props) => <span>{props.getValue()}</span>,
+    }),
     columnHelper.accessor("patient", {
-      header: () => <span>patient</span>,
+      header: () => <span>Для кого</span>,
       cell: (props) => {
-        // eslint-disable-next-line react/prop-types
-        console.log(props, props.getValue());
-        return "cell";
+        const { firstName, lastName, middleName } = props.getValue() || {};
+        if (firstName || lastName || middleName) {
+          return (
+            <span>
+              {firstName} {lastName} {middleName}
+            </span>
+          );
+        }
+        return "Хоспис";
       },
+    }),
+    columnHelper.accessor("status", {
+      header: () => <span>Статус</span>,
+      cell: (props) => {
+        return props.getValue();
+      },
+    }),
+    columnHelper.accessor("executor", {
+      header: () => <span>Испонитель</span>,
+      cell: (props) => <span>{props.getValue()?.lastName}</span>,
     }),
   ];
 
   const table = useReactTable({
     data: wishes.body?.elements || [],
     columns,
+    state: {
+      columnVisibility: {
+        executor: userInfo?.body?.admin || false,
+      },
+    },
     getCoreRowModel: getCoreRowModel(),
   });
 
