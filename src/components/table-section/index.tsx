@@ -1,43 +1,40 @@
-import type { PropsWithChildren, ReactNode } from "react";
-import { Button } from "../button";
+import type { PropsWithChildren } from "react";
 import { Icon } from "../icon";
-import { Input } from "../input";
 import styles from "./index.module.less";
 
 import type { Table } from "@tanstack/react-table";
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-
-const Search = () => {
-  return (
-    <div className={styles.search}>
-      <Input type="text" defaultValue="" name="search" label="" error="" />
-      <div className={styles.iconButton}>
-        <Icon.Search24 />
-      </div>
-    </div>
-  );
-};
+import { flexRender } from "@tanstack/react-table";
 
 export const TableSection = ({
   table,
   tabs,
+  buttons,
+  globalFilter,
+  setGlobalFilter,
 }: PropsWithChildren & {
   table: Table<any>;
-  tabs: JSX.Element;
+  tabs: React.ReactNode;
+  buttons: React.ReactNode;
+  globalFilter: string;
+  setGlobalFilter: (globalFilter: string) => void;
 }) => {
   return (
     <div className={styles.tableSection}>
       <div className={styles.searchWrapper}>
-        <Search />
-        <div />
-        <div className={styles.searchButtons}>
-          <Button intent="primary">button</Button>
+        <div className={styles.search}>
+          <input
+            type="text"
+            value={globalFilter}
+            name="globalFilter"
+            placeholder="Поиск"
+            onChange={(e) => setGlobalFilter(e.target.value)}
+          />
+          <div className={styles.iconButton}>
+            <Icon.Search24 />
+          </div>
         </div>
+        <div />
+        <div className={styles.buttons}>{buttons}</div>
       </div>
       <div className={styles.tabs}>{tabs}</div>
       <div className={styles.content}>
@@ -47,12 +44,26 @@ export const TableSection = ({
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
+                    {header.isPlaceholder ? null : (
+                      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+                      <div
+                        {...{
+                          className: header.column.getCanSort()
+                            ? "cursor-pointer select-none"
+                            : "",
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
+                        {{
+                          asc: " 🔼",
+                          desc: " 🔽",
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </div>
+                    )}
                   </th>
                 ))}
               </tr>
