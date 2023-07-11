@@ -1,0 +1,64 @@
+@import "../../variables.less";
+
+.login {
+  display: grid;
+  background-color: white;
+  align-items: center;
+  padding: 0 136px;
+
+  form {
+    display: grid;
+    grid-auto-flow: row;
+    align-content: flex-start;
+    grid-row-gap: 20px;
+
+    .form {
+      display: grid;
+      padding-top: 40px;
+      grid-auto-flow: row;
+      align-content: flex-start;
+      grid-row-gap: 20px;
+    }
+
+    .controls {
+      margin-top: 52px;
+    }
+
+    .button {
+      display: grid;
+      height: 48px;
+    }
+
+    .welcome {
+      display: grid;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 0em;
+      text-align: center;
+      color: @color-primary;
+    }
+
+    .description {
+      display: grid;
+      justify-content: center;
+      font-size: 24px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: @color-dark-gray;
+    }
+    .separator {
+      display: grid;
+      grid-template-columns: 1fr max-content 1fr;
+      grid-column-gap: 4px;
+      align-items: center;
+      padding: 0 18px;
+    }
+    .line {
+      display: grid;
+      height: 1px;
+      background-color: @color-gray;
+      margin: 40px 0;
+    }
+  }
+}

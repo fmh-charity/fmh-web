@@ -1,0 +1,53 @@
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+
+export type { DocumentByIdRs } from "./models/DocumentByIdRs";
+export type { DocumentCreationDtoRq } from "./models/DocumentCreationDtoRq";
+export type { DocumentCreationDtoRs } from "./models/DocumentCreationDtoRs";
+export type { DocumentForAdminPaginationRs } from "./models/DocumentForAdminPaginationRs";
+export type { DocumentForAdminRs } from "./models/DocumentForAdminRs";
+export type { DocumentInfoDto } from "./models/DocumentInfoDto";
+export type { DocumentInfoPaginationDto } from "./models/DocumentInfoPaginationDto";
+export type { EmployeeRegistrationRequest } from "./models/EmployeeRegistrationRequest";
+export type { EmployeeRegistrationResponse } from "./models/EmployeeRegistrationResponse";
+export type { ErrorResponse } from "./models/ErrorResponse";
+export type { JwtResponse } from "./models/JwtResponse";
+export type { LoginRequest } from "./models/LoginRequest";
+export type { NewsDto } from "./models/NewsDto";
+export type { NewsPaginationDto } from "./models/NewsPaginationDto";
+export type { NurseStationDto } from "./models/NurseStationDto";
+export type { NurseStationDtoRq } from "./models/NurseStationDtoRq";
+export type { NurseStationDtoRs } from "./models/NurseStationDtoRs";
+export type { PatientByStatusRs } from "./models/PatientByStatusRs";
+export type { PatientCreateInfoDtoRq } from "./models/PatientCreateInfoDtoRq";
+export type { PatientCreateInfoDtoRs } from "./models/PatientCreateInfoDtoRs";
+export type { PatientDto } from "./models/PatientDto";
+export type { PatientDtoIdFio } from "./models/PatientDtoIdFio";
+export type { PatientUpdateInfoDtoRq } from "./models/PatientUpdateInfoDtoRq";
+export type { PatientUpdateInfoDtoRs } from "./models/PatientUpdateInfoDtoRs";
+export type { ProfileChangingRequest } from "./models/ProfileChangingRequest";
+export type { RefreshTokenRequest } from "./models/RefreshTokenRequest";
+export type { RegistrationRequest } from "./models/RegistrationRequest";
+export type { ResetPasswordRequest } from "./models/ResetPasswordRequest";
+export type { RoleDtoRs } from "./models/RoleDtoRs";
+export type { RoomDtoRq } from "./models/RoomDtoRq";
+export type { RoomDtoRs } from "./models/RoomDtoRs";
+export type { UpdateDocumentRq } from "./models/UpdateDocumentRq";
+export type { UpdateDocumentRs } from "./models/UpdateDocumentRs";
+export type { UserDtoIdConcatFio } from "./models/UserDtoIdConcatFio";
+export type { UserDtoIdFio } from "./models/UserDtoIdFio";
+export type { UserEmailDto } from "./models/UserEmailDto";
+export type { UserInfoDto } from "./models/UserInfoDto";
+export type { UserRoleClaimDto } from "./models/UserRoleClaimDto";
+export type { UserShortInfoDto } from "./models/UserShortInfoDto";
+export type { ValidationErrorResponse } from "./models/ValidationErrorResponse";
+export type { Violation } from "./models/Violation";
+export type { WishCommentDto } from "./models/WishCommentDto";
+export type { WishCommentInfoDto } from "./models/WishCommentInfoDto";
+export type { WishCreationRequest } from "./models/WishCreationRequest";
+export type { WishDto } from "./models/WishDto";
+export type { WishExecutorDtoRs } from "./models/WishExecutorDtoRs";
+export type { WishPaginationDto } from "./models/WishPaginationDto";
+export type { WishUpdateRequest } from "./models/WishUpdateRequest";
+export type { WishVisibilityDto } from "./models/WishVisibilityDto";

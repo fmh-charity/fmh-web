@@ -1,0 +1,51 @@
+@import "../../variables.less";
+
+.tableSection {
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+
+  .searchWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr max-content;
+
+    .search {
+      display: grid;
+      position: relative;
+      height: 48px;
+      border-radius: 8px;
+
+      input {
+        border-radius: 8px;
+        border: 1px solid @color-light-gray;
+        display: grid;
+        padding: 12px 16px 12px 16px;
+        font-size: 16px;
+      }
+
+      .iconButton {
+        display: grid;
+        position: absolute;
+        right: 12px;
+        top: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        color: @color-dark-gray;
+      }
+    }
+    .buttons {
+      display: grid;
+      grid-auto-columns: max-content;
+      grid-column-gap: 16px;
+      justify-content: start;
+    }
+  }
+
+  .content {
+    display: grid;
+  }
+
+  .footer {
+    display: grid;
+  }
+}

@@ -1,0 +1,37 @@
+@import "../../variables.less";
+
+.splitComponent {
+  display: grid;
+  align-self: stretch;
+  grid-template-columns: 1fr 1fr;
+}
+
+.left {
+  display: grid;
+  background-color: @color-primary;
+  grid-template-rows: 300px 1fr;
+  color: #fefefe;
+
+  .leftLogo {
+    display: grid;
+    align-items: baseline;
+    justify-content: center;
+    padding-top: 200px;
+    .img {
+      min-height: 106px;
+      height: 106px;
+    }
+  }
+  .leftText {
+    display: grid;
+    text-align: center;
+    padding: 85px 66px 0 66px;
+    font-size: 24px;
+  }
+  .leftSign {
+    display: grid;
+    text-align: center;
+    font-size: 24px;
+    padding: 30px 66px;
+  }
+}
