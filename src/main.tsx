@@ -48,6 +48,7 @@ import {
   loader as loaderWishesCreate,
   action as actionWishesCreate,
 } from "./routes/wishes.create";
+import { MissionRoute } from "./routes/mission";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -119,6 +120,10 @@ const router = createBrowserRouter([
                 action: actionNurseStationsCreateOrUpdate(queryClient),
               },
             ],
+          },
+          {
+            path:"mission",
+            element:<MissionRoute/>
           },
           {
             path: "*",
