@@ -1,7 +1,7 @@
 import * as api from "../api";
 import { json, useLoaderData } from "react-router-dom";
 import type { QueryClient } from "@tanstack/react-query";
-import { NurseStationsForm } from "../components/nurse-stations/NurseStationForm";
+import { NurseStationsForm } from "../components/nurse-stations";
 import type { NurseStationDto } from "../api/model";
 
 export const loader: api.CreateLoader =
