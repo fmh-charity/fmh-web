@@ -11,7 +11,7 @@ interface IBasePhrase {
     phrase:string,
 }
 
-interface ITitlePhrase extends IBasePhrase {
+export interface ITitlePhrase extends IBasePhrase {
     author: IAuthor | null,
 }
 
