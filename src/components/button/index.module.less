@@ -1,61 +1,6 @@
-@import "../../variables.less";
-
 .button {
   display: grid;
   align-items: center;
   border: 0;
   border-radius: 8px;
-
-  .primary {
-    background-color: @color-primary;
-    border-radius: 8px;
-    font-weight: 700;
-    color: white;
-    border: 1px solid @color-primary;
-
-    &:hover {
-      background-color: @color-primary-hover;
-    }
-
-    &:active {
-      background-color: @color-primary-pressed;
-    }
-  }
-
-  .secondary {
-    background-color: white;
-    border-radius: 8px;
-    font-weight: 700;
-    color: @color-primary;
-    border: 1px solid @color-primary;
-
-    &:hover {
-      color: @color-primary-hover;
-      border: 2px solid @color-primary;
-    }
-
-    &:active {
-      color: white;
-      background-color: @color-primary;
-    }
-  }
-
-  .wrapper {
-    display: grid;
-    align-self: stretch;
-    align-items: center;
-    grid-auto-flow: column;
-    grid-column-gap: 8px;
-    padding: 14px 20px;
-  }
-
-  .left {
-    justify-content: left;
-  }
-  .right {
-    justify-content: right;
-  }
-  .center {
-    justify-content: center;
-  }
 }
