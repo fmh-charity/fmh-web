@@ -36,7 +36,7 @@ export const RegistrationForm = () => {
                     <option
                       key={role.id}
                       value={role.id}
-                    >{`[${role.key}] ${role.name}`}</option>
+                    >{`${role.roleName}`}</option>
                   ))}
                 </select>
               </div>
@@ -81,8 +81,7 @@ export const RegistrationForm = () => {
                 </Button>
               </div>
               <div className={styles.gotoLogin}>
-                <span>Уже есть эккаунт?</span>
-                <Link to="/login"> Войти</Link>
+                <span>Уже есть эккаунт?</span> <Link to="/login">Войти</Link>
               </div>
               <div>{JSON.stringify(fetcher.data)}</div>
             </div>

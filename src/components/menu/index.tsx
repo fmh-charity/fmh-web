@@ -3,26 +3,38 @@ import styles from "./index.module.less";
 import type { MenuItemGroup, MenuItem as MenuItemT } from "./menuItems"; // mad lint
 import { footerMenu, menu } from "./menuItems";
 import { Icon } from "../icon";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import clsx from "clsx";
 
-const MenuItem = ({ item }: { item: MenuItemT }) => {
-  return (
-    <div>
-      <NavLink to={item.to} className={styles.item}>
-        <item.Icon />
-        <span>{item.title}</span>
-      </NavLink>
-    </div>
-  );
-};
+const MenuItem = ({ item }: { item: MenuItemT }) => (
+  <div>
+    <NavLink
+      to={item.to}
+      className={({ isActive }) =>
+        clsx({ [styles.item]: true, [styles.isActive]: isActive })
+      }
+    >
+      <item.Icon className={styles.icon} />
+      <span>{item.title}</span>
+    </NavLink>
+  </div>
+);
 
 const MenuGroup = ({ item }: { item: MenuItemGroup }) => {
   const [collapse, setCollapse] = useState(false);
   return (
     <div className={styles.group}>
       <div>
-        <NavLink to={item.to} className={styles.groupHeader}>
-          <item.Icon />
+        <NavLink
+          to={item.to}
+          className={({ isActive }) =>
+            clsx({
+              [styles.isActive]: isActive,
+              [styles.groupHeader]: true,
+            })
+          }
+        >
+          <item.Icon className={styles.icon} />
           <span>{item.title}</span>
           <button
             className={styles.groupCollapse}
@@ -47,29 +59,27 @@ const MenuGroup = ({ item }: { item: MenuItemGroup }) => {
   );
 };
 
-const Menu = ({ items }: { items: MenuItemGroup[] }) => {
-  return (
-    <div className={styles.menu}>
-      <div className={styles.items}>
-        {items.map((m) => {
-          if (m.items) return <MenuGroup key={m.title} item={m} />;
-          return <MenuItem key={m.title} item={m} />;
-        })}
-      </div>
+const Menu = ({ items }: { items: MenuItemGroup[] }) => (
+  <div className={styles.menu}>
+    <div className={styles.items}>
+      {items.map((m) => {
+        if (m.items) return <MenuGroup key={m.title} item={m} />;
+        return <MenuItem key={m.title} item={m} />;
+      })}
     </div>
-  );
-};
+  </div>
+);
 
-export const Sidebar = () => {
-  return (
-    <div className={styles.sidebar}>
-      <div className={styles.logo}>
+export const Sidebar = () => (
+  <div className={styles.sidebar}>
+    <div className={styles.logo}>
+      <Link to="/">
         <img src="/images/logo.png" alt="Вхосписе" />
-      </div>
-      <Menu items={menu} />
-      <div className={styles.footer}>
-        <Menu items={footerMenu} />
-      </div>
+      </Link>
     </div>
-  );
-};
+    <Menu items={menu} />
+    <div className={styles.footer}>
+      <Menu items={footerMenu} />
+    </div>
+  </div>
+);

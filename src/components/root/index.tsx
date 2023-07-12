@@ -8,11 +8,9 @@ export const Root: React.FC = () => {
     <>
       <Sidebar />
       <Header />
-      <div className={styles.root}>
-        <div className={styles.wrapper}>
-          <div className={styles.outlet}>
-            <Outlet />
-          </div>
+      <div className={styles.content}>
+        <div className={styles.outlet}>
+          <Outlet />
         </div>
       </div>
     </>

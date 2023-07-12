@@ -1,27 +1,20 @@
 import React from "react";
 import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
-import classNames from "classnames";
 import styles from "./index.module.less";
+import { ButtonContent } from "../button-content";
 
 export const Button: React.FC<
-  PropsWithChildren<
-    ButtonHTMLAttributes<HTMLButtonElement> & {
-      intent: "primary" | "secondary";
-      justify?: "left" | "center" | "right";
-    }
-  >
-> = (props) => {
+  PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> & {
+    intent: "primary" | "secondary";
+    justify?: "left" | "center" | "right";
+    Icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  }
+> = ({ Icon, intent, justify, children, ...props }) => {
   return (
-    <button {...props} className={classNames(styles.button)}>
-      <span
-        className={classNames(
-          styles.wrapper,
-          styles[props.intent],
-          styles[props.justify ?? "left"]
-        )}
-      >
-        {props.children}
-      </span>
+    <button {...props} className={styles.button}>
+      <ButtonContent Icon={Icon} justify={justify} intent={intent}>
+        {children}
+      </ButtonContent>
     </button>
   );
 };
