@@ -38,6 +38,7 @@ import {
   NurseStationsIdPage,
   loader as loaderNurseStationsById,
 } from "./routes/nursestations.id";
+import { AboutRoute } from "./routes/abouthospice";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
                 action: actionNurseStationsCreateOrUpdate(queryClient),
               },
             ],
+          },
+          {
+            path: "about",
+            element: <AboutRoute />
           },
           {
             path: "*",
