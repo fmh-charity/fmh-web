@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { createColumnHelper } from "@tanstack/react-table";
 import type { WishDto } from "../../api/model";
 import { statuses } from "../../common/statuses";
@@ -8,47 +7,48 @@ const columnHelper = createColumnHelper<WishDto>();
 
 export const columns = [
   columnHelper.accessor("id", {
-    header: () => <span>№</span>,
-    cell: (props) => <span>{props.getValue()}</span>,
+    header: () => "№",
+    cell: (props) => props.getValue(),
   }),
   columnHelper.accessor("title", {
-    header: () => <span>Просьба</span>,
-    cell: (props) => (
-      <span>
-        <Link to={`${props.row.original.id}`}>{props.getValue()}</Link>
-      </span>
-    ),
-  }),
-  columnHelper.accessor("planExecuteDate", {
-    header: () => <span>Выполнить до</span>,
-    cell: (props) => {
-      const date = props.getValue();
-      if (date) return <span>{dayjs.unix(date).format()}</span>;
-    },
+    header: () => "Просьба",
+    cell: (props) => props.getValue(),
   }),
   columnHelper.accessor(
-    (row) => {
-      const { firstName, lastName, middleName } = row.patient || {};
+    (row) =>
+      row.planExecuteDate
+        ? dayjs.unix(row.planExecuteDate).format("DD.mm.YYYY")
+        : "",
+    {
+      id: "planExecuteDate",
+      header: () => "Выполнить до",
+      cell: (props) => props.getValue(),
+    }
+  ),
+  columnHelper.accessor(
+    ({ patient }) => {
+      const { firstName, lastName, middleName } = patient || {};
       return (
         [firstName, lastName, middleName].filter(Boolean).join(" ") || "Хоспис"
       );
     },
     {
       id: "patient",
-      header: () => <span>Для кого</span>,
-      cell: (props) => {
-        return <span>{props.getValue()}</span>;
-      },
+      header: () => "Для кого",
+      cell: (props) => props.getValue(),
     }
   ),
-  columnHelper.accessor("status", {
-    header: () => <span>Статус</span>,
-    cell: (props) => (
-      <span>{statuses[props.getValue() as keyof WishDto["status"]]}</span>
-    ),
-  }),
+  columnHelper.accessor(
+    (row) =>
+      row.status ? statuses[row.status as keyof WishDto["status"]] : "",
+    {
+      id: "status",
+      header: () => "Статус",
+      cell: (props) => props.getValue(),
+    }
+  ),
   columnHelper.accessor("executor", {
-    header: () => <span>Испонитель</span>,
-    cell: (props) => <span>{props.getValue()?.lastName}</span>,
+    header: () => "Испонитель",
+    cell: (props) => props.getValue()?.lastName,
   }),
 ];
