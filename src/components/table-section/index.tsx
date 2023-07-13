@@ -3,7 +3,9 @@ import { Icon } from "../icon";
 import styles from "./index.module.less";
 
 import type { Table } from "@tanstack/react-table";
-import { flexRender } from "@tanstack/react-table";
+import { Cell, CellHeader } from "./cell";
+import type { TabType } from "./tab";
+import { Tabs } from "./tab";
 
 export const TableSection = ({
   table,
@@ -11,9 +13,9 @@ export const TableSection = ({
   buttons,
   globalFilter,
   setGlobalFilter,
-}: PropsWithChildren & {
+}: {
   table: Table<any>;
-  tabs: React.ReactNode;
+  tabs: TabType[];
   buttons: React.ReactNode;
   globalFilter: string;
   setGlobalFilter: (globalFilter: string) => void;
@@ -36,35 +38,14 @@ export const TableSection = ({
         <div />
         <div className={styles.buttons}>{buttons}</div>
       </div>
-      <div className={styles.tabs}>{tabs}</div>
+      <Tabs tabs={tabs} />
       <div className={styles.content}>
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id}>
-                    {header.isPlaceholder ? null : (
-                      // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-                      <div
-                        {...{
-                          className: header.column.getCanSort()
-                            ? "cursor-pointer select-none"
-                            : "",
-                          onClick: header.column.getToggleSortingHandler(),
-                        }}
-                      >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                        {{
-                          asc: " 🔼",
-                          desc: " 🔽",
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </div>
-                    )}
-                  </th>
+                  <CellHeader key={header.id} header={header} />
                 ))}
               </tr>
             ))}
@@ -73,9 +54,7 @@ export const TableSection = ({
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
+                  <Cell key={cell.id} cell={cell} />
                 ))}
               </tr>
             ))}

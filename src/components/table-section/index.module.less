@@ -7,6 +7,7 @@
   .searchWrapper {
     display: grid;
     grid-template-columns: 1fr 1fr max-content;
+    padding-bottom: 24px;
 
     .search {
       display: grid;
@@ -43,6 +44,24 @@
 
   .content {
     display: grid;
+    table {
+      background-color: white;
+      border-spacing: 0;
+      border: 1px solid @color-light-gray;
+      border-radius: 20px;
+      th {
+        border-bottom: 1px solid @color-light-gray;
+      }
+      tbody {
+        tr {
+          &:not(:last-child) {
+            td {
+              border-bottom: 1px solid @color-light-gray;
+            }
+          }
+        }
+      }
+    }
   }
 
   .footer {

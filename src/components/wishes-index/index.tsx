@@ -51,37 +51,53 @@ export const WishesIndex = () => {
     getSortedRowModel: getSortedRowModel(),
   });
 
+  const tabs = [
+    {
+      id: 0,
+      title: "Все",
+      counter: wishes.body?.elements?.length || 0,
+      onClick: () => {
+        console.log("click");
+      },
+    },
+    {
+      id: 1,
+      title: "Мои просьбы",
+      counter:
+        wishes.body?.elements?.reduce(
+          (acc, cur) =>
+            cur.executor?.id === userInfo.body?.id ? acc + 1 : acc,
+          0
+        ) || 0,
+      onClick: () => {
+        console.log("click");
+      },
+    },
+    {
+      id: 2,
+      title: "Я испонитель",
+      counter:
+        wishes.body.elements?.reduce(
+          (acc, cur) =>
+            (cur.wishExecutors?.reduce(
+              (a, c) => (c.executor?.id === userInfo?.body?.id ? a + 1 : a),
+              0
+            ) || 0) + acc,
+          0
+        ) || 0,
+      onClick: () => {
+        console.log("click");
+      },
+    },
+  ];
+
   return (
     <div className={styles.wishes}>
       <TableSection
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
         table={table}
-        tabs={
-          <div>
-            <div>Все {wishes.body?.elements?.length || 0}</div>
-            <div>
-              Мои просьбы{" "}
-              {wishes.body?.elements?.reduce(
-                (acc, cur) =>
-                  cur.executor?.id === userInfo.body?.id ? acc + 1 : acc,
-                0
-              )}
-            </div>
-            <div>
-              Я испонитель{" "}
-              {wishes.body.elements?.reduce(
-                (acc, cur) =>
-                  (cur.wishExecutors?.reduce(
-                    (a, c) =>
-                      c.executor?.id === userInfo?.body?.id ? a + 1 : a,
-                    0
-                  ) || 0) + acc,
-                0
-              )}
-            </div>
-          </div>
-        }
+        tabs={tabs}
         buttons={
           <>
             <ButtonLink intent="primary" Icon={Icon.Plus16} to="create">
