@@ -27,6 +27,10 @@ const MenuGroup = ({ item }: { item: MenuItemGroup }) => {
       <div>
         <NavLink
           to={item.to}
+          onClick={(e) => {
+            e.preventDefault();
+            setCollapse((c) => !c);
+          }}
           className={({ isActive }) =>
             clsx({
               [styles.isActive]: isActive,
@@ -36,16 +40,9 @@ const MenuGroup = ({ item }: { item: MenuItemGroup }) => {
         >
           <item.Icon className={styles.icon} />
           <span>{item.title}</span>
-          <button
-            className={styles.groupCollapse}
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              setCollapse((c) => !c);
-            }}
-          >
+          <div className={styles.groupCollapse}>
             {collapse ? <Icon.Up16 /> : <Icon.Down16 />}
-          </button>
+          </div>
         </NavLink>
       </div>
       {collapse && (

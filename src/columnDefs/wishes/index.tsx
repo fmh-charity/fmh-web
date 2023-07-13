@@ -17,7 +17,7 @@ export const columns = [
   columnHelper.accessor(
     (row) =>
       row.planExecuteDate
-        ? dayjs.unix(row.planExecuteDate).format("DD.mm.YYYY")
+        ? dayjs.unix(row.planExecuteDate).format("DD.MM.YYYY")
         : "",
     {
       id: "planExecuteDate",
