@@ -93,8 +93,7 @@ const MissionCard = ({
         isMobile={isMobile}
         toggleCard={toggleCard}
       />
-      {(isMobile && isCardOpen) ||
-        (!isMobile && <CardDescription phrase={body.phrase} />)}
+      {(!isMobile || isCardOpen) && <CardDescription phrase={body.phrase} />}
     </div>
   );
 };
