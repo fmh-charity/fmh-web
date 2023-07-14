@@ -26,6 +26,7 @@ import { ReactComponent as Calendar24 } from "./24/Календарь.svg";
 import { ReactComponent as Ellipse24 } from "./24/ellipse.svg";
 import { ReactComponent as ActionDefault24 } from "./24/ActionDefault.svg";
 import { ReactComponent as ActionHover24 } from "./24/ActionHover.svg";
+import { ReactComponent as Camera24 } from "./24/camera.svg";
 
 import { ReactComponent as Cancel16 } from "./16/cancel.svg";
 import { ReactComponent as Change16 } from "./16/change.svg";
@@ -39,6 +40,7 @@ import { ReactComponent as Sorter16 } from "./16/sorter down.svg";
 import { ReactComponent as Trash16 } from "./16/trash.svg";
 import { ReactComponent as Up16 } from "./16/Up.svg";
 import { ReactComponent as Heart16 } from "./16/heart.svg";
+import { ReactComponent as Attention16 } from "./16/attention.svg";
 
 const Icon24Obj = {
   About24,
@@ -69,6 +71,7 @@ const Icon24Obj = {
   Ellipse24,
   ActionDefault24,
   ActionHover24,
+  Camera24
 };
 
 const Icon16Obj = {
@@ -84,6 +87,7 @@ const Icon16Obj = {
   Trash16,
   Up16,
   Heart16,
+  Attention16
 };
 
 export const Icon: {
