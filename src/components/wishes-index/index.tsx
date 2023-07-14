@@ -77,7 +77,7 @@ export const WishesIndex = () => {
       id: 2,
       title: "Я испонитель",
       counter:
-        wishes.body.elements?.reduce(
+        wishes.body?.elements?.reduce(
           (acc, cur) =>
             (cur.wishExecutors?.reduce(
               (a, c) => (c.executor?.id === userInfo?.body?.id ? a + 1 : a),
