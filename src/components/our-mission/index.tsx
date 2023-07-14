@@ -71,13 +71,11 @@ const MissionCard = ({
   content,
   currentOpenedCardId,
   isMobile,
-  toggleCardOnHover,
   toggleCard
 }: {
   content: IPhrase;
   currentOpenedCardId: string | null;
   isMobile: boolean;
-  toggleCardOnHover: (id: string | null) => void;
   toggleCard: (
     event: React.MouseEvent<HTMLButtonElement>,
     id: string | null
@@ -87,11 +85,7 @@ const MissionCard = ({
   const isCardOpen = id === currentOpenedCardId;
 
   return (
-    <div
-      className={styles.card}
-      onMouseEnter={() => toggleCardOnHover(id)}
-      onMouseLeave={() => toggleCardOnHover(null)}
-    >
+    <div className={styles.card}>
       <CardHeader
         title={title}
         id={id}
@@ -99,7 +93,8 @@ const MissionCard = ({
         isMobile={isMobile}
         toggleCard={toggleCard}
       />
-      {isCardOpen && <CardDescription phrase={body.phrase} />}
+      {(isMobile && isCardOpen) ||
+        (!isMobile && <CardDescription phrase={body.phrase} />)}
     </div>
   );
 };
@@ -108,13 +103,11 @@ const MissionCardsList = () => {
   const [currentOpenedCardId, setCurrentOpenedCardId] = React.useState<
     string | null
   >(null);
-  const [isMobile, setIsMobile] = React.useState(
-    document.documentElement.clientWidth <= 768
-  );
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 1024);
 
   React.useEffect(() => {
     const handleResize = () => {
-      setIsMobile(document.documentElement.clientWidth <= 768);
+      setIsMobile(window.innerWidth <= 1024);
     };
 
     window.addEventListener("resize", handleResize);
@@ -123,12 +116,6 @@ const MissionCardsList = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  const toggleCardOnHover = (id: string | null) => {
-    if (!isMobile) {
-      setCurrentOpenedCardId(id);
-    }
-  };
 
   const toggleCard = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -149,7 +136,6 @@ const MissionCardsList = () => {
             content={phrase}
             currentOpenedCardId={currentOpenedCardId}
             isMobile={isMobile}
-            toggleCardOnHover={toggleCardOnHover}
             toggleCard={toggleCard}
           />
         );
