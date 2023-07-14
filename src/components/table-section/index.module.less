@@ -45,15 +45,43 @@
   .content {
     display: grid;
     table {
-      background-color: white;
+      background-color: @color-white;
       border-spacing: 0;
       border: 1px solid @color-light-gray;
       border-radius: 8px;
       th {
         border-bottom: 1px solid @color-light-gray;
       }
+      thead {
+        tr {
+          th {
+            padding: 24px 16px 16px 16px;
+            &:first-child {
+              padding-left: 32px;
+            }
+            &:last-child {
+              padding-right: 32px;
+            }
+          }
+        }
+      }
       tbody {
         tr {
+          &:hover {
+            background-color: @color-light-gray2;
+          }
+          &:active {
+            background-color: @color-light-gray;
+          }
+          td {
+            padding: 24px 16px;
+            &:first-child {
+              padding-left: 32px;
+            }
+            &:last-child {
+              padding-right: 32px;
+            }
+          }
           &:not(:last-child) {
             td {
               border-bottom: 1px solid @color-light-gray;
