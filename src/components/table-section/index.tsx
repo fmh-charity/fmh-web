@@ -1,4 +1,3 @@
-import type { PropsWithChildren } from "react";
 import { Icon } from "../icon";
 import styles from "./index.module.less";
 

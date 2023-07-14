@@ -2,6 +2,8 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { WishDto } from "../../api/model";
 import { statuses } from "../../common/statuses";
 import * as dayjs from "dayjs";
+import { Icon } from "../../components/icon";
+import { Link } from "react-router-dom";
 
 const columnHelper = createColumnHelper<WishDto>();
 
@@ -51,4 +53,18 @@ export const columns = [
     header: () => "Испонитель",
     cell: (props) => props.getValue()?.lastName,
   }),
+  columnHelper.accessor((row) => row.id, {
+    id: "actions",
+    header: () => "",
+    enableSorting: false,
+    cell: (props) => <Actions id={`${props.getValue()}`} />,
+  }),
 ];
+
+const Actions = ({ id }: { id: string }) => {
+  return (
+    <Link to={id}>
+      <Icon.ActionDefault24 />
+    </Link>
+  );
+};
