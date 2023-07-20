@@ -127,7 +127,7 @@ const ProfileMainInfo = ({
         type="datetime-local"
         name="dateOfBirth"
         label="Дата рождения"
-        error={errorDateOfBirth}
+        error={""}
         defaultValue="10.07.2016"
         placeholder="Отчество"
       />

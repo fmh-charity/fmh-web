@@ -91,8 +91,7 @@ export const Header = () => {
             </div>
             <div className={styles.roles}>
               {data.body?.roles ? (
-                <div></div>
-                // <div>{getRoleByRank(data.body?.roles).roleName}</div>
+                <div>{getRoleByRank(data.body?.roles).roleName}</div>
               ) : null}
             </div>
           </div>
