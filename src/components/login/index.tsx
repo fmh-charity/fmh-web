@@ -25,7 +25,7 @@ export const Login = () => {
                 name="login"
                 label="Логин"
                 defaultValue="login1"
-                error={fetcher.data?.login}
+                error={fetcher.data?.validation?.login}
                 placeholder="Email"
               />
               <Input
@@ -33,7 +33,7 @@ export const Login = () => {
                 name="password"
                 label="Пароль"
                 defaultValue="password1"
-                error={fetcher.data?.password}
+                error={fetcher.data?.validation?.password}
                 placeholder="Пароль"
               />
             </div>

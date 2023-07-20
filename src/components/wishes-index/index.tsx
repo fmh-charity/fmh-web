@@ -101,7 +101,7 @@ export const WishesIndex = () => {
         buttons={
           <>
             <ButtonLink intent="primary" Icon={Icon.Plus16} to="create">
-              Добавить Просьбу
+              Добавить просьбу
             </ButtonLink>
           </>
         }

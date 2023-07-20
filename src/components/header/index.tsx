@@ -2,8 +2,7 @@ import { Link, Outlet, useRouteLoaderData, useRoutes } from "react-router-dom";
 import { Icon } from "../icon";
 import styles from "./index.module.less";
 import type { UserInfoDto } from "../../api/model";
-import type { Roles } from "../../common/roles";
-import { getRoleByRank, getRoleNameByType } from "../../common/roles";
+import { getRoleByRank } from "../../common/roles";
 import clsx from "clsx";
 
 export const Header = () => {
@@ -91,7 +90,7 @@ export const Header = () => {
             </div>
             <div className={styles.roles}>
               {data.body?.roles ? (
-                <div>{getRoleByRank(data.body?.roles).roleName}</div>
+                <div>{getRoleByRank(data.body?.roles)?.roleName}</div>
               ) : null}
             </div>
           </div>

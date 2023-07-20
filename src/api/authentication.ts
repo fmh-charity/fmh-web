@@ -25,19 +25,31 @@ import type { QueryClient } from "@tanstack/react-query";
  */
 
 export const loginQuery = (queryClient: QueryClient, data: LoginRequest) =>
-  queryClient.fetchQuery<typeof data, unknown, JwtResponse, string[]>({
+  queryClient.fetchQuery<
+    typeof data,
+    unknown,
+    { body: JwtResponse; error?: unknown },
+    string[]
+  >({
     queryKey: [LOGIN_QUERY],
     queryFn: async () => {
-      return fetch("/api/fmh/authentication/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
-        .then((r) => r.json())
-        .catch((r) => r);
+      try {
+        const req = await fetch("/api/fmh/authentication/login", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        if (req.status !== 200) {
+          throw Error(req.statusText);
+        }
+        const json = await req.json();
+        return { body: json } as any;
+      } catch (error) {
+        return { error };
+      }
     },
   });
 

@@ -1,7 +1,6 @@
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { LOGIN_LOCALSTORAGE_KEY, USERINFO_LOCALSTORAGE_KEY } from "./constants";
-import { notification } from "./notifications";
 import type { JwtResponse, LoginRequest, UserInfoDto } from "../api/model";
 
 export const authBroadcastChannel = new BroadcastChannel(
@@ -33,17 +32,21 @@ export const ensureUserInfo = ensureSession<UserInfoDto>(
 
 export const doLogin = async (queryClient: QueryClient, data: LoginRequest) => {
   try {
-    const login = await api.authentication.loginQuery(queryClient, data);
+    const loginRequest = await api.authentication.loginQuery(queryClient, data);
+    const { error: errorLogin, body: login } = loginRequest;
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (login?.code === "ERR_INVALID_LOGIN") {
-      return login;
+    if (errorLogin) {
+      throw errorLogin;
     }
 
     window.localStorage.setItem(LOGIN_LOCALSTORAGE_KEY, JSON.stringify(login));
 
-    const userInfo = await api.authentication.userInfoQuery(queryClient);
+    const { error: userInfoError, body: userInfo } =
+      await api.authentication.userInfoQuery(queryClient);
+
+    if (userInfoError) {
+      throw userInfoError;
+    }
 
     window.localStorage.setItem(
       USERINFO_LOCALSTORAGE_KEY,
@@ -51,13 +54,12 @@ export const doLogin = async (queryClient: QueryClient, data: LoginRequest) => {
     );
 
     authBroadcastChannel.postMessage({ type: "login" });
+
+    return loginRequest;
   } catch (error) {
     window.localStorage.removeItem(LOGIN_LOCALSTORAGE_KEY);
     window.localStorage.removeItem(USERINFO_LOCALSTORAGE_KEY);
-    const { message, stack } = error as Error;
-    console.log({ error });
-    notification.addNotification({ label: message, text: stack });
-    return { error: (error as Error).message };
+    return { error };
   }
 };
 
