@@ -1,6 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import type { WishDto } from "../../api/model";
-import { statuses } from "../../common/statuses";
 import * as dayjs from "dayjs";
 import { Icon } from "../../components/icon";
 import { Link } from "react-router-dom";
@@ -40,15 +39,10 @@ export const columns = [
       cell: (props) => props.getValue(),
     }
   ),
-  columnHelper.accessor(
-    (row) =>
-      row.status ? statuses[row.status as keyof WishDto["status"]] : "",
-    {
-      id: "status",
-      header: () => "Статус",
-      cell: (props) => props.getValue(),
-    }
-  ),
+  columnHelper.accessor("status", {
+    header: () => "Статус",
+    cell: (props) => props.getValue(),
+  }),
   columnHelper.accessor("executor", {
     header: () => "Испонитель",
     cell: (props) => props.getValue()?.lastName,
