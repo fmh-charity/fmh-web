@@ -41,15 +41,12 @@ const ProfilePasswordGroup = () => {
 
 const ProfileMoreInfo = ({
   isDekstop,
-  errorEmail
+  errorEmail,
 }: {
   isDekstop: boolean;
   errorEmail: string;
 }) => {
-  const { body } = useRouteLoaderData("app") as {
-    body?: UserInfoDto;
-    error?: any;
-  };
+  const data = useRouteLoaderData("app") as UserInfoDto;
   return (
     <>
       <Input
@@ -65,7 +62,7 @@ const ProfileMoreInfo = ({
         name="email"
         label="Email"
         error={errorEmail}
-        defaultValue={body?.lastName || ""}
+        defaultValue={data?.lastName || ""}
         placeholder="Email"
       />
       {isDekstop ? null : (
@@ -86,17 +83,14 @@ const ProfileMainInfo = ({
   errorFirstName,
   errorMiddleName,
   errorLastName,
-  errorDateOfBirth
+  errorDateOfBirth,
 }: {
   errorFirstName: string;
   errorMiddleName: string;
   errorLastName: string;
   errorDateOfBirth: string;
 }) => {
-  const { body } = useRouteLoaderData("app") as {
-    body?: UserInfoDto;
-    error?: any;
-  };
+  const data = useRouteLoaderData("app") as UserInfoDto;
   return (
     <>
       <Input
@@ -104,7 +98,7 @@ const ProfileMainInfo = ({
         name="lastName"
         label="Фамилия"
         error={errorLastName}
-        defaultValue={body?.lastName || ""}
+        defaultValue={data?.lastName || ""}
         placeholder="Фамилия"
       />
       <Input
@@ -112,7 +106,7 @@ const ProfileMainInfo = ({
         name="firstName"
         label="Имя"
         error={errorFirstName}
-        defaultValue={body?.firstName || ""}
+        defaultValue={data?.firstName || ""}
         placeholder="Имя"
       />
       <Input
@@ -120,7 +114,7 @@ const ProfileMainInfo = ({
         name="middleName"
         label="Отчество"
         error={errorMiddleName}
-        defaultValue={body?.middleName || ""}
+        defaultValue={data?.middleName || ""}
         placeholder="Отчество"
       />
       <Input

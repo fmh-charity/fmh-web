@@ -6,11 +6,7 @@ import { getRoleByRank } from "../../common/roles";
 import clsx from "clsx";
 
 export const Header = () => {
-  const data = useRouteLoaderData("app") as {
-    body?: UserInfoDto;
-    error?: any;
-  };
-
+  const data = useRouteLoaderData("app") as UserInfoDto;
   const router = useRoutes([
     {
       path: "/",
@@ -86,11 +82,11 @@ export const Header = () => {
           </div>
           <div>
             <div className={styles.name}>
-              {data.body?.firstName} {data.body?.lastName}
+              {data?.firstName} {data?.lastName}
             </div>
             <div className={styles.roles}>
-              {data.body?.roles ? (
-                <div>{getRoleByRank(data.body?.roles)?.roleName}</div>
+              {data?.roles ? (
+                <div>{getRoleByRank(data?.roles)?.roleName}</div>
               ) : null}
             </div>
           </div>
