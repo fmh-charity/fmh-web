@@ -6,6 +6,7 @@ import { Input } from "../input";
 import { Button } from "../button";
 import { useState } from "react";
 import classNames from "classnames";
+import clsx from "clsx";
 
 export const RegistrationForm = () => {
   const fetcher = useFetcher();
@@ -18,7 +19,25 @@ export const RegistrationForm = () => {
         <div className={styles.registration}>
           <fetcher.Form method="POST">
             <div className={styles.welcome}>Регистрация</div>
-            <div style={{ textAlign: "center" }}>{step} of 2</div>
+            <div style={{ textAlign: "center" }}>
+              <div
+                className={clsx(
+                  styles["step-circle"],
+                  styles[`${step === 1 ? "active-circle" : ""}`]
+                )}
+              >
+                1
+              </div>
+              <div className={styles.line} />
+              <div
+                className={clsx(
+                  styles["step-circle"],
+                  styles[`${step === 2 ? "active-circle" : ""}`]
+                )}
+              >
+                2
+              </div>
+            </div>
             <div
               className={classNames(
                 styles.step,

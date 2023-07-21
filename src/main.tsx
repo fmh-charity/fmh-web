@@ -49,7 +49,10 @@ import {
   action as actionWishesCreate,
 } from "./routes/wishes.create";
 import { MissionRoute } from "./routes/mission";
-import { ProfileRoute } from "./routes/profile";
+import {
+  ProfileRoute,
+  action as actionSaveUserInfo
+} from "./routes/profile";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,6 +77,7 @@ const router = createBrowserRouter([
           { element: <div>index</div>, index: true },
           {
             path:"profile",
+            action: actionSaveUserInfo(queryClient),
             element:<ProfileRoute/>,
           },
           {
@@ -128,7 +132,7 @@ const router = createBrowserRouter([
           },
           {
             path:"mission",
-            element:<MissionRoute/>
+            element:<MissionRoute/>,
           },
           {
             path: "*",
