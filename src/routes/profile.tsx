@@ -24,7 +24,7 @@ export const action: api.CreateAction =
         middleName,
         dateOfBirth,
         email,
-        roleIds: [parseInt(roleIds as string, 10)]
+        roleIds: [parseInt(roleIds as string, 10)],
       } as unknown as ProfileChangingRequest;
 
       const schemaErrors = assertObjectBySchema(formObj, profileSchema);
@@ -32,14 +32,14 @@ export const action: api.CreateAction =
 
       const userInfo = await ensureUserInfo(queryClient);
 
-      if (!userInfo.body?.id) {
+      if (!userInfo?.id) {
         throw new Error("Произошла ошибка");
       }
 
       const responseSaveReq = await api.profile.saveChangesQuery(
         queryClient,
         formObj,
-        userInfo.body.id
+        userInfo.id
       );
 
       if (responseSaveReq.error) {
