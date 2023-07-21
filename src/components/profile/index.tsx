@@ -1,5 +1,5 @@
 import React from "react";
-import { useFetcher } from "react-router-dom";
+import { useFetcher, useRouteLoaderData } from "react-router-dom";
 
 import { Input } from "../input";
 import { Button } from "../button";
@@ -7,6 +7,9 @@ import { Icon } from "../icon";
 import styles from "./index.module.less";
 
 import clsx from "clsx";
+
+import { APP_ROLES } from "../../common/roles";
+import type { UserInfoDto } from "../../api/model";
 
 const ProfilePasswordGroup = () => {
   return (
@@ -36,7 +39,17 @@ const ProfilePasswordGroup = () => {
   );
 };
 
-const ProfileMoreInfo = ({ isDekstop }: { isDekstop: boolean }) => {
+const ProfileMoreInfo = ({
+  isDekstop,
+  errorEmail
+}: {
+  isDekstop: boolean;
+  errorEmail: string;
+}) => {
+  const { body } = useRouteLoaderData("app") as {
+    body?: UserInfoDto;
+    error?: any;
+  };
   return (
     <>
       <Input
@@ -51,8 +64,8 @@ const ProfileMoreInfo = ({ isDekstop }: { isDekstop: boolean }) => {
         type="text"
         name="email"
         label="Email"
-        error=""
-        defaultValue=""
+        error={errorEmail}
+        defaultValue={body?.lastName || ""}
         placeholder="Email"
       />
       {isDekstop ? null : (
@@ -60,50 +73,61 @@ const ProfileMoreInfo = ({ isDekstop }: { isDekstop: boolean }) => {
           Подтвердить Email
         </Button>
       )}
-      <Input
-        type="text"
-        name="role"
-        label="Роль"
-        error=""
-        defaultValue=""
-        placeholder="Кастом Селект написать"
-      />
+      <select name="roleIds" defaultValue="6" style={{ height: "48px" }}>
+        {APP_ROLES.map((role) => (
+          <option key={role.id} value={role.id}>{`${role.roleName}`}</option>
+        ))}
+      </select>
     </>
   );
 };
 
-const ProfileMainInfo = () => {
+const ProfileMainInfo = ({
+  errorFirstName,
+  errorMiddleName,
+  errorLastName,
+  errorDateOfBirth
+}: {
+  errorFirstName: string;
+  errorMiddleName: string;
+  errorLastName: string;
+  errorDateOfBirth: string;
+}) => {
+  const { body } = useRouteLoaderData("app") as {
+    body?: UserInfoDto;
+    error?: any;
+  };
   return (
     <>
       <Input
         type="text"
-        name="surname"
+        name="lastName"
         label="Фамилия"
-        error=""
-        defaultValue=""
+        error={errorLastName}
+        defaultValue={body?.lastName || ""}
         placeholder="Фамилия"
       />
       <Input
         type="text"
         name="firstName"
         label="Имя"
-        error=""
-        defaultValue=""
+        error={errorFirstName}
+        defaultValue={body?.firstName || ""}
         placeholder="Имя"
       />
       <Input
         type="text"
-        name="patronymic"
+        name="middleName"
         label="Отчество"
-        error=""
-        defaultValue=""
+        error={errorMiddleName}
+        defaultValue={body?.middleName || ""}
         placeholder="Отчество"
       />
       <Input
         type="datetime-local"
-        name="sername"
+        name="dateOfBirth"
         label="Дата рождения"
-        error=""
+        error={""}
         defaultValue="10.07.2016"
         placeholder="Отчество"
       />
@@ -130,6 +154,7 @@ const ProfileAvatar = () => {
 
 export const ProfileDekstop = () => {
   const fetcher = useFetcher();
+
   return (
     <div className={styles.profile}>
       <fetcher.Form method="POST">
@@ -141,7 +166,12 @@ export const ProfileDekstop = () => {
           </div>
           <div className={styles["profile__item-main-inputs"]}>
             <div className={styles["profile__grid-nested-main-inputs"]}>
-              <ProfileMainInfo />
+              <ProfileMainInfo
+                errorLastName={fetcher.data?.lastName}
+                errorFirstName={fetcher.data?.firstName}
+                errorMiddleName={fetcher.data?.middleName}
+                errorDateOfBirth={fetcher.data?.dateOfBirth}
+              />
             </div>
           </div>
           <div className={styles["profile__item-info-title"]}>
@@ -151,7 +181,10 @@ export const ProfileDekstop = () => {
           </div>
           <div className={styles["profile__item-info-inputs"]}>
             <div className={styles["profile__grid-nested"]}>
-              <ProfileMoreInfo isDekstop={true} />
+              <ProfileMoreInfo
+                isDekstop={true}
+                errorEmail={fetcher.data?.email}
+              />
             </div>
           </div>
           <div className={styles["profile__item-btn-email"]}>
@@ -184,7 +217,7 @@ export const ProfileDekstop = () => {
           </div>
           <div className={styles["profile__item-button"]}>
             <div className={styles["profile__grid-nested-button"]}>
-              <Button intent="primary" justify="center" type="button">
+              <Button intent="primary" justify="center" type="submit">
                 Сохранить
               </Button>
             </div>
@@ -197,6 +230,7 @@ export const ProfileDekstop = () => {
 
 export const ProfileMob = () => {
   const fetcher = useFetcher();
+
   return (
     <div className={styles.profile}>
       <fetcher.Form method="POST">
@@ -205,13 +239,21 @@ export const ProfileMob = () => {
             <ProfileAvatar />
           </div>
           <div className={styles["profile__item-mob-inputs"]}>
-            <ProfileMainInfo />
+            <ProfileMainInfo
+              errorLastName={fetcher.data?.lastName}
+              errorFirstName={fetcher.data?.firstName}
+              errorMiddleName={fetcher.data?.middleName}
+              errorDateOfBirth={fetcher.data?.ateOfBirth}
+            />
           </div>
           <div>
             <h4>Общая информация</h4>
           </div>
           <div className={styles["profile__item-mob-inputs"]}>
-            <ProfileMoreInfo isDekstop={false} />
+            <ProfileMoreInfo
+              isDekstop={false}
+              errorEmail={fetcher.data?.email}
+            />
           </div>
           <div>
             <h4>Смена пароля</h4>
@@ -220,7 +262,7 @@ export const ProfileMob = () => {
             <ProfilePasswordGroup />
           </div>
           <div className={styles["profile__item-button-mob"]}>
-            <Button intent="primary" justify="center" type="button">
+            <Button intent="primary" justify="center" type="submit">
               Сохранить
             </Button>
           </div>

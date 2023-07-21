@@ -25,8 +25,13 @@ const ensureSession =
     return storageValue;
   };
 
+
+  interface ParsedUserInfo {
+    body:UserInfoDto
+  }
+
 export const ensureLogin = ensureSession<JwtResponse>(LOGIN_LOCALSTORAGE_KEY);
-export const ensureUserInfo = ensureSession<UserInfoDto>(
+export const ensureUserInfo = ensureSession<ParsedUserInfo>(
   USERINFO_LOCALSTORAGE_KEY
 );
 
