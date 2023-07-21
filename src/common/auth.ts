@@ -44,8 +44,6 @@ export const doLogin = async (queryClient: QueryClient, data: LoginRequest) => {
     const { error: userInfoError, body: userInfo } =
       await api.authentication.userInfoQuery(queryClient);
 
-    console.log("USERINFO", userInfo);
-
     if (userInfoError) {
       throw userInfoError;
     }
