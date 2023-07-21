@@ -1,18 +1,26 @@
 import styles from "./index.module.less";
 
-export const SplitLeft = ({ text }: { text?: string }) => {
+export const SplitLeft = ({
+  phrase,
+  author
+}: {
+  phrase?: string;
+  author?: string;
+}) => {
   return (
     <div className={styles.left}>
-      <div className={styles.leftLogo}>
+      <div className={styles.left__logo}>
         <img src="/images/logo.svg" alt="logo" />
       </div>
-      <div>
-        <div className={styles.leftText}>
-          {text
-            ? text
+      <div className={styles.left__text}>
+        <div className={styles.left__phrase}>
+          {phrase
+            ? phrase
             : "«Делай добро… А добро заразительно. По‑моему, все люди милосердны. Нужно просто говорить с ними об этом, суметь разбудить в них чувство сострадания, заложенное от рождения»"}
         </div>
-        <div className={styles.leftSign}>В.В. Миллионщикова</div>
+        <div className={styles.left__author}>
+          {author ? author : "В.В. Миллионщикова"}
+        </div>
       </div>
     </div>
   );
@@ -20,7 +28,7 @@ export const SplitLeft = ({ text }: { text?: string }) => {
 
 export const SplitComponent = ({
   left,
-  right,
+  right
 }: {
   left?: React.ReactNode;
   right: React.ReactNode;
