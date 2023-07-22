@@ -11,11 +11,11 @@
     padding: 20px 0 20px 32px;
     border-bottom: 1px solid #E7E7E7;
   }
-  .aboutAddress {
+  .aboutInner {
     display: flex;
     border-bottom: 1px solid #F4F5F7;
-    .aboutAddressTitle {
-      width: 236px;
+    .aboutInnerTitle {
+      min-width: 236px;
       color: var(--black, #080C0C);
       font-family: Inter;
       font-size: 16px;
@@ -24,153 +24,122 @@
       line-height: 24px;
       margin: 24px 0 0 32px;
     }
-    .aboutAddressMain {
+    .aboutInnerContent {
       padding: 24px 16px;
-      .aboutAddressMainText {
-        color: var(--black, #080C0C);
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 400;
-        margin-bottom: 32px;
-      }
     }
   }
-  .aboutContacts {
-    display: flex;
-    border-bottom: 1px solid #F4F5F7;
-    .aboutContactsTitle {
-      width: 236px;
-      color: var(--black, #080C0C);
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 24px;
-      margin: 24px 0 0 32px;
+}
+.addressText {
+  margin-bottom: 32px;
+  color: var(--black, #080C0C);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+.addressImg {
+  width: 100%;
+}
+.contacts {
+  margin: -12px 0px -12px 0px;
+  .contactsText {
+    color: var(--black, #080C0C);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+}
+.regimeText {
+  color: var(--black, #080C0C);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+.workingModeText {
+  color: #080C0C;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  margin-bottom: 28px;
+}
+.workingModeLinks {
+  margin-bottom: 28px;
+  display: grid;
+  .workingModeLinksItem {
+    color: var(--accent, #01A5A3);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    text-decoration: none;
+  }
+}
+.workingModeBottomText {
+  color: #080C0C;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+.navigationAfoot {
+  margin-bottom: 36px;
+  .navigationAfootText {
+    color: var(--black, #080C0C);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+}
+.navigationCarText {
+  color: var(--black, #080C0C);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+.linkText {
+  color: var(--accent, #01A5A3);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-decoration-line: underline;
+}
+
+@tablet: 1080px;
+
+@media screen and (max-width: @tablet)  {
+  .aboutHeader {
+    font-weight: 500 !important;
+    padding: 23px 0 23px 0 !important;
+    text-align: center;
+  }
+  .aboutInner {
+    flex-direction: column;
+    .aboutInnerTitle {
+      font-size: 18px !important;
+      margin: 22px 0 0 16px !important;
     }
-    .aboutContactsMain {
-      padding: 12px 16px;
-      .aboutContactsMainText {
-        color: var(--black, #080C0C);
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-      }
+    .aboutInnerContent {
+      padding: 12px 16px 22px 16px !important;
     }
   }
-  .aboutRegime {
-    display: flex;
-    border-bottom: 1px solid #F4F5F7;
-    .aboutRegimeTitle {
-      width: 236px;
-      color: var(--black, #080C0C);
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 24px;
-      margin: 48px 0 0 32px;
-    }
-    .aboutRegimeMain {
-      padding: 24px 16px;
-      .aboutRegimeMainText {
-        color: var(--black, #080C0C);
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-      }
+  .addressText {
+    margin-bottom: 12px;
+  }
+  .contactsText b {
+    white-space: nowrap;
+  }
+  .workingModeText {
+    margin-bottom: 5px;
+  }
+  .workingModeLinks {
+    margin-bottom: 5px;
+    .workingModeLinksItem {
+      font-weight: 600;
     }
   }
-  .aboutWorkingMode {
-    display: flex;
-    border-bottom: 1px solid #F4F5F7;
-    .aboutWorkingModeTitle {
-      width: 236px;
-      color: var(--black, #080C0C);
-      font-family: Inter;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 24px;
-      margin: 24px 0 0 32px;
-    }
-    .aboutWorkingModeMain {
-      padding: 24px 16px;
-      .aboutWorkingModeMainText {
-        color: #080C0C;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-        margin-bottom: 28px;
-      }
-      .aboutWorkingModeMainLinks {
-        margin-bottom: 28px;
-        display: grid;
-        .aboutWorkingModeMainLinksItem {
-          color: #01A5A3;
-          font-size: 16px;
-          font-weight: 400;
-          line-height: 24px;
-        }
-      }
-      .aboutWorkingModeMainBottomText {
-        color: #080C0C;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-      }
-    }
+  .navigationAfoot {
+    margin-bottom: 26px;
   }
-  .aboutNavigation {
-    display: flex;
-    border-bottom: 1px solid #F4F5F7;
-    .aboutNavigationTitle {
-      width: 236px;
-      color: var(--black, #080C0C);
-      font-family: Inter;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 24px;
-      margin: 24px 0 0 32px;
-    }
-    .aboutNavigationMain {
-      padding: 24px 16px;
-      max-width: 790px;
-      .aboutNavigationMainAfoot {
-        margin-bottom: 36px;
-        .aboutNavigationMainAfootText {
-          color: var(--black, #080C0C);
-          font-size: 16px;
-          font-weight: 400;
-          line-height: 24px;
-        }
-      }
-      .aboutNavigationMainCarText {
-        color: var(--black, #080C0C);
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-      }
-    }
-  }
-  .aboutLink {
-    display: flex;
-    .aboutLinkTitle {
-      width: 236px;
-      color: var(--black, #080C0C);
-      font-family: Inter;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 24px;
-      margin: 24px 0 0 32px;
-    }
-    .aboutLinkMain {
-      padding: 24px 16px;
-      .aboutLinkMainText {
-        color: var(--accent, #01A5A3);
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-        text-decoration-line: underline;
-      }
-    }
+  .linkText {
+    font-weight: 600;
   }
 }
