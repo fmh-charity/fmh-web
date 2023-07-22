@@ -1,0 +1,150 @@
+@import "../../variables.less";
+
+.profile {
+  display: grid;
+  align-content: start;
+  background-color: white;
+  margin: 32px 24px;
+
+  h4 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 125%;
+  }
+
+  // Dekstop
+  &__grid {
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: minmax(180px, 276px) minmax(200px, 380px) 250px;
+    grid-template-rows: repeat(4, auto);
+    row-gap: 48px;
+  }
+
+  &__item {
+    &-avatar {
+      grid-column-start: 1;
+      grid-row-start: 1;
+    }
+    &-main-inputs {
+      grid-column-start: 2;
+      grid-row-start: 1;
+    }
+    &-info-title {
+      grid-column-start: 1;
+      grid-row-start: 2;
+    }
+    &-info-inputs {
+      grid-column-start: 2;
+      grid-row-start: 2;
+    }
+    &-btn-email {
+      grid-column-start: 3;
+      grid-row-start: 2;
+    }
+    &-password-title {
+      grid-column-start: 1;
+      grid-row-start: 3;
+    }
+    &-password-inputs {
+      grid-column-start: 2;
+      grid-row-start: 3;
+    }
+    &-button {
+      grid-column-start: 2;
+      grid-row-start: 4;
+    }
+  }
+
+  &__grid-nested {
+    display: grid;
+    grid-template-rows: repeat(3, 72px);
+    grid-gap: 20px;
+    &-avatar {
+      display: grid;
+      grid-template-rows: repeat(4, 72px);
+      grid-gap: 20px;
+    }
+    &-main-inputs {
+      display: grid;
+      grid-template-rows: repeat(4, 72px);
+      grid-gap: 20px;
+    }
+    &-button {
+      display: grid;
+    }
+  }
+
+  &__nested-item {
+    &-btn-email {
+      grid-row-start: 2;
+      margin-left: 48px;
+    }
+  }
+
+  &__wrapper-button-email {
+    display: grid;
+    width: 200px;
+    align-self: flex-end;
+    height: 48px;
+  }
+
+  //Mobile
+  &__grid-mob {
+    display: grid;
+    padding: 16px 20px;
+    justify-content: center;
+    grid-template-columns: minmax(200px, 380px);
+    gap: 24px;
+  }
+
+  &__item {
+    &-mob-avatar {
+      justify-self: center;
+    }
+    &-mob-inputs {
+      display: grid;
+      gap: 10px;
+    }
+    &-button-mob {
+      display: grid;
+    }
+  }
+
+  // Аватарка
+  &__avatar_circle-container {
+    width: 160px;
+    height: 160px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  &__avatar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    &_gray-overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 30%;
+      background-color: rgba(186, 186, 186, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &_upload-icon {
+      color: white;
+      width: 24px;
+      height: 24px;
+    }
+    &_upload-icon svg {
+      cursor: pointer;
+    }
+  }
+}

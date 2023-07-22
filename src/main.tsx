@@ -48,6 +48,11 @@ import {
   loader as loaderWishesCreate,
   action as actionWishesCreate,
 } from "./routes/wishes.create";
+import { MissionRoute } from "./routes/mission";
+import {
+  ProfileRoute,
+  action as actionSaveUserInfo
+} from "./routes/profile";
 import { AboutRoute } from "./routes/abouthospice";
 
 const queryClient = new QueryClient({
@@ -71,6 +76,11 @@ const router = createBrowserRouter([
         element: <RootRoute />,
         children: [
           { element: <div>index</div>, index: true },
+          {
+            path:"profile",
+            action: actionSaveUserInfo(queryClient),
+            element:<ProfileRoute/>,
+          },
           {
             path: "news",
             loader: loaderNews(queryClient),
@@ -122,8 +132,12 @@ const router = createBrowserRouter([
             ],
           },
           {
+            path:"mission",
+            element:<MissionRoute/>,
+          },
+          {
             path: "about",
-            element: <AboutRoute />
+            element: <AboutRoute />            
           },
           {
             path: "*",

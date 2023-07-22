@@ -6,6 +6,10 @@
   padding: 0 136px;
   align-items: center;
   background-color: white;
+  @media (max-width: 1024px) {
+    padding: 44px 20px;
+    align-items: start;
+  }
 
   form {
     display: grid;
@@ -25,15 +29,23 @@
       letter-spacing: 0em;
       text-align: center;
       color: @color-primary;
+      @media (max-width: 768px) {
+        font-size: 30px;
+      }
     }
+
     .buttons {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-column-gap: 20px;
     }
+
     .button {
       display: grid;
       height: 48px;
+      @media (max-width: 1024px) {
+        margin-top: 20px;
+      }
     }
 
     .step {
@@ -41,6 +53,30 @@
       grid-auto-flow: row;
       align-content: flex-start;
       grid-row-gap: 24px;
+    }
+
+    .step-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #ccc;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .active-circle {
+      background-color: @color-primary;
+      color: white;
+    }
+
+    .line {
+      height: 1px;
+      width: 110px;
+      background-color: #ccc;
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0 5px;
     }
 
     .gotoLogin {

@@ -4,7 +4,11 @@
   display: grid;
   background-color: white;
   align-items: center;
-  padding: 0 136px;
+  padding: 0px 85px;
+  @media (max-width: 1024px) {
+    padding: 44px 20px;
+    align-items: start;
+  }
 
   form {
     display: grid;
@@ -14,14 +18,20 @@
 
     .form {
       display: grid;
-      padding-top: 40px;
+      margin-top: 40px;
       grid-auto-flow: row;
       align-content: flex-start;
       grid-row-gap: 20px;
+      @media (max-width: 1024px) {
+        margin-top: 20px;
+      }
     }
 
     .controls {
-      margin-top: 52px;
+      margin-top: 32px;
+      @media (max-width: 1024px) {
+        margin-top: 20px;
+      }
     }
 
     .button {
@@ -37,6 +47,9 @@
       letter-spacing: 0em;
       text-align: center;
       color: @color-primary;
+      @media (max-width: 768px) {
+        font-size: 30px;
+      }
     }
 
     .description {
@@ -46,6 +59,9 @@
       letter-spacing: 0em;
       text-align: center;
       color: @color-dark-gray;
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
     }
     .separator {
       display: grid;
@@ -60,6 +76,9 @@
       height: 1px;
       background-color: @color-gray;
       margin: 40px 0;
+      @media (max-width: 1024px) {
+        margin: 24px 0;
+      }
     }
   }
 }

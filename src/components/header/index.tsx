@@ -2,16 +2,11 @@ import { Link, Outlet, useRouteLoaderData, useRoutes } from "react-router-dom";
 import { Icon } from "../icon";
 import styles from "./index.module.less";
 import type { UserInfoDto } from "../../api/model";
-import type { Role, Roles } from "../../common/roles";
-import { getRoleNameByType } from "../../common/roles";
+import { getRoleByRank } from "../../common/roles";
 import clsx from "clsx";
 
 export const Header = () => {
-  const data = useRouteLoaderData("app") as {
-    body?: UserInfoDto;
-    error?: any;
-  };
-
+  const data = useRouteLoaderData("app") as UserInfoDto;
   const router = useRoutes([
     {
       path: "/",
@@ -87,15 +82,12 @@ export const Header = () => {
           </div>
           <div>
             <div className={styles.name}>
-              {data.body?.firstName} {data.body?.lastName}
+              {data?.firstName} {data?.lastName}
             </div>
             <div className={styles.roles}>
-              {data.body?.roles
-                ?.map((roleType) => getRoleNameByType(roleType as Roles))
-                .filter(Boolean)
-                .map((role) => (
-                  <div key={role?.id}>{role?.roleName}</div>
-                ))}
+              {data?.roles ? (
+                <div>{getRoleByRank(data?.roles)?.roleName}</div>
+              ) : null}
             </div>
           </div>
         </Link>

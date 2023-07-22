@@ -32,26 +32,20 @@ export const action =
     const { login, password, redirectTo } = Object.fromEntries(formData);
 
     const schamaErrors = assertObjectBySchema({ login, password }, loginSchema);
-    if (schamaErrors) return json(schamaErrors);
+    if (schamaErrors) return json({ validation: schamaErrors });
 
-    const loginErrors = await doLogin(queryClient, {
+    const { error } = await doLogin(queryClient, {
       login,
       password,
     } as LoginRequest);
 
-    // TODO typings
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (loginErrors?.code === "ERR_INVALID_LOGIN") {
+    if (error) {
       notification?.addNotification({
-        label: "ERR_INVALID_LOGIN",
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        text: loginErrors?.message,
+        label: (error as Error)?.message,
+        text: (error as Error)?.stack,
       });
+      return { error };
     }
-
-    if (loginErrors) return json(loginErrors);
 
     return redirect(redirectTo === "/login" ? "/" : (redirectTo as string));
   };
