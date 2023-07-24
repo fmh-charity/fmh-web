@@ -7,7 +7,7 @@ import { ensureUserInfo } from "../common/auth";
 
 import { Profile } from "../components/profile";
 import { assertObjectBySchema } from "../common/utils";
-import { profileSchema } from "../validation/profile";
+import { profileMainSchema } from "../validation/profile";
 
 export const action: api.CreateAction =
   (queryClient: QueryClient) =>
@@ -27,8 +27,9 @@ export const action: api.CreateAction =
         roleIds: [parseInt(roleIds as string, 10)],
       } as unknown as ProfileChangingRequest;
 
-      const schemaErrors = assertObjectBySchema(formObj, profileSchema);
+      const schemaErrors = assertObjectBySchema(formObj, profileMainSchema);
       if (schemaErrors) return json(schemaErrors);
+
 
       const userInfo = await ensureUserInfo(queryClient);
 

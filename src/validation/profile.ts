@@ -1,11 +1,11 @@
-import { object, string, refine } from "superstruct";
+import { object, string, refine,array,number } from "superstruct";
 
 const CharPattern = /^[А-Яа-я-]+$/;
 const EmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PhoneNumberPattern = /^\+7[0-9]{10}$/;
 const ConfirmationCodePattern = /^[0-9]{4}$/;
 const PasswordPattern = /^[A-Za-z0-9!#$%&_-]+$/;
-const DatePattern = /^\d{2}\.\d{2}\.\d{4}$/;
+const DatePattern = /^\d{4}-\d{2}-\d{2}$/;
 
 const CheckLastName = refine(string(), "CheckLastName", (value) => {
   if (value.length < 1) {
@@ -111,12 +111,11 @@ const CheckDateOfBirth = refine(string(), "CheckDateOfBirth", (value) => {
   return "Неверная дата рождения";
 });
 
-export const profileSchema = object({
+export const profileMainSchema = object({
   lastName: CheckLastName,
   firstName: CheckFirstName,
   middleName: CheckMiddleName,
   email: CheckEmail,
-  phoneNumber: CheckPhoneNumber,
-  password: CheckPassword,
-  confirmationCode: CheckConfirmationCode
+  roleIds: array(number()),
+  dateOfBirth:CheckDateOfBirth
 });
