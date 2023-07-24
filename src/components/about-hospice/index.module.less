@@ -1,145 +1,84 @@
+@import "../../variables.less";
+
 .about {
-  margin: 32px 24px 18px 24px;
-  background-color: #fff;
+  display: grid;
+  background-color: @color-white;
   border-radius: 8px;
-  position: relative; 
-  .aboutHeader {
-    color: #01A5A3;
+  margin: 32px 24px;
+  align-items: start;
+  height: fit-content;
+
+  .title {
     font-size: 20px;
     font-weight: 600;
-    line-height: 125%;
-    padding: 20px 0 20px 32px;
-    border-bottom: 1px solid #E7E7E7;
+    color: @color-primary;
+    padding: 20px 32px;
+    border-bottom: 1px solid @color-light-gray2;
   }
-  .aboutInner {
-    display: flex;
-    border-bottom: 1px solid #F4F5F7;
-    .aboutInnerTitle {
-      min-width: 236px;
-      color: var(--black, #080C0C);
-      font-family: Inter;
+
+  .table {
+    .row {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+
+      &:first-child {
+        border-top: 1px solid @color-light-gray2;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid @color-light-gray2;
+      }
+    }
+    .header {
+      display: grid;
       font-size: 16px;
-      font-style: normal;
       font-weight: 700;
-      line-height: 24px;
-      margin: 24px 0 0 32px;
+      padding: 24px 32px;
     }
-    .aboutInnerContent {
+    .content {
+      display: grid;
+      font-size: 16px;
       padding: 24px 16px;
+      line-height: 24px;
+
+      .map {
+        margin-top: 32px;
+      }
+
+      a {
+        color: @color-primary;
+      }
+
+      b {
+        white-space: nowrap;
+      }
     }
   }
-}
-.addressText {
-  margin-bottom: 32px;
-  color: var(--black, #080C0C);
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-}
-.addressImg {
-  width: 100%;
-}
-.contacts {
-  margin: -12px 0px -12px 0px;
-  .contactsText {
-    color: var(--black, #080C0C);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-  }
-}
-.regimeText {
-  color: var(--black, #080C0C);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-}
-.workingModeText {
-  color: #080C0C;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  margin-bottom: 28px;
-}
-.workingModeLinks {
-  margin-bottom: 28px;
-  display: grid;
-  .workingModeLinksItem {
-    color: var(--accent, #01A5A3);
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px;
-    text-decoration: none;
-  }
-}
-.workingModeBottomText {
-  color: #080C0C;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-}
-.navigationAfoot {
-  margin-bottom: 36px;
-  .navigationAfootText {
-    color: var(--black, #080C0C);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-  }
-}
-.navigationCarText {
-  color: var(--black, #080C0C);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-}
-.linkText {
-  color: var(--accent, #01A5A3);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  text-decoration-line: underline;
 }
 
-@tablet: 1080px;
-
-@media screen and (max-width: @tablet)  {
-  .aboutHeader {
-    font-weight: 500 !important;
-    padding: 23px 0 23px 0 !important;
-    text-align: center;
-  }
-  .aboutInner {
-    flex-direction: column;
-    .aboutInnerTitle {
-      font-size: 18px !important;
-      margin: 22px 0 0 16px !important;
+@media screen and (max-width: 1024px) {
+  .about {
+    .title {
+      font-weight: 500;
+      text-align: center;
     }
-    .aboutInnerContent {
-      padding: 12px 16px 22px 16px !important;
+    .table {
+      .row {
+        grid-template-columns: 1fr;
+        padding: 24px 19px 24px 19px;
+        .header {
+          padding: 0 0 12px 0;
+          font-size: 18px;
+          font-weight: 700;
+        }
+        .content {
+          padding: 0;
+          .map {
+            margin-top: 12px;
+            min-width: 100px;
+          }
+        }
+      }
     }
-  }
-  .addressText {
-    margin-bottom: 12px;
-  }
-  .contactsText b {
-    white-space: nowrap;
-  }
-  .workingModeText {
-    margin-bottom: 5px;
-  }
-  .workingModeLinks {
-    margin-bottom: 5px;
-    .workingModeLinksItem {
-      font-weight: 600;
-    }
-  }
-  .navigationAfoot {
-    margin-bottom: 26px;
-  }
-  .linkText {
-    font-weight: 600;
   }
 }
