@@ -1,0 +1,84 @@
+@import "../../variables.less";
+
+.about {
+  display: grid;
+  background-color: @color-white;
+  border-radius: 8px;
+  margin: 32px 24px;
+  align-items: start;
+  height: fit-content;
+
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: @color-primary;
+    padding: 20px 32px;
+    border-bottom: 1px solid @color-light-gray2;
+  }
+
+  .table {
+    .row {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+
+      &:first-child {
+        border-top: 1px solid @color-light-gray2;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid @color-light-gray2;
+      }
+    }
+    .header {
+      display: grid;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 24px 32px;
+    }
+    .content {
+      display: grid;
+      font-size: 16px;
+      padding: 24px 16px;
+      line-height: 24px;
+
+      .map {
+        margin-top: 32px;
+      }
+
+      a {
+        color: @color-primary;
+      }
+
+      b {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .about {
+    .title {
+      font-weight: 500;
+      text-align: center;
+    }
+    .table {
+      .row {
+        grid-template-columns: 1fr;
+        padding: 24px 19px 24px 19px;
+        .header {
+          padding: 0 0 12px 0;
+          font-size: 18px;
+          font-weight: 700;
+        }
+        .content {
+          padding: 0;
+          .map {
+            margin-top: 12px;
+            min-width: 100px;
+          }
+        }
+      }
+    }
+  }
+}

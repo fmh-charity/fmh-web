@@ -53,6 +53,7 @@ import {
   ProfileRoute,
   action as actionSaveUserInfo
 } from "./routes/profile";
+import { AboutRoute } from "./routes/abouthospice";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
           {
             path:"mission",
             element:<MissionRoute/>,
+          },
+          {
+            path: "about",
+            element: <AboutRoute />            
           },
           {
             path: "*",
