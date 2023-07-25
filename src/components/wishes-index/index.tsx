@@ -18,10 +18,7 @@ import { ButtonLink } from "../button-link";
 import { columns } from "../../columnDefs/wishes";
 
 export const WishesIndex = () => {
-  const userInfo = useRouteLoaderData("app") as {
-    body?: UserInfoDto;
-    error?: any;
-  };
+  const userInfo = useRouteLoaderData("app") as UserInfoDto;
 
   const wishes = useLoaderData() as {
     body: WishPaginationDto;
@@ -42,7 +39,7 @@ export const WishesIndex = () => {
       sorting,
       globalFilter,
       columnVisibility: {
-        executor: userInfo?.body?.admin || false,
+        executor: userInfo?.admin || false,
       },
     },
     onSortingChange: setSorting,
@@ -65,8 +62,7 @@ export const WishesIndex = () => {
       title: "Мои просьбы",
       counter:
         wishes.body?.elements?.reduce(
-          (acc, cur) =>
-            cur.executor?.id === userInfo.body?.id ? acc + 1 : acc,
+          (acc, cur) => (cur.executor?.id === userInfo?.id ? acc + 1 : acc),
           0
         ) || 0,
       onClick: () => {
@@ -80,7 +76,7 @@ export const WishesIndex = () => {
         wishes.body?.elements?.reduce(
           (acc, cur) =>
             (cur.wishExecutors?.reduce(
-              (a, c) => (c.executor?.id === userInfo?.body?.id ? a + 1 : a),
+              (a, c) => (c.executor?.id === userInfo?.id ? a + 1 : a),
               0
             ) || 0) + acc,
           0
