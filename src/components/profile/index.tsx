@@ -62,7 +62,7 @@ const ProfileMoreInfo = ({
         name="email"
         label="Email"
         error={errorEmail}
-        defaultValue={data?.lastName || ""}
+        defaultValue={data?.email?.name || ""}
         placeholder="Email"
       />
       {isDekstop ? null : (
@@ -118,7 +118,7 @@ const ProfileMainInfo = ({
         placeholder="Отчество"
       />
       <Input
-        type="datetime-local"
+        type="date"
         name="dateOfBirth"
         label="Дата рождения"
         error={""}
