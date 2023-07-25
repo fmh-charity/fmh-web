@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useLoaderData, useRouteLoaderData } from "react-router-dom";
 import type { UserInfoDto, WishPaginationDto } from "../../api/model";
 

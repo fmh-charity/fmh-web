@@ -5,3 +5,4 @@ export * as requestInit from "./requestInit";
 export * as wishes from "./wishes";
 export * from "./customFetch";
 export * as profile from "./profile";
+export * as patients_ from "./patients_";
