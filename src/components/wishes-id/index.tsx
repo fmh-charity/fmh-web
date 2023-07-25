@@ -7,6 +7,7 @@ import type {
   WishDto,
 } from "../../api/model";
 import { statuses } from "../../common/statuses";
+import { APP_ROLES } from "../../common/roles";
 
 export const WishesId = () => {
   const { wish, patients, users } = useLoaderData() as {
@@ -28,7 +29,7 @@ export const WishesId = () => {
             name="title"
             type="text"
             label="Название"
-            defaultValue=""
+            defaultValue={wish.body.title as string}
             placeholder="Введите название..."
             error=""
           />
@@ -36,7 +37,7 @@ export const WishesId = () => {
           <TextArea
             name="description"
             label="Описание"
-            defaultValue=""
+            defaultValue={wish.body.description as string}
             placeholder="Введите описание..."
             error=""
           />
@@ -51,7 +52,7 @@ export const WishesId = () => {
 
           <div>
             <div>Для кого</div>
-            <select>
+            <select name="patient">
               <option value="" defaultChecked>
                 Для хосписа
               </option>
@@ -68,32 +69,16 @@ export const WishesId = () => {
 
           <div>
             <div>Приоритет</div>
-            <input
-              type="radio"
-              id="priority1"
-              name="wishPriority"
-              value="RED"
-            />
-            <label htmlFor="priority1">RED</label>
-            <input
-              type="radio"
-              id="priority2"
-              name="wishPriority"
-              value="YELLOW"
-            />
-            <label htmlFor="priority2">YELLOW</label>
-            <input
-              type="radio"
-              id="priority3"
-              name="wishPriority"
-              value="GREEN"
-            />
-            <label htmlFor="priority3">GREEN</label>
+            <select name="wishPriority">
+              <option value="RED">RED</option>
+              <option value="YELLOW">YELLOW</option>
+              <option value="GREEN">GREEN</option>
+            </select>
           </div>
         </div>
         <div>
           <div>Исполнители</div>
-          <select multiple style={{ height: "300px" }}>
+          <select multiple style={{ height: "300px" }} name="wishExecutors">
             {users.body.map((user) => {
               return (
                 <option key={user.id} value={user.id}>
@@ -110,6 +95,16 @@ export const WishesId = () => {
           <select>
             {Object.keys(statuses).map((k) => (
               <option key={k}>{statuses[k as keyof WishDto["status"]]}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <div>Видимость роли</div>
+          <select name="wishVisibility">
+            {APP_ROLES.map((role) => (
+              <option key={role.id} value={role.id}>
+                {role.roleName}
+              </option>
             ))}
           </select>
         </div>
