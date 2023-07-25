@@ -1,8 +1,11 @@
+import React from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import type { WishDto } from "../../api/model";
 import * as dayjs from "dayjs";
 import { Icon } from "../../components/icon";
 import { Link } from "react-router-dom";
+import { Status } from "../../components/cells/status";
+import { ExecuteDate } from "../../components/cells/executeDate";
 
 const columnHelper = createColumnHelper<WishDto>();
 
@@ -17,13 +20,14 @@ export const columns = [
   }),
   columnHelper.accessor(
     (row) =>
+      // чтобы поиск работал по форматированной дате
       row.planExecuteDate
         ? dayjs.unix(row.planExecuteDate).format("DD.MM.YYYY")
         : "",
     {
       id: "planExecuteDate",
       header: () => "Выполнить до",
-      cell: (props) => props.getValue(),
+      cell: (props) => <ExecuteDate row={props.row} date={props.getValue()} />,
     }
   ),
   columnHelper.accessor(
@@ -41,7 +45,7 @@ export const columns = [
   ),
   columnHelper.accessor("status", {
     header: () => "Статус",
-    cell: (props) => props.getValue(),
+    cell: (props) => <Status row={props.row} />,
   }),
   columnHelper.accessor("executor", {
     header: () => "Испонитель",
