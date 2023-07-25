@@ -7,7 +7,7 @@ export const Input: React.FC<{
   name: string;
   label: string;
   error: string;
-  defaultValue: string | number;
+  defaultValue: string;
   placeholder?: string;
 }> = (props) => {
   const [showPassword, setShowPassword] = React.useState(false);
