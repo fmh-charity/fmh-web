@@ -1,4 +1,19 @@
-// @media screen and (max-width: 450px)  {}
+@import "../../variables.less";
+
 .appWrapper {
   display: grid;
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: transparent;
+    z-index: 100;
+    transition: all 0.3s;
+    &.active {
+      background-color: @color-primary;
+      // right: 100%;
+    }
+  }
 }

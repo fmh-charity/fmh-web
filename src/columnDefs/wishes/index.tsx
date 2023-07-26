@@ -21,7 +21,7 @@ export const columns = [
   columnHelper.accessor(
     // чтобы поиск работал по форматированной дате
     (row) =>
-      dayjs(row.planExecuteDate).isValid()
+      row.planExecuteDate
         ? dayjs(row.planExecuteDate).format("DD.MM.YYYY")
         : "",
     {

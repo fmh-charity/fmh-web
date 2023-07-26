@@ -13,12 +13,14 @@
 .left {
   display: grid;
   background-color: @color-primary;
-  color: #fefefe;
+  color: @color-white;
+  grid-auto-flow: row;
+  grid-auto-rows: max-content;
+  align-content: center;
   .left__logo {
     display: grid;
     align-items: baseline;
     justify-content: center;
-    padding-top: 200px;
     @media (max-width: 1024px) {
       padding-top: 20px;
     }

@@ -20,11 +20,9 @@ export const assertObjectBySchema = (obj: any, schema: any) => {
 };
 
 export const getEncodeURICompoponent = <T extends object>(data: T) =>
-  encodeURIComponent(
-    Object.entries(data)
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&")
-  );
+  Object.entries(data)
+    .map(([key, value]) => `${key}=${value}`)
+    .join("&");
 
 export const getArrayFromFormData = (formData: FormData, key: string) => {
   return [...formData.entries()]

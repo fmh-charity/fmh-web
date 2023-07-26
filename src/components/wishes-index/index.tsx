@@ -25,7 +25,7 @@ export const WishesIndex = () => {
   };
 
   const [sorting, setSorting] = useState<SortingState>([
-    { id: "title", desc: true },
+    { id: "id", desc: true },
   ]);
 
   const [globalFilter, setGlobalFilter] = useState("");
