@@ -6,6 +6,7 @@ import { Icon } from "../../components/icon";
 import { Link } from "react-router-dom";
 import { Status } from "../../components/cells/status";
 import { ExecuteDate } from "../../components/cells/executeDate";
+import { statuses } from "../../common/statuses";
 
 const columnHelper = createColumnHelper<WishDto>();
 
@@ -43,10 +44,18 @@ export const columns = [
       cell: (props) => props.getValue(),
     }
   ),
-  columnHelper.accessor("status", {
-    header: () => "Статус",
-    cell: (props) => <Status row={props.row} />,
-  }),
+  columnHelper.accessor(
+    (row) => {
+      const status = statuses[row.status as keyof WishDto["status"]];
+      if (status) return status;
+      else return "";
+    },
+    {
+      id: "status",
+      header: () => "Статус",
+      cell: (props) => <Status row={props.row} />,
+    }
+  ),
   columnHelper.accessor("executor", {
     header: () => "Испонитель",
     cell: (props) => props.getValue()?.lastName,

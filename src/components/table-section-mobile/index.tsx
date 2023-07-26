@@ -1,11 +1,10 @@
-import type { CellContext, Row } from "@tanstack/react-table";
 import { flexRender, type Table } from "@tanstack/react-table";
 import { Tabs, type TabType } from "../table-section/tab";
 import styles from "./index.module.less";
 import { Icon } from "../icon";
-import type { ReactNode } from "react";
 import { Status } from "../cells/status";
 import { ExecuteDate } from "../cells/executeDate";
+import clsx from "clsx";
 
 export const TableSectionMobile = ({
   table,
@@ -20,8 +19,6 @@ export const TableSectionMobile = ({
   globalFilter: string;
   setGlobalFilter: (globalFilter: string) => void;
 }) => {
-  const visibleColumns = table.getVisibleFlatColumns();
-  console.log(visibleColumns);
   return (
     <div className={styles.tableSection}>
       <div className={styles.searchWrapper}>
@@ -53,7 +50,7 @@ export const TableSectionMobile = ({
             <div className={styles.patient}>
               <Icon.Patients24 width={16} /> {row.getValue("patient")}
             </div>
-            <div className={styles.spaceBetween}>
+            <div className={clsx(styles.spaceBetween, styles.date)}>
               <div>
                 <ExecuteDate row={row} date={row.getValue("planExecuteDate")} />
               </div>
@@ -61,41 +58,18 @@ export const TableSectionMobile = ({
                 {row
                   .getVisibleCells()
                   .filter((cell) => cell.column.id === "actions")
-                  .map((cell) =>
-                    flexRender(cell.column.columnDef.cell, cell.getContext())
-                  )}
+                  .map((cell) => (
+                    <div key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </div>
+                  ))}
               </div>
             </div>
-
-            {/* {row.getVisibleCells().map((cell) => (
-              <div key={cell.id}>
-                {cell.column.id}
-                <pre>{JSON.stringify(cell.getContext(), null, 2)} </pre>
-                {cell.getValue() as ReactNode}
-              </div>
-            ))} */}
           </div>
         ))}
-        {/* <table>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <CellHeader key={header.id} header={header} />
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <Cell key={cell.id} cell={cell} />
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
       </div>
       <div className={styles.footer}></div>
     </div>
