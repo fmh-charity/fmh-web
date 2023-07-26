@@ -2,10 +2,12 @@ import { json, redirect } from "react-router-dom";
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { WishesId } from "../components/wishes-id";
-import * as dayjs from "dayjs";
+import * as _dayjs from "dayjs";
 import { getArrayFromFormData } from "../common/utils";
 import type { WishCreationRequest } from "../api/model";
 import { notification } from "../common/notifications";
+
+const dayjs = _dayjs;
 
 export const action =
   (queryClient: QueryClient) =>

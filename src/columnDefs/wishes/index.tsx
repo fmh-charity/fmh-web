@@ -1,12 +1,13 @@
 import React from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import type { WishDto } from "../../api/model";
-import * as dayjs from "dayjs";
+import * as _dayjs from "dayjs";
 import { Icon } from "../../components/icon";
 import { Link } from "react-router-dom";
 import { Status } from "../../components/cells/status";
 import { ExecuteDate } from "../../components/cells/executeDate";
 
+const dayjs = _dayjs;
 const columnHelper = createColumnHelper<WishDto>();
 
 export const columns = [
