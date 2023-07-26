@@ -1,5 +1,5 @@
 import React from "react";
-import { useFetcher } from "react-router-dom";
+import { ScrollRestoration, useFetcher } from "react-router-dom";
 import { Input } from "../input";
 import { TextArea } from "../textarea";
 import { APP_ROLES } from "../../common/roles";
@@ -20,6 +20,7 @@ export const WishesForm: React.FC<{
   const fetcher = useFetcher();
   return (
     <fetcher.Form method="POST">
+      <ScrollRestoration />
       <div>
         <Input
           name="title"

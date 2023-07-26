@@ -6,7 +6,7 @@ import { WishesIndex } from "../components/wishes-index";
 export const loader: api.CreateLoader =
   (queryClient: QueryClient) => async () => {
     const req = {
-      // elements: 20,
+      elements: 200,
       // pages: 1,
     };
     const wishes = await api.wishes.wishesQuery(queryClient, req);

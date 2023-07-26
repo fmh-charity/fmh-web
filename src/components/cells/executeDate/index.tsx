@@ -12,9 +12,8 @@ export const ExecuteDate: React.FC<{ row: Row<WishDto>; date: string }> = ({
   row,
   date,
 }) => {
-  const status = row.original.planExecuteDate
-    ? dayjs
-        .unix(row.original.planExecuteDate as number)
+  const status = dayjs(row.original.planExecuteDate).isValid()
+    ? dayjs(row.original.planExecuteDate as number)
         .subtract(2, "day")
         .isSameOrBefore()
     : null;
@@ -22,7 +21,7 @@ export const ExecuteDate: React.FC<{ row: Row<WishDto>; date: string }> = ({
   return (
     <div className={styles.wrapper}>
       {date}
-      {status && (
+      {status && date && (
         <div className={clsx({ [styles.circle]: true, [styles.red]: true })} />
       )}
     </div>

@@ -32,7 +32,7 @@ export const action =
       title: title as string,
     };
     if (dayjs(planExecuteDate as string).isValid()) {
-      o["planExecuteDate"] = dayjs(planExecuteDate as string).toISOString();
+      o["planExecuteDate"] = dayjs(planExecuteDate as string).toJSON();
     }
     if (patient) {
       o["patientId"] = parseInt(patient as string, 10);
