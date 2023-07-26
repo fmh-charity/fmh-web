@@ -15,6 +15,8 @@ import { Icon } from "../icon";
 import styles from "./index.module.less";
 import { ButtonLink } from "../button-link";
 import { columns } from "../../columnDefs/wishes";
+import { useResize } from "../../common/hooks";
+import { TableSectionMobile } from "../table-section-mobile";
 
 export const WishesIndex = () => {
   const userInfo = useRouteLoaderData("app") as UserInfoDto;
@@ -86,22 +88,39 @@ export const WishesIndex = () => {
     },
   ];
 
+  const isMobile = useResize();
+
   return (
     <div className={styles.wishes}>
-      <TableSection
-        globalFilter={globalFilter}
-        setGlobalFilter={setGlobalFilter}
-        table={table}
-        tabs={tabs}
-        buttons={
-          <>
-            <ButtonLink intent="primary" Icon={Icon.Plus16} to="create">
-              Добавить просьбу
-            </ButtonLink>
-          </>
-        }
-      />
-      <pre>{JSON.stringify(wishes, null, 2)}</pre>
+      {isMobile ? (
+        <TableSectionMobile
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          table={table}
+          tabs={tabs}
+          buttons={
+            <>
+              <Icon.Filter24 />
+              <ButtonLink intent="primary" Icon={Icon.Plus16} to="create" />
+            </>
+          }
+        />
+      ) : (
+        <TableSection
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          table={table}
+          tabs={tabs}
+          buttons={
+            <>
+              <ButtonLink intent="primary" Icon={Icon.Plus16} to="create">
+                Добавить просьбу
+              </ButtonLink>
+            </>
+          }
+        />
+      )}
+      {/* <pre>{JSON.stringify(wishes, null, 2)}</pre> */}
     </div>
   );
 };
