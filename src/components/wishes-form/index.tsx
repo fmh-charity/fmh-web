@@ -9,9 +9,7 @@ import type {
   UserShortInfoDto,
   WishDto,
 } from "../../api/model";
-import * as _dayjs from "dayjs";
-
-const dayjs = _dayjs;
+import dayjs from "dayjs";
 
 export const WishesForm: React.FC<{
   wish: WishDto;
