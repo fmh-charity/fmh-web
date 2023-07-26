@@ -42,11 +42,14 @@ import {
   WishesIndexRoute,
   loader as loaderWishesIndex,
 } from "./routes/wishes.index";
-import { WishesIdRoute, loader as loaderWishesId } from "./routes/wishes.id";
+import {
+  WishesIdRoute,
+  loader as loaderWishesId,
+  action as actionWishesCreateOrUpdate,
+} from "./routes/wishes.id";
 import {
   WishesCreateRoute,
   loader as loaderWishesCreate,
-  action as actionWishesCreate,
 } from "./routes/wishes.create";
 import { MissionRoute } from "./routes/mission";
 import { ProfileRoute, action as actionSaveUserInfo } from "./routes/profile";
@@ -95,12 +98,13 @@ const router = createBrowserRouter([
               {
                 path: ":id",
                 loader: loaderWishesId(queryClient),
+                action: actionWishesCreateOrUpdate(queryClient),
                 element: <WishesIdRoute />,
               },
               {
                 path: "create",
                 loader: loaderWishesCreate(queryClient),
-                action: actionWishesCreate(queryClient),
+                action: actionWishesCreateOrUpdate(queryClient),
                 element: <WishesCreateRoute />,
               },
             ],

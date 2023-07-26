@@ -1,9 +1,14 @@
 import * as api from "../api";
 import { createQuery } from ".";
 import { getEncodeURICompoponent } from "../common/utils";
-import { WISHES_QUERY, type WISH_STATUSES } from "../common/constants";
+import {
+  WISHES_QUERY,
+  WISH_CREATE_QUERY,
+  WISH_UPDATE_QUERY,
+  type WISH_STATUSES,
+} from "../common/constants";
 import type { QueryClient } from "@tanstack/react-query";
-import type { WishDto, WishPaginationDto } from "./model";
+import type { WishCreationRequest, WishDto, WishPaginationDto } from "./model";
 
 export type WishesRequestUrl = {
   pages: number;
@@ -36,4 +41,33 @@ export const wishesByIdQuery = (
     {
       queryKey: [WISHES_QUERY, `${data}`],
     }
+  );
+
+export const wishesCreateQuery = (
+  queryClient: QueryClient,
+  data: WishCreationRequest
+) =>
+  createQuery<WishDto, WishCreationRequest>(
+    queryClient,
+    "/api/fmh/wishes",
+    api.requestInit.RequestInitPostJSON,
+    {
+      queryKey: [WISH_CREATE_QUERY],
+    },
+    data
+  );
+
+export const wishesUpdateQuery = (
+  queryClient: QueryClient,
+  data: WishCreationRequest,
+  id: string
+) =>
+  createQuery<WishDto, WishCreationRequest>(
+    queryClient,
+    "/api/fmh/wishes/" + id,
+    api.requestInit.RequestInitPutJSON,
+    {
+      queryKey: [WISH_UPDATE_QUERY],
+    },
+    data
   );

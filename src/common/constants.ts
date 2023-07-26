@@ -18,6 +18,8 @@ export const NOTIFICATION_ADD = "NOTIFICATION_ADD";
 // wishes
 
 export const WISHES_QUERY = "WISHES_QUERY";
+export const WISH_CREATE_QUERY = "WISH_CREATE_QUERY";
+export const WISH_UPDATE_QUERY = "WISH_UPDATE_QUERY";
 
 export const WISH_STATUSES = {
   IN_PROGRESS: "IN_PROGRESS",
