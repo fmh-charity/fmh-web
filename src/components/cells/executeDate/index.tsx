@@ -1,12 +1,10 @@
 import React from "react";
 import type { Row } from "@tanstack/react-table";
 import type { WishDto } from "../../../api/model";
-import * as _dayjs from "dayjs";
+import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import styles from "./index.module.less";
 import clsx from "clsx";
-
-const dayjs = _dayjs;
 
 dayjs.extend(isSameOrBefore);
 
