@@ -19,10 +19,10 @@ export const columns = [
     cell: (props) => props.getValue(),
   }),
   columnHelper.accessor(
+    // чтобы поиск работал по форматированной дате
     (row) =>
-      // чтобы поиск работал по форматированной дате
       row.planExecuteDate
-        ? dayjs.unix(row.planExecuteDate).format("DD.MM.YYYY")
+        ? dayjs(row.planExecuteDate).format("DD.MM.YYYY")
         : "",
     {
       id: "planExecuteDate",

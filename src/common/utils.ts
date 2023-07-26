@@ -25,3 +25,9 @@ export const getEncodeURICompoponent = <T extends object>(data: T) =>
       .map(([key, value]) => `${key}=${value}`)
       .join("&")
   );
+
+export const getArrayFromFormData = (formData: FormData, key: string) => {
+  return [...formData.entries()]
+    .filter((entry) => entry[0] === key)
+    .map((entry) => entry[1]);
+};

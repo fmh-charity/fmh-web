@@ -4,7 +4,6 @@ import type { WishDto } from "../../../api/model";
 import * as dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import styles from "./index.module.less";
-import { Icon } from "../../icon";
 import clsx from "clsx";
 
 dayjs.extend(isSameOrBefore);
