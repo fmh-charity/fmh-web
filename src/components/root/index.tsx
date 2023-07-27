@@ -5,14 +5,16 @@ import styles from "./index.module.less";
 
 export const Root: React.FC = () => {
   return (
-    <>
+    <div className={styles.wrapper}>
       <Sidebar />
-      <Header />
-      <div className={styles.content}>
-        <div className={styles.outlet}>
-          <Outlet />
+      <div className={styles.body}>
+        <Header />
+        <div className={styles.content}>
+          <div className={styles.outlet}>
+            <Outlet />
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

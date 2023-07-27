@@ -1,10 +1,22 @@
-.content {
+.wrapper {
   display: grid;
+  grid-template-columns: max-content 1fr;
+  height: 100%;
 
-  .outlet {
+  .body {
     display: grid;
-    padding: 88px 0 0 286px;
-    overflow: scroll;
-    inset: 0;
+    grid-template-rows: max-content 1fr;
+
+    .content {
+      display: grid;
+      overflow: auto;
+      position: relative;
+
+      .outlet {
+        display: grid;
+        position: absolute;
+        inset: 0;
+      }
+    }
   }
 }

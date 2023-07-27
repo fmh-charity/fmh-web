@@ -11,20 +11,26 @@ export const loader: CreateLoader = (queryClient: QueryClient) => async () => {
   return await ensureUserInfo(queryClient);
 };
 
+const LoadingIndicator = () => {
+  const navigation = useNavigation();
+  return (
+    <div
+      className={clsx({
+        [styles.loader]: true,
+        [styles.active]: navigation.state === "loading",
+      })}
+    />
+  );
+};
+
 export const App = () => {
   useAuthBroadcastRevalidator();
-  const navigation = useNavigation();
 
   return (
-    <div className={styles.appWrapper}>
-      <div
-        className={clsx({
-          [styles.loader]: true,
-          [styles.active]: navigation.state === "loading",
-        })}
-      ></div>
+    <>
+      <LoadingIndicator />
       <Outlet />
       <Notifications />
-    </div>
+    </>
   );
 };
