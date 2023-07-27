@@ -46,7 +46,7 @@ export const WishesForm: React.FC<{
           defaultValue={
             props.wish?.planExecuteDate
               ? dayjs(props.wish.planExecuteDate).format("YYYY-MM-DD")
-              : dayjs().format("YYYY-MM-DD")
+              : ""
           }
           error=""
         />
