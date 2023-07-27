@@ -2,7 +2,8 @@
 
 .tableSection {
   display: grid;
-  grid-template-rows: max-content 1fr max-content max-content;
+  grid-template-rows: max-content max-content 1fr;
+  overflow: auto;
 
   .searchWrapper {
     display: grid;
@@ -43,7 +44,8 @@
   }
 
   .content {
-    display: grid;
+    overflow: auto;
+    border-radius: 8px;
     table {
       background-color: @color-white;
       border-spacing: 0;
@@ -56,11 +58,16 @@
         tr {
           th {
             padding: 24px 16px 16px 16px;
+            position: sticky;
+            top: 0;
+            background-color: white;
             &:first-child {
               padding-left: 32px;
+              border-top-left-radius: 8px;
             }
             &:last-child {
               padding-right: 32px;
+              border-top-right-radius: 8px;
             }
           }
         }
@@ -90,9 +97,5 @@
         }
       }
     }
-  }
-
-  .footer {
-    display: grid;
   }
 }
