@@ -120,7 +120,6 @@ export const WishesIndex = () => {
           }
         />
       )}
-      {/* <pre>{JSON.stringify(wishes, null, 2)}</pre> */}
     </div>
   );
 };

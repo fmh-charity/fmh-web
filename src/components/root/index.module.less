@@ -6,16 +6,13 @@
   .body {
     display: grid;
     grid-template-rows: max-content 1fr;
-
+    overflow: auto;
     .content {
       display: grid;
       overflow: auto;
-      position: relative;
-
       .outlet {
         display: grid;
-        position: absolute;
-        inset: 0;
+        overflow: auto;
       }
     }
   }
