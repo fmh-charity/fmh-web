@@ -1,6 +1,6 @@
 import { Outlet, useNavigation } from "react-router-dom";
 import { useAuthBroadcastRevalidator } from "../../common/hooks";
-import { Notifications } from "../notifications";
+import { Notifications } from "../../components/notifications";
 import styles from "./index.module.less";
 import type { QueryClient } from "@tanstack/react-query";
 import { ensureUserInfo } from "../../common/auth";

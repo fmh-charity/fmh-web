@@ -1,26 +1,25 @@
-import { Link, useLoaderData, useParams } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import type {
   PatientByStatusRs,
   UserShortInfoDto,
   WishDto,
 } from "../../api/model";
-import { WishesForm } from "../wishes-form";
+import { WishesForm } from "../../components/wishes-form";
 
-export const WishesId = () => {
+export const WishesCreate = () => {
   const { wish, patients, users } = useLoaderData() as {
     wish: { body: WishDto };
     patients: { body: PatientByStatusRs[] };
     users: { body: UserShortInfoDto[] };
   };
-  const params = useParams();
   return (
     <div>
       <div>
-        wish by id {params.id}
+        wish create
         <Link to="..">back</Link>
       </div>
       <WishesForm
-        intent="EDIT"
+        intent="CREATE"
         wish={wish.body}
         patients={patients.body}
         users={users.body}

@@ -4,7 +4,7 @@ import { assertObjectBySchema } from "../common/utils";
 import { loginSchema } from "../validation/login";
 import { doLogin, ensureLogin } from "../common/auth";
 import type { LoginRequest } from "../api/model";
-import { Login } from "../components/login";
+import { Login } from "../pages/login";
 import { notification } from "../common/notifications";
 
 export const loader =
