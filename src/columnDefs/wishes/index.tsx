@@ -35,7 +35,7 @@ export const columns = [
   columnHelper.accessor(
     ({ patient }) => {
       const { firstName, lastName, middleName } = patient || {};
-      return joinNames(firstName, lastName, middleName) || "Хоспис";
+      return joinNames(firstName, middleName, lastName) || "Хоспис";
     },
     {
       id: "patient",
@@ -58,7 +58,7 @@ export const columns = [
   columnHelper.accessor(
     ({ executor }) => {
       const { firstName, lastName, middleName } = executor || {};
-      return joinNames(firstName, lastName, middleName) || "Хоспис";
+      return joinNames(firstName, middleName, lastName) || "Хоспис";
     },
     {
       id: "executor",
