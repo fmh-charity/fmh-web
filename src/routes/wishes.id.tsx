@@ -3,9 +3,12 @@ import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { WishesId } from "../components/wishes-id";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import { getArrayFromFormData } from "../common/utils";
 import type { WishCreationRequest } from "../api/model";
 import { notification } from "../common/notifications";
+
+dayjs.extend(utc);
 
 export const action =
   (queryClient: QueryClient) =>
@@ -32,7 +35,7 @@ export const action =
       title: title as string,
     };
     if (dayjs(planExecuteDate as string).isValid()) {
-      o["planExecuteDate"] = dayjs(planExecuteDate as string).toJSON();
+      o["planExecuteDate"] = dayjs.utc(planExecuteDate as string).toJSON();
     }
     if (patient) {
       o["patientId"] = parseInt(patient as string, 10);

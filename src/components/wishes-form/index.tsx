@@ -41,11 +41,11 @@ export const WishesForm: React.FC<{
 
         <Input
           name="planExecuteDate"
-          type="date"
+          type="datetime-local"
           label="Плановая дата завершение"
           defaultValue={
             props.wish?.planExecuteDate
-              ? dayjs(props.wish.planExecuteDate).format("YYYY-MM-DD")
+              ? dayjs.utc(props.wish.planExecuteDate).format("YYYY-MM-DD HH:MM")
               : ""
           }
           error=""

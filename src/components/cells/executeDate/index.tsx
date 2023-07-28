@@ -8,21 +8,31 @@ import clsx from "clsx";
 
 dayjs.extend(isSameOrBefore);
 
-export const ExecuteDate: React.FC<{ row: Row<WishDto>; date: string }> = ({
-  row,
-  date,
-}) => {
-  const status = dayjs(row.original.planExecuteDate).isValid()
-    ? dayjs(row.original.planExecuteDate as number)
-        .subtract(2, "day")
-        .isSameOrBefore()
-    : null;
+export const ExecuteDate: React.FC<{ row: Row<WishDto> }> = ({ row }) => {
+  const hourDiff = Math.abs(
+    dayjs.utc(row.original.planExecuteDate).diff(dayjs().utc(true), "hour")
+  );
+
+  const statusRed = hourDiff < 6;
+  const statusOrange = hourDiff < 12;
+
+  const dateDesktop = row.original.planExecuteDate
+    ? dayjs.utc(row.original.planExecuteDate).format("YYYY-MM-DD")
+    : "";
+
+  const title = "До завершения осталось " + hourDiff + " часов ";
 
   return (
-    <div className={styles.wrapper}>
-      {date}
-      {status && date && (
-        <div className={clsx({ [styles.circle]: true, [styles.red]: true })} />
+    <div title={title} className={styles.wrapper}>
+      {dateDesktop}
+      {(statusRed || statusOrange) && dateDesktop && (
+        <div
+          className={clsx({
+            [styles.circle]: true,
+            [styles.red]: statusRed,
+            [styles.orange]: statusOrange && !statusRed,
+          })}
+        />
       )}
     </div>
   );

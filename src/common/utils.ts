@@ -29,3 +29,17 @@ export const getArrayFromFormData = (formData: FormData, key: string) => {
     .filter((entry) => entry[0] === key)
     .map((entry) => entry[1]);
 };
+
+export const joinNames = (
+  firstName: string | undefined,
+  middleName: string | undefined,
+  lastName: string | undefined
+) => {
+  return [
+    lastName,
+    [firstName, middleName]
+      .filter(Boolean)
+      .map((i) => ((i as string).length > 0 ? `${i?.charAt(0)}.` : ""))
+      .join(" "),
+  ].join(" ");
+};
