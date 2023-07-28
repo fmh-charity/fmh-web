@@ -36,7 +36,7 @@ export const action: api.CreateAction =
         throw new Error("Произошла ошибка");
       }
 
-      const responseSaveReq = await api.profile.saveChangesQuery(
+      const responseSaveReq = await api.users.updateUserByIdQuery(
         queryClient,
         formObj,
         userInfo.id

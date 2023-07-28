@@ -2,6 +2,7 @@ import * as api from "../api";
 import { createQuery } from ".";
 import type { QueryClient } from "@tanstack/react-query";
 import type { NewsDto, NewsPaginationDto } from "./model";
+import { NEWS_QUERY } from "../common/constants";
 
 export const newsQuery = (queryClient: QueryClient, data?: NewsPaginationDto) =>
   createQuery<NewsDto[], typeof data>(
@@ -9,7 +10,7 @@ export const newsQuery = (queryClient: QueryClient, data?: NewsPaginationDto) =>
     "/api/fmh/news",
     api.requestInit.RequestInitGetJSON,
     {
-      queryKey: [""],
+      queryKey: [NEWS_QUERY],
     },
     data
   );
