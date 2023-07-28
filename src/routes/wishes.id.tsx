@@ -1,7 +1,7 @@
 import { json, redirect } from "react-router-dom";
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
-import { WishesId } from "../components/wishes-id";
+import { WishesId } from "../pages/wishes-id";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { getArrayFromFormData } from "../common/utils";

@@ -5,7 +5,7 @@ import * as api from "../api";
 import type { ProfileChangingRequest } from "../api/model";
 import { ensureUserInfo } from "../common/auth";
 
-import { Profile } from "../components/profile";
+import { Profile } from "../pages/profile";
 import { assertObjectBySchema } from "../common/utils";
 import { profileMainSchema } from "../validation/profile";
 
@@ -29,7 +29,6 @@ export const action: api.CreateAction =
 
       const schemaErrors = assertObjectBySchema(formObj, profileMainSchema);
       if (schemaErrors) return json(schemaErrors);
-
 
       const userInfo = await ensureUserInfo(queryClient);
 

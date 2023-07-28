@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "../menu";
-import { Header } from "../header";
+import { Sidebar } from "../../components/menu";
+import { Header } from "../../components/header";
 import styles from "./index.module.less";
 
 export const Root: React.FC = () => {

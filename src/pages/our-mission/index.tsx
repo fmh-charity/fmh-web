@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 
 import styles from "./index.module.less";
-import { Icon } from "../icon";
+import { Icon } from "../../components/icon";
 
 import type { IAuthor, IPhrase, ITitlePhrase } from "./mock-data";
 
@@ -29,7 +29,7 @@ const CardHeader = ({
   id,
   isCardOpen,
   isMobile,
-  toggleCard
+  toggleCard,
 }: {
   title: ITitlePhrase;
   id: string;
@@ -71,7 +71,7 @@ const MissionCard = ({
   content,
   currentOpenedCardId,
   isMobile,
-  toggleCard
+  toggleCard,
 }: {
   content: IPhrase;
   currentOpenedCardId: string | null;

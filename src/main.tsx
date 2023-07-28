@@ -3,7 +3,7 @@ import "./index.less";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { App, loader as loaderApp } from "./components/app";
+import { App, loader as loaderApp } from "./pages/app";
 import {
   LoginRoute,
   loader as loaderLogin,
@@ -53,7 +53,7 @@ import {
 } from "./routes/wishes.create";
 import { MissionRoute } from "./routes/mission";
 import { ProfileRoute, action as actionSaveUserInfo } from "./routes/profile";
-import { AboutRoute } from "./routes/abouthospice";
+import { AboutRoute } from "./routes/about";
 
 const queryClient = new QueryClient({
   defaultOptions: {

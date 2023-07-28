@@ -2,7 +2,7 @@ import type { QueryClient } from "@tanstack/react-query";
 import { redirect } from "react-router";
 import { ensureLogin } from "../common/auth";
 import type { CreateLoader } from "../api";
-import { Root } from "../components/root";
+import { Root } from "../pages/root";
 
 export const loader: CreateLoader =
   (queryClient: QueryClient) =>

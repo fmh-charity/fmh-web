@@ -1,13 +1,13 @@
 import React from "react";
 import { createColumnHelper } from "@tanstack/react-table";
-import type { WishDto } from "../../api/model";
+import type { WishDto } from "../../../api/model";
 import dayjs from "dayjs";
-import { Icon } from "../../components/icon";
+import { Icon } from "../../icon";
 import { Link } from "react-router-dom";
-import { Status } from "../../components/cells/status";
-import { ExecuteDate } from "../../components/cells/executeDate";
-import { statuses } from "../../common/statuses";
-import { joinNames } from "../../common/utils";
+import { Status } from "../../cells/status";
+import { ExecuteDate } from "../../cells/executeDate";
+import { statuses } from "../../../common/statuses";
+import { joinNames } from "../../../common/utils";
 
 const columnHelper = createColumnHelper<WishDto>();
 

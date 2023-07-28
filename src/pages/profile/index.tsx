@@ -1,9 +1,9 @@
 import React from "react";
 import { useFetcher, useRouteLoaderData } from "react-router-dom";
 
-import { Input } from "../input";
-import { Button } from "../button";
-import { Icon } from "../icon";
+import { Input } from "../../components/input";
+import { Button } from "../../components/button";
+import { Icon } from "../../components/icon";
 import styles from "./index.module.less";
 
 import clsx from "clsx";

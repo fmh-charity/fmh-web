@@ -1,10 +1,10 @@
 import { useFetcher, useLoaderData } from "react-router-dom";
-import { SplitComponent } from "../split-component";
+import { SplitComponent } from "../../components/split-component";
 import styles from "./index.module.less";
-import { Input } from "../input";
-import { Button } from "../button";
-import { Icon } from "../icon";
-import { ButtonLink } from "../button-link";
+import { Input } from "../../components/input";
+import { Button } from "../../components/button";
+import { Icon } from "../../components/icon";
+import { ButtonLink } from "../../components/button-link";
 
 export const Login = () => {
   const redirectTo = useLoaderData() as string;

@@ -1,7 +1,7 @@
 import { json } from "react-router-dom";
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
-import { WishesIndex } from "../components/wishes-index";
+import { WishesIndex } from "../pages/wishes-index";
 
 export const loader: api.CreateLoader =
   (queryClient: QueryClient) => async () => {

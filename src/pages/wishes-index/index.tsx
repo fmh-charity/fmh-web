@@ -8,15 +8,15 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { TableSection } from "../table-section";
+import { TableSection } from "../../components/table-section";
 import { useState } from "react";
-import { Icon } from "../icon";
+import { Icon } from "../../components/icon";
 
 import styles from "./index.module.less";
-import { ButtonLink } from "../button-link";
-import { columns } from "../../columnDefs/wishes";
+import { ButtonLink } from "../../components/button-link";
+import { columns } from "../../components/columnDefs/wishes";
 import { useResize } from "../../common/hooks";
-import { TableSectionMobile } from "../table-section-mobile";
+import { TableSectionMobile } from "../../components/table-section-mobile";
 
 export const WishesIndex = () => {
   const userInfo = useRouteLoaderData("app") as UserInfoDto;
