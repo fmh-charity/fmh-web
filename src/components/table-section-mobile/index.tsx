@@ -52,7 +52,7 @@ export const TableSectionMobile = ({
             </div>
             <div className={clsx(styles.spaceBetween, styles.date)}>
               <div>
-                <ExecuteDate row={row} date={row.getValue("planExecuteDate")} />
+                <ExecuteDate row={row} />
               </div>
               <div>
                 {row
