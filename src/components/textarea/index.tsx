@@ -8,8 +8,6 @@ export const TextArea: React.FC<{
   defaultValue: string;
   placeholder?: string;
 }> = (props) => {
-  const [showPassword, setShowPassword] = React.useState(false);
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.label}>{props.label}</div>

@@ -3,8 +3,6 @@ import { redirect } from "react-router";
 import { ensureLogin } from "../common/auth";
 import type { CreateLoader } from "../api";
 import { Root } from "../components/root";
-import { useLoaderData } from "react-router-dom";
-import type { JwtResponse } from "../api/model";
 
 export const loader: CreateLoader =
   (queryClient: QueryClient) =>
@@ -25,6 +23,5 @@ export const loader: CreateLoader =
   };
 
 export const RootRoute = () => {
-  const data = useLoaderData() as JwtResponse;
   return <Root />;
 };
