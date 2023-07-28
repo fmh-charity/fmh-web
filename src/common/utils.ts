@@ -43,3 +43,6 @@ export const joinNames = (
       .join(" "),
   ].join(" ");
 };
+
+export const numberBetween = (x: number, min: number, max: number) =>
+  x >= min && x <= max;
