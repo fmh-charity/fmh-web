@@ -99,12 +99,12 @@ export const loader: api.CreateLoader =
     if (params.id) {
       const [wish, patients, users] = await Promise.all([
         api.wishes.wishesByIdQuery(queryClient, params.id),
-        api.patients_.patientsQuery(queryClient, [
+        api.patients.patientsQuery(queryClient, [
           "ACTIVE",
           "DISCHARGED",
           "EXPECTED",
         ]),
-        api.patients_.usersQuery(queryClient),
+        api.users.usersQuery(queryClient),
       ]);
 
       return json({ wish, patients, users });

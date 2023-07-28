@@ -6,12 +6,12 @@ import { WishesCreate } from "../pages/wishes-create";
 export const loader: api.CreateLoader =
   (queryClient: QueryClient) => async () => {
     const [patients, users] = await Promise.all([
-      api.patients_.patientsQuery(queryClient, [
+      api.patients.patientsQuery(queryClient, [
         "ACTIVE",
         "DISCHARGED",
         "EXPECTED",
       ]),
-      api.patients_.usersQuery(queryClient),
+      api.users.usersQuery(queryClient),
     ]);
 
     const wish = {};

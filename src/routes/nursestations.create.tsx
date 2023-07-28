@@ -2,7 +2,7 @@ import * as api from "../api";
 import { json, redirect } from "react-router-dom";
 import type { QueryClient } from "@tanstack/react-query";
 import type { NurseStationDtoRq } from "../api/model";
-import { NurseStationsForm } from "../pages/nurse-stations";
+import { NurseStationsForm } from "../components/nurse-stations-form";
 import { notification } from "../common/notifications";
 
 export const action: api.CreateAction =

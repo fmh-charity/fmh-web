@@ -2,7 +2,7 @@ import * as api from ".";
 import { createQuery } from ".";
 import type { QueryClient } from "@tanstack/react-query";
 import { PATIENS_QUERY } from "../common/constants";
-import type { PatientByStatusRs, UserShortInfoDto } from "./model";
+import type { PatientByStatusRs } from "./model";
 
 export const patientsQuery = (
   queryClient: QueryClient,
@@ -15,16 +15,5 @@ export const patientsQuery = (
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [PATIENS_QUERY],
-    }
-  );
-
-// TODO
-export const usersQuery = (queryClient: QueryClient) =>
-  createQuery<UserShortInfoDto[]>(
-    queryClient,
-    "/api/fmh/users",
-    api.requestInit.RequestInitGetJSON,
-    {
-      queryKey: ["USERS"], // TODO
     }
   );
