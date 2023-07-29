@@ -1,4 +1,4 @@
-import { OurMission } from "../components/our-mission";
+import { OurMission } from "../pages/our-mission";
 
 export const MissionRoute = () => {
   return <OurMission />;

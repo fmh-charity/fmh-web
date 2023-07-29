@@ -1,0 +1,22 @@
+@import "../../../variables.less";
+
+.wrapper {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-column-gap: 12px;
+  align-items: center;
+
+  .circle {
+    display: grid;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+  .circle.red {
+    background-color: @color-red;
+  }
+  .circle.orange {
+    background-color: @color-dark-orange;
+  }
+}

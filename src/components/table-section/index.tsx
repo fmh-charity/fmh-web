@@ -60,7 +60,6 @@ export const TableSection = ({
           </tbody>
         </table>
       </div>
-      <div className={styles.footer}></div>
     </div>
   );
 };

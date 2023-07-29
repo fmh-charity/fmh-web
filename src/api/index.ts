@@ -4,4 +4,5 @@ export * as nurseStations from "./nurseStations";
 export * as requestInit from "./requestInit";
 export * as wishes from "./wishes";
 export * from "./customFetch";
-export * as profile from "./profile";
+export * as users from "./users";
+export * as patients from "./patients";

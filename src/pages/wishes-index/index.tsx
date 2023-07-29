@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useLoaderData, useRouteLoaderData } from "react-router-dom";
 import type { UserInfoDto, WishPaginationDto } from "../../api/model";
 
@@ -9,19 +8,18 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { TableSection } from "../table-section";
+import { TableSection } from "../../components/table-section";
 import { useState } from "react";
-import { Icon } from "../icon";
+import { Icon } from "../../components/icon";
 
 import styles from "./index.module.less";
-import { ButtonLink } from "../button-link";
-import { columns } from "../../columnDefs/wishes";
+import { ButtonLink } from "../../components/button-link";
+import { columns } from "../../components/columnDefs/wishes";
+import { useResize } from "../../common/hooks";
+import { TableSectionMobile } from "../../components/table-section-mobile";
 
 export const WishesIndex = () => {
-  const userInfo = useRouteLoaderData("app") as {
-    body?: UserInfoDto;
-    error?: any;
-  };
+  const userInfo = useRouteLoaderData("app") as UserInfoDto;
 
   const wishes = useLoaderData() as {
     body: WishPaginationDto;
@@ -29,7 +27,7 @@ export const WishesIndex = () => {
   };
 
   const [sorting, setSorting] = useState<SortingState>([
-    { id: "title", desc: true },
+    { id: "id", desc: true },
   ]);
 
   const [globalFilter, setGlobalFilter] = useState("");
@@ -42,7 +40,7 @@ export const WishesIndex = () => {
       sorting,
       globalFilter,
       columnVisibility: {
-        executor: userInfo?.body?.admin || false,
+        executor: userInfo?.admin || false,
       },
     },
     onSortingChange: setSorting,
@@ -65,8 +63,7 @@ export const WishesIndex = () => {
       title: "Мои просьбы",
       counter:
         wishes.body?.elements?.reduce(
-          (acc, cur) =>
-            cur.executor?.id === userInfo.body?.id ? acc + 1 : acc,
+          (acc, cur) => (cur.executor?.id === userInfo?.id ? acc + 1 : acc),
           0
         ) || 0,
       onClick: () => {
@@ -80,7 +77,7 @@ export const WishesIndex = () => {
         wishes.body?.elements?.reduce(
           (acc, cur) =>
             (cur.wishExecutors?.reduce(
-              (a, c) => (c.executor?.id === userInfo?.body?.id ? a + 1 : a),
+              (a, c) => (c.executor?.id === userInfo?.id ? a + 1 : a),
               0
             ) || 0) + acc,
           0
@@ -91,22 +88,38 @@ export const WishesIndex = () => {
     },
   ];
 
+  const isMobile = useResize();
+
   return (
     <div className={styles.wishes}>
-      <TableSection
-        globalFilter={globalFilter}
-        setGlobalFilter={setGlobalFilter}
-        table={table}
-        tabs={tabs}
-        buttons={
-          <>
-            <ButtonLink intent="primary" Icon={Icon.Plus16} to="create">
-              Добавить просьбу
-            </ButtonLink>
-          </>
-        }
-      />
-      <pre>{JSON.stringify(wishes, null, 2)}</pre>
+      {isMobile ? (
+        <TableSectionMobile
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          table={table}
+          tabs={tabs}
+          buttons={
+            <>
+              <Icon.Filter24 />
+              <ButtonLink intent="primary" Icon={Icon.Plus16} to="create" />
+            </>
+          }
+        />
+      ) : (
+        <TableSection
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          table={table}
+          tabs={tabs}
+          buttons={
+            <>
+              <ButtonLink intent="primary" Icon={Icon.Plus16} to="create">
+                Добавить просьбу
+              </ButtonLink>
+            </>
+          }
+        />
+      )}
     </div>
   );
 };

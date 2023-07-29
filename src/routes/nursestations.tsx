@@ -1,5 +1,5 @@
 import type * as api from "../api";
-import { Link, Outlet, json } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import type { QueryClient } from "@tanstack/react-query";
 
 export const loader: api.CreateLoader =

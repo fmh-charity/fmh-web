@@ -1,15 +1,24 @@
 import { json } from "react-router-dom";
-import type { CreateAction, CreateLoader } from "../api";
 import type { QueryClient } from "@tanstack/react-query";
+import * as api from "../api";
+import { WishesCreate } from "../pages/wishes-create";
 
-export const action: CreateAction = (queryClient: QueryClient) => async () => {
-  return json({});
-};
+export const loader: api.CreateLoader =
+  (queryClient: QueryClient) => async () => {
+    const [patients, users] = await Promise.all([
+      api.patients.patientsQuery(queryClient, [
+        "ACTIVE",
+        "DISCHARGED",
+        "EXPECTED",
+      ]),
+      api.users.usersQuery(queryClient),
+    ]);
 
-export const loader: CreateLoader = (queryClient: QueryClient) => async () => {
-  return json({ obj: true });
-};
+    const wish = {};
+
+    return json({ wish, patients, users });
+  };
 
 export const WishesCreateRoute = () => {
-  return <div>wishes create route</div>;
+  return <WishesCreate />;
 };

@@ -1,0 +1,13 @@
+@import "../../variables.less";
+
+.loader {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background-color: transparent;
+  z-index: 100;
+  transition: all 0.3s;
+  &.active {
+    background-color: @color-primary;
+  }
+}

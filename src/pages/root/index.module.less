@@ -1,0 +1,19 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  height: 100%;
+
+  .body {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    overflow: auto;
+    .content {
+      display: grid;
+      overflow: auto;
+      .outlet {
+        display: grid;
+        overflow: auto;
+      }
+    }
+  }
+}

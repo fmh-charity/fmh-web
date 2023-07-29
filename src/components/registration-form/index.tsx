@@ -142,7 +142,7 @@ export const RegistrationForm = () => {
               </div>
               <div>
                 <Input
-                  type="datetime-local"
+                  type="date"
                   defaultValue=""
                   name="dateOfBirth"
                   label="Дата рождения"

@@ -1,0 +1,97 @@
+@import "../../variables.less";
+
+.tableSection {
+  display: grid;
+  grid-template-rows: max-content 1fr max-content max-content;
+
+  .searchWrapper {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    grid-column-gap: 18px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    border: 0;
+
+    .search {
+      display: grid;
+      position: relative;
+      border-radius: 8px;
+
+      input {
+        display: grid;
+        border-radius: 8px;
+        border: 1px solid @color-light-gray;
+        display: grid;
+        padding: 12px 12px 12px 48px;
+      }
+
+      .iconButton {
+        display: grid;
+        position: absolute;
+        left: 12px;
+        top: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        color: @color-dark-gray;
+      }
+    }
+    .buttons {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: max-content;
+      grid-column-gap: 16px;
+      align-items: center;
+    }
+  }
+
+  .content {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: max-content;
+    grid-row-gap: 16px;
+
+    .card {
+      display: grid;
+      grid-auto-flow: row;
+      grid-auto-rows: max-content;
+      grid-row-gap: 12px;
+      background-color: white;
+      border-radius: 8px;
+      padding: 12px 16px;
+
+      .spaceBetween {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        justify-content: space-between;
+      }
+
+      .id {
+        height: fit-content;
+        background-color: @color-light-gray2;
+        padding: 4px;
+        border-radius: 8px;
+        font-size: 12px;
+        color: @color-black;
+      }
+
+      .patient {
+        display: grid;
+        align-items: center;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        grid-column-gap: 8px;
+        color: @color-dark-gray;
+      }
+
+      .date {
+        color: @color-dark-gray;
+      }
+    }
+  }
+
+  .footer {
+    display: grid;
+  }
+}
