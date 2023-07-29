@@ -1,17 +1,102 @@
+import React from "react";
 import { Link, useFetcher } from "react-router-dom";
 import { APP_ROLES } from "../../common/roles";
 import { SplitComponent } from "../split-component";
 import styles from "./index.module.less";
 import { Input } from "../input";
 import { Button } from "../button";
-import { useState } from "react";
 import classNames from "classnames";
 import clsx from "clsx";
+import { assertObjectBySchema } from "../../common/utils";
+import {
+  сheckPasswordsEquality,
+  registrationSchemaStepOne
+} from "../../validation/registration";
+import {
+  HINT_DATE,
+  HINT_EMAIL,
+  HINT_NAME,
+  HINT_PASSWORD
+} from "../../validation/hints";
+
+interface StepOneState {
+  role: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  validationErrors: { [key: string]: string };
+}
+
+interface IFormState {
+  step: number;
+  dataStepOne: StepOneState;
+}
+
+type TAction =
+  | { type: "UPDATE_STEP_ONE_FIELD"; field: string; value: string }
+  | { type: "SET_STEP_ONE_ERRORS"; errors: { [key: string]: string } }
+  | { type: "SET_STEP"; step: number };
+
+const initialState: IFormState = {
+  step: 1,
+  dataStepOne: {
+    role: "6",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+    validationErrors: {}
+  }
+};
+
+const reducer = (state: IFormState, action: TAction): IFormState => {
+  switch (action.type) {
+    case "UPDATE_STEP_ONE_FIELD":
+      return {
+        ...state,
+        dataStepOne: { ...state.dataStepOne, [action.field]: action.value }
+      };
+    case "SET_STEP_ONE_ERRORS":
+      return {
+        ...state,
+        dataStepOne: { ...state.dataStepOne, validationErrors: action.errors }
+      };
+    case "SET_STEP":
+      return { ...state, step: action.step };
+    default:
+      return state;
+  }
+};
 
 export const RegistrationForm = () => {
   const fetcher = useFetcher();
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const { step, dataStepOne } = state;
 
-  const [step, setStep] = useState(1);
+  const handleContinue = (): void => {
+    const formData = {
+      roleIds: [parseInt(dataStepOne.role as string, 10)],
+      email: dataStepOne.email,
+      password: dataStepOne.password
+    };
+
+    const errorsStepOne = assertObjectBySchema(
+      formData,
+      registrationSchemaStepOne
+    );
+    const passwordsEqualityError = сheckPasswordsEquality({
+      password: dataStepOne.password,
+      passwordConfirm: dataStepOne.passwordConfirm
+    });
+
+    if (errorsStepOne) {
+      dispatch({ type: "SET_STEP_ONE_ERRORS", errors: errorsStepOne });
+    } else if (passwordsEqualityError) {
+      dispatch({ type: "SET_STEP_ONE_ERRORS", errors: passwordsEqualityError });
+    } else {
+      dispatch({ type: "SET_STEP_ONE_ERRORS", errors: {} });
+      dispatch({ type: "SET_STEP", step: 2 });
+    }
+  };
 
   return (
     <SplitComponent
@@ -41,7 +126,7 @@ export const RegistrationForm = () => {
             <div
               className={classNames(
                 styles.step,
-                step !== 1 ? styles.hidden : undefined
+                step !== 1 ? styles.hidden : ""
               )}
             >
               <div style={{ overflow: "hidden" }}>
@@ -50,6 +135,13 @@ export const RegistrationForm = () => {
                   name="roleIds"
                   defaultValue="6"
                   style={{ height: "48px" }}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                    dispatch({
+                      type: "UPDATE_STEP_ONE_FIELD",
+                      field: "roleIds",
+                      value: e.target.value
+                    })
+                  }
                 >
                   {APP_ROLES.map((role) => (
                     <option
@@ -65,8 +157,16 @@ export const RegistrationForm = () => {
                   defaultValue=""
                   name="email"
                   label="Логин"
-                  error={""}
+                  error={dataStepOne.validationErrors?.email}
+                  hint={HINT_EMAIL}
                   placeholder="Email"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    dispatch({
+                      type: "UPDATE_STEP_ONE_FIELD",
+                      field: "email",
+                      value: e.target.value
+                    })
+                  }
                 />
               </div>
               <div>
@@ -75,8 +175,16 @@ export const RegistrationForm = () => {
                   defaultValue=""
                   name="password"
                   label="Пароль"
-                  error=""
+                  error={dataStepOne.validationErrors?.password}
+                  hint={HINT_PASSWORD}
                   placeholder="Введите пароль"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    dispatch({
+                      type: "UPDATE_STEP_ONE_FIELD",
+                      field: "password",
+                      value: e.target.value
+                    })
+                  }
                 />
               </div>
               <div>
@@ -85,8 +193,16 @@ export const RegistrationForm = () => {
                   defaultValue=""
                   name="passwordConfirm"
                   label="Подтверждение пароля"
-                  error=""
+                  error={dataStepOne.validationErrors?.passwordConfirm}
+                  hint={HINT_PASSWORD}
                   placeholder="Введите подтверждение пароля"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    dispatch({
+                      type: "UPDATE_STEP_ONE_FIELD",
+                      field: "passwordConfirm",
+                      value: e.target.value
+                    })
+                  }
                 />
               </div>
               <div className={styles.button}>
@@ -94,7 +210,7 @@ export const RegistrationForm = () => {
                   intent="primary"
                   justify="center"
                   type="button"
-                  onClick={() => setStep(2)}
+                  onClick={handleContinue}
                 >
                   Продолжить регистрацию
                 </Button>
@@ -107,7 +223,7 @@ export const RegistrationForm = () => {
             <div
               className={classNames(
                 styles.step,
-                step !== 2 ? styles.hidden : undefined
+                step !== 2 ? styles.hidden : ""
               )}
             >
               <div>
@@ -116,7 +232,8 @@ export const RegistrationForm = () => {
                   defaultValue=""
                   name="firstName"
                   label="Имя"
-                  error=""
+                  error={fetcher.data?.errors?.firstName}
+                  hint={HINT_NAME}
                   placeholder="Введите имя"
                 />
               </div>
@@ -126,7 +243,8 @@ export const RegistrationForm = () => {
                   defaultValue=""
                   name="lastName"
                   label="Фамилия"
-                  error=""
+                  error={fetcher.data?.errors?.lastName}
+                  hint={HINT_NAME}
                   placeholder="Введите фамилию"
                 />
               </div>
@@ -136,7 +254,8 @@ export const RegistrationForm = () => {
                   defaultValue=""
                   name="middleName"
                   label="Отчество"
-                  error=""
+                  error={fetcher.data?.errors?.middleName}
+                  hint={HINT_NAME}
                   placeholder="Введите отчество"
                 />
               </div>
@@ -146,7 +265,8 @@ export const RegistrationForm = () => {
                   defaultValue=""
                   name="dateOfBirth"
                   label="Дата рождения"
-                  error=""
+                  error={fetcher.data?.errors?.dateOfBirth}
+                  hint={HINT_DATE}
                   placeholder="Введите фамилию"
                 />
               </div>
@@ -156,18 +276,13 @@ export const RegistrationForm = () => {
                     intent="secondary"
                     justify="center"
                     type="button"
-                    onClick={() => setStep(1)}
+                    onClick={() => dispatch({ type: "SET_STEP", step: 1 })}
                   >
                     Назад
                   </Button>
                 </div>
                 <div className={styles.button}>
-                  <Button
-                    intent="primary"
-                    justify="center"
-                    type="submit"
-                    onClick={() => setStep(2)}
-                  >
+                  <Button intent="primary" justify="center" type="submit">
                     Зарегистрироваться
                   </Button>
                 </div>
@@ -180,7 +295,7 @@ export const RegistrationForm = () => {
                   </Link>
                 </span>
               </div>
-              <div>{JSON.stringify(fetcher.data)}</div>
+              <div>{JSON.stringify(fetcher.data?.success)}</div>
             </div>
           </fetcher.Form>
         </div>

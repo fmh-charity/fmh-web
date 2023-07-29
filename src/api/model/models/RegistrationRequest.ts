@@ -21,17 +21,17 @@ export type RegistrationRequest = {
   /**
    * Дата рождения
    */
-  dateOfBirth?: string;
+  dateOfBirth: string;
   /**
    * Идентификаторы желаемых ролей
    */
-  roleIds?: Array<number>;
+  roleIds: Array<number>;
   /**
    * Адрес электронной почты
    */
-  email?: string;
+  email: string;
   /**
    * Пароль
    */
-  password?: string;
+  password: string;
 };
