@@ -41,7 +41,7 @@ const ProfilePasswordGroup = () => {
 
 const ProfileMoreInfo = ({
   isDekstop,
-  errorEmail,
+  errorEmail
 }: {
   isDekstop: boolean;
   errorEmail: string;
@@ -83,7 +83,7 @@ const ProfileMainInfo = ({
   errorFirstName,
   errorMiddleName,
   errorLastName,
-  errorDateOfBirth,
+  errorDateOfBirth
 }: {
   errorFirstName: string;
   errorMiddleName: string;
