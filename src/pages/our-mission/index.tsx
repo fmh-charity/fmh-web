@@ -1,4 +1,3 @@
-import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import React, { useRef } from "react";
 import clsx from "clsx";
 
