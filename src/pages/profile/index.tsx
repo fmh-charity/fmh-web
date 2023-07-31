@@ -269,5 +269,5 @@ export const ProfileMob = () => {
 
 export const Profile = () => {
   const isMobile = useResize();
-  return <>{isMobile ? <ProfileMob /> : <ProfileDekstop />}</>;
+  return isMobile ? <ProfileMob /> : <ProfileDekstop />;
 };
