@@ -54,19 +54,7 @@ export const TableSectionMobile = ({
               <div>
                 <ExecuteDate row={row} />
               </div>
-              <div>
-                {row
-                  .getVisibleCells()
-                  .filter((cell) => cell.column.id === "actions")
-                  .map((cell) => (
-                    <div key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </div>
-                  ))}
-              </div>
+              <div>{row.renderValue("actions")}</div>
             </div>
           </div>
         ))}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import clsx from "clsx";
 
 import styles from "./index.module.less";
@@ -7,6 +7,7 @@ import { Icon } from "../../components/icon";
 import type { IAuthor, IPhrase, ITitlePhrase } from "./mock-data";
 
 import { phrases } from "./mock-data";
+import { useResize } from "../../common/hooks";
 
 const CardAuthor = ({ author }: { author: IAuthor }) => {
   const { name, gender } = author;
@@ -83,9 +84,16 @@ const MissionCard = ({
 }) => {
   const { id, title, body } = content;
   const isCardOpen = id === currentOpenedCardId;
+  const ref = useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (ref.current && isCardOpen) {
+      ref.current.scrollIntoView({ block: "nearest" });
+    }
+  }, [isCardOpen]);
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} ref={ref}>
       <CardHeader
         title={title}
         id={id}
@@ -102,20 +110,7 @@ const MissionCardsList = () => {
   const [currentOpenedCardId, setCurrentOpenedCardId] = React.useState<
     string | null
   >(null);
-  const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 1024);
-
-  React.useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1024);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+  const isMobile = useResize();
   const toggleCard = (
     event: React.MouseEvent<HTMLButtonElement>,
     id: string | null

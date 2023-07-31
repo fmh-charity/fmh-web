@@ -66,11 +66,13 @@ export const columns = [
       cell: (props) => props.getValue(),
     }
   ),
-  columnHelper.accessor((row) => row.id, {
+  columnHelper.accessor((row) => <Actions id={`${row.id}`} />, {
     id: "actions",
     header: () => "",
     enableSorting: false,
-    cell: (props) => <Actions id={`${props.getValue()}`} />,
+    enableColumnFilter: false,
+    enableGlobalFilter: false,
+    cell: (props) => props.renderValue(),
   }),
 ];
 

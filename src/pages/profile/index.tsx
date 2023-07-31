@@ -10,6 +10,7 @@ import clsx from "clsx";
 
 import { APP_ROLES } from "../../common/roles";
 import type { UserInfoDto } from "../../api/model";
+import { useResize } from "../../common/hooks";
 
 const ProfilePasswordGroup = () => {
   return (
@@ -41,7 +42,7 @@ const ProfilePasswordGroup = () => {
 
 const ProfileMoreInfo = ({
   isDekstop,
-  errorEmail
+  errorEmail,
 }: {
   isDekstop: boolean;
   errorEmail: string;
@@ -83,7 +84,7 @@ const ProfileMainInfo = ({
   errorFirstName,
   errorMiddleName,
   errorLastName,
-  errorDateOfBirth
+  errorDateOfBirth,
 }: {
   errorFirstName: string;
   errorMiddleName: string;
@@ -267,19 +268,6 @@ export const ProfileMob = () => {
 };
 
 export const Profile = () => {
-  const [isDekstop, setIsDekstop] = React.useState(window.innerWidth >= 1024);
-
-  React.useEffect(() => {
-    const handleResize = () => {
-      setIsDekstop(window.innerWidth >= 1024);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  return <>{isDekstop ? <ProfileDekstop /> : <ProfileMob />}</>;
+  const isMobile = useResize();
+  return isMobile ? <ProfileMob /> : <ProfileDekstop />;
 };
