@@ -8,15 +8,12 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { TableSection } from "../../components/table-section";
 import { useState } from "react";
-import { Icon } from "../../components/icon";
 
-import styles from "./index.module.less";
-import { ButtonLink } from "../../components/button-link";
 import { columns } from "../../components/columnDefs/wishes";
 import { useResize } from "../../common/hooks";
-import { TableSectionMobile } from "../../components/table-section-mobile";
+import { WishesIndexDesktop } from "../wishes-index-desktop";
+import { WishesIndexMobile } from "../wishes-index-mobile";
 
 export const WishesIndex = () => {
   const userInfo = useRouteLoaderData("app") as UserInfoDto;
@@ -90,36 +87,19 @@ export const WishesIndex = () => {
 
   const isMobile = useResize();
 
-  return (
-    <div className={styles.wishes}>
-      {isMobile ? (
-        <TableSectionMobile
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
-          table={table}
-          tabs={tabs}
-          buttons={
-            <>
-              <Icon.Filter24 />
-              <ButtonLink intent="primary" Icon={Icon.Plus16} to="create" />
-            </>
-          }
-        />
-      ) : (
-        <TableSection
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
-          table={table}
-          tabs={tabs}
-          buttons={
-            <>
-              <ButtonLink intent="primary" Icon={Icon.Plus16} to="create">
-                Добавить просьбу
-              </ButtonLink>
-            </>
-          }
-        />
-      )}
-    </div>
+  return isMobile ? (
+    <WishesIndexMobile
+      globalFilter={globalFilter}
+      setGlobalFilter={setGlobalFilter}
+      table={table}
+      tabs={tabs}
+    />
+  ) : (
+    <WishesIndexDesktop
+      globalFilter={globalFilter}
+      setGlobalFilter={setGlobalFilter}
+      table={table}
+      tabs={tabs}
+    />
   );
 };
