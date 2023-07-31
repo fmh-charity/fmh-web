@@ -1,20 +1,8 @@
-import { Outlet } from "react-router-dom";
-import { Sidebar } from "../../components/menu";
-import { Header } from "../../components/header";
-import styles from "./index.module.less";
+import { useResize } from "../../common/hooks";
+import { RootWrapperMobile } from "../root-wrapper-mobile";
+import { RoorWrapper } from "../root-wrapper";
 
 export const Root: React.FC = () => {
-  return (
-    <div className={styles.wrapper}>
-      <Sidebar />
-      <div className={styles.body}>
-        <Header />
-        <div className={styles.content}>
-          <div className={styles.outlet}>
-            <Outlet />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const isMobile = useResize();
+  return isMobile ? <RootWrapperMobile /> : <RoorWrapper />;
 };

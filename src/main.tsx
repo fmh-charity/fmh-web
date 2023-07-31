@@ -54,6 +54,7 @@ import {
 import { MissionRoute } from "./routes/mission";
 import { ProfileRoute, action as actionSaveUserInfo } from "./routes/profile";
 import { AboutRoute } from "./routes/about";
+import { PatientsRoute, loader as loaderPatients } from "./routes/patients";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -85,6 +86,11 @@ const router = createBrowserRouter([
             path: "news",
             loader: loaderNews(queryClient),
             element: <NewsRoute />,
+          },
+          {
+            path: "patients",
+            loader: loaderPatients(queryClient),
+            element: <PatientsRoute />,
           },
           {
             path: "wishes",

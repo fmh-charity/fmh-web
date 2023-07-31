@@ -1,4 +1,4 @@
-import { flexRender, type Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table";
 import { Tabs, type TabType } from "../table-section/tab";
 import styles from "./index.module.less";
 import { Icon } from "../icon";

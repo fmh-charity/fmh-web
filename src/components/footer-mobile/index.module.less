@@ -1,0 +1,28 @@
+@import "../../variables.less";
+
+.footer {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: space-between;
+  padding: 0 20px;
+
+  a {
+    text-decoration: none;
+  }
+
+  .navlink {
+    color: @color-gray;
+    display: grid;
+    grid-template-rows: max-content max-content;
+    grid-row-gap: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    justify-content: center;
+    justify-items: center;
+
+    &.active {
+      color: @color-primary !important;
+    }
+  }
+}

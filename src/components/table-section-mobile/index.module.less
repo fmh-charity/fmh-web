@@ -2,7 +2,8 @@
 
 .tableSection {
   display: grid;
-  grid-template-rows: max-content 1fr max-content max-content;
+  grid-template-rows: max-content max-content 1fr max-content;
+  overflow: auto;
 
   .searchWrapper {
     display: grid;
@@ -50,6 +51,7 @@
     grid-auto-flow: row;
     grid-auto-rows: max-content;
     grid-row-gap: 16px;
+    overflow: auto;
 
     .card {
       display: grid;

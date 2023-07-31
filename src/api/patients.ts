@@ -6,12 +6,14 @@ import type { PatientByStatusRs } from "./model";
 
 export const patientsQuery = (
   queryClient: QueryClient,
-  statuses: PatientByStatusRs["status"][]
+  statuses?: PatientByStatusRs["status"][]
 ) =>
   createQuery<PatientByStatusRs[]>(
     queryClient,
     "/api/fmh/patients?" +
-      statuses.map((status) => "statuses=" + status).join("&"),
+      (statuses || ["DISCHARGED", "ACTIVE", "EXPECTED"])
+        ?.map((status) => "statuses=" + status)
+        .join("&"),
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [PATIENS_QUERY],
