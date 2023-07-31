@@ -20,6 +20,15 @@
       border-radius: 8px;
       border: 1px solid @color-gray;
     }
+    input:focus {
+      outline: none;
+    }
+    .error {
+      border: 1px solid @color-red;
+    }
+    .hint {
+      border: 1px solid #01a5a3;
+    }
     .showPassword {
       display: grid;
       position: absolute;
@@ -32,5 +41,22 @@
       align-items: center;
       justify-content: center;
     }
+  }
+
+  .subtitle-error {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0px;
+    font-size: 14px;
+    line-height: 17.5px;
+    color: @color-red;
+  }
+  .subtitle-hint {
+    display: flex;
+    align-items: center;
+    padding: 4px 0px;
+    font-size: 14px;
+    line-height: 17.5px;
   }
 }
