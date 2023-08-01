@@ -1,16 +1,9 @@
-import React from "react";
 import { createColumnHelper } from "@tanstack/react-table";
-import type {
-  PatientByStatusRs,
-  PatientDto,
-  WishDto,
-} from "../../../api/model";
+import type { PatientByStatusRs, PatientDto } from "../../../api/model";
 import dayjs from "dayjs";
 import { Icon } from "../../icon";
 import { Link } from "react-router-dom";
-import { Status } from "../../cells/status";
-import { ExecuteDate } from "../../cells/executeDate";
-import { patientStatuses, wishStatuses } from "../../../common/statuses";
+import { patientStatuses } from "../../../common/statuses";
 import { joinNames } from "../../../common/utils";
 
 const columnHelper = createColumnHelper<PatientDto>();
@@ -26,7 +19,7 @@ export const columns = [
       return joinNames(firstName, middleName, lastName) || "";
     },
     {
-      id: "lastName",
+      id: "fullName",
       header: () => "ФИО пациента",
       cell: (props) => props.getValue(),
     }

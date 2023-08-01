@@ -1,10 +1,8 @@
-import type { Table } from "@tanstack/react-table";
+import React from "react";
+import type { Row, Table } from "@tanstack/react-table";
 import { Tabs, type TabType } from "../table-section/tab";
 import styles from "./index.module.less";
 import { Icon } from "../icon";
-import { Status } from "../cells/status";
-import { ExecuteDate } from "../cells/executeDate";
-import clsx from "clsx";
 
 export const TableSectionMobile = ({
   table,
@@ -12,12 +10,14 @@ export const TableSectionMobile = ({
   buttons,
   globalFilter,
   setGlobalFilter,
+  Card,
 }: {
   table: Table<any>;
   tabs: TabType[];
   buttons: React.ReactNode;
   globalFilter: string;
   setGlobalFilter: (globalFilter: string) => void;
+  Card: ({ row }: { row: Row<any> }) => JSX.Element;
 }) => {
   return (
     <div className={styles.tableSection}>
@@ -39,24 +39,7 @@ export const TableSectionMobile = ({
       <Tabs tabs={tabs} />
       <div className={styles.content}>
         {table.getRowModel().rows.map((row) => (
-          <div key={row.id} className={styles.card}>
-            <div className={styles.spaceBetween}>
-              <div className={styles.id}>№{row.getValue("id")}</div>
-              <div>
-                <Status row={row} />
-              </div>
-            </div>
-            <div>{row.getValue("title")}</div>
-            <div className={styles.patient}>
-              <Icon.Patients24 width={16} /> {row.getValue("patient")}
-            </div>
-            <div className={clsx(styles.spaceBetween, styles.date)}>
-              <div>
-                <ExecuteDate row={row} />
-              </div>
-              <div>{row.renderValue("actions")}</div>
-            </div>
-          </div>
+          <Card key={row.id} row={row} />
         ))}
       </div>
       <div className={styles.footer}></div>

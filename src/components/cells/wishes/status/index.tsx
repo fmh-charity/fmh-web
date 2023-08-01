@@ -1,10 +1,10 @@
 import React from "react";
-import type { WishDto } from "../../../api/model";
+import type { WishDto } from "../../../../api/model";
 import type { Row } from "@tanstack/react-table";
 import clsx from "clsx";
 import styles from "./index.module.less";
-import { Icon } from "../../icon";
-import { wishStatuses } from "../../../common/statuses";
+import { Icon } from "../../../icon";
+import { wishStatuses } from "../../../../common/statuses";
 
 export const Status: React.FC<{ row: Row<WishDto> }> = ({ row }) => {
   const counter =

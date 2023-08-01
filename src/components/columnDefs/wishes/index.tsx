@@ -4,8 +4,8 @@ import type { WishDto } from "../../../api/model";
 import dayjs from "dayjs";
 import { Icon } from "../../icon";
 import { Link } from "react-router-dom";
-import { Status } from "../../cells/status";
-import { ExecuteDate } from "../../cells/executeDate";
+import { Status } from "../../cells/wishes/status";
+import { ExecuteDate } from "../../cells/wishes/executeDate";
 import { wishStatuses } from "../../../common/statuses";
 import { joinNames } from "../../../common/utils";
 
