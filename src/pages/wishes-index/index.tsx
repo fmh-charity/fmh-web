@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 
-import { columns } from "../../components/columnDefs/wishes";
+import { columns } from "../../components/table-columnDefs/wishes";
 import { useResize } from "../../common/hooks";
 import { WishesIndexDesktop } from "../wishes-index-desktop";
 import { WishesIndexMobile } from "../wishes-index-mobile";

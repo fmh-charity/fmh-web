@@ -41,6 +41,7 @@ import { ReactComponent as Trash16 } from "./16/trash.svg";
 import { ReactComponent as Up16 } from "./16/Up.svg";
 import { ReactComponent as Heart16 } from "./16/heart.svg";
 import { ReactComponent as Attention16 } from "./16/attention.svg";
+import { ReactComponent as Calendar16 } from "./16/calendar.svg";
 
 const Icon24Obj = {
   About24,
@@ -71,7 +72,7 @@ const Icon24Obj = {
   Ellipse24,
   ActionDefault24,
   ActionHover24,
-  Camera24
+  Camera24,
 };
 
 const Icon16Obj = {
@@ -87,7 +88,8 @@ const Icon16Obj = {
   Trash16,
   Up16,
   Heart16,
-  Attention16
+  Attention16,
+  Calendar16,
 };
 
 export const Icon: {

@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 
-import { columns } from "../../components/columnDefs/patients";
+import { columns } from "../../components/table-columnDefs/patients";
 import { useResize } from "../../common/hooks";
 import { PatientsIndexDesktop } from "../patients-index-desktop";
 import { PatientsIndexMobile } from "../patients-index-mobile";

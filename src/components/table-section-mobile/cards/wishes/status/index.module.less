@@ -1,0 +1,56 @@
+@import "../../../../../variables.less";
+
+.wrapper {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-column-gap: 4px;
+  align-items: center;
+
+  .status {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    align-items: center;
+    grid-column-gap: 4px;
+    padding: 4px 8px;
+    color: @color-dark-orange;
+    border-radius: 8px;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+
+    .counter {
+      width: 16px;
+      height: 16px;
+      display: grid;
+      align-items: center;
+      justify-content: center;
+      background-color: @color-white;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 11px;
+    }
+  }
+
+  .status.IN_PROGRESS {
+    color: @color-dark-green;
+    background-color: @color-light-green2;
+  }
+  .status.CANCELLED {
+    color: grey;
+  }
+  .status.OPEN {
+    color: @color-dark-orange;
+    background-color: @color-light-orange;
+  }
+  .status.EXECUTED {
+    color: @color-black;
+  }
+  .status.READY {
+    color: @color-black;
+  }
+  .status.READY_CHECK {
+    color: blue;
+  }
+}

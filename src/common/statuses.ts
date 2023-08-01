@@ -12,7 +12,7 @@ export const wishStatuses: { [K in keyof WishDto["status"]]?: string } = {
 export const patientStatuses: {
   [K in keyof PatientByStatusRs["status"]]?: string;
 } = {
-  DISCHARGED: "DISCHARGED",
-  ACTIVE: "ACTIVE",
-  EXPECTED: "EXPECTED",
+  DISCHARGED: "Выписан",
+  ACTIVE: "В хосписе",
+  EXPECTED: "Новый",
 };
