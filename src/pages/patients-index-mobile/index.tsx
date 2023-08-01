@@ -4,6 +4,7 @@ import { TableSectionMobile } from "../../components/table-section-mobile";
 import { Icon } from "../../components/icon";
 import { ButtonLink } from "../../components/button-link";
 import styles from "./index.module.less";
+import { CardsPatients } from "../../components/table-section-mobile/cards/patients";
 
 export const PatientsIndexMobile = ({
   table,
@@ -23,6 +24,7 @@ export const PatientsIndexMobile = ({
         setGlobalFilter={setGlobalFilter}
         table={table}
         tabs={tabs}
+        Card={CardsPatients}
         buttons={
           <>
             <Icon.Filter24 />
