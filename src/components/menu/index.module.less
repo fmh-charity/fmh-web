@@ -24,88 +24,90 @@
     img {
       min-height: 60px;
       margin: 55px auto;
+      width: 172px;
     }
   }
-  .menu {
+  .footer {
+    margin: 8px 0 40px 0;
+  }
+}
+
+.menu {
+  display: grid;
+  .items {
     display: grid;
-    .items {
+    align-content: flex-start;
+    grid-row-gap: 8px;
+    padding: 0 28px;
+    .item {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      align-items: center;
+      grid-column-gap: 16px;
+      padding: 12px 16px;
+      color: @color-dark-gray;
+      text-decoration: none;
+      img {
+        display: grid;
+      }
+      &:hover {
+        background-color: @color-primary;
+        border-radius: 8px;
+        color: white;
+        .icon {
+          color: inherit !important;
+        }
+      }
+      .icon {
+        color: @color-primary;
+      }
+    }
+    .group {
       display: grid;
       align-content: flex-start;
-      grid-row-gap: 8px;
-      padding: 0 28px;
-      .item {
+
+      .groupHeader {
         display: grid;
-        grid-template-columns: 24px 1fr;
+        grid-template-columns: 24px 1fr 24px;
         align-items: center;
         grid-column-gap: 16px;
         padding: 12px 16px;
         color: @color-dark-gray;
         text-decoration: none;
-        img {
-          display: grid;
+
+        .icon {
+          color: @color-primary;
         }
+
         &:hover {
           background-color: @color-primary;
           border-radius: 8px;
           color: white;
           .icon {
-            color: inherit !important;
+            color: white;
           }
         }
-        .icon {
-          color: @color-primary;
-        }
-      }
-      .group {
-        display: grid;
-        align-content: flex-start;
-
-        .groupHeader {
+        .groupCollapse {
           display: grid;
-          grid-template-columns: 24px 1fr 24px;
           align-items: center;
-          grid-column-gap: 16px;
-          padding: 12px 16px;
-          color: @color-dark-gray;
-          text-decoration: none;
-
-          .icon {
-            color: @color-primary;
-          }
+          justify-content: center;
+          border: 0;
+          background-color: transparent;
+          width: 24px;
+          height: 24px;
 
           &:hover {
-            background-color: @color-primary;
-            border-radius: 8px;
+            cursor: pointer;
             color: white;
-            .icon {
-              color: white;
-            }
           }
-          .groupCollapse {
-            display: grid;
-            align-items: center;
-            justify-content: center;
-            border: 0;
-            background-color: transparent;
-            width: 24px;
-            height: 24px;
-
-            &:hover {
-              cursor: pointer;
-              color: white;
-            }
-          }
-        }
-        .groupItems {
-          display: grid;
-          align-content: flex-start;
-          padding: 8px 0 0 24px;
-          grid-row-gap: 8px;
         }
       }
+      .groupItems {
+        display: grid;
+        align-content: flex-start;
+        padding: 8px 0 0 24px;
+        grid-row-gap: 8px;
+      }
     }
-  }
-  .footer {
-    margin: 8px 0 40px 0;
   }
 }
