@@ -1,5 +1,5 @@
 import { Outlet, useNavigation } from "react-router-dom";
-import { useAuthBroadcastRevalidator } from "../../common/hooks";
+import { useAuthBroadcastRevalidator, useResize } from "../../common/hooks";
 import { Notifications } from "../../components/notifications";
 import styles from "./index.module.less";
 import type { QueryClient } from "@tanstack/react-query";
@@ -13,11 +13,14 @@ export const loader: CreateLoader = (queryClient: QueryClient) => async () => {
 
 const LoadingIndicator = () => {
   const navigation = useNavigation();
+  const isMobile = useResize();
+
   return (
     <div
       className={clsx({
         [styles.loader]: true,
         [styles.active]: navigation.state === "loading",
+        [styles.mobile]: isMobile,
       })}
     />
   );
