@@ -17,9 +17,7 @@ export const HeaderMobile = () => {
       <button onClick={() => setOpen((c) => !c)}>
         <Icon.Menu24 />
       </button>
-      <div className={styles.routes}>
-        <Link to="/profile">{routes}</Link>
-      </div>
+      <div className={styles.routes}>{routes}</div>
       <button onClick={() => navigate("/logout")}>
         <Icon.Notificatons24 />
       </button>

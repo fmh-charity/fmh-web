@@ -17,35 +17,40 @@
   top: 0;
   left: 0;
   bottom: 0;
-  height: 100%;
   z-index: 2;
   display: grid;
   width: 286px;
-  grid-template-rows: max-content max-content 1fr max-content;
+  grid-template-rows: max-content max-content 1fr;
   border-right: 1px solid @color-light-gray;
+  overflow: auto;
 
   .header {
     display: grid;
     padding: 36px 20px 0;
-    grid-template-columns: max-content 1fr max-content;
-    grid-column-gap: 12px;
-    align-items: center;
 
-    .name {
+    .profile {
       display: grid;
+      grid-template-columns: max-content 1fr;
+      grid-column-gap: 12px;
       align-items: center;
-      //styleName: Semibold 16-24;
-      font-size: 16px;
-      font-weight: 600;
-      color: @color-dark-gray;
-    }
+      text-decoration: none;
 
-    .roles {
-      display: grid;
-      grid-auto-flow: column;
-      grid-column-gap: 8px;
-      font-size: 12px;
-      color: @color-dark-gray;
+      .name {
+        display: grid;
+        align-items: center;
+        //styleName: Semibold 16-24;
+        font-size: 16px;
+        font-weight: 600;
+        color: @color-dark-gray;
+      }
+
+      .roles {
+        display: grid;
+        grid-auto-flow: column;
+        grid-column-gap: 8px;
+        font-size: 12px;
+        color: @color-dark-gray;
+      }
     }
   }
 
@@ -54,5 +59,11 @@
     height: 1px;
     background-color: @color-light-gray;
     margin: 36px 20px;
+  }
+
+  .body {
+    display: grid;
+    overflow: auto;
+    grid-template-rows: 1fr max-content;
   }
 }
