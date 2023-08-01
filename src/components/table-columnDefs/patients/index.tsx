@@ -5,6 +5,7 @@ import { Icon } from "../../icon";
 import { Link } from "react-router-dom";
 import { patientStatuses } from "../../../common/statuses";
 import { joinNames } from "../../../common/utils";
+import { StatusPatients } from "../../table-section/elements/patients/status";
 
 const columnHelper = createColumnHelper<PatientDto>();
 
@@ -66,7 +67,7 @@ export const columns = [
     {
       id: "status",
       header: () => "Статус",
-      cell: (props) => props.renderValue(), //<Status row={props.row} />,
+      cell: (props) => <StatusPatients row={props.row} />,
     }
   ),
   columnHelper.accessor((row) => <Actions id={`${row.id}`} />, {

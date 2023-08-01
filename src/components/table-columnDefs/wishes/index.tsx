@@ -4,8 +4,8 @@ import type { WishDto } from "../../../api/model";
 import dayjs from "dayjs";
 import { Icon } from "../../icon";
 import { Link } from "react-router-dom";
-import { Status } from "../../cells/wishes/status";
-import { ExecuteDate } from "../../cells/wishes/executeDate";
+import { StatusWishes } from "../../table-section/elements/wishes/status";
+import { ExecuteDate } from "../../table-section/elements/wishes/executeDate";
 import { wishStatuses } from "../../../common/statuses";
 import { joinNames } from "../../../common/utils";
 
@@ -52,7 +52,7 @@ export const columns = [
     {
       id: "status",
       header: () => "Статус",
-      cell: (props) => <Status row={props.row} />,
+      cell: (props) => <StatusWishes row={props.row} />,
     }
   ),
   columnHelper.accessor(

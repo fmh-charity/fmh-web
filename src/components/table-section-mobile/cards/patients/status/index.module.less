@@ -1,0 +1,24 @@
+@import "../../../../../variables.less";
+
+.status {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.DISCHARGED {
+  color: @color-white;
+  background-color: @color-red;
+}
+.status.ACTIVE {
+  color: @color-dark-green;
+  background-color: @color-light-green2;
+}
+.status.EXPECTED {
+  color: @color-dark-orange;
+  background-color: @color-light-orange;
+}

@@ -1,9 +1,9 @@
 import type { Row } from "@tanstack/react-table";
 import styles from "./index.module.less";
-import { Status } from "../../../cells/wishes/status";
+import { StatusWishes } from "./status";
 import { Icon } from "../../../icon";
-import { ExecuteDate } from "../../../cells/wishes/executeDate";
 import clsx from "clsx";
+import { ExecuteDate } from "./executeDate";
 
 export const CardsWishes = ({ row }: { row: Row<any> }) => {
   return (
@@ -11,12 +11,17 @@ export const CardsWishes = ({ row }: { row: Row<any> }) => {
       <div className={styles.spaceBetween}>
         <div className={styles.id}>№{row.getValue("id")}</div>
         <div>
-          <Status row={row} />
+          <StatusWishes row={row} />
         </div>
       </div>
       <div>{row.getValue("title")}</div>
       <div className={styles.patient}>
-        <Icon.Patients24 width={16} /> {row.getValue("patient")}
+        {row.getValue("patient") === "Хоспис" ? (
+          <Icon.Hospital24 width={16} />
+        ) : (
+          <Icon.Patients24 width={16} />
+        )}
+        {row.getValue("patient")}
       </div>
       <div className={clsx(styles.spaceBetween, styles.date)}>
         <div>
