@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import clsx from "clsx";
 import styles from "./index.module.less";
 
@@ -14,6 +14,7 @@ export const Tab: React.FC<{
   selected: number;
   onClick: () => any;
 }> = ({ tab, selected, onClick }) => {
+  const ref = useRef<HTMLDivElement>(null);
   return (
     <button
       className={clsx({
@@ -23,9 +24,10 @@ export const Tab: React.FC<{
       onClick={() => {
         tab.onClick();
         onClick();
+        if (ref.current) ref.current.scrollIntoView({ block: "nearest" });
       }}
     >
-      <div className={styles.tab}>
+      <div className={styles.tab} ref={ref}>
         <div className={styles.title}>{tab.title}</div>
         <div className={styles.counter}>{tab.counter}</div>
       </div>
