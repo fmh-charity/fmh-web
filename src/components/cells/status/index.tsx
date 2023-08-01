@@ -4,7 +4,7 @@ import type { Row } from "@tanstack/react-table";
 import clsx from "clsx";
 import styles from "./index.module.less";
 import { Icon } from "../../icon";
-import { statuses } from "../../../common/statuses";
+import { wishStatuses } from "../../../common/statuses";
 
 export const Status: React.FC<{ row: Row<WishDto> }> = ({ row }) => {
   const counter =
@@ -16,7 +16,7 @@ export const Status: React.FC<{ row: Row<WishDto> }> = ({ row }) => {
       <div
         className={clsx(styles.status, styles[row.original.status as string])}
       >
-        {statuses[row.original.status as keyof WishDto["status"]]}
+        {wishStatuses[row.original.status as keyof WishDto["status"]]}
         {counter !== null && <div className={styles.counter}>{counter}</div>}
       </div>
       <Icon.Help24 color="#f34141" />
