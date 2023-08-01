@@ -1,7 +1,7 @@
 import * as api from ".";
 import { createQuery } from ".";
 import type { QueryClient } from "@tanstack/react-query";
-import { PATIENS_QUERY } from "../common/constants";
+import { PATIENS_BY_ID_QUERY, PATIENS_QUERY } from "../common/constants";
 import type { PatientByStatusRs } from "./model";
 
 export const patientsQuery = (
@@ -17,5 +17,18 @@ export const patientsQuery = (
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [PATIENS_QUERY],
+    }
+  );
+
+export const patientByIdQuery = (
+  queryClient: QueryClient,
+  id: number | string
+) =>
+  createQuery<PatientByStatusRs>(
+    queryClient,
+    "/api/fmh/patients/" + id,
+    api.requestInit.RequestInitGetJSON,
+    {
+      queryKey: [PATIENS_BY_ID_QUERY, id],
     }
   );

@@ -2,10 +2,7 @@ import * as api from ".";
 import { createQuery } from ".";
 import type { QueryClient } from "@tanstack/react-query";
 import type { ProfileChangingRequest, UserShortInfoDto } from "./model";
-import {
-  USERS_QUERY,
-  USERS_UPDATE_USER_BY_ID_QUERY,
-} from "../common/constants";
+import { USERS_QUERY, USERS_UPDATE_BY_ID_QUERY } from "../common/constants";
 
 export const usersQuery = (queryClient: QueryClient) =>
   createQuery<UserShortInfoDto[]>(
@@ -27,7 +24,7 @@ export const updateUserByIdQuery = (
     `/api/fmh/users/${id}`,
     api.requestInit.RequestInitPutJSON,
     {
-      queryKey: [USERS_UPDATE_USER_BY_ID_QUERY],
+      queryKey: [USERS_UPDATE_BY_ID_QUERY],
     },
     data
   );

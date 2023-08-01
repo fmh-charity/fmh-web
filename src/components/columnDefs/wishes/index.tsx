@@ -6,7 +6,7 @@ import { Icon } from "../../icon";
 import { Link } from "react-router-dom";
 import { Status } from "../../cells/status";
 import { ExecuteDate } from "../../cells/executeDate";
-import { statuses } from "../../../common/statuses";
+import { wishStatuses } from "../../../common/statuses";
 import { joinNames } from "../../../common/utils";
 
 const columnHelper = createColumnHelper<WishDto>();
@@ -45,7 +45,7 @@ export const columns = [
   ),
   columnHelper.accessor(
     (row) => {
-      const status = statuses[row.status as keyof WishDto["status"]];
+      const status = wishStatuses[row.status as keyof WishDto["status"]];
       if (status) return status;
       else return "";
     },

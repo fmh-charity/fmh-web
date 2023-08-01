@@ -3,7 +3,7 @@ import { ScrollRestoration, useFetcher } from "react-router-dom";
 import { Input } from "../input";
 import { TextArea } from "../textarea";
 import { APP_ROLES } from "../../common/roles";
-import { statuses } from "../../common/statuses";
+import { wishStatuses } from "../../common/statuses";
 import type {
   PatientByStatusRs,
   UserShortInfoDto,
@@ -101,9 +101,9 @@ export const WishesForm: React.FC<{
       <div>
         <div>Статус</div>
         <select name="status" defaultValue={props.wish?.status}>
-          {Object.keys(statuses).map((k) => (
+          {Object.keys(wishStatuses).map((k) => (
             <option key={k} value={k}>
-              {statuses[k as keyof WishDto["status"]]}
+              {wishStatuses[k as keyof WishDto["status"]]}
             </option>
           ))}
         </select>
