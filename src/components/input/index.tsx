@@ -15,17 +15,20 @@ export const Input: React.FC<{
 }> = (props) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [isFocused, setIsFocused] = React.useState(false);
-  const [isError, setError] = React.useState(!!props.error);
+  const [isError, setError] = React.useState(props.error ? true : false);
   const errorStyle = isError ? styles.error : "";
   const hintStyle = isFocused ? styles.hint : "";
 
   React.useEffect(() => {
-    setError(!!props.error);
+    setError(props.error ? true : false);
   }, [props.error]);
 
   const handleBlur = () => {
-    setError(false);
     setIsFocused(false);
+  };
+
+  const hansleFocus = () => {
+    setIsFocused(true);
   };
 
   return (
@@ -38,7 +41,7 @@ export const Input: React.FC<{
           defaultValue={props.defaultValue}
           placeholder={props.placeholder}
           className={clsx(errorStyle, hintStyle)}
-          onFocus={() => setIsFocused(true)}
+          onFocus={hansleFocus}
           onBlur={handleBlur}
           onChange={props.onChange}
         />

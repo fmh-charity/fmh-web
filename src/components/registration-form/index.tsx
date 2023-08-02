@@ -19,6 +19,8 @@ import {
   HINT_PASSWORD
 } from "../../validation/hints";
 
+type TFieldOneStep = "password" | "passwordConfirm" | "email" | "roleIds";
+
 interface StepOneState {
   role: string;
   email: string;
@@ -33,7 +35,7 @@ interface IFormState {
 }
 
 type TAction =
-  | { type: "UPDATE_STEP_ONE_FIELD"; field: string; value: string }
+  | { type: "UPDATE_STEP_ONE_FIELD"; field: TFieldOneStep; value: string }
   | { type: "SET_STEP_ONE_ERRORS"; errors: { [key: string]: string } }
   | { type: "SET_STEP"; step: number };
 
@@ -72,7 +74,7 @@ export const RegistrationForm = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const { step, dataStepOne } = state;
 
-  const handleContinue = (): void => {
+  const validateForm = (): { [key: string]: string } | null => {
     const formData = {
       roleIds: [parseInt(dataStepOne.role as string, 10)],
       email: dataStepOne.email,
@@ -88,14 +90,49 @@ export const RegistrationForm = () => {
       passwordConfirm: dataStepOne.passwordConfirm
     });
 
-    if (errorsStepOne) {
-      dispatch({ type: "SET_STEP_ONE_ERRORS", errors: errorsStepOne });
-    } else if (passwordsEqualityError) {
-      dispatch({ type: "SET_STEP_ONE_ERRORS", errors: passwordsEqualityError });
+    if (errorsStepOne || passwordsEqualityError) {
+      return {
+        ...(errorsStepOne || {}),
+        ...(passwordsEqualityError || {})
+      };
+    }
+
+    return null;
+  };
+
+  const setErrorsStepOne = (errors: { [key: string]: string } | null): void => {
+    if (errors) {
+      dispatch({ type: "SET_STEP_ONE_ERRORS", errors });
     } else {
       dispatch({ type: "SET_STEP_ONE_ERRORS", errors: {} });
       dispatch({ type: "SET_STEP", step: 2 });
     }
+  };
+
+  const handleContinue = (): void => {
+    const errors = validateForm();
+    setErrorsStepOne(errors);
+  };
+
+  const onChangeField = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>,
+    field: TFieldOneStep
+  ): void => {
+    const value = e.target.value;
+    dispatch({
+      type: "UPDATE_STEP_ONE_FIELD",
+      field,
+      value
+    });
+    dispatch({
+      type: "SET_STEP_ONE_ERRORS",
+      errors: {
+        ...state.dataStepOne.validationErrors,
+        [field]: ""
+      }
+    });
   };
 
   return (
@@ -135,13 +172,7 @@ export const RegistrationForm = () => {
                   name="roleIds"
                   defaultValue="6"
                   style={{ height: "48px" }}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                    dispatch({
-                      type: "UPDATE_STEP_ONE_FIELD",
-                      field: "roleIds",
-                      value: e.target.value
-                    })
-                  }
+                  onChange={(e) => onChangeField(e, "roleIds")}
                 >
                   {APP_ROLES.map((role) => (
                     <option
@@ -160,13 +191,7 @@ export const RegistrationForm = () => {
                   error={dataStepOne.validationErrors?.email}
                   hint={HINT_EMAIL}
                   placeholder="Email"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    dispatch({
-                      type: "UPDATE_STEP_ONE_FIELD",
-                      field: "email",
-                      value: e.target.value
-                    })
-                  }
+                  onChange={(e) => onChangeField(e, "email")}
                 />
               </div>
               <div>
@@ -178,13 +203,7 @@ export const RegistrationForm = () => {
                   error={dataStepOne.validationErrors?.password}
                   hint={HINT_PASSWORD}
                   placeholder="Введите пароль"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    dispatch({
-                      type: "UPDATE_STEP_ONE_FIELD",
-                      field: "password",
-                      value: e.target.value
-                    })
-                  }
+                  onChange={(e) => onChangeField(e, "password")}
                 />
               </div>
               <div>
@@ -196,13 +215,7 @@ export const RegistrationForm = () => {
                   error={dataStepOne.validationErrors?.passwordConfirm}
                   hint={HINT_PASSWORD}
                   placeholder="Введите подтверждение пароля"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    dispatch({
-                      type: "UPDATE_STEP_ONE_FIELD",
-                      field: "passwordConfirm",
-                      value: e.target.value
-                    })
-                  }
+                  onChange={(e) => onChangeField(e, "passwordConfirm")}
                 />
               </div>
               <div className={styles.button}>
