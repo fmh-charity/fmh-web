@@ -1,6 +1,9 @@
 import { StructError, assert } from "superstruct";
 
-export const assertObjectBySchema = (obj: any, schema: any) => {
+export const assertObjectBySchema = (
+  obj: any,
+  schema: any
+): { [key: string]: string } | false => {
   try {
     assert(obj, schema);
   } catch (err) {
@@ -8,7 +11,7 @@ export const assertObjectBySchema = (obj: any, schema: any) => {
       const fieldsErrors = err.failures().reduce(
         (acc, { key, message }) => ({
           ...acc,
-          [key]: message,
+          [key]: message
         }),
         {}
       );
@@ -40,7 +43,7 @@ export const joinNames = (
     [firstName, middleName]
       .filter(Boolean)
       .map((i) => ((i as string).length > 0 ? `${i?.charAt(0)}.` : ""))
-      .join(" "),
+      .join(" ")
   ].join(" ");
 };
 
