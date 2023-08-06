@@ -57,14 +57,16 @@ export const Input: React.FC<{
           </button>
         )}
       </div>
-      {isError && !isFocused && (
-        <div className={styles["subtitle-error"]}>
+      <div className={styles.subtitle}>
+              {isError && !isFocused && (
+        <div className={styles["subtitle__error"]}>
           <Icon.Attention16 /> <span>{props.error}</span>
         </div>
       )}
       {isFocused && props.hint && (
-        <div className={styles["subtitle-hint"]}>{props.hint}</div>
+        <div className={styles["subtitle__hint"]}>{props.hint}</div>
       )}
+      </div>
     </div>
   );
 };

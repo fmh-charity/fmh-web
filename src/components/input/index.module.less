@@ -42,21 +42,27 @@
       justify-content: center;
     }
   }
+  .subtitle{
+    height: 24px;
+    padding-top: 4px;
+    @media (max-width: 767px) {
+      height: 38px;
+    }
 
-  .subtitle-error {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 0px;
-    font-size: 14px;
-    line-height: 17.5px;
-    color: @color-red;
+    &__error {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      line-height: 125%;
+      color: @color-red;
+    }
+    &__hint {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      line-height: 125%;
+    }
   }
-  .subtitle-hint {
-    display: flex;
-    align-items: center;
-    padding: 4px 0px;
-    font-size: 14px;
-    line-height: 17.5px;
-  }
+
 }
