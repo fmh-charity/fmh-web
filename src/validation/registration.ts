@@ -18,6 +18,9 @@ export const сheckPasswordsEquality = (value: {
   if (value.password !== value.passwordConfirm) {
     return { passwordConfirm: "Пароль и проверочный пароль не совпадают" };
   }
+  if (!value.password && !value.passwordConfirm) {
+    return { passwordConfirm: "Пароль должен содержать минимум 6 символов" };
+  }
   return false;
 };
 
