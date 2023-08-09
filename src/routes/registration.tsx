@@ -3,10 +3,6 @@ import { json, redirect } from "react-router-dom";
 import type { QueryClient } from "@tanstack/query-core";
 import { ensureLogin } from "../common/auth";
 import { assertObjectBySchema } from "../common/utils";
-// import {
-//   registrationPasswordMatchSchema,
-//   registrationSchema,
-// } from "../validation/registration";
 import type { RegistrationRequest } from "../api/model";
 import { RegistrationForm } from "../components/registration-form";
 import { registrationSchema } from "../validation/registration";
@@ -42,8 +38,9 @@ export const action: api.CreateAction =
       );
 
       if (!registrationReq.error) {
-        return json({ success: "Регистрация успешно завершена" });
+        return json({ body : "Регистрация успешно завершена" });
       }
+
 
       return json(registrationReq.body);
     } catch (error) {

@@ -18,6 +18,7 @@ import {
   HINT_NAME,
   HINT_PASSWORD
 } from "../../validation/hints";
+import { Modal } from "../modal";
 
 type TFieldOneStep = "password" | "passwordConfirm" | "email" | "roleIds";
 
@@ -70,10 +71,20 @@ const reducer = (state: IFormState, action: TAction): IFormState => {
 };
 
 export const RegistrationForm = () => {
+  const [isOpenedModal, setIsOpenedModal] = React.useState(false);
   const fetcher = useFetcher();
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const { step, dataStepOne } = state;
 
+  React.useEffect(() => {
+    if (fetcher.data?.body !== undefined) {
+      setIsOpenedModal(true);
+    }
+  }, [fetcher.data]);
+
+  const toggleModal = () =>{
+    setIsOpenedModal(false);
+  };
   const validateForm = (): { [key: string]: string } | null => {
     const formData = {
       roleIds: [parseInt(dataStepOne.role as string, 10)],
@@ -308,9 +319,9 @@ export const RegistrationForm = () => {
                   </Link>
                 </span>
               </div>
-              <div>{JSON.stringify(fetcher.data?.success)}</div>
             </div>
           </fetcher.Form>
+          {isOpenedModal && <Modal title={fetcher.data?.body} toggleModal={toggleModal}></Modal> }
         </div>
       }
     />
