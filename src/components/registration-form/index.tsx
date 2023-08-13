@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useFetcher } from "react-router-dom";
+import { Link, useFetcher,redirect, useRouteLoaderData } from "react-router-dom";
 import { APP_ROLES } from "../../common/roles";
 import { SplitComponent } from "../split-component";
 import styles from "./index.module.less";
@@ -19,6 +19,8 @@ import {
   HINT_PASSWORD
 } from "../../validation/hints";
 import { Modal } from "../modal";
+import type { UserInfoDto } from "../../api/model";
+import { USERINFO_LOCALSTORAGE_KEY } from "../../common/constants";
 
 type TFieldOneStep = "password" | "passwordConfirm" | "email" | "roleIds";
 
@@ -76,6 +78,8 @@ export const RegistrationForm = () => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const { step, dataStepOne } = state;
 
+  // const userInfo = useRouteLoaderData("app") as UserInfoDto;
+
   React.useEffect(() => {
     if (fetcher.data?.body !== undefined) {
       setIsOpenedModal(true);
@@ -84,7 +88,14 @@ export const RegistrationForm = () => {
 
   const toggleModal = () =>{
     setIsOpenedModal(false);
+
+    if(fetcher.data?.success){
+
+     return redirect("/profile");
+    }
+    return dispatch({ type: "SET_STEP", step: 1});
   };
+
   const validateForm = (): { [key: string]: string } | null => {
     const formData = {
       roleIds: [parseInt(dataStepOne.role as string, 10)],
@@ -124,6 +135,7 @@ export const RegistrationForm = () => {
     const errors = validateForm();
     setErrorsStepOne(errors);
   };
+
 
   const onChangeField = (
     e:
@@ -242,7 +254,6 @@ export const RegistrationForm = () => {
               <div className={styles.gotoLogin}>
                 <span>Уже есть эккаунт?</span> <Link to="/login">Войти</Link>
               </div>
-              <div>{JSON.stringify(fetcher.data)}</div>
             </div>
             <div
               className={classNames(
@@ -321,7 +332,7 @@ export const RegistrationForm = () => {
               </div>
             </div>
           </fetcher.Form>
-          {isOpenedModal && <Modal title={fetcher.data?.body} toggleModal={toggleModal}></Modal> }
+          {isOpenedModal && <Modal title={fetcher.data?.body?.title} subtitle={fetcher.data?.body?.subtitle} isSuccess={fetcher.data?.body?.success} toggleModal={toggleModal}/> }
         </div>
       }
     />

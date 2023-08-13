@@ -10,6 +10,7 @@ import {
 const CharPattern = /^[А-Яа-я-]+$/;
 const EmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PasswordPattern = /^[A-Za-z0-9!#$%&_-]+$/;
+const DatePattern = /^\d{4}-\d{2}-\d{2}$/;
 
 export const сheckPasswordsEquality = (value: {
   password: string;
@@ -84,6 +85,29 @@ const CheckMiddleName = refine(string(), "CheckMiddleName", (value) => {
   return true;
 });
 
+
+const CheckDateOfBirth = refine(string(), "CheckDateOfBirth", (value) => {
+  if (!DatePattern.test(value)) {
+    return "Неверный формат даты рождения. Используйте формат ДД.ММ.ГГГГ";
+  }
+
+  const minDate = new Date("1920-01-01");
+  const maxDate = new Date();
+
+  const [day, month, year] = value.split(".");
+  const dateOfBirth = new Date(`${year}-${month}-${day}`);
+
+  if (
+    dateOfBirth >= minDate &&
+    dateOfBirth <= maxDate &&
+    maxDate.getFullYear() - dateOfBirth.getFullYear() <= 100 &&
+    maxDate.getFullYear() - dateOfBirth.getFullYear() >= 10
+  ) {
+    return true;
+  }
+  return "Неверная дата рождения";
+});
+
 export const registrationSchemaStepOne = object({
   email: CheckEmail,
   password: CheckPassword,
@@ -94,7 +118,7 @@ export const registrationSchema = object({
   firstName: CheckFirstName,
   lastName: CheckLastName,
   middleName: optional(CheckMiddleName),
-  dateOfBirth: string(),
+  dateOfBirth: CheckDateOfBirth,
   roleIds: array(number()),
   email: CheckEmail,
   password: CheckPassword

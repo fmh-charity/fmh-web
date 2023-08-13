@@ -1,9 +1,9 @@
 import * as api from "../api";
 import { json, redirect } from "react-router-dom";
 import type { QueryClient } from "@tanstack/query-core";
-import { ensureLogin } from "../common/auth";
+import { doLogin, ensureLogin, ensureUserInfo } from "../common/auth";
 import { assertObjectBySchema } from "../common/utils";
-import type { RegistrationRequest } from "../api/model";
+import type { LoginRequest, RegistrationRequest } from "../api/model";
 import { RegistrationForm } from "../components/registration-form";
 import { registrationSchema } from "../validation/registration";
 
@@ -32,17 +32,31 @@ export const action: api.CreateAction =
       const errors = assertObjectBySchema(formObj, registrationSchema);
       if (errors) return json({ errors });
 
-      const registrationReq = await api.authentication.registrationQuery(
+      const registrationResponse = await api.authentication.registrationQuery(
         queryClient,
         formObj
       );
 
-      if (!registrationReq.error) {
-        return json({ body : "Регистрация успешно завершена" });
+
+      if(registrationResponse.error.status === 413){
+        return json({ body :{title:"Произошла ошибка",subtitle:"Логин уже зарегистрирован"}  , success:false});
       }
 
+      if(registrationResponse.error.status === 500){
+        return json({ body :{title:"Произошла ошибка",subtitle:"Ошибка сервера"}  , success:false});
+      }
 
-      return json(registrationReq.body);
+      // чтобы сразу произвести вход
+      const loginResponse = await doLogin(queryClient, {
+      login:formObj.email,
+      password:formObj.password,
+    } as LoginRequest);
+
+      if(loginResponse.error){
+        return json({ body:{title:"Произошла ошибка",subtitle:"Произошла ошибка автоматического входа"}  , success:false});
+      }
+
+      return json({ body : {title: "Регистрация успешно завершена"},success:true});
     } catch (error) {
       return json((error as any).body);
     }
