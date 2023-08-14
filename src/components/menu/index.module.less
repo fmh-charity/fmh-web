@@ -8,15 +8,6 @@
   grid-template-rows: max-content 1fr max-content;
   border-right: 1px solid @color-light-gray;
 
-  .isActive {
-    background-color: @color-primary;
-    border-radius: 8px;
-    color: white !important;
-    .icon {
-      color: inherit !important;
-    }
-  }
-
   .logo {
     display: grid;
     align-items: center;
@@ -47,6 +38,14 @@
       padding: 12px 16px;
       color: @color-dark-gray;
       text-decoration: none;
+      &.isActive {
+        background-color: @color-primary;
+        border-radius: 8px;
+        color: white;
+        .icon {
+          color: inherit;
+        }
+      }
       img {
         display: grid;
       }
@@ -74,6 +73,14 @@
         padding: 12px 16px;
         color: @color-dark-gray;
         text-decoration: none;
+        &.isActive {
+          background-color: @color-primary;
+          border-radius: 8px;
+          color: white;
+          .icon {
+            color: inherit;
+          }
+        }
 
         .icon {
           color: @color-primary;

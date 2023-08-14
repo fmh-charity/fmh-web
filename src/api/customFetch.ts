@@ -1,5 +1,8 @@
 import { configureRefreshFetch, fetchJSON } from "refresh-fetch";
-import { LOGIN_LOCALSTORAGE_KEY } from "../common/constants";
+import {
+  LOGIN_LOCALSTORAGE_KEY,
+  USERINFO_LOCALSTORAGE_KEY,
+} from "../common/constants";
 import type { FetchQueryOptions, QueryClient } from "@tanstack/react-query";
 import { notification } from "../common/notifications";
 import type { ActionFunction, LoaderFunction } from "react-router-dom";
@@ -36,6 +39,7 @@ const saveToken = (token: any) => {
 
 const clearToken = () => {
   window.localStorage.removeItem(LOGIN_LOCALSTORAGE_KEY);
+  window.localStorage.removeItem(USERINFO_LOCALSTORAGE_KEY);
 };
 
 const fetchJSONWithToken = (url: any, options = {}) => {
@@ -56,8 +60,8 @@ const shouldRefreshToken = (error: any) => {
   console.log("shouldRefreshToken", error);
   return (
     // TODO check real message
-    error.response.status === 401 &&
-    error.response.statusText === "Unauthorized"
+    error.response.status === 401
+    // error.response.statusText === "Unauthorized"
   );
 };
 

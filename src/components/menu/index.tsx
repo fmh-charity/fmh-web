@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.less";
 import type { MenuItemGroup, MenuItem as MenuItemT } from "./menuItems"; // mad lint
 import { footerMenu, menu } from "./menuItems";
@@ -31,9 +31,15 @@ const MenuGroup = ({
   item: MenuItemGroup;
   close?: () => void;
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const [collapse, setCollapse] = useState(false);
+  useEffect(() => {
+    if (ref?.current && collapse) {
+      ref.current.scrollIntoView({ block: "nearest" });
+    }
+  }, [collapse]);
   return (
-    <div className={styles.group}>
+    <div className={styles.group} ref={ref}>
       <div>
         <NavLink
           to={item.to}

@@ -21,7 +21,6 @@ export const columns = [
     cell: (props) => props.getValue(),
   }),
   columnHelper.accessor(
-    // чтобы поиск работал по форматированной дате
     (row) =>
       row.planExecuteDate
         ? dayjs.utc(row.planExecuteDate).format("DD.MM.YYYY")

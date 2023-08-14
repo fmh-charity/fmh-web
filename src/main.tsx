@@ -62,6 +62,8 @@ import {
   PatientsIdRoute,
   loader as loaderPatientById,
 } from "./routes/patients.id";
+import { MainPage } from "./pages/main-page";
+import { VersionRoute } from "./routes/version";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -83,7 +85,7 @@ const router = createBrowserRouter([
         loader: loaderRoot(queryClient),
         element: <RootRoute />,
         children: [
-          { element: <div>index</div>, index: true },
+          { element: <MainPage />, index: true },
           {
             path: "profile",
             action: actionSaveUserInfo(queryClient),
@@ -167,6 +169,10 @@ const router = createBrowserRouter([
           {
             path: "about",
             element: <AboutRoute />,
+          },
+          {
+            path: "version",
+            element: <VersionRoute />,
           },
           {
             path: "*",
