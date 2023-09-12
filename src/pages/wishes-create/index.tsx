@@ -4,7 +4,8 @@ import type {
   UserShortInfoDto,
   WishDto,
 } from "../../api/model";
-import { WishesForm } from "../../components/wishes-form";
+import { WishesFormCreate } from "../../components/wishes-form-create";
+import styles from "./index.module.less";
 
 export const WishesCreate = () => {
   const { wish, patients, users } = useLoaderData() as {
@@ -13,22 +14,17 @@ export const WishesCreate = () => {
     users: { body: UserShortInfoDto[] };
   };
   return (
-    <div>
-      <div>
-        wish create
-        <Link to="..">back</Link>
+    <div className={styles.wrapper}>
+      <div className={styles.title}>
+        <span>Новая просьба</span>
       </div>
-      <WishesForm
-        intent="CREATE"
-        wish={wish.body}
-        patients={patients.body}
-        users={users.body}
-      />
-      <pre>{JSON.stringify(wish, null, 2)}</pre>
-      <hr />
-      <pre>{JSON.stringify(patients, null, 2)}</pre>
-      <hr />
-      <pre>{JSON.stringify(users, null, 2)}</pre>
+      <div className={styles.form}>
+        <WishesFormCreate
+          wish={wish.body}
+          patients={patients.body}
+          users={users.body}
+        />
+      </div>
     </div>
   );
 };

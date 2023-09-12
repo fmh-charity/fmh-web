@@ -6,6 +6,7 @@ import { assertObjectBySchema } from "../common/utils";
 import type { RegistrationRequest } from "../api/model";
 import { RegistrationForm } from "../components/registration-form";
 import { registrationSchema } from "../validation/registration";
+import { notification } from "../common/notifications";
 
 export const loader: api.CreateLoader =
   (queryClient: QueryClient) => async () => {
@@ -26,7 +27,7 @@ export const action: api.CreateAction =
         Object.fromEntries(formData);
       const formObj = {
         ...formObjRest,
-        roleIds: [parseInt(roleIds as string, 10)]
+        roleIds: [parseInt(roleIds as string, 10)],
       } as unknown as RegistrationRequest;
 
       const errors = assertObjectBySchema(formObj, registrationSchema);
@@ -38,12 +39,25 @@ export const action: api.CreateAction =
       );
 
       if (!registrationReq.error) {
-        return json({ body : "Регистрация успешно завершена" });
+        return json({ body: "Регистрация успешно завершена" });
       }
 
+      console.log(registrationReq);
+      if (registrationReq.error) {
+        notification?.addNotification({
+          label: "Ошибка",
+          text: JSON.stringify(registrationReq.error),
+        });
+      }
 
       return json(registrationReq.body);
     } catch (error) {
+      console.log("error", error);
+      notification?.addNotification({
+        label: "Ошибка",
+        text: (error as any).body.violations,
+      });
+
       return json((error as any).body);
     }
   };

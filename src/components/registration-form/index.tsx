@@ -10,13 +10,13 @@ import clsx from "clsx";
 import { assertObjectBySchema } from "../../common/utils";
 import {
   сheckPasswordsEquality,
-  registrationSchemaStepOne
+  registrationSchemaStepOne,
 } from "../../validation/registration";
 import {
   HINT_DATE,
   HINT_EMAIL,
   HINT_NAME,
-  HINT_PASSWORD
+  HINT_PASSWORD,
 } from "../../validation/hints";
 import { Modal } from "../modal";
 
@@ -47,8 +47,8 @@ const initialState: IFormState = {
     email: "",
     password: "",
     passwordConfirm: "",
-    validationErrors: {}
-  }
+    validationErrors: {},
+  },
 };
 
 const reducer = (state: IFormState, action: TAction): IFormState => {
@@ -56,12 +56,12 @@ const reducer = (state: IFormState, action: TAction): IFormState => {
     case "UPDATE_STEP_ONE_FIELD":
       return {
         ...state,
-        dataStepOne: { ...state.dataStepOne, [action.field]: action.value }
+        dataStepOne: { ...state.dataStepOne, [action.field]: action.value },
       };
     case "SET_STEP_ONE_ERRORS":
       return {
         ...state,
-        dataStepOne: { ...state.dataStepOne, validationErrors: action.errors }
+        dataStepOne: { ...state.dataStepOne, validationErrors: action.errors },
       };
     case "SET_STEP":
       return { ...state, step: action.step };
@@ -82,14 +82,14 @@ export const RegistrationForm = () => {
     }
   }, [fetcher.data]);
 
-  const toggleModal = () =>{
+  const toggleModal = () => {
     setIsOpenedModal(false);
   };
   const validateForm = (): { [key: string]: string } | null => {
     const formData = {
       roleIds: [parseInt(dataStepOne.role as string, 10)],
       email: dataStepOne.email,
-      password: dataStepOne.password
+      password: dataStepOne.password,
     };
 
     const errorsStepOne = assertObjectBySchema(
@@ -98,13 +98,13 @@ export const RegistrationForm = () => {
     );
     const passwordsEqualityError = сheckPasswordsEquality({
       password: dataStepOne.password,
-      passwordConfirm: dataStepOne.passwordConfirm
+      passwordConfirm: dataStepOne.passwordConfirm,
     });
 
     if (errorsStepOne || passwordsEqualityError) {
       return {
         ...(errorsStepOne || {}),
-        ...(passwordsEqualityError || {})
+        ...(passwordsEqualityError || {}),
       };
     }
 
@@ -135,14 +135,14 @@ export const RegistrationForm = () => {
     dispatch({
       type: "UPDATE_STEP_ONE_FIELD",
       field,
-      value
+      value,
     });
     dispatch({
       type: "SET_STEP_ONE_ERRORS",
       errors: {
         ...state.dataStepOne.validationErrors,
-        [field]: ""
-      }
+        [field]: "",
+      },
     });
   };
 
@@ -180,6 +180,7 @@ export const RegistrationForm = () => {
               <div style={{ overflow: "hidden" }}>
                 <div>Выбор роли*</div>
                 <select
+                  className={styles.roles}
                   name="roleIds"
                   defaultValue="6"
                   style={{ height: "48px" }}
@@ -240,7 +241,7 @@ export const RegistrationForm = () => {
                 </Button>
               </div>
               <div className={styles.gotoLogin}>
-                <span>Уже есть эккаунт?</span> <Link to="/login">Войти</Link>
+                <span>Уже есть аккаунт?</span> <Link to="/login">Войти</Link>
               </div>
               <div>{JSON.stringify(fetcher.data)}</div>
             </div>
@@ -321,7 +322,9 @@ export const RegistrationForm = () => {
               </div>
             </div>
           </fetcher.Form>
-          {isOpenedModal && <Modal title={fetcher.data?.body} toggleModal={toggleModal}></Modal> }
+          {isOpenedModal && (
+            <Modal title={fetcher.data?.body} toggleModal={toggleModal}></Modal>
+          )}
         </div>
       }
     />
