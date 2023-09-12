@@ -28,6 +28,7 @@ const retrieveAccessToken = () => {
     }
   } catch (e) {
     clearToken();
+    window.location.reload();
     console.error(e);
   }
   return null;
@@ -60,7 +61,8 @@ const shouldRefreshToken = (error: any) => {
   console.log("shouldRefreshToken", error);
   return (
     // TODO check real message
-    error.response.status === 401
+    error.response.status === 401 ||
+    (error.status === 500 && error.body.message === "Access Denied")
     // error.response.statusText === "Unauthorized"
   );
 };
@@ -68,22 +70,25 @@ const shouldRefreshToken = (error: any) => {
 const refreshToken = async () => {
   console.log("refreshToken");
   try {
-    const response = await fetchJSONWithToken("/authentication/refresh", {
-      method: "POST",
-      body: JSON.stringify({
-        refreshToken: retrieveRefreshToken(),
-      }),
-    });
+    const response = await fetchJSONWithToken(
+      "/api/fmh/authentication/refresh",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          refreshToken: retrieveRefreshToken(),
+        }),
+      }
+    );
     if (response) {
       saveToken(response.body);
     }
     return response;
   } catch (error) {
     clearToken();
-    notification.addNotification({
-      label: "Внимание",
-      text: "Кончился срок действия сессии",
-    });
+    // notification.addNotification({
+    //   label: "Ошибка",
+    //   text: JSON.stringify(error),
+    // });
     throw error;
   }
 };
