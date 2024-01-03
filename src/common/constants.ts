@@ -10,6 +10,7 @@ export const REGISTRATION_QUERY = "REGISTRATION_QUERY";
 
 // News
 export const NEWS_QUERY = "NEWS_QUERY";
+export const NEWS_CREATE_QUERY = "NEWS_CREATE_QUERY";
 
 // notifications
 
