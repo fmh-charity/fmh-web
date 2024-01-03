@@ -1,21 +1,17 @@
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/query-core";
-import { json, useLoaderData } from "react-router-dom";
+import { json } from "react-router-dom";
+import { NewsIndex } from "../pages/news-index/news-index";
 
 export const loader = (queryClient: QueryClient) => async () => {
-  const news = await api.news.newsQuery(queryClient);
-
+  const req = {
+    elements: 100,
+    pages: 0,
+  };
+  const news = await api.news.newsQuery(queryClient, req);
   return json(news);
 };
 
 export const NewsRoute = () => {
-  const data = useLoaderData();
-  return (
-    <div>
-      news route
-      <div>
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      </div>
-    </div>
-  );
+  return <NewsIndex />;
 };
