@@ -7,12 +7,15 @@ import utc from "dayjs/plugin/utc";
 import { getArrayFromFormData } from "../common/utils";
 import type { WishCreationRequest } from "../api/model";
 import { notification } from "../common/notifications";
+import { useOpenModal } from "../hooks/useOpenModal";
+import { CreateWishSuccessful } from "../modals/create-wish-successful/create-wish-successful";
 
 dayjs.extend(utc);
 
 export const action =
   (queryClient: QueryClient) =>
   async ({ request }: { request: Request }) => {
+    const openModal = useOpenModal();
     const formData = await request.formData();
     const wishVisibility = getArrayFromFormData(formData, "wishVisibility").map(
       (i) => parseInt(i as string, 10)
@@ -30,7 +33,6 @@ export const action =
       // wishVisibility,
       intent,
     } = Object.fromEntries(formData);
-
     const o: WishCreationRequest = {
       title: title as string,
     };
@@ -56,12 +58,7 @@ export const action =
             text: (wish.error as { body: any }).body.message,
           });
         } else {
-          notification.addNotification({
-            label: "Просьба",
-            text: "успешно создана",
-          });
-
-          return redirect("/wishes/" + wish.body.id);
+          openModal(CreateWishSuccessful, {});
         }
         break;
       }

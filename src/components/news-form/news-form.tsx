@@ -5,6 +5,7 @@ import { Button } from "../button";
 import styles from "./news-form.module.less";
 import type { FormEventHandler} from "react";
 import { useState } from "react";
+import { TextArea } from "../textarea";
 
 interface NewsFormProps {
   buttonText: string;
@@ -51,7 +52,7 @@ export const NewsForm = ({
           <span className={styles.title}>Описание*</span>
         </div>
         <div className={styles.right}>
-          <Input type="text" name="description" label="Описание" error={errors.description || ""} defaultValue={data?.description || ""} />
+          <TextArea name="description" label="Описание" error={errors.description || ""} defaultValue={data?.description || ""} />
         </div>
       </div>
       <div className={styles.row}>

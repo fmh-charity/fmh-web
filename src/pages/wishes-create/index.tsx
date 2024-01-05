@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import type {
   PatientByStatusRs,
   UserShortInfoDto,
@@ -6,6 +6,9 @@ import type {
 } from "../../api/model";
 import { WishesFormCreate } from "../../components/wishes-form-create";
 import styles from "./index.module.less";
+import { Card } from "../../components/card";
+import { useOpenModal } from "../../hooks/useOpenModal";
+import { CreateWishSuccessful } from "../../modals/create-wish-successful/create-wish-successful";
 
 export const WishesCreate = () => {
   const { wish, patients, users } = useLoaderData() as {
@@ -13,18 +16,20 @@ export const WishesCreate = () => {
     patients: { body: PatientByStatusRs[] };
     users: { body: UserShortInfoDto[] };
   };
+  const openModal = useOpenModal();
+
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.title}>
-        <span>Новая просьба</span>
-      </div>
-      <div className={styles.form}>
-        <WishesFormCreate
-          wish={wish.body}
-          patients={patients.body}
-          users={users.body}
-        />
-      </div>
-    </div>
+    <section className={styles.root}>
+      <Card title="Новая просьба">
+        <div className={styles.formContainer}>
+          <WishesFormCreate
+            wish={wish.body}
+            patients={patients.body}
+            users={users.body}
+          />
+          <button onClick={() => openModal(CreateWishSuccessful, {})}>aasdf</button>
+        </div>
+      </Card>
+    </section>
   );
 };
