@@ -3,11 +3,13 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { WishDto } from "../../../api/model";
 import dayjs from "dayjs";
 import { Icon } from "../../icon";
-import { Link } from "react-router-dom";
 import { StatusWishes } from "../../table-section/elements/wishes/status";
 import { ExecuteDate } from "../../table-section/elements/wishes/executeDate";
 import { wishStatuses } from "../../../common/statuses";
 import { joinNames } from "../../../common/utils";
+import { PopupMenu } from "../../popup-menu/popup-menu";
+import { useOpenModal } from "../../../hooks/useOpenModal";
+import { CancelWish } from "../../../modals/cancel-wish/cancel-wish";
 
 const columnHelper = createColumnHelper<WishDto>();
 
@@ -76,9 +78,17 @@ export const columns = [
 ];
 
 const Actions = ({ id }: { id: string }) => {
+  const openModal = useOpenModal();
+  const menuItems = [
+    {
+      label: <>
+        <Icon.Change16 />
+        <div>Отменить</div>
+      </>,
+      onClick: () => openModal(CancelWish, { id })
+    }
+  ];
   return (
-    <Link to={id}>
-      <Icon.ActionDefault24 />
-    </Link>
+    <PopupMenu items={menuItems} />
   );
 };

@@ -1,0 +1,26 @@
+@import "../../variables.less";
+
+.menu {
+  border-radius: 8px;
+  border: 1px solid #BABABA;
+  max-width: 212px;
+  overflow: hidden;
+}
+.menuItem {
+  background-color: @color-white;
+  border: none;
+  display: flex;
+  width: 100%;
+  padding: 16px;
+  gap: 12px;
+  align-items: center;
+  color: #080C0C;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  &:not(:last-child) {
+    border-bottom: 1px solid #BABABA;
+  }
+}

@@ -1,4 +1,4 @@
-import { json, redirect } from "react-router-dom";
+import { json } from "react-router-dom";
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { WishesId } from "../pages/wishes-id";
@@ -7,15 +7,12 @@ import utc from "dayjs/plugin/utc";
 import { getArrayFromFormData } from "../common/utils";
 import type { WishCreationRequest } from "../api/model";
 import { notification } from "../common/notifications";
-import { useOpenModal } from "../hooks/useOpenModal";
-import { CreateWishSuccessful } from "../modals/create-wish-successful/create-wish-successful";
 
 dayjs.extend(utc);
 
 export const action =
   (queryClient: QueryClient) =>
   async ({ request }: { request: Request }) => {
-    const openModal = useOpenModal();
     const formData = await request.formData();
     const wishVisibility = getArrayFromFormData(formData, "wishVisibility").map(
       (i) => parseInt(i as string, 10)
@@ -49,6 +46,22 @@ export const action =
       o["description"] = description as string;
     }
 
+    const errors = {
+      title: "",
+      description: "",
+      planExecuteDate: "",
+    };
+    if (!o.title) {
+      errors.title = "Заполните поле";
+    }
+    if (!o.description) {
+      errors.title = "Заполните поле";
+    }
+    if (!o.planExecuteDate) {
+      errors.planExecuteDate = "Заполните поле";
+    }
+    if (Object.values(errors).some(Boolean)) return { errors };
+
     switch (intent) {
       case "CREATE": {
         const wish = await api.wishes.wishesCreateQuery(queryClient, o);
@@ -57,8 +70,6 @@ export const action =
             label: (wish.error as { body: any }).body.code,
             text: (wish.error as { body: any }).body.message,
           });
-        } else {
-          openModal(CreateWishSuccessful, {});
         }
         break;
       }
@@ -85,9 +96,7 @@ export const action =
         break;
     }
 
-    console.log(o);
-
-    return json({});
+    return json({ result: "ok" });
   };
 
 export const loader: api.CreateLoader =

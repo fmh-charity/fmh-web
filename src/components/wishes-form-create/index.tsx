@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollRestoration, useFetcher, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Form, ScrollRestoration, useActionData, useFetcher, useNavigate } from "react-router-dom";
 import { Input } from "../input";
 import { TextArea } from "../textarea";
 import { APP_ROLES } from "../../common/roles";
@@ -12,6 +12,9 @@ import dayjs from "dayjs";
 import styles from "./index.module.less";
 import { Button } from "../button";
 import { Select } from "../select";
+import clsx from "clsx";
+import { useOpenModal } from "../../hooks/useOpenModal";
+import { CreateWishSuccessful } from "../../modals/create-wish-successful/create-wish-successful";
 
 export const WishesFormCreate: React.FC<{
   wish: WishDto;
@@ -20,6 +23,8 @@ export const WishesFormCreate: React.FC<{
 }> = (props) => {
   const navigate = useNavigate();
   const fetcher = useFetcher();
+  const openModal = useOpenModal();
+  const actionData = useActionData() as { result?: any, errors?: any };
   const patientOptions = props.patients.map((patient) => ({
     label: [patient.firstName, patient.middleName, patient.lastName].join(" "),
     value: patient.id,
@@ -29,8 +34,14 @@ export const WishesFormCreate: React.FC<{
     value: role.id
   }));
   
+  useEffect(() => {
+    if (actionData?.result === "ok") {
+      openModal(CreateWishSuccessful, {});
+    }
+  }, [actionData, openModal]);
+
   return (
-    <fetcher.Form className={styles.wishesForm} method="POST">
+    <Form className={styles.wishesForm} method="POST">
       <ScrollRestoration />
       <div className={styles.row}>
         <div className={styles.left}>
@@ -42,7 +53,7 @@ export const WishesFormCreate: React.FC<{
             name="title"
             label="Название просьбы"
             placeholder="Введите название..."
-            error={""}
+            error={actionData?.errors?.title}
             defaultValue={props.wish?.title as string}
           />
         </div>
@@ -63,7 +74,7 @@ export const WishesFormCreate: React.FC<{
           </Select>
         </div>
       </div>
-      <div className={styles.row}>
+      <div className={clsx(styles.row, styles.withMargin)}>
         <div className={styles.left}>
           <span className={styles.title}>Описание просьбы*</span>
         </div>
@@ -73,7 +84,7 @@ export const WishesFormCreate: React.FC<{
             label="Описание"
             defaultValue={props.wish?.description as string}
             placeholder="Введите описание..."
-            error=""
+            error={actionData?.errors?.description}
           />
         </div>
       </div>
@@ -91,7 +102,7 @@ export const WishesFormCreate: React.FC<{
                 ? dayjs.utc(props.wish.planExecuteDate).format("YYYY-MM-DD HH:MM")
                 : ""
             }
-            error=""
+            error={actionData?.errors?.planExecuteDate}
           />
         </div>
       </div>
@@ -130,6 +141,6 @@ export const WishesFormCreate: React.FC<{
       </div>
       <input type="hidden" name="intent" value="CREATE" />
       <input type="hidden" name="id" value={props.wish?.id} />
-    </fetcher.Form>
+    </Form>
   );
 };
