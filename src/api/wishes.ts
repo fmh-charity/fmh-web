@@ -6,6 +6,7 @@ import {
   WISH_CREATE_QUERY,
   WISH_UPDATE_QUERY,
   type WISH_STATUSES,
+  WISH_CANCEL_QUERY,
 } from "../common/constants";
 import type { QueryClient } from "@tanstack/react-query";
 import type { WishCreationRequest, WishDto, WishPaginationDto } from "./model";
@@ -70,4 +71,17 @@ export const wishesUpdateQuery = (
       queryKey: [WISH_UPDATE_QUERY],
     },
     data
+  );
+
+export const wishesCancelQuery = (
+  queryClient: QueryClient,
+  id: string
+) =>
+  createQuery<WishDto>(
+    queryClient,
+    "/api/fmh/wishes/cancel/" + id,
+    api.requestInit.RequestInitDeleteJSON,
+    {
+      queryKey: [WISH_CANCEL_QUERY, id],
+    },
   );

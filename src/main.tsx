@@ -64,6 +64,10 @@ import {
 } from "./routes/patients.id";
 import { MainPage } from "./pages/main-page";
 import { VersionRoute } from "./routes/version";
+import {
+  NewsCreateRoute,
+  action as actionNewsCreateOrUpdate
+} from "./routes/news.create";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -93,8 +97,19 @@ const router = createBrowserRouter([
           },
           {
             path: "news",
-            loader: loaderNews(queryClient),
-            element: <NewsRoute />,
+            element: <Outlet />,
+            children: [
+              {
+                index: true,
+                element: <NewsRoute />,
+                loader: loaderNews(queryClient),
+              },
+              {
+                path: "create",
+                element: <NewsCreateRoute />,
+                action: actionNewsCreateOrUpdate(queryClient),
+              },
+            ],
           },
           {
             path: "patients",

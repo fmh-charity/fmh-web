@@ -1,4 +1,4 @@
-import { json, redirect } from "react-router-dom";
+import { json } from "react-router-dom";
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { WishesId } from "../pages/wishes-id";
@@ -30,7 +30,6 @@ export const action =
       // wishVisibility,
       intent,
     } = Object.fromEntries(formData);
-
     const o: WishCreationRequest = {
       title: title as string,
     };
@@ -47,6 +46,22 @@ export const action =
       o["description"] = description as string;
     }
 
+    const errors = {
+      title: "",
+      description: "",
+      planExecuteDate: "",
+    };
+    if (!o.title) {
+      errors.title = "Заполните поле";
+    }
+    if (!o.description) {
+      errors.title = "Заполните поле";
+    }
+    if (!o.planExecuteDate) {
+      errors.planExecuteDate = "Заполните поле";
+    }
+    if (Object.values(errors).some(Boolean)) return { errors };
+
     switch (intent) {
       case "CREATE": {
         const wish = await api.wishes.wishesCreateQuery(queryClient, o);
@@ -55,13 +70,6 @@ export const action =
             label: (wish.error as { body: any }).body.code,
             text: (wish.error as { body: any }).body.message,
           });
-        } else {
-          notification.addNotification({
-            label: "Просьба",
-            text: "успешно создана",
-          });
-
-          return redirect("/wishes/" + wish.body.id);
         }
         break;
       }
@@ -88,9 +96,7 @@ export const action =
         break;
     }
 
-    console.log(o);
-
-    return json({});
+    return json({ result: "ok" });
   };
 
 export const loader: api.CreateLoader =

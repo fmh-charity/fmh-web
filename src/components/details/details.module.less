@@ -1,0 +1,33 @@
+.root {
+  background-color: #fff;
+  box-shadow: 0px 2px 2px 0px rgba(1, 161, 159, 0.50);
+  padding: 0 18px 0 15px;
+  .summary {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .title {
+      flex-grow: 1;
+    }
+    .toggle {
+      margin-left: auto;
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background-color: transparent;
+      color: rgba(0, 0, 0, 0.54);
+      cursor: pointer;
+      transform: rotate(90deg);
+      &:hover, &:focus {
+        color: black;
+      }
+      &.opened {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}

@@ -21,3 +21,11 @@ export const RequestInitPutJSON: RequestInit = {
     Accept: "application/json",
   },
 };
+
+export const RequestInitDeleteJSON: RequestInit = {
+  method: "DELETE",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+};

@@ -10,6 +10,7 @@ export const REGISTRATION_QUERY = "REGISTRATION_QUERY";
 
 // News
 export const NEWS_QUERY = "NEWS_QUERY";
+export const NEWS_CREATE_QUERY = "NEWS_CREATE_QUERY";
 
 // notifications
 
@@ -20,6 +21,7 @@ export const NOTIFICATION_ADD = "NOTIFICATION_ADD";
 export const WISHES_QUERY = "WISHES_QUERY";
 export const WISH_CREATE_QUERY = "WISH_CREATE_QUERY";
 export const WISH_UPDATE_QUERY = "WISH_UPDATE_QUERY";
+export const WISH_CANCEL_QUERY = "WISH_CANCEL_QUERY";
 
 export const WISH_STATUSES = {
   IN_PROGRESS: "IN_PROGRESS",

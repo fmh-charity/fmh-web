@@ -10,7 +10,7 @@ export const RoorWrapper = () => {
       <div className={styles.body}>
         <Header />
         <div className={styles.content}>
-          <div className={styles.outlet}>
+          <div className={styles.outlet} id="content">
             <Outlet />
           </div>
         </div>

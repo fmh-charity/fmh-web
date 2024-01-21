@@ -7,7 +7,7 @@ export const RootWrapperMobile = () => {
   return (
     <div className={styles.wrapper}>
       <HeaderMobile />
-      <div className={styles.content}>
+      <div className={styles.content} id="content">
         <Outlet />
       </div>
       <FooterMobile />
