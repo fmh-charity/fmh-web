@@ -11,6 +11,7 @@ const MenuItem = ({ item, close }: { item: MenuItemT; close?: () => void }) => (
     <NavLink
       to={item.to}
       onClick={() => {
+        // TODO: Рефакторинг
         console.log("MENU KLICK");
         close?.();
       }}

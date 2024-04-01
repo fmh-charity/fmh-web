@@ -80,6 +80,7 @@ export const Header = () => {
         </div>
         <Link to="/profile" className={clsx(styles.column, styles.profile)}>
           <div className={styles.column}>
+            {/* TODO: убрать мок + рефакторинг компонента */}
             <img src="/images/avatar_mock.png" alt="avatar" />
           </div>
           <div>
