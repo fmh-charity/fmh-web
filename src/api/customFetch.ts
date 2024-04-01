@@ -45,16 +45,15 @@ const clearToken = () => {
 
 const fetchJSONWithToken = (url: any, options = {}) => {
   const token = retrieveAccessToken();
-
   const optionsWithToken = {
     ...options,
     headers: {
       ...(options as any).headers,
-      authorization: token ?? undefined,
+      Authorization: token,
     },
   };
-
-  return fetchJSON(url, optionsWithToken) as Promise<Response>;
+  
+  return fetchJSON(`${process.env.REACT_APP_API_URL}${url}`, optionsWithToken) as Promise<Response>;
 };
 
 const shouldRefreshToken = (error: any) => {
@@ -68,7 +67,6 @@ const shouldRefreshToken = (error: any) => {
 };
 
 const refreshToken = async () => {
-  console.log("refreshToken");
   try {
     const response = await fetchJSONWithToken(
       "/api/fmh/authentication/refresh",
