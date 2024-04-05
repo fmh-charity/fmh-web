@@ -34,7 +34,7 @@ export const loginQuery = (queryClient: QueryClient, data: LoginRequest) =>
     queryKey: [LOGIN_QUERY],
     queryFn: async () => {
       try {
-        const req = await fetch("/api/fmh/authentication/login", {
+        const req = await fetch(`${process.env.REACT_APP_API_URL}/api/fmh/authentication/login`, {
           method: "POST",
           body: JSON.stringify(data),
           headers: {
