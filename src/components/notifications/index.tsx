@@ -25,6 +25,15 @@ export const Notifications = () => {
           text: detail.text,
         },
       ]);
+
+      setTimeout(() => {
+        setNotifications((prevNotifications) =>
+          prevNotifications.filter(
+            (notification) => notification.id !== id - 1
+          )
+        );
+      }, 10000);
+      
       console.log("Instance fired.", e);
     };
     notification.addEventListener(NOTIFICATION_ADD, callback);
@@ -36,20 +45,20 @@ export const Notifications = () => {
     notifications.length > 0 && (
       <div className={styles.notifications}>
         {notifications.map((notification: Notification) => {
-          // TODO close by timeout
           return (
             <div key={notification.id}>
               <div>{notification.label}</div>
               <div>{notification.text}</div>
               <button
                 type="button"
+                className={styles.closeButton}
                 onClick={() =>
                   setNotifications((c) =>
-                    c.filter((n) => n.id !== notification.id)
+                    c.filter((n) => n.id !== notification.id)        
                   )
                 }
               >
-                close
+                ×
               </button>
             </div>
           );

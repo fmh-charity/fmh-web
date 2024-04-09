@@ -9,6 +9,7 @@ export const Input: React.FC<{
   label: string;
   error: string;
   defaultValue: string;
+  max?: string;
   hint?: string;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -27,7 +28,7 @@ export const Input: React.FC<{
     setIsFocused(false);
   };
 
-  const hansleFocus = () => {
+  const handleFocus = () => {
     setIsFocused(true);
   };
 
@@ -39,9 +40,10 @@ export const Input: React.FC<{
           type={props.type === "password" && showPassword ? "text" : props.type}
           name={props.name}
           defaultValue={props.defaultValue}
+          max={props.max}
           placeholder={props.placeholder}
           className={clsx(errorStyle, hintStyle)}
-          onFocus={hansleFocus}
+          onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={props.onChange}
         />

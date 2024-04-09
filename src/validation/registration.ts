@@ -10,6 +10,7 @@ import {
 const CharPattern = /^[А-Яа-я-]+$/;
 const EmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PasswordPattern = /^[A-Za-z0-9!#$%&_-]+$/;
+const DatePattern = /^\d{4}-\d{2}-\d{2}$/;
 
 export const сheckPasswordsEquality = (value: {
   password: string;
@@ -53,7 +54,7 @@ const CheckLastName = refine(string(), "CheckLastName", (value) => {
     return "Фамилия должна быть не длиннее 30 символов";
   }
   if (!CharPattern.test(value)) {
-    return "Поле содержит недопустимые символы";
+    return "Допустимы только буквы русского алфавита";
   }
   return true;
 });
@@ -66,7 +67,7 @@ const CheckFirstName = refine(string(), "CheckFirstName", (value) => {
     return "Имя должно быть не длинние 30 символов";
   }
   if (!CharPattern.test(value)) {
-    return "Поле содержит недопустимые символы";
+    return "Допустимы только буквы русского алфавита";
   }
   return true;
 });
@@ -79,9 +80,31 @@ const CheckMiddleName = refine(string(), "CheckMiddleName", (value) => {
     return "Отчество должно быть не более 30 символов";
   }
   if (!CharPattern.test(value)) {
-    return "Поле содержит недопустимые символы";
+    return "Допустимы только буквы русского алфавита";
   }
   return true;
+});
+
+const CheckDateOfBirth = refine(string(), "CheckDateOfBirth", (value) => {
+  if (!DatePattern.test(value)) {
+    return "Неверный формат даты рождения. Используйте формат ДД.ММ.ГГГГ";
+  }
+
+  const minDate = new Date("1920-01-01");
+  const maxDate = new Date();
+
+  const [day, month, year] = value.split(".");
+  const dateOfBirth = new Date(`${year}-${month}-${day}`);
+  const minAgeDate = new Date(maxDate.getFullYear() - 18, maxDate.getMonth(), maxDate.getDate());
+
+  if (
+    dateOfBirth >= minDate &&
+    dateOfBirth <= maxDate &&
+    dateOfBirth <= minAgeDate
+  ) {
+    return true;
+  }
+  return "Неверная дата рождения";
 });
 
 export const registrationSchemaStepOne = object({
@@ -94,7 +117,7 @@ export const registrationSchema = object({
   firstName: CheckFirstName,
   lastName: CheckLastName,
   middleName: optional(CheckMiddleName),
-  dateOfBirth: string(),
+  dateOfBirth: CheckDateOfBirth,
   roleIds: array(number()),
   email: CheckEmail,
   password: CheckPassword
