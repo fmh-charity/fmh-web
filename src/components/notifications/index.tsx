@@ -26,15 +26,16 @@ export const Notifications = () => {
         },
       ]);
 
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setNotifications((prevNotifications) =>
-          prevNotifications.filter(
-            (notification) => notification.id !== id - 1
-          )
+          prevNotifications.filter((notification) => notification.id !== id - 1)
         );
       }, 10000);
-      
+
       console.log("Instance fired.", e);
+      return () => {
+        clearTimeout(timer);
+      };
     };
     notification.addEventListener(NOTIFICATION_ADD, callback);
     return () => {
@@ -54,7 +55,7 @@ export const Notifications = () => {
                 className={styles.closeButton}
                 onClick={() =>
                   setNotifications((c) =>
-                    c.filter((n) => n.id !== notification.id)        
+                    c.filter((n) => n.id !== notification.id)
                   )
                 }
               >

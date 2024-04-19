@@ -1,3 +1,5 @@
+@import '../../variables.less';
+
 .notifications {
   position: fixed;
   top: 0%;
@@ -5,10 +7,10 @@
   transform: translate(-50%, 10%);
   width: 50%;
   padding: 10px;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+  background-color: @color-light-pink;
+  border-color: @color-dark-red;
   border-radius: 4px;
-  color: #a94442;
+  color: @color-dark-red;
   opacity: 90%;
   text-align: center;
   word-wrap: break-word;
@@ -21,8 +23,7 @@
   right: 5px;
   background: none;
   border: none;
-  border-color: #a94442;
-  color: #a94442;
+  color: @color-dark-red;
   font-size: 24px;
   cursor: pointer;
 }
