@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { notification } from "../../common/notifications";
 import styles from "./index.module.less";
 import { NOTIFICATION_ADD } from "../../common/constants";
@@ -9,18 +9,18 @@ type Notification = {
   text: string;
 };
 
-let id = 0;
-
 export const Notifications = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const idRef = useRef(0);
 
   useEffect(() => {
     const callback = (e: Event) => {
       const { detail } = e as CustomEvent;
-      setNotifications((c) => [
-        ...c,
+      const currentId = idRef.current;
+      setNotifications((prevNotifications) => [
+        ...prevNotifications,
         {
-          id: id++,
+          id: currentId,
           label: detail.label,
           text: detail.text,
         },
@@ -28,10 +28,11 @@ export const Notifications = () => {
 
       const timer = setTimeout(() => {
         setNotifications((prevNotifications) =>
-          prevNotifications.filter((notification) => notification.id !== id - 1)
+          prevNotifications.filter((notification) => notification.id !== currentId)
         );
       }, 10000);
 
+      idRef.current++;
       console.log("Instance fired.", e);
       return () => {
         clearTimeout(timer);
@@ -42,6 +43,7 @@ export const Notifications = () => {
       notification.removeEventListener(NOTIFICATION_ADD, callback);
     };
   }, []);
+
   return (
     notifications.length > 0 && (
       <div className={styles.notifications}>
@@ -54,8 +56,8 @@ export const Notifications = () => {
                 type="button"
                 className={styles.closeButton}
                 onClick={() =>
-                  setNotifications((c) =>
-                    c.filter((n) => n.id !== notification.id)
+                  setNotifications((prevNotifications) =>
+                    prevNotifications.filter((n) => n.id !== notification.id)
                   )
                 }
               >
