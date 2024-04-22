@@ -69,7 +69,7 @@ export const WishesIndex = () => {
     },
     {
       id: 2,
-      title: "Я испонитель",
+      title: "Я исполнитель",
       counter:
         wishes.body?.elements?.reduce(
           (acc, cur) =>
