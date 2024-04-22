@@ -10,7 +10,7 @@
     "lint:quiet": "eslint src --ext ts,tsx --no-inline-config --quiet",
     "preview": "vite preview",
     "genapi": "openapi --input https://test.vhospice.org/api/fmh/v3/api-docs --output ./src/api/model --useUnionTypes --exportCore false --exportServices false",
-    "prettier": "prettier --write .",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.12",

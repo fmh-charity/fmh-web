@@ -288,11 +288,12 @@ export const RegistrationForm = () => {
                 <Input
                   type="date"
                   defaultValue=""
+                  max="9999-12-31"
                   name="dateOfBirth"
                   label="Дата рождения"
                   error={fetcher.data?.errors?.dateOfBirth}
                   hint={HINT_DATE}
-                  placeholder="Введите фамилию"
+                  placeholder="Введите дату рождения"
                 />
               </div>
               <div className={styles.buttons}>

@@ -9,13 +9,13 @@ const DatePattern = /^\d{4}-\d{2}-\d{2}$/;
 
 const CheckLastName = refine(string(), "CheckLastName", (value) => {
   if (value.length < 1) {
-    return "Фимилия должна содержать от 1 символа";
+    return "Фамилия должна содержать от 1 символа";
   }
   if (value.length >= 30) {
     return "Фамилия должна быть не длиннее 30 символов";
   }
   if (!CharPattern.test(value)) {
-    return "Поле содержит недопустимые символы";
+    return "Допустимы только буквы русского алфавита";
   }
   return true;
 });
@@ -28,7 +28,7 @@ const CheckFirstName = refine(string(), "CheckFirstName", (value) => {
     return "Имя должно быть не длинние 30 символов";
   }
   if (!CharPattern.test(value)) {
-    return "Поле содержит недопустимые символы";
+    return "Допустимы только буквы русского алфавита";
   }
   return true;
 });
@@ -41,7 +41,7 @@ const CheckMiddleName = refine(string(), "CheckMiddleName", (value) => {
     return "Отчество должно быть не более 30 символов";
   }
   if (!CharPattern.test(value)) {
-    return "Поле содержит недопустимые символы";
+    return "Допустимы только буквы русского алфавита";
   }
   return true;
 });
@@ -99,12 +99,12 @@ const CheckDateOfBirth = refine(string(), "CheckDateOfBirth", (value) => {
 
   const [day, month, year] = value.split(".");
   const dateOfBirth = new Date(`${year}-${month}-${day}`);
+  const minAgeDate = new Date(maxDate.getFullYear() - 18, maxDate.getMonth(), maxDate.getDate());
 
   if (
     dateOfBirth >= minDate &&
     dateOfBirth <= maxDate &&
-    maxDate.getFullYear() - dateOfBirth.getFullYear() <= 100 &&
-    maxDate.getFullYear() - dateOfBirth.getFullYear() >= 10
+    dateOfBirth <= minAgeDate
   ) {
     return true;
   }
@@ -117,5 +117,5 @@ export const profileMainSchema = object({
   middleName: CheckMiddleName,
   email: CheckEmail,
   roleIds: array(number()),
-  dateOfBirth:CheckDateOfBirth
+  dateOfBirth: CheckDateOfBirth
 });
