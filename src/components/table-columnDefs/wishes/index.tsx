@@ -63,7 +63,7 @@ export const columns = [
     },
     {
       id: "executor",
-      header: () => "Испонитель",
+      header: () => "Исполнитель",
       cell: (props) => props.getValue(),
     }
   ),

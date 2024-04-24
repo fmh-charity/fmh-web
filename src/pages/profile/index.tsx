@@ -124,7 +124,8 @@ const ProfileMainInfo = ({
         label="Дата рождения"
         error={""}
         defaultValue="10.07.2016"
-        placeholder="Отчество"
+        max="9999-12-31"
+        placeholder="Дата рождения"
       />
     </>
   );
@@ -238,7 +239,7 @@ export const ProfileMob = () => {
               errorLastName={fetcher.data?.lastName}
               errorFirstName={fetcher.data?.firstName}
               errorMiddleName={fetcher.data?.middleName}
-              errorDateOfBirth={fetcher.data?.ateOfBirth}
+              errorDateOfBirth={fetcher.data?.dateOfBirth}
             />
           </div>
           <div>
