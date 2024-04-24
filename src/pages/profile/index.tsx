@@ -136,7 +136,7 @@ const ProfileAvatar = () => {
     <div className={styles["profile__avatar_circle-container"]}>
       <img
         className={styles.profile__avatar}
-        src="/images/mock-avatar_big-size.png"
+        src="/images/avatar_mock.png"
         alt="avatar-mock"
       />
       <div className={styles["profile__avatar_gray-overlay"]}>
