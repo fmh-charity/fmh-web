@@ -8,11 +8,11 @@ export const About = () => {
       content: (
         <>
           <div>119048, г. Москва, ул. Доватора, д. 10</div>
-          <img
+          <iframe 
             className={styles.map}
-            src="/images/map.jpg"
-            alt="Адрес: 119048, г. Москва, ул. Доватора, д. 10"
-          />
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3Af391ac9f2192cc277057fb7640238152b3ad52b30a1d0b0812b0eff8ea37f1f3&amp;source=constructor" 
+          >
+          </iframe>
         </>
       ),
     },
