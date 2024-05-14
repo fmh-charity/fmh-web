@@ -20,6 +20,7 @@ export const columns = [
   }),
   columnHelper.accessor("title", {
     header: () => "Просьба",
+    size: 300,
     cell: (props) => props.getValue(),
   }),
   columnHelper.accessor(
@@ -56,17 +57,6 @@ export const columns = [
       cell: (props) => <StatusWishes row={props.row} />,
     }
   ),
-  columnHelper.accessor(
-    ({ executor }) => {
-      const { firstName, lastName, middleName } = executor || {};
-      return joinNames(firstName, middleName, lastName) || "Хоспис";
-    },
-    {
-      id: "executor",
-      header: () => "Исполнитель",
-      cell: (props) => props.getValue(),
-    }
-  ),
   columnHelper.accessor((row) => <Actions id={`${row.id}`} />, {
     id: "actions",
     header: () => "",
@@ -74,6 +64,7 @@ export const columns = [
     enableColumnFilter: false,
     enableGlobalFilter: false,
     cell: (props) => props.renderValue(),
+    size: 60,
   }),
 ];
 

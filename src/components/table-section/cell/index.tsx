@@ -13,7 +13,7 @@ export const Cell: React.FC<
   PropsWithChildren & { cell: CellTable<any, unknown> }
 > = ({ cell }) => {
   return (
-    <td>
+    <td style={{ width: cell.column.getSize() }}>
       <div className={styles.cell}>
         {flexRender(cell.column.columnDef.cell, cell.getContext())}
       </div>

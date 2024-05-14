@@ -24,10 +24,6 @@ export const action =
       planExecuteDate,
       patient,
       id,
-      // wishPriority,
-      // wishExecutors,
-      // status,
-      // wishVisibility,
       intent,
     } = Object.fromEntries(formData);
     const o: WishCreationRequest = {
@@ -55,11 +51,12 @@ export const action =
       errors.title = "Заполните поле";
     }
     if (!o.description) {
-      errors.title = "Заполните поле";
+      errors.description = "Заполните поле";
     }
     if (!o.planExecuteDate) {
       errors.planExecuteDate = "Заполните поле";
     }
+
     if (Object.values(errors).some(Boolean)) return { errors };
 
     switch (intent) {
