@@ -2,9 +2,9 @@ import { Icon } from "../icon";
 import styles from "./index.module.less";
 
 import type { Table } from "@tanstack/react-table";
-import { Cell, CellHeader } from "./cell";
 import type { TabType } from "./tab";
 import { Tabs } from "./tab";
+import { TableContent } from "./content";
 
 export const TableSection = ({
   table,
@@ -39,26 +39,7 @@ export const TableSection = ({
       </div>
       <Tabs tabs={tabs} />
       <div className={styles.content}>
-        <table>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <CellHeader key={header.id} header={header} />
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <Cell key={cell.id} cell={cell} />
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <TableContent table={table}/>
       </div>
     </div>
   );

@@ -1,0 +1,103 @@
+@import "../../variables.less";
+
+.mainPageWrapper {
+  margin: 32px 24px;
+  background-color: @color-white;
+  padding: 30px 0;
+}
+
+.wishes {
+  display: grid;
+  padding: 32px 0;
+  overflow: auto;
+}
+
+.searchWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "title b c d button";
+  justify-content: space-between;
+  align-items: center;
+  height: max-content;
+  padding: 0px 24px;
+  margin-top: 32px;
+}
+
+.title {
+  grid-area: title;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 25px;
+  text-align: left;
+  color: #01a5a3;
+}
+
+.buttons {
+  grid-area: button;
+  display: grid;
+  width: max-content;
+}
+
+.tableSection {
+  display: grid;
+  grid-template-rows: max-content max-content 1fr;
+  overflow: auto;
+
+  .content {
+    overflow: auto;
+    border-radius: 8px;
+    table {
+      width: 100%;
+      background-color: @color-white;
+      border-spacing: 0;
+      border: 1px solid @color-light-gray;
+      border-radius: 8px;
+      th {
+        border-bottom: 1px solid @color-light-gray;
+      }
+      thead {
+        tr {
+          th {
+            padding: 24px 16px 16px 16px;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            &:first-child {
+              padding-left: 32px;
+              border-top-left-radius: 8px;
+            }
+            &:last-child {
+              padding-right: 32px;
+              border-top-right-radius: 8px;
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          &:hover {
+            background-color: @color-light-gray2;
+          }
+          &:active {
+            background-color: @color-light-gray;
+          }
+          td {
+            padding: 24px 16px;
+            &:first-child {
+              padding-left: 32px;
+            }
+            &:last-child {
+              padding-right: 32px;
+            }
+          }
+          &:not(:last-child) {
+            td {
+              border-bottom: 1px solid @color-light-gray;
+            }
+          }
+        }
+      }
+    }
+  }
+}
