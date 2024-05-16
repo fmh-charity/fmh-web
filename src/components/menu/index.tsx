@@ -93,7 +93,7 @@ export const Menu = ({
 export const Sidebar = () => (
   <div className={styles.sidebar}>
     <div className={styles.logo}>
-      <Link to="/">
+      <Link to="/main">
         <img src="/images/logoMenu.svg" alt="Вхосписе" />
       </Link>
     </div>

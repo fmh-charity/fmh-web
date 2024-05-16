@@ -15,7 +15,7 @@ export type MenuItemGroup = MenuItem & {
 export const menu: MenuItemGroup[] = [
   {
     title: "Главная",
-    to: "/",
+    to: "/main",
     Icon: Icon.Home24,
     roles: [
       "ROLE_ADMINISTRATOR",
