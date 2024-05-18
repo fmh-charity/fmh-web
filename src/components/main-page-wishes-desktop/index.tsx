@@ -4,18 +4,14 @@ import { ButtonLink } from "../button-link";
 import { TableContent } from "../table-section/content";
 import MainPageNews from "../../components/main-page-news";
 
-export const MainWishesIndexDesktop = ({
-  table
-}: {
-  table: Table<any>;
-}) => {
+export const MainWishesIndexDesktop = ({ table }: { table: Table<any> }) => {
   return (
     <div className={styles.mainPageWrapper}>
       <MainPageNews />
       <div className={styles.searchWrapper}>
         <p className={styles.title}>Просьбы</p>
         <div className={styles.buttons}>
-          <ButtonLink intent="primary" justify="right" to="show-all">
+          <ButtonLink intent="primary" justify="right" to="../wishes">
             Просмотреть все просьбы
           </ButtonLink>
         </div>
