@@ -17,8 +17,6 @@ import { MainWishesIndexDesktop } from "../../components/main-page-wishes-deskto
 export const MainPage = () => {
   const userInfo = useRouteLoaderData("app") as UserInfoDto;
 
-  console.log("userinfo", userInfo);
-
   const wishes = useLoaderData() as {
     body: WishPaginationDto;
     error: any;
@@ -70,10 +68,7 @@ export const MainPage = () => {
   ) : (
     <>
       <MainWishesIndexDesktop
-        globalFilter={globalFilter}
-        setGlobalFilter={setGlobalFilter}
         table={table}
-        tabs={[]}
       />
     </>
   );
