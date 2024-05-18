@@ -59,52 +59,13 @@ export const MainPage = () => {
     getSortedRowModel: getSortedRowModel(),
   });
 
-  const tabs = [
-    {
-      id: 0,
-      title: "Все",
-      counter: wishes?.body?.elements?.length || 0,
-      onClick: () => {
-        console.log("click");
-      },
-    },
-    {
-      id: 1,
-      title: "Мои просьбы",
-      counter:
-        wishes?.body?.elements?.reduce(
-          (acc, cur) => (cur.executor?.id === userInfo?.id ? acc + 1 : acc),
-          0
-        ) || 0,
-      onClick: () => {
-        console.log("click");
-      },
-    },
-    {
-      id: 2,
-      title: "Я исполнитель",
-      counter:
-        wishes?.body?.elements?.reduce(
-          (acc, cur) =>
-            (cur.wishExecutors?.reduce(
-              (a, c) => (c.executor?.id === userInfo?.id ? a + 1 : a),
-              0
-            ) || 0) + acc,
-          0
-        ) || 0,
-      onClick: () => {
-        console.log("click");
-      },
-    },
-  ];
-
   const isMobile = useResize();
   return isMobile ? (
     <WishesIndexMobile
       globalFilter={globalFilter}
       setGlobalFilter={setGlobalFilter}
       table={table}
-      tabs={tabs}
+      tabs={[]}
     />
   ) : (
     <>
@@ -112,7 +73,7 @@ export const MainPage = () => {
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
         table={table}
-        tabs={tabs}
+        tabs={[]}
       />
     </>
   );
