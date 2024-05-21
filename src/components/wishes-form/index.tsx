@@ -27,7 +27,7 @@ export const WishesForm: React.FC<{
           type="text"
           label="Название"
           defaultValue={props.wish?.title as string}
-          placeholder="Введите название..."
+          placeholder="Краткое название"
           error=""
         />
 
