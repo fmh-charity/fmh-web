@@ -13,6 +13,8 @@ import { useResize } from "../../common/hooks";
 import { columns } from "../../components/table-columnDefs/wishes";
 import { WishesIndexMobile } from "../wishes-index-mobile";
 import { MainWishesIndexDesktop } from "../../components/main-page-wishes-desktop";
+import { MainWishesIndexMobile } from "../../components/main-page-wishes-mobile";
+//import { Tabs } from "../../components/table-section/tab";
 
 export const MainPage = () => {
   const userInfo = useRouteLoaderData("app") as UserInfoDto;
@@ -59,17 +61,17 @@ export const MainPage = () => {
 
   const isMobile = useResize();
   return isMobile ? (
-    <WishesIndexMobile
-      globalFilter={globalFilter}
-      setGlobalFilter={setGlobalFilter}
+    <MainWishesIndexMobile
       table={table}
-      tabs={[]}
+//      tabs={[]}
+      // globalFilter={""}
+      // setGlobalFilter={function (globalFilter: string): void {
+      //   throw new Error("Function not implemented.");
+      // }}
     />
   ) : (
     <>
-      <MainWishesIndexDesktop
-        table={table}
-      />
+      <MainWishesIndexDesktop table={table} />
     </>
   );
 };

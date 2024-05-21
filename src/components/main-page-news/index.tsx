@@ -3,7 +3,7 @@ import styles from "./index.module.less";
 const MainPageNews = () => {
   return (
     <div className={styles.news}>
-      <p className={styles.text}>Здесь появятся новости нашего <br/> хосписа</p>
+      <p className={styles.text}>Здесь появятся новости нашего хосписа</p>
       <div className={styles.heart}>
         <img src="public/images/heart.svg"></img>
       </div>

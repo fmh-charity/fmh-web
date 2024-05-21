@@ -30,3 +30,26 @@
     flex-shrink: 0;
   }
 }
+
+@media (max-width: 1024px) {
+  .characters {
+    display: none;
+  }
+
+  .news {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+
+    .text {
+      font-size: 20px;
+      line-height: 25px;
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .heart img {
+      width: 54px;
+    }
+  }
+}
