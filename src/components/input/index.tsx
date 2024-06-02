@@ -13,6 +13,9 @@ export const Input: React.FC<{
   hint?: string;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
+  onFocus?: () => void;
+  min?: string;
 }> = (props) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [isFocused, setIsFocused] = React.useState(false);
@@ -26,10 +29,12 @@ export const Input: React.FC<{
 
   const handleBlur = () => {
     setIsFocused(false);
+    props.onBlur && props.onBlur();
   };
 
   const handleFocus = () => {
     setIsFocused(true);
+    props.onFocus && props.onFocus();
   };
 
   return (
@@ -46,6 +51,7 @@ export const Input: React.FC<{
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={props.onChange}
+          min={props.min}
         />
         {props.type === "password" && (
           <button

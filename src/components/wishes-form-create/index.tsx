@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, ScrollRestoration, useActionData, useFetcher, useNavigate } from "react-router-dom";
 import { Input } from "../input";
 import { TextArea } from "../textarea";
@@ -16,6 +16,12 @@ import clsx from "clsx";
 import { useOpenModal } from "../../hooks/useOpenModal";
 import { CreateWishSuccessful } from "../../modals/create-wish-successful/create-wish-successful";
 
+interface IFormErrors {
+  title?: string;
+  description?: string;
+  planExecuteDate?: string;
+}
+
 export const WishesFormCreate: React.FC<{
   wish: WishDto;
   patients: PatientByStatusRs[];
@@ -24,6 +30,7 @@ export const WishesFormCreate: React.FC<{
   const navigate = useNavigate();
   const fetcher = useFetcher();
   const openModal = useOpenModal();
+
   const actionData = useActionData() as { result?: any, errors?: any };
   const patientOptions = props.patients.map((patient) => ({
     label: [patient.firstName, patient.middleName, patient.lastName].join(" "),
@@ -33,12 +40,32 @@ export const WishesFormCreate: React.FC<{
     label: role.roleName,
     value: role.id
   }));
-  
+
+  const [ formErrors, setFormErrors ] = useState<IFormErrors>();
+  const [ isInputFocused, setIsInputFocused ] = useState(false);
+
+  useEffect(() => {
+    if (actionData?.errors) {
+      setFormErrors(actionData?.errors);
+    }
+  }, [actionData]);
+
+  useEffect(() => {
+    if (isInputFocused) {
+      setFormErrors(undefined);
+      setIsInputFocused(true);
+    }
+  }, [isInputFocused]);
+
   useEffect(() => {
     if (actionData?.result === "ok") {
       openModal(CreateWishSuccessful, {});
     }
   }, [actionData, openModal]);
+
+  const resetErrors = () => {
+    setFormErrors(undefined);
+  };
 
   return (
     <Form className={styles.wishesForm} method="POST">
@@ -52,9 +79,10 @@ export const WishesFormCreate: React.FC<{
             type="text"
             name="title"
             label="Название просьбы"
-            placeholder="Введите название..."
-            error={actionData?.errors?.title}
+            placeholder="Краткое название"
+            error={formErrors?.title || ""}
             defaultValue={props.wish?.title as string}
+            onFocus={resetErrors}
           />
         </div>
       </div>
@@ -68,6 +96,7 @@ export const WishesFormCreate: React.FC<{
             label="Найти пациента"
             value={props.wish?.patient?.id}
             options={patientOptions}
+            placeholder="ФИО пациента"
             error=""
             isSearchable
           >
@@ -83,8 +112,9 @@ export const WishesFormCreate: React.FC<{
             name="description"
             label="Описание"
             defaultValue={props.wish?.description as string}
-            placeholder="Введите описание..."
-            error={actionData?.errors?.description}
+            placeholder="Опишите подробно, что необходимо сделать"
+            error={formErrors?.description || ""}
+            onFocus={resetErrors}
           />
         </div>
       </div>
@@ -102,18 +132,20 @@ export const WishesFormCreate: React.FC<{
                 ? dayjs.utc(props.wish.planExecuteDate).format("YYYY-MM-DD HH:MM")
                 : ""
             }
-            error={actionData?.errors?.planExecuteDate}
+            error={formErrors?.planExecuteDate || ""}
+            onFocus={resetErrors}
+            min={`${dayjs().format("YYYY-MM-DDTHH:MM")}`}
           />
         </div>
       </div>
       <div className={styles.row}>
         <div className={styles.left}>
-          <span className={styles.title}>Видимость роли</span>
+          <span className={styles.title}>Видимость просьбы</span>
         </div>
         <div className={styles.right}>
           <Select
             name="wishVisibility"
-            label="Найти пациента"
+            label="Выбрать роль"
             value={props.wish?.wishVisibility?.map((i) => i.toString())}
             options={roleOptions}
             error=""
@@ -136,7 +168,7 @@ export const WishesFormCreate: React.FC<{
           type="submit"
           value="CREATE"
           disabled={props.wish && props.wish.status !== "OPEN"}>
-          Создать
+          Сохранить
         </Button>
       </div>
       <input type="hidden" name="intent" value="CREATE" />

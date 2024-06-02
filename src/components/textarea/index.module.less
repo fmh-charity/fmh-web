@@ -18,5 +18,39 @@
     border: 1px solid @color-gray;
     font-family: Inter;
     font-size: 16px;
+
+    &:focus {
+      outline: none; 
+      border:1px solid @color-primary;
+    }
+
+  }
+  
+  .error {
+    outline: none;
+    border: 1px solid @color-red;
+  }
+
+  .subtitle{
+    height: 24px;
+    padding-top: 4px;
+    @media (max-width: 767px) {
+      height: 38px;
+    }
+
+    &__error {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      line-height: 125%;
+      color: @color-red;
+    }
+    &__hint {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      line-height: 125%;
+    }
   }
 }
