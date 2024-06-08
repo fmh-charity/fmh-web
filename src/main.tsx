@@ -66,8 +66,9 @@ import { MainPageIndexRoute, loader as loaderMainPage } from "./routes/main";
 import { VersionRoute } from "./routes/version";
 import {
   NewsCreateRoute,
-  action as actionNewsCreateOrUpdate
+  action as actionNewsCreateOrUpdate,
 } from "./routes/news.create";
+import ErrorPage from "./pages/error-page";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -79,16 +80,22 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    errorElement: <div>ups error</div>,
     element: <App />,
     id: "app",
     loader: loaderApp(queryClient),
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "*",
         loader: loaderRoot(queryClient),
         element: <RootRoute />,
         children: [
+          {
+            path: "*",
+            loader: loaderMainPage(queryClient),
+            element: <MainPageIndexRoute />,
+            index: true,
+          },
           {
             path: "main",
             loader: loaderMainPage(queryClient),
@@ -193,10 +200,6 @@ const router = createBrowserRouter([
           {
             path: "version",
             element: <VersionRoute />,
-          },
-          {
-            path: "*",
-            element: <div>*</div>,
           },
         ],
       },
