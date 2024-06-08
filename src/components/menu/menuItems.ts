@@ -144,50 +144,50 @@ export const menu: MenuItemGroup[] = [
 ];
 
 export const footerMenu: MenuItemGroup[] = [
-  {
-    title: "Настройки",
-    to: "/settings",
-    Icon: Icon.Settings24,
-    roles: [
-      "ROLE_ADMINISTRATOR",
-      "ROLE_MEDICAL_WORKER",
-      "ROLE_VOLUNTEER",
-      "ROLE_VOLUNTEER_COORDINATOR",
-      "ROLE_PATIENT",
-      "ROLE_GUEST",
-      "ROLE_SYSTEM",
-    ],
-    items: [
-      {
-        title: "Палаты",
-        to: "/nursestations",
-        Icon: Icon.Bed24,
-        roles: [
-          "ROLE_ADMINISTRATOR",
-          "ROLE_MEDICAL_WORKER",
-          "ROLE_VOLUNTEER",
-          "ROLE_VOLUNTEER_COORDINATOR",
-          "ROLE_PATIENT",
-          "ROLE_GUEST",
-          "ROLE_SYSTEM",
-        ],
-      },
-      {
-        title: "Пользователи",
-        to: "/users",
-        Icon: Icon.User24,
-        roles: [
-          "ROLE_ADMINISTRATOR",
-          "ROLE_MEDICAL_WORKER",
-          "ROLE_VOLUNTEER",
-          "ROLE_VOLUNTEER_COORDINATOR",
-          "ROLE_PATIENT",
-          "ROLE_GUEST",
-          "ROLE_SYSTEM",
-        ],
-      },
-    ],
-  },
+  // {
+  //   title: "Настройки",
+  //   to: "/settings",
+  //   Icon: Icon.Settings24,
+  //   roles: [
+  //     "ROLE_ADMINISTRATOR",
+  //     "ROLE_MEDICAL_WORKER",
+  //     "ROLE_VOLUNTEER",
+  //     "ROLE_VOLUNTEER_COORDINATOR",
+  //     "ROLE_PATIENT",
+  //     "ROLE_GUEST",
+  //     "ROLE_SYSTEM",
+  //   ],
+  //   items: [
+  //     {
+  //       title: "Палаты",
+  //       to: "/nursestations",
+  //       Icon: Icon.Bed24,
+  //       roles: [
+  //         "ROLE_ADMINISTRATOR",
+  //         "ROLE_MEDICAL_WORKER",
+  //         "ROLE_VOLUNTEER",
+  //         "ROLE_VOLUNTEER_COORDINATOR",
+  //         "ROLE_PATIENT",
+  //         "ROLE_GUEST",
+  //         "ROLE_SYSTEM",
+  //       ],
+  //     },
+  //     {
+  //       title: "Пользователи",
+  //       to: "/users",
+  //       Icon: Icon.User24,
+  //       roles: [
+  //         "ROLE_ADMINISTRATOR",
+  //         "ROLE_MEDICAL_WORKER",
+  //         "ROLE_VOLUNTEER",
+  //         "ROLE_VOLUNTEER_COORDINATOR",
+  //         "ROLE_PATIENT",
+  //         "ROLE_GUEST",
+  //         "ROLE_SYSTEM",
+  //       ],
+  //     },
+  //   ],
+  // },
   {
     title: "О приложении",
     to: "/version",
