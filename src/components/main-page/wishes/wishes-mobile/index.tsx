@@ -7,7 +7,7 @@ import { ButtonLink } from "../../../button-link";
 export const MainWishesIndexMobile = ({ table }: { table: Table<any> }) => {
   return (
     <div className={styles.wishes}>
-      <p className={styles.h2}>Просьбы</p>
+      <h2>Просьбы</h2>
       <TableSectionMobile table={table} Card={CardsWishes} />
       <div className={styles.buttons}>
         <ButtonLink intent="primary" justify="center" to="../wishes">
