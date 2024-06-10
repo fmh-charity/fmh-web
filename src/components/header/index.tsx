@@ -12,6 +12,10 @@ export const headerRoutes = [
     children: [
       { element: <div>Главная</div>, index: true },
       {
+        path: "main/*",
+        element: <div>Главная</div>,
+      },
+      {
         path: "profile/*",
         element: <div>Профиль</div>,
       },

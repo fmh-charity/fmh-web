@@ -62,7 +62,7 @@ import {
   PatientsIdRoute,
   loader as loaderPatientById,
 } from "./routes/patients.id";
-import { MainPage } from "./pages/main-page";
+import { MainPageIndexRoute, loader as loaderMainPage } from "./routes/main";
 import { VersionRoute } from "./routes/version";
 import {
   NewsCreateRoute,
@@ -89,7 +89,12 @@ const router = createBrowserRouter([
         loader: loaderRoot(queryClient),
         element: <RootRoute />,
         children: [
-          { element: <MainPage />, index: true },
+          {
+            path: "main",
+            loader: loaderMainPage(queryClient),
+            element: <MainPageIndexRoute />,
+            index: true,
+          },
           {
             path: "profile",
             action: actionSaveUserInfo(queryClient),
