@@ -7,7 +7,7 @@ export const MainWishesIndexDesktop = ({ table }: { table: Table<any> }) => {
   return (
     <div className={styles.mainPageWrapper}>
       <div className={styles.searchWrapper}>
-        <p className={styles.h2}>Просьбы</p>
+        <h2>Просьбы</h2>
         <div className={styles.buttons}>
           <ButtonLink intent="primary" justify="right" to="../wishes">
             Просмотреть все просьбы

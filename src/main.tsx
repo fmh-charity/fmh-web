@@ -90,18 +90,7 @@ const router = createBrowserRouter([
         loader: loaderRoot(queryClient),
         element: <RootRoute />,
         children: [
-          {
-            path: "*",
-            loader: loaderMainPage(queryClient),
-            element: <MainPageIndexRoute />,
-            index: true,
-          },
-          {
-            path: "main",
-            loader: loaderMainPage(queryClient),
-            element: <MainPageIndexRoute />,
-            index: true,
-          },
+          { element: <MainPage />, index: true },
           {
             path: "profile",
             action: actionSaveUserInfo(queryClient),
