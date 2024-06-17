@@ -68,7 +68,7 @@ import {
   NewsCreateRoute,
   action as actionNewsCreateOrUpdate,
 } from "./routes/news.create";
-import ErrorPage from "./pages/error-page";
+import { ErrorPage } from "./pages/error-page";
 import { MainPage } from "./pages/main/main-page";
 
 const queryClient = new QueryClient({

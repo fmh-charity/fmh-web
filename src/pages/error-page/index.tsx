@@ -1,10 +1,13 @@
+
+import styles from "./index.module.less";
+
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
 
-const ErrorPage = () => {
+export const ErrorPage = () => {
   const error = useRouteError();
   console.error(error);
 
-  function errorMessage(error: unknown): string {
+  const errorMessage = (error: unknown): string => {
     if (isRouteErrorResponse(error)) {
       return `${error.status} ${error.statusText}`
     } else if (error instanceof Error) {
@@ -18,14 +21,10 @@ const ErrorPage = () => {
   }
 
   return (
-    <div id="error-page">
-      <h1>Упс!</h1>
-      <p>Произошла непредвиденная ошибка</p>
-      <p>
-        <i>{errorMessage(error)}</i>
-      </p>
+    <div className={styles.errorContainer}>
+        <h1 className={styles.errorTitle}>404</h1>
+        <p className={styles.errorMessage}>Oops! Page not found.</p>
+        <a href="/" className={styles.returnHome}>Go to Home</a>
     </div>
   );
 };
-
-export default ErrorPage;
