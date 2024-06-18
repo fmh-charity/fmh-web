@@ -69,7 +69,6 @@ import {
   action as actionNewsCreateOrUpdate,
 } from "./routes/news.create";
 import { ErrorPage } from "./pages/error-page";
-import { MainPage } from "./pages/main/main-page";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -91,7 +90,18 @@ const router = createBrowserRouter([
         loader: loaderRoot(queryClient),
         element: <RootRoute />,
         children: [
-          { element: <MainPage />, index: true },
+          {
+            path: "*",
+            loader: loaderMainPage(queryClient),
+            element: <MainPageIndexRoute />,
+            index: true,
+          },
+          {
+            path: "main",
+            loader: loaderMainPage(queryClient),
+            element: <MainPageIndexRoute />,
+            index: true,
+          },
           {
             path: "profile",
             action: actionSaveUserInfo(queryClient),
