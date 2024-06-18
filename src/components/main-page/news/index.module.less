@@ -1,0 +1,56 @@
+@import "../../../variables.less";
+
+.news {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-self: center;
+  background-color: @color-light-orange;
+  margin: auto;
+  width: 97%;
+  height: 165px;
+  border-radius: 24px;
+
+  .text {
+    margin: auto 30px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: left;
+  }
+
+  .heart {
+    margin: auto;
+  }
+
+  .characters {
+    margin: auto 30px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .characters {
+    display: none;
+  }
+
+  .news {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: auto;
+    width: 95%;
+    
+    .text {
+      font-size: 20px;
+      line-height: 25px;
+      text-align: center;
+      margin: 0 44px 8px;
+    }
+  }
+
+  .heart img {
+    width: 54px;
+  }
+}
