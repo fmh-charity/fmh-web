@@ -1,7 +1,7 @@
-
+import { ButtonLink } from "../../components/button-link";
 import styles from "./index.module.less";
 
-import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
+import { useRouteError, isRouteErrorResponse } from "react-router-dom";
 
 export const ErrorPage = () => {
   const error = useRouteError();
@@ -9,22 +9,28 @@ export const ErrorPage = () => {
 
   const errorMessage = (error: unknown): string => {
     if (isRouteErrorResponse(error)) {
-      return `${error.status} ${error.statusText}`
+      return `${error.status} ${error.statusText}`;
     } else if (error instanceof Error) {
-      return error.message
-    } else if (typeof error === 'string') {
-      return error
+      return error.message;
+    } else if (typeof error === "string") {
+      return error;
     } else {
-      console.error(error)
-      return 'Unknown error'
+      console.error(error);
+      return "Unknown error";
     }
-  }
+  };
 
   return (
     <div className={styles.errorContainer}>
-        <h1 className={styles.errorTitle}>404</h1>
-        <p className={styles.errorMessage}>Oops! Page not found.</p>
-        <a href="/" className={styles.returnHome}>Go to Home</a>
+      <h1 className={styles.errorTitle}>
+        К сожалению, мы не можем показать нужную Вам страницу :(
+      </h1>
+      <p className={styles.errorMessage}>Код ошибки: {errorMessage(error)}</p>
+      <div className={styles.buttons}>
+        <ButtonLink to={"/main"} intent={"primary"} justify="center">
+          Вернуться на главную страницу
+        </ButtonLink>
+      </div>
     </div>
   );
 };

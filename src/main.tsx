@@ -86,30 +86,42 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "*",
+        path: "/",
         loader: loaderRoot(queryClient),
         element: <RootRoute />,
+        errorElement: <ErrorPage />,
         children: [
+          // {
+          //   path: "/",
+          //   loader: loaderMainPage(queryClient),
+          //   element: <MainPageIndexRoute />,
+          //   errorElement: <ErrorPage />,
+          //   index: true,
+          // },
           {
-            path: "*",
+            path: "/",
             loader: loaderMainPage(queryClient),
             element: <MainPageIndexRoute />,
+            errorElement: <ErrorPage />,
             index: true,
           },
           {
             path: "main",
             loader: loaderMainPage(queryClient),
             element: <MainPageIndexRoute />,
+            errorElement: <ErrorPage />,
             index: true,
           },
           {
             path: "profile",
             action: actionSaveUserInfo(queryClient),
             element: <ProfileRoute />,
+            errorElement: <ErrorPage />,
           },
           {
             path: "news",
             element: <Outlet />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 index: true,
@@ -126,6 +138,7 @@ const router = createBrowserRouter([
           {
             path: "patients",
             element: <Outlet />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 index: true,
@@ -146,6 +159,7 @@ const router = createBrowserRouter([
           {
             path: "wishes",
             element: <Outlet />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 index: true,
@@ -170,6 +184,7 @@ const router = createBrowserRouter([
             path: "nursestations",
             loader: loaderNurseStations(queryClient),
             element: <NurseStationsRoute />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 element: <NurseStationsIndexPage />,
@@ -192,14 +207,17 @@ const router = createBrowserRouter([
           {
             path: "mission",
             element: <MissionRoute />,
+            errorElement: <ErrorPage />,
           },
           {
             path: "about",
             element: <AboutRoute />,
+            errorElement: <ErrorPage />,
           },
           {
             path: "version",
             element: <VersionRoute />,
+            errorElement: <ErrorPage />,
           },
         ],
       },
@@ -208,21 +226,29 @@ const router = createBrowserRouter([
         loader: loaderLogin(queryClient),
         action: loginAction(queryClient),
         element: <LoginRoute />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/logout",
         loader: loaderLogout(queryClient),
+        errorElement: <ErrorPage />,
       },
       {
         path: "/registration",
         loader: loaderRegistration(queryClient),
         action: actionRegistration(queryClient),
         element: <RegistrationRoute />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/resetPassword",
         loader: loaderResetPassword(queryClient),
         element: <ResetPassword />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },
