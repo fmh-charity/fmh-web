@@ -66,8 +66,9 @@ import { MainPageIndexRoute, loader as loaderMainPage } from "./routes/main";
 import { VersionRoute } from "./routes/version";
 import {
   NewsCreateRoute,
-  action as actionNewsCreateOrUpdate
+  action as actionNewsCreateOrUpdate,
 } from "./routes/news.create";
+import { ErrorPage } from "./pages/error-page";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -79,30 +80,48 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    errorElement: <div>ups error</div>,
     element: <App />,
     id: "app",
     loader: loaderApp(queryClient),
+    errorElement: <ErrorPage />,
     children: [
       {
-        path: "*",
+        path: "/",
         loader: loaderRoot(queryClient),
         element: <RootRoute />,
+        errorElement: <ErrorPage />,
         children: [
+          // {
+          //   path: "/",
+          //   loader: loaderMainPage(queryClient),
+          //   element: <MainPageIndexRoute />,
+          //   errorElement: <ErrorPage />,
+          //   index: true,
+          // },
+          {
+            path: "/",
+            loader: loaderMainPage(queryClient),
+            element: <MainPageIndexRoute />,
+            errorElement: <ErrorPage />,
+            index: true,
+          },
           {
             path: "main",
             loader: loaderMainPage(queryClient),
             element: <MainPageIndexRoute />,
+            errorElement: <ErrorPage />,
             index: true,
           },
           {
             path: "profile",
             action: actionSaveUserInfo(queryClient),
             element: <ProfileRoute />,
+            errorElement: <ErrorPage />,
           },
           {
             path: "news",
             element: <Outlet />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 index: true,
@@ -119,6 +138,7 @@ const router = createBrowserRouter([
           {
             path: "patients",
             element: <Outlet />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 index: true,
@@ -139,6 +159,7 @@ const router = createBrowserRouter([
           {
             path: "wishes",
             element: <Outlet />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 index: true,
@@ -163,6 +184,7 @@ const router = createBrowserRouter([
             path: "nursestations",
             loader: loaderNurseStations(queryClient),
             element: <NurseStationsRoute />,
+            errorElement: <ErrorPage />,
             children: [
               {
                 element: <NurseStationsIndexPage />,
@@ -185,18 +207,17 @@ const router = createBrowserRouter([
           {
             path: "mission",
             element: <MissionRoute />,
+            errorElement: <ErrorPage />,
           },
           {
             path: "about",
             element: <AboutRoute />,
+            errorElement: <ErrorPage />,
           },
           {
             path: "version",
             element: <VersionRoute />,
-          },
-          {
-            path: "*",
-            element: <div>*</div>,
+            errorElement: <ErrorPage />,
           },
         ],
       },
@@ -205,21 +226,29 @@ const router = createBrowserRouter([
         loader: loaderLogin(queryClient),
         action: loginAction(queryClient),
         element: <LoginRoute />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/logout",
         loader: loaderLogout(queryClient),
+        errorElement: <ErrorPage />,
       },
       {
         path: "/registration",
         loader: loaderRegistration(queryClient),
         action: actionRegistration(queryClient),
         element: <RegistrationRoute />,
+        errorElement: <ErrorPage />,
       },
       {
         path: "/resetPassword",
         loader: loaderResetPassword(queryClient),
         element: <ResetPassword />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },
