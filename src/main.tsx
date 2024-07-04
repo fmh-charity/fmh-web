@@ -91,13 +91,6 @@ const router = createBrowserRouter([
         element: <RootRoute />,
         errorElement: <ErrorPage />,
         children: [
-          // {
-          //   path: "/",
-          //   loader: loaderMainPage(queryClient),
-          //   element: <MainPageIndexRoute />,
-          //   errorElement: <ErrorPage />,
-          //   index: true,
-          // },
           {
             path: "/",
             loader: loaderMainPage(queryClient),
