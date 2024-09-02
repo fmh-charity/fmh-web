@@ -1,5 +1,5 @@
 import { Table, Row } from "@tanstack/react-table";
-import styles from "../index.module.less";
+import styles from "./index.module.less";
 
 export const TableSectionMobile = ({
   table,
@@ -10,16 +10,11 @@ export const TableSectionMobile = ({
 }) => {
   return (
     <div className={styles.tableSection}>
-      <div className={styles.searchWrapper}>
-        <div className={styles.search}>
-        </div>
-      </div>
       <div className={styles.content}>
         {table.getRowModel().rows.map((row) => (
           <Card key={row.id} row={row} />
         ))}
       </div>
-      <div className={styles.footer}></div>
     </div>
   );
 };
