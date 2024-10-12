@@ -69,7 +69,7 @@ const shouldRefreshToken = (error: any) => {
 const refreshToken = async () => {
   try {
     const response = await fetchJSONWithToken(
-      "/api/fmh/authentication/refresh",
+      "/authentication/refresh",
       {
         method: "POST",
         body: JSON.stringify({
@@ -136,7 +136,7 @@ export const customFetch = configureRefreshFetch({
  export const newsQuery = (queryClient: QueryClient, data?: NewsPaginationDto) =>
   createQuery<NewsDto[], typeof data>(
     queryClient,
-    "/api/fmh/news",
+    "/news",
     requestInitGetJSON,
     {
       queryKey: [""],

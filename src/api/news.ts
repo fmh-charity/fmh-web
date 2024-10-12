@@ -14,7 +14,7 @@ export type NewsRequestUrl = {
 export const newsQuery = (queryClient: QueryClient, data?: Partial<NewsRequestUrl>) =>
   createQuery<{ elements: NewsDto[], pages: number }, typeof data>(
     queryClient,
-    "/api/fmh/news?" + getEncodeURICompoponent(data || {}),
+    "/news?" + getEncodeURICompoponent(data || {}),
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [NEWS_QUERY, getEncodeURICompoponent(data || {})],
@@ -27,7 +27,7 @@ export const newsCreateQuery = (
 ) =>
   createQuery<NewsDto, typeof data>(
     queryClient,
-    "/api/fmh/news",
+    "/news",
     api.requestInit.RequestInitPostJSON,
     {
       queryKey: [NEWS_CREATE_QUERY],

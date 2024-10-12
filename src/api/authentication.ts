@@ -34,7 +34,7 @@ export const loginQuery = (queryClient: QueryClient, data: LoginRequest) =>
     queryKey: [LOGIN_QUERY],
     queryFn: async () => {
       try {
-        const req = await fetch(`${process.env.REACT_APP_API_URL}/api/fmh/authentication/login`, {
+        const req = await fetch(`${process.env.REACT_APP_API_URL}/authentication/login`, {
           method: "POST",
           body: JSON.stringify(data),
           headers: {
@@ -56,7 +56,7 @@ export const loginQuery = (queryClient: QueryClient, data: LoginRequest) =>
 export const userInfoQuery = (queryClient: QueryClient) =>
   createQuery<UserShortInfoDto>(
     queryClient,
-    "/api/fmh/authentication/userInfo",
+    "/authentication/userInfo",
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [USERINFO_QUERY],
@@ -66,7 +66,7 @@ export const userInfoQuery = (queryClient: QueryClient) =>
 export const rolesQuery = (queryClient: QueryClient) =>
   createQuery<RoleDtoRs[]>(
     queryClient,
-    "/api/fmh/authentication/roles",
+    "/authentication/roles",
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [ROLES_QUERY],
@@ -79,7 +79,7 @@ export const registrationQuery = (
 ) =>
   createQuery<undefined, typeof data>(
     queryClient,
-    "/api/fmh/authentication/registration",
+    "/authentication/registration",
     api.requestInit.RequestInitPostJSON,
     {
       queryKey: [REGISTRATION_QUERY],

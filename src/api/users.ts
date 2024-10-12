@@ -7,7 +7,7 @@ import { USERS_QUERY, USERS_UPDATE_BY_ID_QUERY } from "../common/constants";
 export const usersQuery = (queryClient: QueryClient) =>
   createQuery<UserShortInfoDto[]>(
     queryClient,
-    "/api/fmh/users",
+    "/users",
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [USERS_QUERY],
@@ -21,7 +21,7 @@ export const updateUserByIdQuery = (
 ) =>
   createQuery<undefined, ProfileChangingRequest>(
     queryClient,
-    `/api/fmh/users/${id}`,
+    `/users/${id}`,
     api.requestInit.RequestInitPutJSON,
     {
       queryKey: [USERS_UPDATE_BY_ID_QUERY],
