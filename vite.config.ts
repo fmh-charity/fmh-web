@@ -14,7 +14,7 @@ export default defineConfig(({ command, mode }) => {
     server: {
       port: 3000,
       proxy: {
-        "/api/fmh": "https://test.vhospice.org",
+        "/fmh": "http://127.0.0.1:8080",
       },
     }, 
     css: {
@@ -23,7 +23,7 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     define: {
-      "process.env.REACT_APP_API_URL": JSON.stringify(env.VITE_API_URL),
+      "process.env.REACT_APP_API_URL": JSON.stringify(`${env.VITE_API_URL}${env.VITE_API_PREFIX}`),
     }
   };
 });

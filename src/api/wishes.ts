@@ -24,7 +24,7 @@ export const wishesQuery = (
 ) =>
   createQuery<WishPaginationDto>(
     queryClient,
-    "/api/fmh/wishes?" + getEncodeURICompoponent(data),
+    "/wishes?" + getEncodeURICompoponent(data),
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [WISHES_QUERY],
@@ -37,7 +37,7 @@ export const wishesByIdQuery = (
 ) =>
   createQuery<WishDto>(
     queryClient,
-    "/api/fmh/wishes/" + data,
+    "/wishes/" + data,
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [WISHES_QUERY, `${data}`],
@@ -50,7 +50,7 @@ export const wishesCreateQuery = (
 ) =>
   createQuery<WishDto, WishCreationRequest>(
     queryClient,
-    "/api/fmh/wishes",
+    "/wishes",
     api.requestInit.RequestInitPostJSON,
     {
       queryKey: [WISH_CREATE_QUERY],
@@ -65,7 +65,7 @@ export const wishesUpdateQuery = (
 ) =>
   createQuery<WishDto, WishCreationRequest>(
     queryClient,
-    "/api/fmh/wishes/" + id,
+    "/wishes/" + id,
     api.requestInit.RequestInitPutJSON,
     {
       queryKey: [WISH_UPDATE_QUERY],
@@ -79,7 +79,7 @@ export const wishesCancelQuery = (
 ) =>
   createQuery<WishDto>(
     queryClient,
-    "/api/fmh/wishes/cancel/" + id,
+    "/wishes/cancel/" + id,
     api.requestInit.RequestInitDeleteJSON,
     {
       queryKey: [WISH_CANCEL_QUERY, id],

@@ -16,7 +16,7 @@ import {
 export const nurseStationsQuery = (queryClient: QueryClient) =>
   createQuery<NurseStationDto[]>(
     queryClient,
-    "/api/fmh/nurse_stations",
+    "/nurse_stations",
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [NURSE_STATIONS_QUERY],
@@ -29,7 +29,7 @@ export const nurseStationByIdQuery = (
 ) =>
   createQuery<NurseStationDto>(
     queryClient,
-    "/api/fmh/nurse_stations/" + id,
+    "/nurse_stations/" + id,
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [NURSE_STATIONS_ID_QUERY, id],
@@ -42,7 +42,7 @@ export const nurseStationCreateQuery = (
 ) =>
   createQuery<NurseStationDtoRs, typeof data>(
     queryClient,
-    "/api/fmh/nurse_stations",
+    "/nurse_stations",
     api.requestInit.RequestInitPostJSON,
     {
       queryKey: [NURSE_STATIONS_CREATE_QUERY],
@@ -57,7 +57,7 @@ export const nurseStationUpdateQuery = (
 ) =>
   createQuery<NurseStationDtoRs, typeof data>(
     queryClient,
-    "/api/fmh/nurse_stations/" + id,
+    "/nurse_stations/" + id,
     api.requestInit.RequestInitPutJSON,
     {
       queryKey: [NURSE_STATIONS_UPDATE_QUERY],

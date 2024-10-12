@@ -10,7 +10,7 @@ export const patientsQuery = (
 ) =>
   createQuery<PatientByStatusRs[]>(
     queryClient,
-    "/api/fmh/patients?" +
+    "/patients?" +
       (statuses || ["DISCHARGED", "ACTIVE", "EXPECTED"])
         ?.map((status) => "statuses=" + status)
         .join("&"),
@@ -26,7 +26,7 @@ export const patientByIdQuery = (
 ) =>
   createQuery<PatientByStatusRs>(
     queryClient,
-    "/api/fmh/patients/" + id,
+    "/patients/" + id,
     api.requestInit.RequestInitGetJSON,
     {
       queryKey: [PATIENS_BY_ID_QUERY, id],
