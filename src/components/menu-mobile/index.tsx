@@ -16,7 +16,7 @@ export const MenuMobile = ({ close }: { close: () => void }) => {
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <NavLink to="/profile" onClick={close} className={styles.profile}>
-            <img src="/images/avatar_mock.png" alt="avatar" />
+            <img src="/images/avatar_mock.png" alt="avatar" width='40px'/>
             <div className={styles.rows}>
               <div className={styles.name}>
                 {data?.firstName} {data?.lastName}
