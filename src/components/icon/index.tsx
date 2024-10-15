@@ -25,6 +25,7 @@ import Workers24 from "./24/workers.svg?react";
 import Calendar24 from "./24/Календарь.svg?react";
 import Ellipse24 from "./24/ellipse.svg?react";
 import ActionDefault24 from "./24/ActionDefault.svg?react";
+import ActionDefault24White from "./24/ActionDefaultWhite.svg?react";
 import ActionHover24 from "./24/ActionHover.svg?react";
 import Camera24 from "./24/camera.svg?react";
 
@@ -71,6 +72,7 @@ const Icon24Obj = {
   Calendar24,
   Ellipse24,
   ActionDefault24,
+  ActionDefault24White,
   ActionHover24,
   Camera24,
 };

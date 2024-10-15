@@ -139,11 +139,11 @@ const ProfileAvatar = () => {
         src="/images/avatar_mock.png"
         alt="avatar-mock"
       />
-      <div className={styles["profile__avatar_gray-overlay"]}>
+      {/* <div className={styles["profile__avatar_gray-overlay"]}>
         <div className={styles["profile__avatar_upload-icon"]}>
           <Icon.Camera24 />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

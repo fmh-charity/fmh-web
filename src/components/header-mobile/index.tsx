@@ -19,7 +19,7 @@ export const HeaderMobile = () => {
       </button>
       <div className={styles.routes}>{routes}</div>
       <button onClick={() => navigate("/logout")}>
-        <Icon.Notificatons24 />
+        <Icon.ActionDefault24White />
       </button>
       {open && <MenuMobile close={close} />}
     </div>

@@ -79,9 +79,9 @@ export const Header = () => {
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <div className={clsx(styles.column, styles.sectionName)}>{router}</div>
-        <div className={styles.column}>
+        {/* <div className={styles.column}>
           <Icon.Notificatons24 />
-        </div>
+        </div> */}
         <Link to="/profile" className={clsx(styles.column, styles.profile)}>
           <div className={styles.column}>
             {/* TODO: убрать мок + рефакторинг компонента */}
