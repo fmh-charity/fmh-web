@@ -2,6 +2,8 @@ import { json } from "react-router-dom";
 import type { QueryClient } from "@tanstack/react-query";
 import * as api from "../api";
 import { WishesCreate } from "../pages/wishes-create";
+import { RolesType } from "../common/roles";
+import { withRole } from "./with-role";
 
 export const loader: api.CreateLoader =
   (queryClient: QueryClient) => async () => {
@@ -19,6 +21,15 @@ export const loader: api.CreateLoader =
     return json({ wish, patients, users });
   };
 
-export const WishesCreateRoute = () => {
+const requiredRoles: RolesType[] = [
+  RolesType.ROLE_ADMINISTRATOR, 
+  RolesType.ROLE_MEDICAL_WORKER,
+  RolesType.ROLE_VOLUNTEER,
+  RolesType.ROLE_VOLUNTEER_COORDINATOR
+];
+
+const WishesRouteComponent: React.FC = () => {
   return <WishesCreate />;
 };
+
+export const WishesCreateRoute = withRole(WishesRouteComponent, requiredRoles);
