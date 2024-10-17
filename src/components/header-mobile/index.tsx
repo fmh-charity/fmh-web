@@ -4,6 +4,22 @@ import styles from "./index.module.less";
 import { headerRoutes } from "../header";
 import { useCallback, useState } from "react";
 import { MenuMobile } from "../menu-mobile";
+import clsx from "clsx";
+import { PopupMenu } from "../popup-menu/popup-menu";
+
+const menuItems = [
+  {
+    label: (
+      <>
+        <Icon.Change16 />
+        <Link to="/logout" className={clsx(styles.link)}>
+          <p>Выйти</p>
+        </Link>
+      </>
+    ),
+    onClick: () => {},
+  },
+];
 
 export const HeaderMobile = () => {
   const [open, setOpen] = useState(false);
@@ -18,9 +34,14 @@ export const HeaderMobile = () => {
         <Icon.Menu24 />
       </button>
       <div className={styles.routes}>{routes}</div>
-      <button onClick={() => navigate("/logout")}>
-        <Icon.ActionDefault24White />
-      </button>
+      <PopupMenu
+        items={menuItems}
+        trigger={
+          <div className={clsx("menu-item", styles.menuIcon)}>
+            {<Icon.ActionDefault24White />}
+          </div>
+        }
+      />
       {open && <MenuMobile close={close} />}
     </div>
   );

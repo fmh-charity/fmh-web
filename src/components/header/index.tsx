@@ -4,6 +4,7 @@ import styles from "./index.module.less";
 import type { UserInfoDto } from "../../api/model";
 import { getRoleByRank } from "../../common/roles";
 import clsx from "clsx";
+import { PopupMenu } from "../popup-menu/popup-menu";
 
 export const headerRoutes = [
   {
@@ -71,6 +72,20 @@ export const headerRoutes = [
   },
 ];
 
+const menuItems = [
+  {
+    label: (
+      <>
+        <Icon.Change16 />
+        <Link to="/logout" className={clsx(styles.link)}>
+          <p>Выйти</p>
+        </Link>
+      </>
+    ),
+    onClick: () => {},
+  },
+];
+
 export const Header = () => {
   const data = useRouteLoaderData("app") as UserInfoDto;
   const router = useRoutes(headerRoutes);
@@ -102,9 +117,7 @@ export const Header = () => {
             </div>
           </div>
         </Link>
-        <Link to="/logout" className={clsx(styles.column, styles.action)}>
-          <Icon.ActionDefault24 />
-        </Link>
+        <PopupMenu items={menuItems} />
       </div>
     </div>
   );

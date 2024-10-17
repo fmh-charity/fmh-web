@@ -26,7 +26,7 @@ export const PopupMenu = ({ items, trigger }: PopupMenuProps) => {
     <Popup
       className={styles.root}
       ref={ref}
-      trigger={<div className="menu-item">{trigger || <Icon.ActionDefault24 />}</div>}
+      trigger={<div className={clsx("menu-item", styles.menuIcon)}>{trigger || <Icon.ActionDefault24 />}</div>}
       position="bottom right"
       on="click"
       closeOnDocumentClick
