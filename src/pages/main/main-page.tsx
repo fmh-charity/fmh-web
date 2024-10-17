@@ -1,8 +1,9 @@
 import { useLoaderData, useRouteLoaderData } from "react-router-dom";
 import { useMemo } from "react";
 import type { UserInfoDto, WishDto, WishPaginationDto } from "../../api/model";
+import type {
+  SortingState} from "@tanstack/react-table";
 import {
-  SortingState,
   useReactTable,
   getCoreRowModel,
   getFilteredRowModel,

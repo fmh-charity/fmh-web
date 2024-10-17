@@ -5,14 +5,19 @@ import { footerMenu, menu } from "./menuItems";
 import { Icon } from "../icon";
 import { Link, NavLink } from "react-router-dom";
 import clsx from "clsx";
+import { commonRoles } from "../../common/roles";
 
-const MenuItem = ({ item, close }: { item: MenuItemT; close?: () => void }) => (
+
+const MenuItem = ({ item, close }: { item: MenuItemT; close?: () => void }) => {
+  const roles = commonRoles(item.roles);
+  if (!roles.length) return null;
+
+  return (
   <div>
     <NavLink
       to={item.to}
       onClick={() => {
         // TODO: Рефакторинг
-        console.log("MENU KLICK");
         close?.();
       }}
       className={({ isActive }) =>
@@ -23,7 +28,7 @@ const MenuItem = ({ item, close }: { item: MenuItemT; close?: () => void }) => (
       <span>{item.title}</span>
     </NavLink>
   </div>
-);
+);};
 
 const MenuGroup = ({
   item,
@@ -39,6 +44,11 @@ const MenuGroup = ({
       ref.current.scrollIntoView({ block: "nearest" });
     }
   }, [collapse]);
+
+  const roles = commonRoles(item.roles);
+  
+  if (!roles.length) return null;
+
   return (
     <div className={styles.group} ref={ref}>
       <div>

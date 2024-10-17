@@ -2,6 +2,8 @@ import { json } from "react-router-dom";
 import * as api from "../api";
 import type { QueryClient } from "@tanstack/react-query";
 import { PatientsId } from "../pages/patients-id";
+import { RolesType } from "../common/roles";
+import { withRole } from "./with-role";
 
 export const loader: api.CreateLoader =
   (queryClient: QueryClient) =>
@@ -15,6 +17,10 @@ export const loader: api.CreateLoader =
     }
   };
 
-export const PatientsIdRoute = () => {
+const requiredRoles: RolesType[] = [RolesType.ROLE_ADMINISTRATOR, RolesType.ROLE_MEDICAL_WORKER];
+
+const PatientsRouteComponent: React.FC = () => {
   return <PatientsId />;
 };
+
+export const PatientsIdRoute = withRole(PatientsRouteComponent, requiredRoles);

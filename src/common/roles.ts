@@ -1,11 +1,26 @@
+/* eslint-disable no-unused-vars */
+
+import { ensureUserInfo } from "./auth";
+
+export enum RolesType {
+  ROLE_SYSTEM = "ROLE_SYSTEM",
+  ROLE_ADMINISTRATOR = "ROLE_ADMINISTRATOR",
+  ROLE_MEDICAL_WORKER = "ROLE_MEDICAL_WORKER",
+  ROLE_VOLUNTEER = "ROLE_VOLUNTEER",
+  ROLE_VOLUNTEER_COORDINATOR = "ROLE_VOLUNTEER_COORDINATOR",
+  ROLE_PATIENT = "ROLE_PATIENT",
+  ROLE_GUEST = "ROLE_GUEST",
+}
+
+
 export type Roles =
-  | "ROLE_SYSTEM"
-  | "ROLE_ADMINISTRATOR"
-  | "ROLE_MEDICAL_WORKER"
-  | "ROLE_VOLUNTEER"
-  | "ROLE_VOLUNTEER_COORDINATOR"
-  | "ROLE_PATIENT"
-  | "ROLE_GUEST";
+  | RolesType.ROLE_SYSTEM
+  | RolesType.ROLE_ADMINISTRATOR
+  | RolesType.ROLE_MEDICAL_WORKER
+  | RolesType.ROLE_VOLUNTEER
+  | RolesType.ROLE_VOLUNTEER_COORDINATOR
+  | RolesType.ROLE_PATIENT
+  | RolesType.ROLE_GUEST
 
 export type Role = {
   id: number;
@@ -18,37 +33,37 @@ export type Role = {
 export const APP_ROLES: Role[] = [
   {
     id: 1,
-    roleType: "ROLE_ADMINISTRATOR",
+    roleType: RolesType.ROLE_ADMINISTRATOR,
     roleName: "Администратор системы",
     roleRank: 10,
   },
   {
     id: 2,
-    roleType: "ROLE_MEDICAL_WORKER",
+    roleType: RolesType.ROLE_MEDICAL_WORKER,
     roleName: "Медработник",
     roleRank: 5,
   },
   {
     id: 3,
-    roleType: "ROLE_VOLUNTEER",
+    roleType: RolesType.ROLE_VOLUNTEER,
     roleName: "Волонтер",
     roleRank: 3,
   },
   {
     id: 4,
-    roleType: "ROLE_VOLUNTEER_COORDINATOR",
+    roleType: RolesType.ROLE_VOLUNTEER_COORDINATOR,
     roleName: "Координатор волонтеров",
     roleRank: 4,
   },
   {
     id: 5,
-    roleType: "ROLE_PATIENT",
+    roleType: RolesType.ROLE_PATIENT,
     roleName: "Пациент",
     roleRank: 2,
   },
   {
     id: 6,
-    roleType: "ROLE_GUEST",
+    roleType: RolesType.ROLE_GUEST,
     roleName: "Гость",
     roleRank: 1,
   },
@@ -63,4 +78,10 @@ export const getRoleByRank: (roles: string[]) => Role = (roles: string[]) => {
     a.roleRank > b.roleRank ? 1 : -1
   );
   return f[f.length - 1];
+};
+
+
+export const commonRoles = (roles: RolesType[]) => {
+  const userInfo = ensureUserInfo();
+  return roles.filter(element => userInfo?.roles?.includes(element));
 };
