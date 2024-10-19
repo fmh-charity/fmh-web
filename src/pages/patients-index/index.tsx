@@ -8,29 +8,42 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { columns } from "../../components/table-columnDefs/patients";
 import { useResize } from "../../common/hooks";
 import { PatientsIndexDesktop } from "../patients-index-desktop";
 import { PatientsIndexMobile } from "../patients-index-mobile";
 
+type FilterType = "ALL" | "EXPECTED" | "ACTIVE" | "DISCHARGED";
+
 export const PatientsIndex = () => {
   const userInfo = useRouteLoaderData("app") as UserInfoDto;
 
-  const patients = useLoaderData() as {
+  const patientsRaw = useLoaderData() as {
     body: PatientByStatusRs[];
     error: any;
   };
+
+  const [patients, setPatients] = useState<PatientByStatusRs[]>(patientsRaw.body);
+
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [filter, setFilter] =  useState<FilterType>("ALL");
 
   const [sorting, setSorting] = useState<SortingState>([
     { id: "id", desc: true },
   ]);
 
-  const [globalFilter, setGlobalFilter] = useState("");
+  useEffect(() => {
+    if (filter === "ALL") {
+      setPatients(patientsRaw.body);
+    } else {
+      setPatients(patientsRaw.body.filter(item => item.status === filter));
+    }
+  }, [patientsRaw.body, filter]);
 
   const table = useReactTable({
-    data: patients.body || [],
+    data: patients,
     columns,
     enableSortingRemoval: false,
     state: {
@@ -50,34 +63,43 @@ export const PatientsIndex = () => {
     {
       id: 0,
       title: "Все",
-      counter: patients.body?.length || 0,
-      onClick: () => {
-        console.log("click");
+      onClick: () => { 
+        setFilter("ALL");
       },
+      counter: patientsRaw.body?.length || 0,
     },
     {
       id: 1,
       title: "Новый",
-      counter: 0,
-      onClick: () => {
-        console.log("click");
+      onClick: () => { 
+        setFilter("EXPECTED");
       },
+      counter: patientsRaw.body?.reduce(
+        (acc, cur) => (cur?.status === "EXPECTED" ? acc + 1 : acc),
+        0
+      ) || 0,
     },
     {
       id: 2,
       title: "В хосписе",
-      counter: 0,
-      onClick: () => {
-        console.log("click");
+      onClick: () => { 
+        setFilter("ACTIVE");
       },
+      counter: patientsRaw.body?.reduce(
+        (acc, cur) => (cur?.status === "ACTIVE" ? acc + 1 : acc),
+        0
+      ) || 0,
     },
     {
       id: 3,
       title: "Выписан",
-      counter: 0,
-      onClick: () => {
-        console.log("click");
+      onClick: () => { 
+        setFilter("DISCHARGED");
       },
+      counter: patientsRaw.body?.reduce(
+        (acc, cur) => (cur?.status === "DISCHARGED" ? acc + 1 : acc),
+        0
+      ) || 0,
     },
   ];
 

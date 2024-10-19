@@ -1,0 +1,115 @@
+@import "../../variables.less";
+
+.patientForm {
+  .row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    &.withMargin {
+      margin-bottom: 24px;
+    }
+    
+  }
+  .left {
+    max-width: 218px;
+    width: 100%;
+    padding: 1px 16px 0 0;
+    margin-bottom: 8px;
+    .title {
+      max-width: 173px;
+      color: @color-black;
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 125%;
+    }
+  }
+  .right {
+    width: 100%;
+    color: @color-dark-gray;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  .buttonsContainer {
+    padding: 28px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    button:not(:last-child) {
+      margin-right: 24px;
+    }
+  }
+
+  .status {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #bababa;
+    padding-left: 12px;
+    margin-bottom: 16px;
+    height: 46px;
+  }
+
+  option {
+    font-family: Inter;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .patientForm {
+    .row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-bottom: 0;
+    }
+
+    .left {
+      max-width: 375px;
+      width: 100%;
+      padding: 1px 16px 0 0;
+    }
+
+    .title {
+      max-width: 375px;
+      color: @color-black;
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 125%;
+    }
+
+    .right {
+      width: 100%;
+      color: @color-dark-gray;
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 16px;
+    }
+
+    .status {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #bababa;
+      padding-left: 12px;
+      margin-bottom: 16px;
+      height: 46px;
+    }
+
+    .buttonsContainer {
+      padding: 28px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      button:not(:last-child) {
+        margin-right: 24px;
+      }
+    }
+  }
+}
