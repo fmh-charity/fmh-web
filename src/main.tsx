@@ -62,6 +62,10 @@ import {
   PatientsIdRoute,
   loader as loaderPatientById,
 } from "./routes/patients.id";
+import {
+  UsersIndexRoute,
+  loader as loaderUsers,
+} from "./routes/users";
 import { MainPageIndexRoute, loader as loaderMainPage } from "./routes/main";
 import { VersionRoute } from "./routes/version";
 import {
@@ -69,6 +73,7 @@ import {
   action as actionNewsCreateOrUpdate,
 } from "./routes/news.create";
 import { ErrorPage } from "./pages/error-page";
+import { UsersIndex } from "./pages/users-index";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -196,6 +201,12 @@ const router = createBrowserRouter([
                 action: actionNurseStationsCreateOrUpdate(queryClient),
               },
             ],
+          },
+          {
+            path: "users",
+            loader: loaderUsers(queryClient),
+            element: <UsersIndexRoute />,
+            errorElement: <ErrorPage />,
           },
           {
             path: "mission",

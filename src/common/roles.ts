@@ -69,6 +69,18 @@ export const APP_ROLES: Role[] = [
   },
 ];
 
+export const roleNames = new Map(
+  [
+    ["ROLE_SYSTEM", "Система"],
+    ["ROLE_ADMINISTRATOR", 'Администратор'],
+    ["ROLE_MEDICAL_WORKER", 'Медицинский работник'],
+    ["ROLE_VOLUNTEER", 'Волонтер'],
+    ["ROLE_VOLUNTEER_COORDINATOR", 'Координатор волонтеров'],
+    ["ROLE_PATIENT", 'Пациент'],
+    ["ROLE_GUEST", 'Гость'],
+  ],
+);
+
 export const getRoleNameByType: (roleType: Roles) => Role | undefined = (
   roleType: Roles
 ) => APP_ROLES.find((r) => r.roleType === roleType);
