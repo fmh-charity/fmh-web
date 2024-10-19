@@ -4,12 +4,14 @@ import styles from "./index.module.less";
 import { Input } from "../../components/input";
 import { Button } from "../../components/button";
 import { Icon } from "../../components/icon";
-import { ButtonLink } from "../../components/button-link";
+
+const mode = import.meta.env.MODE;
+const [ password, login ] = mode === "DEVELOPMENT" ? ["password1", "login1"] : ["", ""];
 
 export const Login = () => {
   const redirectTo = useLoaderData() as string;
   const fetcher = useFetcher();
-
+  
   return (
     <SplitComponent
       right={
@@ -24,7 +26,7 @@ export const Login = () => {
                 type="text"
                 name="login"
                 label="Логин"
-                defaultValue="login1"
+                defaultValue={login}
                 error={fetcher.data?.validation?.login}
                 placeholder="Email"
               />
@@ -32,7 +34,7 @@ export const Login = () => {
                 type="password"
                 name="password"
                 label="Пароль"
-                defaultValue="password1"
+                defaultValue={password}
                 error={fetcher.data?.validation?.password}
                 placeholder="Пароль"
               />
@@ -54,6 +56,8 @@ export const Login = () => {
                 <div className={styles.line} />
               </div>
 
+              {/* Скрыла Регистрацию для MVP */}
+              {/* 
               <div className={styles.button}>
                 <ButtonLink
                   to="/registration"
@@ -62,7 +66,7 @@ export const Login = () => {
                 >
                   Регистрация
                 </ButtonLink>
-              </div>
+              </div> */}
             </div>
             <input type="hidden" name="redirectTo" defaultValue={redirectTo} />
           </fetcher.Form>

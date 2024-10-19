@@ -57,7 +57,9 @@ import {
   PatientsIndexRoute,
   loader as loaderPatients,
 } from "./routes/patients.index";
-import { PatientsCreateRoute } from "./routes/patients.create";
+import { PatientsCreateRoute,
+  loader as loaderPatientsCreate,
+  action as actionPatientsCreateOrUpdate } from "./routes/patients.create";
 import {
   PatientsIdRoute,
   loader as loaderPatientById,
@@ -73,6 +75,9 @@ import {
   action as actionNewsCreateOrUpdate,
 } from "./routes/news.create";
 import { ErrorPage } from "./pages/error-page";
+import { PatientsUpdateRoute,
+  loader as loaderPatientsUpdate,
+ } from "./routes/patients.update";
 import { UsersIndex } from "./pages/users-index";
 
 const queryClient = new QueryClient({
@@ -149,7 +154,15 @@ const router = createBrowserRouter([
                 element: <PatientsIdRoute />,
               },
               {
+                path: "update/:id",
+                action: actionPatientsCreateOrUpdate(queryClient),
+                loader: loaderPatientsUpdate(queryClient),
+                element: <PatientsUpdateRoute />,
+              },
+              {
                 path: "create",
+                action: actionPatientsCreateOrUpdate(queryClient),
+                loader: loaderPatientsCreate(queryClient),
                 element: <PatientsCreateRoute />,
               },
             ],
