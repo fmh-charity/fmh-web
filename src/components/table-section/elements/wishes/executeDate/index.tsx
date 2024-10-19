@@ -18,10 +18,25 @@ export const ExecuteDate: React.FC<{ row: Row<WishDto> }> = ({ row }) => {
     ? dayjs.utc(row.original.planExecuteDate).format("YYYY-MM-DD")
     : "";
 
-  const title =
-    hourDiff >= 0
-      ? "До завершения осталось " + hourDiff + " часов "
-      : "Просрочено";
+    const getHourDeclension = (number: number) => {
+      number = Math.abs(number) % 100;
+      if (number >= 11 && number <= 14) {
+        return "часов";
+      }
+      const lastDigit = number % 10;
+      if (lastDigit === 1) {
+        return "час";
+      }
+      if (lastDigit >= 2 && lastDigit <= 4) {
+        return "часа";
+      }
+      return "часов";
+    };
+    
+    const title =
+      hourDiff >= 0
+        ? `До завершения: ${hourDiff} ${getHourDeclension(hourDiff)}`
+        : "Просрочено";
 
   return (
     <div title={title} className={styles.wrapper}>

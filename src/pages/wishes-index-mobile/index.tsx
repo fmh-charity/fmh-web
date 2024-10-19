@@ -27,7 +27,7 @@ export const WishesIndexMobile = ({
         Card={CardsWishes}
         buttons={
           <>
-            <Icon.Filter24 />
+            {/* <Icon.Filter24 /> */}
             <ButtonLink intent="primary" Icon={Icon.Plus16} to="create" />
           </>
         }
