@@ -1,5 +1,5 @@
 import styles from "../index.module.less";
-import { Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table";
 import { Cell, CellHeader } from "../cell";
 
 type Props = {
