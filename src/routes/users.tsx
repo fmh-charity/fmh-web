@@ -8,7 +8,6 @@ import { UsersIndex } from "../pages/users-index";
 
 export const loader = (queryClient: QueryClient) => async () => {
   const users = await api.users.usersQuery(queryClient);
-  console.log(users)
   return json(users);
 };
 

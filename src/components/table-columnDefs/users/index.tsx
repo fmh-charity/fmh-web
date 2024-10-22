@@ -1,10 +1,10 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import type { PatientByStatusRs, UserInfoDto } from "../../../api/model";
+import type { UserInfoDto } from "../../../api/model";
 import dayjs from "dayjs";
 import { Icon } from "../../icon";
 import { Link } from "react-router-dom";
 import { joinNames } from "../../../common/utils";
-import { roleNames } from "../../../common/roles";
+import { roleNames, RolesType } from "../../../common/roles";
 
 const columnHelper = createColumnHelper<UserInfoDto>();
 
@@ -25,72 +25,30 @@ export const columns = [
     }
   ),
   columnHelper.accessor("roles", {
-    header: () => 'Роли',
+    id: "Roles",
+    header: () => 'Роль',
     cell: (props) => 
-      props.getValue()?.map(r => roleNames.get(r)).join(', ') || "Не установлена",
+      props.getValue()?.map(r => roleNames.get(r as RolesType)).join(', ') || "Не установлена",
   }),
 
   columnHelper.accessor("email.name", {
+    id: "E-mail",
     header: () => 'E-mail',
     cell: (props) => props.getValue(),
   }),
-  columnHelper.accessor("email.isConfirmed", {
-    header: () => 'E-mail подтвержден',
-    cell: (props) => props.getValue() ? 'yes' : 'no',
-  }),
-  // columnHelper.accessor("isConfirmed", {
-  //   header: () => 'Пользователь подтвержден',
-  //   cell: (props) => props.getValue() ? 'Подтвержден' : 'Не подтвержден',
+  // columnHelper.accessor("email.isConfirmed", {
+  //   header: () => 'E-mail подтвержден',
+  //   cell: (props) => props.getValue() ? 'Да' : 'Нет',
   // }),
+  columnHelper.accessor("isConfirmed", {
+    header: () => 'Пользователь подтвержден',
+    cell: (props) => props.getValue() ? 'Подтвержден' : 'Не подтвержден',
+  }),
   columnHelper.accessor("admin", {
     header: () => 'Права администратора',
     cell: (props) => props.getValue() ? 'Есть' : 'Нет',
   }),
-  // columnHelper.accessor(
-  //   (row) => {
-  //     return row.room?.name;
-  //   },
-  //   {
-  //     id: "room",
-  //     header: () => "Палата",
-  //     cell: (props) => props.getValue(),
-  //   }
-  // ),
-  // columnHelper.accessor(
-  //   (row) => {
-  //     const dateIn = dayjs.utc(row.dateIn).format("YYYY-MM-DD");
-  //     return dateIn;
-  //   },
-  //   {
-  //     id: "dateIn",
-  //     header: "Дата поступления",
-  //     cell: (props) => props.getValue(),
-  //   }
-  // ),
-  // columnHelper.accessor(
-  //   (row) => {
-  //     const dateIn = dayjs.utc(row.dateOut).format("YYYY-MM-DD");
-  //     return dateIn;
-  //   },
-  //   {
-  //     id: "dateOut",
-  //     header: "Дата выписки",
-  //     cell: (props) => props.getValue(),
-  //   }
-  // ),
-  // columnHelper.accessor(
-  //   (row) => {
-  //     const status =
-  //       patientStatuses[row.status as keyof PatientByStatusRs["status"]];
-  //     if (status) return status;
-  //     else return "";
-  //   },
-  //   {
-  //     id: "status",
-  //     header: () => "Статус",
-  //     cell: (props) => <StatusPatients row={props.row} />,
-  //   }
-  // ),
+
   columnHelper.accessor((row) => <Actions id={`${row.id}`} />, {
     id: "actions",
     header: () => "",

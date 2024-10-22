@@ -15,7 +15,6 @@ import { UsersIndexDesktop } from "../users-index-desktop";
 
 export const UsersIndex = () => {
   const userInfo = useRouteLoaderData("app") as UserInfoDto;
-  console.log(userInfo, 'userInfo')
   const users = useLoaderData() as {
     body: UserInfoDto[];
     error: any;
