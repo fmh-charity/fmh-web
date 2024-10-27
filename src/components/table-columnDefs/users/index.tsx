@@ -2,9 +2,11 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { UserInfoDto } from "../../../api/model";
 import dayjs from "dayjs";
 import { Icon } from "../../icon";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { joinNames } from "../../../common/utils";
 import { roleNames, RolesType } from "../../../common/roles";
+import { useOpenModal } from "../../../hooks/useOpenModal";
+import { PopupMenu } from "../../popup-menu/popup-menu";
 
 const columnHelper = createColumnHelper<UserInfoDto>();
 
@@ -60,9 +62,29 @@ export const columns = [
 ];
 
 const Actions = ({ id }: { id: string }) => {
+  const openModal = useOpenModal();
+  const navigate = useNavigate();
+
+  const menuItems = [
+    {
+      label: <>
+        <Icon.Change16 />
+        <div>Редактировать</div>
+      </>,
+      onClick: () => navigate(`/users/update/${id}`)
+    },
+    // TODO: после создания методов для удаления пользователей
+    // {
+    //   label: <>
+    //     <Icon.Trash16 />
+    //     <div>Удалить</div>
+    //   </>,
+    //   onClick: () => openModal(DeleteUser, { id })
+    // },
+  ];
+
   return (
-    <Link to={id}>
-      <Icon.ActionDefault24 />
-    </Link>
+    <PopupMenu items={menuItems} />
   );
 };
+

@@ -26,7 +26,7 @@ export const UsersIndexDesktop = ({
         buttons={
           <>
             <ButtonLink intent="primary" Icon={Icon.Plus16} to="create">
-              Добавить пациента
+              Добавить пользователя
             </ButtonLink>
           </>
         }

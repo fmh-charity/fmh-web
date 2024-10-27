@@ -68,6 +68,11 @@ import {
   UsersIndexRoute,
   loader as loaderUsers,
 } from "./routes/users";
+import { UsersCreateRoute,
+  loader as loaderUsersCreate,
+  action as actionUsersCreateOrUpdate } from "./routes/users.create";
+import { UsersUpdateRoute,
+  loader as loaderUsersUpdate, } from "./routes/users.update";
 import { MainPageIndexRoute, loader as loaderMainPage } from "./routes/main";
 import { VersionRoute } from "./routes/version";
 import {
@@ -78,7 +83,6 @@ import { ErrorPage } from "./pages/error-page";
 import { PatientsUpdateRoute,
   loader as loaderPatientsUpdate,
  } from "./routes/patients.update";
-import { UsersIndex } from "./pages/users-index";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -218,8 +222,27 @@ const router = createBrowserRouter([
           {
             path: "users",
             loader: loaderUsers(queryClient),
-            element: <UsersIndexRoute />,
+            element: <Outlet />,
             errorElement: <ErrorPage />,
+            children: [
+              {
+                index: true,
+                loader: loaderUsers(queryClient),
+                element: <UsersIndexRoute />,
+              },
+              {
+                path: "update/:id",
+                action: actionUsersCreateOrUpdate(queryClient),
+                loader: loaderUsersUpdate(queryClient),
+                element: <UsersUpdateRoute />,
+              },
+              {
+                path: "create",
+                action: actionUsersCreateOrUpdate(queryClient),
+                loader: loaderUsersCreate(queryClient),
+                element: <UsersCreateRoute />,
+              },
+            ],
           },
           {
             path: "mission",

@@ -126,7 +126,7 @@ export const WishesFormCreate: React.FC<{
           <Input
             name="planExecuteDate"
             type="datetime-local"
-            max="9999-12-31T00:00"
+            max="9999-12-31"
             label="Дата и время"
             defaultValue={
               props.wish?.planExecuteDate

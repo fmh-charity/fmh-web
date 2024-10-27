@@ -28,6 +28,7 @@ export type UserShortInfoDto = {
    * Множество ролей
    */
   roles?: Array<string>;
+  roleIds?: Array<number>;
   email?: UserEmailDto;
   /**
    * Статус пользователя

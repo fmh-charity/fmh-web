@@ -1,6 +1,7 @@
 import type { Row } from "@tanstack/react-table";
 import styles from "./index.module.less";
 import { Icon } from "../../../icon";
+import clsx from "clsx";
 import { roleNames, RolesType } from "../../../../common/roles";
 
 export const CardsUsers = ({ row }: { row: Row<any> }) => {
@@ -16,9 +17,12 @@ export const CardsUsers = ({ row }: { row: Row<any> }) => {
           || "Роль не установлена"}
         </div>
       </div>
-      <div className={styles.user}>
-        <Icon.Notificatons24 width={16} />
-        <div>{row.getValue("E-mail")}</div>
+      <div className={clsx(styles.spaceBetween)}>
+        <div className={styles.user}>
+          <Icon.Notificatons24 width={16} />
+          {row.getValue("E-mail")}
+        </div>
+          <div>{row.renderValue("actions")}</div>
       </div>
     </div>
   );
