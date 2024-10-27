@@ -2,10 +2,14 @@ import { Link } from "react-router-dom";
 import styles from "./index.module.less";
 
 const itemsAbout = [
-  { to: "", title: "Пользовательское соглашение" },
-  { to: "", title: "Лицензионное соглашение" },
-  { to: "", title: "Политика конфиденциальности" },
-  { to: "", title: "Инструкция пользователя" },
+  { href: "/public/documents/pmh-A-66_211122_ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ ДЛЯ ПРИЛОЖЕНИЯ.docx",
+    title: "Пользовательское соглашение ✓" },
+  { href: "", 
+    title: "Лицензионное соглашение" },
+  { href: "/public/documents/pmh-A-65_211123_ПОЛИТИКА_КОНФИДЕНЦИАЛЬНОСТИ_ДЛЯ_МОБИЛЬНОГО_ПРИЛОЖЕНИЯ_1.docx", 
+    title: "Политика конфиденциальности ✓" },
+  { href: "", 
+    title: "Инструкция пользователя" },
 ];
 
 const itemsFeedback = [
@@ -29,9 +33,9 @@ export const Version = () => {
         <div className={styles.section}>О приложении</div>
         {itemsAbout.map((item) => {
           return (
-            <Link key={item.title} to={item.to}>
+            <a key={item.title} href={item.href} >
               {item.title}
-            </Link>
+            </a>
           );
         })}
         <div className={styles.section}>Обратная связь</div>
