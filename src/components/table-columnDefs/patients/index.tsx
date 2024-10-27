@@ -28,16 +28,16 @@ export const columns = [
       cell: (props) => props.getValue(),
     }
   ),
-  columnHelper.accessor(
-    (row) => {
-      return row.room?.name;
-    },
-    {
-      id: "room",
-      header: () => "Палата",
-      cell: (props) => props.getValue(),
-    }
-  ),
+  // columnHelper.accessor(
+  //   (row) => {
+  //     return row.room?.name;
+  //   },
+  //   {
+  //     id: "room",
+  //     header: () => "Палата",
+  //     cell: (props) => props.getValue(),
+  //   }
+  // ),
   columnHelper.accessor(
     (row) => {
       const dateIn = dayjs.utc(row.dateIn).format("YYYY-MM-DD");
