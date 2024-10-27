@@ -13,8 +13,6 @@ import { useOpenModal } from "../../hooks/useOpenModal";
 import { CreateUserSuccessful } from "../../modals/create-user-successful/create-user-successful";
 import { APP_ROLES } from "../../common/roles";
 
-console.log(Array.from(APP_ROLES).map((role) => role.id), 'roles');
-
 interface IFormErrors {
   firstName: string;
   lastName: string;

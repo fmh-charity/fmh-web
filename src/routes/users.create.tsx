@@ -69,9 +69,6 @@ export const action =
       case "CREATE": {
         const user = await api.authentication.registrationQuery(queryClient, data);
 
-
-      console.log(data, 'data!!!')
-
         if (user.error) {
           notification.addNotification({
             label: (user.error as { body: any }).body.code,
