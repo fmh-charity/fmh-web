@@ -45,7 +45,7 @@ export const WishesForm: React.FC<{
           label="Плановая дата завершение"
           defaultValue={
             props.wish?.planExecuteDate
-              ? dayjs.utc(props.wish.planExecuteDate).format("YYYY-MM-DD HH:MM")
+              ? dayjs.utc(props.wish.planExecuteDate).format("DD.MM.YYYY HH:MM")
               : ""
           }
           error=""

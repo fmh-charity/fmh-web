@@ -153,7 +153,7 @@ export const PatientsFormCreate: React.FC<{
             label="Дата"
             defaultValue={
               props.patient?.birthDate
-                ? dayjs.utc(props.patient?.birthDate).format("YYYY-MM-DD")
+                ? dayjs.utc(props.patient?.birthDate).format("DD.MM.YYYY")
                 : ""
             }
             error={formErrors?.birthDate || ""}
@@ -194,7 +194,7 @@ export const PatientsFormCreate: React.FC<{
             label="Дата"
             defaultValue={
               props.patient?.dateIn
-                ? dayjs.utc(props.patient?.dateIn).format("YYYY-MM-DD")
+                ? dayjs.utc(props.patient?.dateIn).format("DD.MM.YYYY")
                 : ""
             }
             error={formErrors?.dateIn || ""}
@@ -216,12 +216,12 @@ export const PatientsFormCreate: React.FC<{
             label="Дата"
             defaultValue={
               props.patient?.dateOut
-                ? dayjs.utc(props.patient?.dateOut).format("YYYY-MM-DD")
+                ? dayjs.utc(props.patient?.dateOut).format("DD.MM.YYYY")
                 : ""
             }
             error={formErrors?.dateOut || ""}
             onFocus={resetErrors}
-            min={`${dayjs().format("YYYY-MM-DDTHH:MM")}`}
+            min={`${dayjs().format("DD.MM.YYYY HH:MM")}`}
           />
         </div>
       </div>

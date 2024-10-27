@@ -40,7 +40,7 @@ export const columns = [
   // ),
   columnHelper.accessor(
     (row) => {
-      const dateIn = dayjs.utc(row.dateIn).format("YYYY-MM-DD");
+      const dateIn = dayjs.utc(row.dateIn).format("DD.MM.YYYY");
       return dateIn;
     },
     {
@@ -51,7 +51,7 @@ export const columns = [
   ),
   columnHelper.accessor(
     (row) => {
-      const dateIn = dayjs.utc(row.dateOut).format("YYYY-MM-DD");
+      const dateIn = dayjs.utc(row.dateOut).format("DD.MM.YYYY");
       return dateIn;
     },
     {

@@ -15,7 +15,7 @@ export const ExecuteDate: React.FC<{ row: Row<WishDto> }> = ({ row }) => {
     .diff(dayjs().utc(true), "hour");
 
   const dateDesktop = row.original.planExecuteDate
-    ? dayjs.utc(row.original.planExecuteDate).format("YYYY-MM-DD")
+    ? dayjs.utc(row.original.planExecuteDate).format("DD.MM.YYYY")
     : "";
 
     const getHourDeclension = (number: number) => {
