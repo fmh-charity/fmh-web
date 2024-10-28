@@ -13,11 +13,11 @@ export const CreateUserSuccessful = ({ onClose }: CreateUserSuccessfulProps) => 
     navigate("/users");
     onClose();
   };
-  return <Dialog>
+  return (<Dialog>
     <div className={styles.root}>
       <div className={styles.title}>Пользователь успешно добавлен</div>
       <img src="/images/welcome-pana.png" srcSet="/images/welcome-pana-2x.png 2x" alt="success" />
       <Button intent="primary" onClick={onAcceptClick}>Понятно</Button>
     </div>
-  </Dialog>;
+  </Dialog>);
 };

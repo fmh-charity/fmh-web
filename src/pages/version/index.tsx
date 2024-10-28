@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./index.module.less";
 
 const itemsAbout = [
-  { href: "/public/documents/pmh-A-66_211122_ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ ДЛЯ ПРИЛОЖЕНИЯ.docx",
+  { href: "/public/documents/pmh-A-66_211122_ПОЛЬЗОВАТЕЛЬСКОЕ_СОГЛАШЕНИЕ_ДЛЯ_ПРИЛОЖЕНИЯ.docx",
     title: "Пользовательское соглашение ✓" },
   { href: "", 
     title: "Лицензионное соглашение" },

@@ -2,7 +2,7 @@ import * as api from ".";
 import { createQuery } from ".";
 import type { QueryClient } from "@tanstack/react-query";
 import type { ProfileChangingRequest, UserInfoDto, UserShortInfoDto } from "./model";
-import { REGISTRATION_QUERY, USERS_QUERY, USERS_UPDATE_BY_ID_QUERY } from "../common/constants";
+import { USERS_QUERY, USERS_UPDATE_BY_ID_QUERY } from "../common/constants";
 
 export const usersQuery = (queryClient: QueryClient) =>
   createQuery<UserShortInfoDto[]>(
@@ -10,11 +10,11 @@ export const usersQuery = (queryClient: QueryClient) =>
     "/users",
     api.requestInit.RequestInitGetJSON,
     {
-      queryKey: [REGISTRATION_QUERY],
+      queryKey: [USERS_QUERY],
     }
-  );
+);
 
-  export const userByIdQuery = (
+export const userByIdQuery = (
     queryClient: QueryClient,
     id: number | string
   ) =>
@@ -25,7 +25,7 @@ export const usersQuery = (queryClient: QueryClient) =>
       {
         queryKey: [USERS_QUERY, id],
       }
-    );
+);
   
 export const updateUserByIdQuery = (
   queryClient: QueryClient,
