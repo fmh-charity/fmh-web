@@ -33,5 +33,5 @@ export type RegistrationRequest = {
   /**
    * Пароль
    */
-  password: string;
+  password?: string;
 };

@@ -6,6 +6,7 @@
  * Информация для обновления пользователя
  */
 export type ProfileChangingRequest = {
+  id?: string | number;
   /**
    * Фамилия
    */

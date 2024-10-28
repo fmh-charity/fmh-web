@@ -126,16 +126,16 @@ export const WishesFormCreate: React.FC<{
           <Input
             name="planExecuteDate"
             type="datetime-local"
-            max="9999-12-31T00:00"
+            max="9999-12-31"
             label="Дата и время"
             defaultValue={
               props.wish?.planExecuteDate
-                ? dayjs.utc(props.wish.planExecuteDate).format("YYYY-MM-DD HH:MM")
+                ? dayjs.utc(props.wish.planExecuteDate).format("DD.MM.YYYY HH:MM")
                 : ""
             }
             error={formErrors?.planExecuteDate || ""}
             onFocus={resetErrors}
-            min={`${dayjs().format("YYYY-MM-DDTHH:MM")}`}
+            min={`${dayjs().format("DD.MM.YYYY HH:MM")}`}
           />
         </div>
       </div>

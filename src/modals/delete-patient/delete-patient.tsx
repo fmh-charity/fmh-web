@@ -19,7 +19,7 @@ export const DeletePatient = ({ id, onClose }: DeletePatientProps) => {
     revalidator.revalidate();
     onClose();
   };
-  return <Dialog>
+  return (<Dialog>
     <div className={styles.root}>
       <div className={styles.title}>Вы уверены, что хотите удалить пользователя?</div>
       <div className={styles.btnContainer}>
@@ -27,5 +27,5 @@ export const DeletePatient = ({ id, onClose }: DeletePatientProps) => {
         <Button className={styles.btn} intent="primary" onClick={onAcceptClick}>Удалить</Button>
       </div>
     </div>
-  </Dialog>;
+  </Dialog>);
 };

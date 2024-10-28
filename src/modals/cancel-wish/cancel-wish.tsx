@@ -19,7 +19,7 @@ export const CancelWish = ({ id, onClose }: CancelWishProps) => {
     revalidator.revalidate();
     onClose();
   };
-  return <Dialog>
+  return (<Dialog>
     <div className={styles.root}>
       <div className={styles.title}>Вы уверены, что хотите отменить просьбу?</div>
       <div className={styles.btnContainer}>
@@ -27,5 +27,5 @@ export const CancelWish = ({ id, onClose }: CancelWishProps) => {
         <Button className={styles.btn} intent="primary" onClick={onAcceptClick}>Отменить</Button>
       </div>
     </div>
-  </Dialog>;
+  </Dialog>);
 };

@@ -42,7 +42,6 @@ export const action: api.CreateAction =
         return json({ body: "Регистрация успешно завершена" });
       }
 
-      console.log(registrationReq);
       if (registrationReq.error) {
         notification?.addNotification({
           label: "Ошибка",

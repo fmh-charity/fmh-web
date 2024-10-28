@@ -3,28 +3,30 @@ import React, { useEffect, useState } from "react";
 import { ScrollRestoration, useActionData, useFetcher, useNavigate, useSubmit } from "react-router-dom";
 import { Input } from "../input";
 import type {
-  PatientDto,
+  UserInfoDto,
+  RegistrationRequest,
 } from "../../api/model";
 import dayjs from "dayjs";
 import styles from "./index.module.less";
 import { Button } from "../button";
 import { useOpenModal } from "../../hooks/useOpenModal";
-import { patientStatuses } from "../../common/statuses";
-import { CreatePatientSuccessful } from "../../modals/create-patient-successful/create-patient-successful";
+import { CreateUserSuccessful } from "../../modals/create-user-successful/create-user-successful";
+import { APP_ROLES } from "../../common/roles";
 
 interface IFormErrors {
   firstName: string;
   lastName: string;
   middleName: string;
-
-  room?: string;
-  dateIn?: string;
-  dateOut?: string;
-  birthDate?: string;
+  email: string;
+  roleIds?: Array<number>;
+//  userRoleClaim?: UserRoleClaimDto;
+  admin?: boolean;
+  confirmed?: boolean;
+  password: string;
 }
 
-export const PatientsFormCreate: React.FC<{
-  patient: PatientDto;
+export const UsersFormCreate: React.FC<{
+  user: UserInfoDto;
   intent: "CREATE" | "EDIT"
 }> = (props) => {
   const navigate = useNavigate();
@@ -52,7 +54,7 @@ export const PatientsFormCreate: React.FC<{
 
   useEffect(() => {
     if (actionData?.result === "ok") {
-      openModal(CreatePatientSuccessful, {});
+      openModal(CreateUserSuccessful, {});
     }
   }, [actionData, openModal]);
 
@@ -67,19 +69,19 @@ export const PatientsFormCreate: React.FC<{
       firstName: "",
       lastName: "",
       middleName: "",
-    
-      room: "",
-      dateIn: "",
-      dateOut: "",
-      birthDate: "",
+      email: "",
+      password: "",
+      dateOfBirth: "",
     };
     
     for (const [name,value] of data) {
       if (name === "firstName" && !value) errors.firstName = "Заполните поле";
       if (name === "lastName" && !value) errors.lastName = "Заполните поле";
       if (name === "middleName" && !value) errors.middleName = "Заполните поле";
-      if (name === "dateIn" && !value) errors.dateIn = "Заполните поле";
-      if (name === "birthDate" && !value) errors.birthDate = "Заполните поле";
+      if (name === "dateOfBirth" && !value) errors.dateOfBirth = "Заполните поле";
+      if (name === "password" && !value) errors.password = "Заполните поле";
+      if (name === "email" && !value) errors.email = "Заполните поле";
+      if (name === "roles" && !value) errors.email = "Заполните поле";
     }
     setFormErrors(errors);
     if (Object.values(errors).some(Boolean)) return;
@@ -92,16 +94,16 @@ export const PatientsFormCreate: React.FC<{
 
       <div className={styles.row}>
         <div className={styles.left}>
-          <span className={styles.title}>Имя пациента*</span>
+          <span className={styles.title}>Имя пользователя*</span>
         </div>
         <div className={styles.right}>
           <Input
             type="text"
             name="firstName"
-            label="Имя пациента"
-            placeholder="Имя пациента"
+            label="Имя пользователя"
+            placeholder="Имя пользователя"
             error={formErrors?.firstName || ""}
-            defaultValue={props.patient?.firstName || ""}
+            defaultValue={props.user?.firstName || ""}
             onFocus={resetErrors}
           />
         </div>
@@ -109,16 +111,16 @@ export const PatientsFormCreate: React.FC<{
 
       <div className={styles.row}>
         <div className={styles.left}>
-          <span className={styles.title}>Фамилия пациента*</span>
+          <span className={styles.title}>Фамилия пользователя*</span>
         </div>
         <div className={styles.right}>
           <Input
             type="text"
             name="lastName"
-            label="Фамилия пациента"
-            placeholder="Фамилия пациента"
+            label="Фамилия пользователя"
+            placeholder="Фамилия пользователя"
             error={formErrors?.lastName || ""}
-            defaultValue={props.patient?.lastName || ""}
+            defaultValue={props.user?.lastName || ""}
             onFocus={resetErrors}
           />
         </div>
@@ -126,16 +128,16 @@ export const PatientsFormCreate: React.FC<{
 
       <div className={styles.row}>
         <div className={styles.left}>
-          <span className={styles.title}>Отчество пациента*</span>
+          <span className={styles.title}>Отчество пользователя*</span>
         </div>
         <div className={styles.right}>
           <Input
             type="text"
             name="middleName"
-            label="Отчество пациента"
-            placeholder="Отчество пациента"
+            label="Отчество пользователя"
+            placeholder="Отчество пользователя"
             error={formErrors?.middleName || ""}
-            defaultValue={props.patient?.middleName || ""}
+            defaultValue={props.user?.middleName || ""}
             onFocus={resetErrors}
           />
         </div>
@@ -143,101 +145,69 @@ export const PatientsFormCreate: React.FC<{
 
       <div className={styles.row}>
         <div className={styles.left}>
-          <div className={styles.title}>Дата рождения*</div>
-        </div>
-        <div className={styles.right}>
-          <Input
-            name="birthDate"
-            type="date"
-            max="9999-12-31"
-            label="Дата"
-            defaultValue={
-              props.patient?.birthDate
-                ? dayjs.utc(props.patient?.birthDate).format("DD.MM.YYYY")
-                : ""
-            }
-            error={formErrors?.birthDate || ""}
-            onFocus={resetErrors}
-          />
-        </div>
-      </div>
-      
-      {/* 
-      TODO: доделать, когда будут готовы палаты
-      <div className={styles.row}>
-        <div className={styles.left}>
-          <span className={styles.title}>Палата</span>
+          <span className={styles.title}>E-mail пользователя*</span>
         </div>
         <div className={styles.right}>
           <Input
             type="text"
-            name="room"
-            label="Палата"
-            placeholder="Название палаты"
-            error=""
-            defaultValue={props.patient.room || ""}
-            onFocus={resetErrors}
-          />
-        </div>
-      </div> */}
-
-
-      <div className={styles.row}>
-        <div className={styles.left}>
-          <div className={styles.title}>Дата поступления*</div>
-        </div>
-        <div className={styles.right}>
-          <Input
-            name="dateIn"
-            type="date"
-            max="9999-12-31"
-            label="Дата"
-            defaultValue={
-              props.patient?.dateIn
-                ? dayjs.utc(props.patient?.dateIn).format("DD.MM.YYYY")
-                : ""
-            }
-            error={formErrors?.dateIn || ""}
+            name="email"
+            label="E-mail пользователя"
+            placeholder="E-mail пользователя"
+            error={""}
+            defaultValue={props.user?.email?.name || ""}
             onFocus={resetErrors}
           />
         </div>
       </div>
 
-
       <div className={styles.row}>
         <div className={styles.left}>
-          <div className={styles.title}>Дата выписки</div>
+          <div className={styles.title}>Выбор роли</div>
         </div>
         <div className={styles.right}>
-          <Input
-            name="dateOut"
-            type="date"
-            max="9999-12-31"
-            label="Дата"
-            defaultValue={
-              props.patient?.dateOut
-                ? dayjs.utc(props.patient?.dateOut).format("DD.MM.YYYY")
-                : ""
-            }
-            error={formErrors?.dateOut || ""}
-            onFocus={resetErrors}
-            min={`${dayjs().format("DD.MM.YYYY HH:MM")}`}
-          />
-        </div>
-      </div>
-
-      <div className={styles.row}>
-        <div className={styles.left}>
-          <div className={styles.title}>Статус</div>
-        </div>
-        <div className={styles.right}>
-          <select name="status" defaultValue={props.patient?.status} className={styles.status}>
-            {Object.keys(patientStatuses).map((k) => (
-              <option key={k} value={k}>
-                {patientStatuses[k as keyof PatientDto["status"]]}
-              </option>
-            ))}
+          <select name="roleIds" defaultValue={props?.user?.roles || 6} className={styles.roles}>
+                  {Array.from(APP_ROLES).map((role) => (
+                    <option
+                      key={role.id}
+                      value={role.id}
+                    >{`${role.roleName}`}</option>
+                  ))}
           </select>
+        </div>
+      </div>
+
+      <div className={styles.row}>
+        <div className={styles.left}>
+          <span className={styles.title}>Пароль пользователя*</span>
+        </div>
+        <div className={styles.right}>
+          <Input
+            type="password"
+            name="password"
+            label="Пароль пользователя"
+            placeholder="Пароль пользователя"
+            error={""}
+            defaultValue={props.user?.password || ""}
+            onFocus={resetErrors}
+          />
+        </div>
+      </div>
+
+      <div className={styles.row}>
+        <div className={styles.left}>
+          <span className={styles.title}>Дата рождения пользователя*</span>
+        </div>
+        <div className={styles.right}>
+          <Input
+            type="date"
+            name="dateOfBirth"
+            label="Дата рождения пользователя"
+            placeholder="Дата рождения пользователя"
+            error={""}
+            max="9999-12-31"
+            defaultValue={props.user?.dateOfBirth || ""}
+            onFocus={resetErrors}
+          />
         </div>
       </div>
 
@@ -246,7 +216,7 @@ export const PatientsFormCreate: React.FC<{
           type="button"
           intent="secondary"
           disabled={fetcher.state === "submitting"}
-          onClick={() => navigate("/patients")}
+          onClick={() => navigate("/users")}
         >
           Отменить
         </Button>
@@ -257,7 +227,7 @@ export const PatientsFormCreate: React.FC<{
         </Button>
       </div>
       <input type="hidden" name="intent" value={props.intent} />
-      <input type="hidden" name="id" value={props.patient?.id} />
+      <input type="hidden" name="id" value={props.user?.id} />
     </fetcher.Form>
   );
 };

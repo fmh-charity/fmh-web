@@ -29,8 +29,11 @@ export type UserInfoDto = {
   /**
    * Множество ролей
    */
-  roles?: Array<string>;
+  roleIds?: Array<number>;
+  roles?: string[];
   userRoleClaim?: UserRoleClaimDto;
   admin?: boolean;
   confirmed?: boolean;
+  password?: string;
+  dateOfBirth?: string;
 };

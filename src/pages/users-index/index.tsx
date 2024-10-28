@@ -52,14 +52,14 @@ export const UsersIndex = () => {
         console.log("click");
       },
     },
-    {
-      id: 1,
-      title: "Новый",
-      counter: 0,
-      onClick: () => {
-        console.log("click");
-      },
-    },
+    // {
+    //   id: 1,
+    //   title: "Новый",
+    //   counter: 0,
+    //   onClick: () => {
+    //     console.log("click");
+    //   },
+    // },
   ];
 
   const isMobile = useResize();
