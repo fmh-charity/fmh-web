@@ -2,7 +2,8 @@ import type { Row } from "@tanstack/react-table";
 import styles from "./index.module.less";
 import { Icon } from "../../../icon";
 import clsx from "clsx";
-import { roleNames, RolesType } from "../../../../common/roles";
+import type { RolesType } from "../../../../common/roles";
+import { roleNames } from "../../../../common/roles";
 
 export const CardsUsers = ({ row }: { row: Row<any> }) => {
   return (
@@ -13,7 +14,7 @@ export const CardsUsers = ({ row }: { row: Row<any> }) => {
       <div className={styles.user}>
         <Icon.Workers24 width={16} />
         <div>{row.getValue<RolesType[]>("Roles")
-          .map(r => roleNames.get(r)).join(', ') 
+          .map(r => roleNames.get(r)).join(", ") 
           || "Роль не установлена"}
         </div>
       </div>

@@ -83,6 +83,7 @@ import { ErrorPage } from "./pages/error-page";
 import { PatientsUpdateRoute,
   loader as loaderPatientsUpdate,
  } from "./routes/patients.update";
+import { UsersIndex } from "./pages/users-index";
 
 const queryClient = new QueryClient({
   defaultOptions: {

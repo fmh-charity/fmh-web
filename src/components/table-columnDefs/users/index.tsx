@@ -4,7 +4,8 @@ import dayjs from "dayjs";
 import { Icon } from "../../icon";
 import { useNavigate } from "react-router-dom";
 import { joinNames } from "../../../common/utils";
-import { roleNames, RolesType } from "../../../common/roles";
+import type { RolesType } from "../../../common/roles";
+import { roleNames } from "../../../common/roles";
 import { useOpenModal } from "../../../hooks/useOpenModal";
 import { PopupMenu } from "../../popup-menu/popup-menu";
 
@@ -28,14 +29,14 @@ export const columns = [
   ),
   columnHelper.accessor("roles", {
     id: "Roles",
-    header: () => 'Роль',
+    header: () => "Роль",
     cell: (props) => 
-      props.getValue()?.map(r => roleNames.get(r as RolesType)).join(', ') || "Не установлена",
+      props.getValue()?.map(r => roleNames.get(r as RolesType)).join(", ") || "Не установлена",
   }),
 
   columnHelper.accessor("email.name", {
     id: "E-mail",
-    header: () => 'E-mail',
+    header: () => "E-mail",
     cell: (props) => props.getValue(),
   }),
   // columnHelper.accessor("email.isConfirmed", {
@@ -43,12 +44,12 @@ export const columns = [
   //   cell: (props) => props.getValue() ? 'Да' : 'Нет',
   // }),
   columnHelper.accessor("isConfirmed", {
-    header: () => 'Пользователь подтвержден',
-    cell: (props) => props.getValue() ? 'Подтвержден' : 'Не подтвержден',
+    header: () => "Пользователь подтвержден",
+    cell: (props) => props.getValue() ? "Подтвержден" : "Не подтвержден",
   }),
   columnHelper.accessor("admin", {
-    header: () => 'Права администратора',
-    cell: (props) => props.getValue() ? 'Есть' : 'Нет',
+    header: () => "Права администратора",
+    cell: (props) => props.getValue() ? "Есть" : "Нет",
   }),
 
   columnHelper.accessor((row) => <Actions id={`${row.id}`} />, {
