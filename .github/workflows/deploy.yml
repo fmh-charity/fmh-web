@@ -24,9 +24,9 @@ jobs:
 
       - name: Build
         run: npm run build
-
+        
       - name: Delete the previous web build
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.REMOTE_HOST }}
           port: ${{ secrets.REMOTE_PORT }}
@@ -45,7 +45,7 @@ jobs:
           privateKey: ${{ secrets.SSH_KEY }}
 
       - name: Deploy
-        uses: appleboy/ssh-action@v0.1.4
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.REMOTE_HOST }}
           port: ${{ secrets.REMOTE_PORT }}
