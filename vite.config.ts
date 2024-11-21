@@ -14,7 +14,7 @@ export default defineConfig(({ command, mode }) => {
     server: {
       port: 3000,
       proxy: {
-        "/fmh": "http://127.0.0.1:8080",
+        "/api/fmh": "https://test.vhospice.org",
       },
     }, 
     css: {
