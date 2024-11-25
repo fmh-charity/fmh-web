@@ -23,7 +23,7 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     define: {
-      "process.env.REACT_APP_API_URL": JSON.stringify(`${env.VITE_API_URL}${env.VITE_API_PREFIX}`),
+      REACT_APP_API_URL: JSON.stringify(`${env.VITE_API_URL}${env.VITE_API_PREFIX}`),
     }
   };
 });

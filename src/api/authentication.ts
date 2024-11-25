@@ -24,6 +24,8 @@ import type { QueryClient } from "@tanstack/react-query";
  * @returns
  */
 
+const baseUrl = `${import.meta.env.VITE_API_URL}${import.meta.env.VITE_API_PREFIX}`;
+
 export const loginQuery = (queryClient: QueryClient, data: LoginRequest) =>
   queryClient.fetchQuery<
     typeof data,
@@ -34,7 +36,7 @@ export const loginQuery = (queryClient: QueryClient, data: LoginRequest) =>
     queryKey: [LOGIN_QUERY],
     queryFn: async () => {
       try {
-        const req = await fetch(`${process.env.REACT_APP_API_URL}/authentication/login`, {
+        const req = await fetch(`${baseUrl}/authentication/login`, {
           method: "POST",
           body: JSON.stringify(data),
           headers: {

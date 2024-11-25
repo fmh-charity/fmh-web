@@ -4,8 +4,9 @@ import {
   USERINFO_LOCALSTORAGE_KEY,
 } from "../common/constants";
 import type { FetchQueryOptions, QueryClient } from "@tanstack/react-query";
-import { notification } from "../common/notifications";
 import type { ActionFunction, LoaderFunction } from "react-router-dom";
+
+const baseUrl = `${import.meta.env.VITE_API_URL}${import.meta.env.VITE_API_PREFIX}`;
 
 const retrieveRefreshToken = () => {
   try {
@@ -53,7 +54,7 @@ const fetchJSONWithToken = (url: any, options = {}) => {
     },
   };
   
-  return fetchJSON(`${process.env.REACT_APP_API_URL}${url}`, optionsWithToken) as Promise<Response>;
+  return fetchJSON(`${baseUrl}${url}`, optionsWithToken) as Promise<Response>;
 };
 
 const shouldRefreshToken = (error: any) => {
